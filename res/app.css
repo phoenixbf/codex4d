@@ -8,9 +8,8 @@
     white-space: nowrap;
     overflow: hidden;
 
-    top: 0px;
-    right: 0px;
-    text-align: right;
+    width: 100%;
+    text-align: center;
 
     padding: 10px;
 
