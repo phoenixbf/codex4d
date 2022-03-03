@@ -1,0 +1,46 @@
+
+.titleContainer {
+    z-index: 110;
+
+    position: fixed;
+    display: inline-block;
+  
+    white-space: nowrap;
+    overflow: hidden;
+
+    top: 0px;
+    right: 0px;
+    text-align: right;
+
+    padding: 10px;
+
+    color: #FFF;
+    text-shadow: 0px 0px 10px black;
+
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+    pointer-events: none;
+}
+
+@media screen and (max-width: 600px) {
+    .titleContainer {
+        display: none;
+    }
+}
+
+.titleText {
+    font-size: max(12px, 2vw);
+    font-weight: bold;
+    margin: 2px;
+}
+
+.subtitleText {
+    font-size: max(10px, 1.5vw);
+    margin: 2px;
+
+    text-shadow: 0px 0px 4px #bf7b37;
+}
