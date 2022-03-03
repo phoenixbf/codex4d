@@ -30,6 +30,7 @@ APP.setupUI = ()=>{
     //ATON.FE.useMouseWheelToScaleSelector();
 
     ATON.FE.uiAddButtonVR("idTopToolbar");
+    ATON.FE.uiAddButtonHome("idBottomToolbar");
 };
 
 // Config
@@ -44,6 +45,7 @@ APP.loadConfig = (path)=>{
     });
 };
 
+// If pose p is not defined/valid, open first available pose
 APP.loadVolumePose = (v,p)=>{
     if (!v) return;
     if (APP.cdata === undefined) return;
@@ -51,9 +53,10 @@ APP.loadVolumePose = (v,p)=>{
     let vol = APP.cdata.volumes[v];
     if (vol === undefined) return;
 
-    //if (!p) // set as first key 
+    let sid = undefined;
+    if (!p) p = Object.keys(vol)[0];
+    sid = vol[p];
 
-    let sid = vol[p];
     if (sid === undefined) return;
 
     APP.currVolume = v;
@@ -109,17 +112,21 @@ APP.setupLensing = ()=>{
             uniform float time;
             uniform sampler2D tBase;
             uniform sampler2D tIR;
+            //uniform sampler2D tHeight;
 
 		    void main(){
-                vec4 frag = texture2D(tBase, vUv);
-                vec4 ir   = texture2D(tIR, vUv);
+                float sedge = 8.0f;
 
                 float d = distance(vPositionW, vLens.xyz);
                 float t = d / vLens.w;
-                t -= 0.75;
-                t *= 4.0;
-                
+
+                t -= (1.0f - (1.0f/sedge));
+                t *= sedge;
+
                 t = clamp(t, 0.0,1.0);
+
+                vec4 frag = texture2D(tBase, vUv);
+                vec4 ir   = texture2D(tIR, vUv);
 
                 frag = mix(ir,frag, t);
 
@@ -163,7 +170,7 @@ APP.update = ()=>{
     APP.uniforms.vLens.value.z = -p.z;
 
     if (ATON._queryDataScene) APP.uniforms.vLens.value.w = ATON.SUI._selectorRad;
-    else APP.uniforms.vLens.value.w = 0.0;
+    else APP.uniforms.vLens.value.w *= 0.9;
 };
 
 // Events
