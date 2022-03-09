@@ -14,6 +14,8 @@ APP.currPose   = undefined;
 APP._bSqueezeHandR = false;
 APP._bSqueezeHandL = false;
 
+APP.trackingFreq = 0.1;
+
 
 APP.init = ()=>{
     ATON.FE.realize();
@@ -29,6 +31,66 @@ APP.init = ()=>{
     APP.loadConfig(APP.pathConf);
 
     ATON.addUpdateRoutine( APP.update );
+
+    if (!ATON.device.isMobile) APP.setupTracking();
+
+    APP._tPoint = -1.0;
+    APP._reqPointCoords  = [0,0];
+    APP._prevPointCoords = [0,0];
+};
+
+APP.setupTracking = ()=>{
+    APP._trackModel = undefined;
+
+    const defaultParams = {
+        flipHorizontal: true,
+        //outputStride: 16,
+        imageScaleFactor: 0.5,
+        maxNumBoxes: 2,
+        iouThreshold: 0.5,
+        scoreThreshold: 0.8,
+        modelType: "ssd320fpnlite",
+        modelSize: "small",
+        basePath: "vendors/model/",
+        //bboxLineWidth: "2",
+        //fontSize: 17,
+    };
+
+    handTrack.load(defaultParams).then((model)=>{
+        console.log("Tracking model loaded");
+
+        APP._trackVidEl = document.getElementById('idVidTrack');
+        handTrack.startVideo( APP._trackVidEl );
+
+        APP._trackModel = model;
+
+        APP._trackVidEl.addEventListener('loadeddata', (event) => {
+            window.setInterval(()=>{
+                //if (APP._trackModel === undefined) return;
+            
+                //console.log(APP._trackModel)
+            
+                APP._trackModel.detect(APP._trackVidEl).then((preds)=>{
+                    for (let p in preds){
+                        const P = preds[p];
+                        if (P.class === 2 && P.label === "closed"){
+                            //console.log(P)
+                            let x = P.bbox[0] / APP._trackVidEl.width;
+                            let y = 1.0 - (P.bbox[1] / APP._trackVidEl.height);
+
+                            x -= 0.5;
+                            y -= 0.5;
+        
+                            APP.requestScreenPointer(x * 2.0, y * 2.0);
+        
+                            //console.log(x,y)
+                        }
+                    }
+                });
+        
+            }, APP.trackingFreq * 1000.0);
+        });
+    });
 };
 
 APP.setupUI = ()=>{
@@ -74,11 +136,9 @@ APP.loadVolumePose = (v,p)=>{
     APP.currVolume = v;
     APP.currPose   = p;
 
-    ATON.FE.loadSceneID( sid, ()=>{
-        ATON.SceneHub.clear();
+    ATON.SceneHub.clear();
 
-        // common scene setup here
-    });
+    ATON.FE.loadSceneID( sid );
 };
 
 // IR Lensing
@@ -210,11 +270,39 @@ APP.setLensRadius = (v)=>{
     ATON.SUI.setSelectorRadius(v);
 };
 
+APP.requestScreenPointer = (x,y)=>{
+    APP._tPoint = ATON._clock.elapsedTime;
+
+    APP._reqPointCoords  = [x,y];
+    APP._prevPointCoords = [ATON._screenPointerCoords.x,ATON._screenPointerCoords.y];
+};
+
+APP.handleScreenPointer = ()=>{
+    if (ATON.XR._bPresenting) return;
+    if (APP._tPoint < 0.0) return;
+
+    const t = (ATON._clock.elapsedTime - APP._tPoint) / APP.trackingFreq;
+
+    if (t >= 1.0){
+        ATON._screenPointerCoords.x = APP._reqPointCoords[0];
+        ATON._screenPointerCoords.y = APP._reqPointCoords[1];
+        APP._tPoint = -1.0;
+
+        return;
+    }
+
+    ATON._screenPointerCoords.x = THREE.MathUtils.lerp(APP._prevPointCoords[0], APP._reqPointCoords[0], t);
+    ATON._screenPointerCoords.y = THREE.MathUtils.lerp(APP._prevPointCoords[1], APP._reqPointCoords[1], t);
+};
+
 // Main update routine
 APP.update = ()=>{
     ATON.SUI.mainSelector.visible = false;
 
     if (!APP._bLensMatSet) return;
+
+    // Handle req screen pointer
+    APP.handleScreenPointer();
 
     let p = ATON.SUI.mainSelector.position;
 
@@ -225,6 +313,7 @@ APP.update = ()=>{
     if (ATON._queryDataScene) APP.uniforms.vLens.value.w = ATON.SUI._selectorRad;
     else APP.uniforms.vLens.value.w *= 0.9;
 
+    // VR
     if (!ATON.XR._bPresenting) return;
 
     let a = ATON.XR.getAxisValue(ATON.XR.HAND_L);
@@ -259,8 +348,8 @@ APP.setupEvents = ()=>{
             if (d > 0.0) r *= 0.9;
             else r /= 0.9;
 
-            if (r < ATON.FE._selRanges[0]) r = FE._selRanges[0];
-            if (r > ATON.FE._selRanges[1]) r = FE._selRanges[1];
+            if (r < ATON.FE._selRanges[0]) r = ATON.FE._selRanges[0];
+            if (r > ATON.FE._selRanges[1]) r = ATON.FE._selRanges[1];
 
             ATON.SUI.setSelectorRadius(r);
             return;

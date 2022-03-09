@@ -30,10 +30,11 @@
     <script type="text/javascript" src="/vendors/vendors.min.js"></script>
     <script type="text/javascript" src="/dist/THREE.bundle.js"></script>
 
+    <script type="text/javascript" src="vendors/handtrack.min.js"></script>
+<!--
     <script type="text/javascript" src="/dist/ATON.min.js"></script>
-    <!--
+-->
     <script type="module" src="/src/ATON.js"></script>
-    -->
 
 	<!-- Main js entry -->
 	<script type="module" src="js/main.js"></script>
@@ -43,11 +44,12 @@
 
     <!-- Top Toolbar -->
     <div id="idTopToolbar" class="atonToolbar">
+        <video id='idVidTrack' style="width:100px; height:100px; display: none;"></video>
     </div>
 
 	<!-- Bottom Toolbar -->
 	<div id="idBottomToolbar" class="atonToolbar atonToolbar-bottom">
-        <input id='idIRcontrol' type='range' min='0.0' max='1.0' step='0.05' style="width:200px; padding:10px; display:block; margin:auto;">
+        <input id='idIRcontrol' type='range' min='0.0' max='1.0' step='0.5' style="width:200px; padding:10px; display:block; margin:auto;">
     </div>
 
     <div class="titleContainer">
