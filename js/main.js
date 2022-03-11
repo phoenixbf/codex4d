@@ -1,7 +1,7 @@
 let APP = {};
 window.APP = APP;
 
-APP.pathConf = "config.json";
+APP.pathConf = "config/config.json";
 APP.cdata = undefined;
 
 APP.postfixIR = "-ir.jpg";
@@ -14,7 +14,8 @@ APP.currPose   = undefined;
 APP._bSqueezeHandR = false;
 APP._bSqueezeHandL = false;
 
-APP.trackingFreq = 0.1;
+APP.trackingFreq  = 0.1;
+APP.bHandTracking = false;
 
 
 APP.init = ()=>{
@@ -32,7 +33,7 @@ APP.init = ()=>{
 
     ATON.addUpdateRoutine( APP.update );
 
-    if (!ATON.device.isMobile) APP.setupTracking();
+    if (APP.bHandTracking && !ATON.device.isMobile) APP.setupTracking();
 
     APP._tPoint = -1.0;
     APP._reqPointCoords  = [0,0];
