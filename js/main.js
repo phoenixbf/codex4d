@@ -34,10 +34,97 @@ APP.init = ()=>{
     ATON.addUpdateRoutine( APP.update );
 
     if (APP.bHandTracking && !ATON.device.isMobile) APP.setupTracking();
+    
+    APP.setupLM();
 
     APP._tPoint = -1.0;
     APP._reqPointCoords  = [0,0];
     APP._prevPointCoords = [0,0];
+};
+
+APP.setupLM = ()=>{
+
+    APP.LM = {};
+
+    APP.LM.ws = undefined;
+    APP.LM.focusListener;
+    APP.LM.blurListener;
+    APP.LM.bLMpaused = false;
+    APP.LM.frame = undefined;
+    APP.LM.bTrackingHand = false;
+
+    // Create and open the socket
+    APP.LM.ws = new WebSocket("ws://localhost:6437/v7.json");
+
+    // On successful connection
+    APP.LM.ws.onopen = function(event) {
+        APP.LM.ws.send(JSON.stringify({focused: true})); // claim focus
+
+        APP.LM.focusListener = window.addEventListener('focus', function(e) {
+            APP.LM.ws.send(JSON.stringify({focused: true})); // claim focus
+        });
+
+        APP.LM.blurListener = window.addEventListener('blur', function(e) {
+            APP.LM.ws.send(JSON.stringify({focused: false})); // relinquish focus
+        });
+    };
+
+    // On message received
+    APP.LM.ws.onmessage = function(event) {
+        if (!APP.LM.bLMpaused){
+            APP.LM.frame = JSON.parse(event.data);
+            //var str = JSON.stringify(obj, undefined, 2);
+
+            let hands = APP.LM.frame.hands;
+
+            if (!hands || hands.length<1){
+                APP.LM.bTrackingHand = false;
+                return;
+            }
+
+            APP.LM.bTrackingHand = true;
+
+            for (let i = 0; i<hands.length; i++){
+                let h = hands[i];
+
+                if (h.type === "left"){
+                    let x = h.palmPosition[0] * 0.001;
+                    let y = (h.palmPosition[1] * 0.001) - 0.1;
+                    let z = h.palmPosition[2] * 0.001;
+    
+                    APP.uniforms.vLens.value.x = ATON.bounds.center.x + x;
+                    APP.uniforms.vLens.value.y = ATON.bounds.center.y - y;
+                    APP.uniforms.vLens.value.z = ATON.bounds.center.z - z;
+                }
+                else {
+                    let z = (h.palmPosition[2]+100.0) * 0.01;
+
+                    APP.setIRvalue(z);
+                }
+            }
+
+            //console.log(APP.LM.frame);
+/*
+            if(!APP.LM.frame.hasOwnProperty("timestamp")){
+                //console.log(str);
+            } else{
+                //console.log(str);
+            }
+*/
+        }
+    };
+    
+    // On socket close
+    APP.LM.ws.onclose = function(event) {
+        APP.LM.ws = null;
+        window.removeEventListener("focus", focusListener);
+        window.removeEventListener("blur", blurListener);
+    }
+
+    // On socket error
+    APP.LM.ws.onerror = function(event) {
+        console.log("Received error");
+    };
 };
 
 APP.setupTracking = ()=>{
@@ -307,9 +394,14 @@ APP.update = ()=>{
 
     let p = ATON.SUI.mainSelector.position;
 
-    APP.uniforms.vLens.value.x = p.x;
-    APP.uniforms.vLens.value.y = -p.y;
-    APP.uniforms.vLens.value.z = -p.z;
+    if (APP.LM.bTrackingHand){
+
+    }
+    else {
+        APP.uniforms.vLens.value.x = p.x;
+        APP.uniforms.vLens.value.y = -p.y;
+        APP.uniforms.vLens.value.z = -p.z;
+    }
 
     if (ATON._queryDataScene) APP.uniforms.vLens.value.w = ATON.SUI._selectorRad;
     else APP.uniforms.vLens.value.w *= 0.9;
