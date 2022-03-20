@@ -89,7 +89,7 @@ APP.setupLM = ()=>{
 
                 if (h.type === "left"){
                     let x = h.palmPosition[0] * 0.001;
-                    let y = (h.palmPosition[1] * 0.001) - ATON.bounds.radius;
+                    let y = (h.palmPosition[1] * 0.001) - 0.1;
                     let z = h.palmPosition[2] * 0.001;
     
                     APP.uniforms.vLens.value.x = ATON.bounds.center.x + x;
