@@ -40,6 +40,12 @@ APP.init = ()=>{
     APP._tPoint = -1.0;
     APP._reqPointCoords  = [0,0];
     APP._prevPointCoords = [0,0];
+
+    const spreadsheetId = '10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps'
+    const parser = new PublicGoogleSheetsParser()
+    parser.parse(spreadsheetId /*, 'Sheet2'*/).then((items) => {
+        console.log(items);
+    })
 };
 
 APP.setupLM = ()=>{
@@ -78,6 +84,7 @@ APP.setupLM = ()=>{
             let hands = APP.LM.frame.hands;
 
             if (!hands || hands.length<1){
+                if (APP.LM.bTrackingHand) ATON.SUI.setSelectorRadius(0.0);
                 APP.LM.bTrackingHand = false;
                 return;
             }
@@ -88,6 +95,7 @@ APP.setupLM = ()=>{
                 let h = hands[i];
 
                 if (h.type === "left"){
+                    /*
                     let x = h.palmPosition[0] * 0.001;
                     let y = (h.palmPosition[1] * 0.001) - 0.1;
                     let z = h.palmPosition[2] * 0.001;
@@ -95,9 +103,21 @@ APP.setupLM = ()=>{
                     APP.uniforms.vLens.value.x = ATON.bounds.center.x + x;
                     APP.uniforms.vLens.value.y = ATON.bounds.center.y - y;
                     APP.uniforms.vLens.value.z = ATON.bounds.center.z - z;
+                    */
+
+                    let x = h.palmPosition[0] * 0.005;
+                    let y = (h.palmPosition[1] * 0.005) - 1.0;
+                    let z = (100.0 - h.palmPosition[2]) * 0.002;
+                    //console.log(z)
+
+                    ATON._screenPointerCoords.x = x;
+                    ATON._screenPointerCoords.y = y;
+
+                    if (z > 0.0) ATON.SUI.setSelectorRadius(z);
+                    else ATON.SUI.setSelectorRadius(0.0);
                 }
                 else {
-                    let z = (h.palmPosition[2]+100.0) * 0.01;
+                    let z = (h.palmPosition[2]+50.0) * 0.01;
 
                     APP.setIRvalue(z);
                 }
@@ -393,7 +413,7 @@ APP.update = ()=>{
     APP.handleScreenPointer();
 
     let p = ATON.SUI.mainSelector.position;
-
+/*
     if (APP.LM.bTrackingHand){
 
     }
@@ -402,6 +422,10 @@ APP.update = ()=>{
         APP.uniforms.vLens.value.y = -p.y;
         APP.uniforms.vLens.value.z = -p.z;
     }
+*/
+    APP.uniforms.vLens.value.x = p.x;
+    APP.uniforms.vLens.value.y = -p.y;
+    APP.uniforms.vLens.value.z = -p.z;
 
     if (ATON._queryDataScene) APP.uniforms.vLens.value.w = ATON.SUI._selectorRad;
     else APP.uniforms.vLens.value.w *= 0.9;
@@ -461,6 +485,11 @@ APP.setupEvents = ()=>{
         if (k==="Control") ATON.Nav.setUserControl(true);
     });
 
+    ATON.on("Tap", (e)=>{
+        if (ATON._hoveredSemNode) APP.updateSemPanel(ATON._hoveredSemNode);
+        else APP.toggleInfoPanel(false);
+    });
+
     ATON.clearEventHandlers("XRsqueezeStart");
     ATON.clearEventHandlers("XRsqueezeEnd");
 
@@ -474,6 +503,43 @@ APP.setupEvents = ()=>{
     });
 };
 
+// Semantics
+APP.toggleInfoPanel = (b)=>{
+    if (b){
+        $("#idPanel").show();
+        $("#idTopToolbar").hide();
+        $("#idBottomToolbar").hide();
+    }
+    else {
+        $("#idPanel").hide();
+        $("#idTopToolbar").show();
+        $("#idBottomToolbar").show();
+    }
+};
+
+APP.updateSemPanel = (semid)=>{
+    let S = ATON.getSemanticNode(semid);
+    if (S === undefined) return;
+
+    let descr = S.getDescription();
+    if (descr) descr = JSON.parse(descr);
+
+    let htmlcode = "";
+    htmlcode += "<div class='atonPopupTitle'>";
+    //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
+    htmlcode += semid+"</div>";
+
+    htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
+    if (descr) htmlcode += "<div class='descriptionText'>"+descr+"</div>";
+    htmlcode += "</div>";
+
+    //htmlcode += "<div id='idPanelClose' class='atonBTN atonBTN-red atonSidePanelCloseBTN' >X</div>";
+
+    ATON.FE.playAudioFromSemanticNode(semid);
+
+    $("#idPanel").html(htmlcode);
+    APP.toggleInfoPanel(true);
+};
 
 
 // run
