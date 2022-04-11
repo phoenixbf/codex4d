@@ -17,6 +17,8 @@ APP._bSqueezeHandL = false;
 APP.trackingFreq  = 0.1;
 APP.bHandTracking = false;
 
+APP.sDB = {};
+
 
 APP.init = ()=>{
     ATON.FE.realize();
@@ -41,10 +43,21 @@ APP.init = ()=>{
     APP._reqPointCoords  = [0,0];
     APP._prevPointCoords = [0,0];
 
-    const spreadsheetId = '10WDbAPAY7Xl5DT36VuMheTPTTpqx9x0C5sDCnh4BGps'
-    const parser = new PublicGoogleSheetsParser()
+    const spreadsheetId = '1JqyuYCDMv9mCq2dLeKgiqHGB0tUHCaAPOwDlNQWQlsM';
+    const parser = new PublicGoogleSheetsParser();
     parser.parse(spreadsheetId /*, 'Sheet2'*/).then((items) => {
-        console.log(items);
+
+        // rewrite DB entries
+        for (let e in items){
+            const row = items[e];
+            const sid = row.ID;
+            if (sid !== undefined){
+                if (APP.sDB[sid] === undefined) APP.sDB[sid] = {};
+                for (let f in row) if (f !== "ID") APP.sDB[sid][f] = row[f];
+            }
+        }
+
+        console.log(APP.sDB)
     })
 };
 
