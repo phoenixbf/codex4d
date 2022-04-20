@@ -18,6 +18,7 @@ APP.trackingFreq  = 0.1;
 APP.bHandTracking = false;
 
 APP.sDB = {};
+APP.gsheetID = '1zRS2Dy-p-1G9_7STZFVd4rUs0KwZ34T4L_pFk4wO2Bc';
 
 
 APP.init = ()=>{
@@ -42,23 +43,33 @@ APP.init = ()=>{
     APP._tPoint = -1.0;
     APP._reqPointCoords  = [0,0];
     APP._prevPointCoords = [0,0];
+};
 
-    const spreadsheetId = '1JqyuYCDMv9mCq2dLeKgiqHGB0tUHCaAPOwDlNQWQlsM';
-    const parser = new PublicGoogleSheetsParser();
-    parser.parse(spreadsheetId /*, 'Sheet2'*/).then((items) => {
+APP.loadAndParseSheet = ()=>{
+    if (APP.currPose === undefined) return;
+    
+    APP.sDB[APP.currPose] = {};
+
+    if (APP.gsheetParser === undefined) APP.gsheetParser = new PublicGoogleSheetsParser();
+
+    let pobj = APP.sDB[APP.currPose];
+
+    APP.gsheetParser.parse( APP.gsheetID /*, APP.currPose*/ ).then((items) => {
+
+        console.log(items)
 
         // rewrite DB entries
         for (let e in items){
             const row = items[e];
             const sid = row.ID;
             if (sid !== undefined){
-                if (APP.sDB[sid] === undefined) APP.sDB[sid] = {};
-                for (let f in row) if (f !== "ID") APP.sDB[sid][f] = row[f];
+                if (pobj[sid] === undefined) pobj[sid] = {};
+                for (let f in row) if (f !== "ID") pobj[sid][f] = row[f];
             }
         }
 
         console.log(APP.sDB)
-    })
+    });
 };
 
 APP.setupLM = ()=>{
@@ -260,6 +271,8 @@ APP.loadVolumePose = (v,p)=>{
     ATON.SceneHub.clear();
 
     ATON.FE.loadSceneID( sid );
+
+    APP.loadAndParseSheet();
 };
 
 // IR Lensing
