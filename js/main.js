@@ -1,7 +1,9 @@
 let APP = {};
 window.APP = APP;
 
-APP.pathConf = "config/config.json";
+APP.pathConf    = "config/config.json";
+APP.pathContent = "content/";
+
 APP.cdata = undefined;
 
 APP.postfixIR = "-ir.jpg";
@@ -131,19 +133,25 @@ APP.setupLM = ()=>{
 
                     let x = h.palmPosition[0] * 0.005;
                     let y = (h.palmPosition[1] * 0.005) - 1.0;
-                    let z = (100.0 - h.palmPosition[2]) * 0.002;
+                    //let z = (100.0 - h.palmPosition[2]) * 0.002;
+                    let z = (h.palmPosition[2]+50.0) * 0.01;
                     //console.log(z)
 
                     ATON._screenPointerCoords.x = x;
                     ATON._screenPointerCoords.y = y;
 
-                    if (z > 0.0) ATON.SUI.setSelectorRadius(z);
-                    else ATON.SUI.setSelectorRadius(0.0);
-                }
-                else {
-                    let z = (h.palmPosition[2]+50.0) * 0.01;
+                    //if (z > 0.0) ATON.SUI.setSelectorRadius(z);
+                    //else ATON.SUI.setSelectorRadius(0.0);
 
                     APP.setIRvalue(z);
+                }
+                else {
+                    let z = (100.0 - h.palmPosition[2]) * 0.002;
+                    if (z > 0.0) ATON.SUI.setSelectorRadius(z);
+                    else ATON.SUI.setSelectorRadius(0.0);
+
+                    //let z = (h.palmPosition[2]+50.0) * 0.01;
+                    //APP.setIRvalue(z);
                 }
             }
 
@@ -267,6 +275,9 @@ APP.loadVolumePose = (v,p)=>{
 
     APP.currVolume = v;
     APP.currPose   = p;
+
+    $("#idVolume").html(v);
+    $("#idPose").html(p);
 
     ATON.SceneHub.clear();
 
@@ -544,6 +555,35 @@ APP.toggleInfoPanel = (b)=>{
 };
 
 APP.updateSemPanel = (semid)=>{
+
+    let pobj = APP.sDB[APP.currPose];
+    if (pobj === undefined) return;
+
+    let S = pobj[semid];
+    if (S === undefined) return;
+
+
+    let htmlcode = "";
+    htmlcode += "<div class='atonPopupTitle'>";
+    //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
+    htmlcode += S.SOTTOCATEGORIA+"</div>";
+
+    htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
+    if (S.IMMAGINI) htmlcode += "<img src='"+APP.pathContent + S.IMMAGINI+"'>";
+    if (S.DESCRIZIONE) htmlcode += "<div class='descriptionText'>"+S.DESCRIZIONE+"</div>";
+    htmlcode += "</div>";
+
+    //htmlcode += "<div id='idPanelClose' class='atonBTN atonBTN-red atonSidePanelCloseBTN' >X</div>";
+
+    ATON.FE.playAudioFromSemanticNode(semid);
+
+    $("#idPanel").html(htmlcode);
+    APP.toggleInfoPanel(true);
+};
+
+/*
+APP.updateSemPanel_OLD = (semid)=>{
+
     let S = ATON.getSemanticNode(semid);
     if (S === undefined) return;
 
@@ -566,7 +606,7 @@ APP.updateSemPanel = (semid)=>{
     $("#idPanel").html(htmlcode);
     APP.toggleInfoPanel(true);
 };
-
+*/
 
 // run
 window.onload = ()=>{
