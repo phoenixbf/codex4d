@@ -9,6 +9,7 @@ APP.cdata = undefined;
 APP.postfixIR = "-ir.jpg";
 APP._bLensMatSet = false;
 APP.irValue = 0; // 0.0 - 1.0
+APP.LRAD_MIN = 0.005;
 
 APP.currVolume = undefined;
 APP.currPose   = undefined;
@@ -38,7 +39,7 @@ APP.init = ()=>{
 
     ATON.addUpdateRoutine( APP.update );
 
-    if (APP.bHandTracking && !ATON.device.isMobile) APP.setupTracking();
+    //if (APP.bHandTracking && !ATON.device.isMobile) APP.setupTracking();
     
     APP.setupLM();
 
@@ -147,9 +148,11 @@ APP.setupLM = ()=>{
                 }
                 else {
                     let z = (100.0 - h.palmPosition[2]) * 0.002;
-                    if (z > 0.0) ATON.SUI.setSelectorRadius(z);
-                    else ATON.SUI.setSelectorRadius(0.0);
 
+                    if (h.grabStrength > 0.5){
+                        if (z > 0.0) ATON.SUI.setSelectorRadius(z);
+                        else ATON.SUI.setSelectorRadius(APP.LRAD_MIN);
+                    }
                     //let z = (h.palmPosition[2]+50.0) * 0.01;
                     //APP.setIRvalue(z);
                 }
@@ -338,7 +341,7 @@ APP.setupLensing = ()=>{
             //uniform sampler2D tHeight;
 
 		    void main(){
-                float sedge = 8.0f;
+                float sedge = 6.0f;
 
                 float d = distance(vPositionW, vLens.xyz);
                 float t = d / vLens.w;
@@ -483,7 +486,7 @@ APP.setupEvents = ()=>{
     ATON.on("AllNodeRequestsCompleted", ()=>{
         APP.setupLensing();
 
-        APP.setLensRadius(0.05);
+        APP.setLensRadius(APP.LRAD_MIN);
     });
 
     ATON.on("MouseWheel", (d)=>{
@@ -522,11 +525,39 @@ APP.setupEvents = ()=>{
         if (k==="Control") ATON.Nav.setUserControl(true);
     });
 
+    // Semantic
+    ATON.clearEventHandlers("SemanticNodeHover");
+    ATON.clearEventHandlers("SemanticNodeLeave");
+
+    ATON.on("SemanticNodeHover", (semid)=>{
+        let S = ATON.getSemanticNode(semid);
+        if (S === undefined) return;
+
+        APP.toggleHoverLabel(true, semid);
+
+        S.highlight();
+        //$('canvas').css({ cursor: 'crosshair' });
+
+        if (ATON.SUI.gSemIcons) ATON.SUI.gSemIcons.hide();
+    });
+    ATON.on("SemanticNodeLeave", (semid)=>{
+        let S = ATON.getSemanticNode(semid);
+        if (S === undefined) return;
+
+        APP.toggleHoverLabel(false);
+
+        S.restoreDefaultMaterial();
+        //$('canvas').css({ cursor: 'grab' });
+
+        if (ATON.SUI.gSemIcons) ATON.SUI.gSemIcons.show();
+    });
+
     ATON.on("Tap", (e)=>{
         if (ATON._hoveredSemNode) APP.updateSemPanel(ATON._hoveredSemNode);
         else APP.toggleInfoPanel(false);
     });
 
+    // XR
     ATON.clearEventHandlers("XRsqueezeStart");
     ATON.clearEventHandlers("XRsqueezeEnd");
 
@@ -554,7 +585,12 @@ APP.toggleInfoPanel = (b)=>{
     }
 };
 
-APP.updateSemPanel = (semid)=>{
+APP.toggleHoverLabel = (b, semid)=>{
+    if (!b){
+        ATON.FE.hideSemLabel();
+        ATON.FE._bSem = false;
+        return;
+    }
 
     let pobj = APP.sDB[APP.currPose];
     if (pobj === undefined) return;
@@ -562,16 +598,38 @@ APP.updateSemPanel = (semid)=>{
     let S = pobj[semid];
     if (S === undefined) return;
 
+    ATON.FE.showSemLabel(S.AREALE);
+    ATON.FE._bSem = true;
+};
 
+/*
+    Update UI panel (HTML) from semantic ID (shape)
+
+====================================================*/
+APP.updateSemPanel = (semid)=>{
+    let pobj = APP.sDB[APP.currPose];
+    if (pobj === undefined) return;
+
+    let S = pobj[semid];
+    if (S === undefined) return;
+
+    // Generate HTML for panel
     let htmlcode = "";
     htmlcode += "<div class='atonPopupTitle'>";
     //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
     htmlcode += S.SOTTOCATEGORIA+"</div>";
 
     htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
+    
+    if (S.CATEGORIA) htmlcode += "<b>Categoria</b>: "+S.CATEGORIA+"<br>";
+    if (S.LAYER) htmlcode += "<b>Layer</b>: "+S.LAYER+"<br>";
+    htmlcode += "<br>";
+
     if (S.IMMAGINI) htmlcode += "<img src='"+APP.pathContent + S.IMMAGINI+"'>";
-    if (S.DESCRIZIONE) htmlcode += "<div class='descriptionText'>"+S.DESCRIZIONE+"</div>";
-    htmlcode += "</div>";
+
+    htmlcode += "<div class='descriptionText'>";
+    if (S.DESCRIZIONE) htmlcode += S.DESCRIZIONE;
+    htmlcode += "</div></div>";
 
     //htmlcode += "<div id='idPanelClose' class='atonBTN atonBTN-red atonSidePanelCloseBTN' >X</div>";
 
