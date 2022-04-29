@@ -111,7 +111,7 @@ APP.setupLM = ()=>{
             let hands = APP.LM.frame.hands;
 
             if (!hands || hands.length<1){
-                if (APP.LM.bTrackingHand) ATON.SUI.setSelectorRadius(0.0);
+                if (APP.LM.bTrackingHand) ATON.SUI.setSelectorRadius(APP.LRAD_MIN);
                 APP.LM.bTrackingHand = false;
                 return;
             }
@@ -151,7 +151,7 @@ APP.setupLM = ()=>{
 
                     if (h.grabStrength > 0.5){
                         if (z > 0.0) ATON.SUI.setSelectorRadius(z);
-                        else ATON.SUI.setSelectorRadius(APP.LRAD_MIN);
+                        //else ATON.SUI.setSelectorRadius(APP.LRAD_MIN);
                     }
                     //let z = (h.palmPosition[2]+50.0) * 0.01;
                     //APP.setIRvalue(z);
@@ -389,6 +389,8 @@ APP.setIRvalue = (v)=>{
     APP.irValue = v;
     $("#idIRcontrol").val(APP.irValue);
 
+    if (!APP.uniforms) return;
+
     // extremes
     if (v <= 0.0){
         APP.uniforms.wIR.value.set(1,0,0);
@@ -468,7 +470,7 @@ APP.update = ()=>{
     APP.uniforms.vLens.value.z = -p.z;
 
     if (ATON._queryDataScene) APP.uniforms.vLens.value.w = ATON.SUI._selectorRad;
-    else APP.uniforms.vLens.value.w *= 0.9;
+    else if (APP.uniforms.vLens.value.w > APP.LRAD_MIN) APP.uniforms.vLens.value.w *= 0.9;
 
     // VR
     if (!ATON.XR._bPresenting) return;
