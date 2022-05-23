@@ -47,7 +47,7 @@ UI.toggleSemPanel = (b)=>{
 
 /*
     Update UI panel (HTML) from semantic ID (shape)
-
+    Public profile
 ====================================================*/
 UI.updateSemPanel = (semid)=>{
     let pobj = APP.sDB[APP.currPose];
@@ -81,5 +81,13 @@ UI.updateSemPanel = (semid)=>{
     $("#idPanel").html(htmlcode);
     UI.toggleSemPanel(true);
 };
+
+/*
+    UI form (HTML) with structured data
+    Editor profile
+====================================================*/
+// TODO:
+
+
 
 export default UI;
