@@ -1,5 +1,14 @@
+
+
+import UI from "./ui.js";
+import LM from "./lm.js";
+
+
 let APP = {};
 window.APP = APP;
+
+APP.UI = UI;
+APP.LM = LM;
 
 APP.pathConf    = "config/config.json";
 APP.pathContent = "content/";
@@ -33,7 +42,7 @@ APP.init = ()=>{
 
     APP.setupEvents();
 
-    APP.setupUI();
+    APP.UI.init();
 
     APP.loadConfig(APP.pathConf);
 
@@ -41,7 +50,7 @@ APP.init = ()=>{
 
     //if (APP.bHandTracking && !ATON.device.isMobile) APP.setupTracking();
     
-    APP.setupLM();
+    APP.LM.setup();
 
     APP._tPoint = -1.0;
     APP._reqPointCoords  = [0,0];
@@ -73,113 +82,6 @@ APP.loadAndParseSheet = ()=>{
 
         console.log(APP.sDB)
     });
-};
-
-APP.setupLM = ()=>{
-
-    APP.LM = {};
-
-    APP.LM.ws = undefined;
-    APP.LM.focusListener;
-    APP.LM.blurListener;
-    APP.LM.bLMpaused = false;
-    APP.LM.frame = undefined;
-    APP.LM.bTrackingHand = false;
-
-    // Create and open the socket
-    APP.LM.ws = new WebSocket("ws://localhost:6437/v7.json");
-
-    // On successful connection
-    APP.LM.ws.onopen = function(event) {
-        APP.LM.ws.send(JSON.stringify({focused: true})); // claim focus
-
-        APP.LM.focusListener = window.addEventListener('focus', function(e) {
-            APP.LM.ws.send(JSON.stringify({focused: true})); // claim focus
-        });
-
-        APP.LM.blurListener = window.addEventListener('blur', function(e) {
-            APP.LM.ws.send(JSON.stringify({focused: false})); // relinquish focus
-        });
-    };
-
-    // On message received
-    APP.LM.ws.onmessage = function(event) {
-        if (!APP.LM.bLMpaused){
-            APP.LM.frame = JSON.parse(event.data);
-            //var str = JSON.stringify(obj, undefined, 2);
-
-            let hands = APP.LM.frame.hands;
-
-            if (!hands || hands.length<1){
-                if (APP.LM.bTrackingHand) ATON.SUI.setSelectorRadius(APP.LRAD_MIN);
-                APP.LM.bTrackingHand = false;
-                return;
-            }
-
-            APP.LM.bTrackingHand = true;
-
-            for (let i = 0; i<hands.length; i++){
-                let h = hands[i];
-
-                if (h.type === "left"){
-                    /*
-                    let x = h.palmPosition[0] * 0.001;
-                    let y = (h.palmPosition[1] * 0.001) - 0.1;
-                    let z = h.palmPosition[2] * 0.001;
-    
-                    APP.uniforms.vLens.value.x = ATON.bounds.center.x + x;
-                    APP.uniforms.vLens.value.y = ATON.bounds.center.y - y;
-                    APP.uniforms.vLens.value.z = ATON.bounds.center.z - z;
-                    */
-
-                    let x = h.palmPosition[0] * 0.005;
-                    let y = (h.palmPosition[1] * 0.005) - 1.0;
-                    //let z = (100.0 - h.palmPosition[2]) * 0.002;
-                    let z = (h.palmPosition[2]+50.0) * 0.01;
-                    //console.log(z)
-
-                    ATON._screenPointerCoords.x = x;
-                    ATON._screenPointerCoords.y = y;
-
-                    //if (z > 0.0) ATON.SUI.setSelectorRadius(z);
-                    //else ATON.SUI.setSelectorRadius(0.0);
-
-                    APP.setIRvalue(z);
-                }
-                else {
-                    let z = (100.0 - h.palmPosition[2]) * 0.002;
-
-                    if (h.grabStrength > 0.5){
-                        if (z > 0.0) ATON.SUI.setSelectorRadius(z);
-                        //else ATON.SUI.setSelectorRadius(APP.LRAD_MIN);
-                    }
-                    //let z = (h.palmPosition[2]+50.0) * 0.01;
-                    //APP.setIRvalue(z);
-                }
-            }
-
-            //console.log(APP.LM.frame);
-/*
-            if(!APP.LM.frame.hasOwnProperty("timestamp")){
-                //console.log(str);
-            } else{
-                //console.log(str);
-            }
-*/
-        }
-    };
-    
-    // On socket close
-    APP.LM.ws.onclose = function(event) {
-        APP.LM.ws = null;
-        window.removeEventListener("focus", APP.LM.focusListener);
-        window.removeEventListener("blur", APP.LM.blurListener);
-    }
-
-    // On socket error
-    APP.LM.ws.onerror = function(event) {
-        console.log("Received error");
-    };
 };
 
 APP.setupTracking = ()=>{
@@ -233,20 +135,6 @@ APP.setupTracking = ()=>{
         
             }, APP.trackingFreq * 1000.0);
         });
-    });
-};
-
-APP.setupUI = ()=>{
-    //ATON.FE.useMouseWheelToScaleSelector();
-
-    ATON.FE.uiAddButtonVR("idTopToolbar");
-    ATON.FE.uiAddButtonHome("idBottomToolbar");
-
-    $("#idIRcontrol").val(APP.irValue);
-
-    $("#idIRcontrol").on("input change",()=>{
-        let v = parseFloat( $("#idIRcontrol").val() );
-        APP.setIRvalue(v);
     });
 };
 
@@ -555,8 +443,8 @@ APP.setupEvents = ()=>{
     });
 
     ATON.on("Tap", (e)=>{
-        if (ATON._hoveredSemNode) APP.updateSemPanel(ATON._hoveredSemNode);
-        else APP.toggleInfoPanel(false);
+        if (ATON._hoveredSemNode) APP.UI.updateSemPanel(ATON._hoveredSemNode);
+        else APP.UI.toggleSemPanel(false);
     });
 
     // XR
@@ -571,20 +459,15 @@ APP.setupEvents = ()=>{
             APP._bSqueezeHandL = true;
         }
     });
-};
 
-// Semantics
-APP.toggleInfoPanel = (b)=>{
-    if (b){
-        $("#idPanel").show();
-        $("#idTopToolbar").hide();
-        $("#idBottomToolbar").hide();
-    }
-    else {
-        $("#idPanel").hide();
-        $("#idTopToolbar").show();
-        $("#idBottomToolbar").show();
-    }
+    ATON.on("Login", (d)=>{
+        console.log("Editor login");
+        ATON.FE.uiLoadProfile("editor");
+    });
+    ATON.on("Logout", ()=>{
+        console.log("Editor logout");
+        ATON.FE.uiLoadProfile("public");
+    });
 };
 
 APP.toggleHoverLabel = (b, semid)=>{
@@ -603,70 +486,6 @@ APP.toggleHoverLabel = (b, semid)=>{
     ATON.FE.showSemLabel(S.AREALE);
     ATON.FE._bSem = true;
 };
-
-/*
-    Update UI panel (HTML) from semantic ID (shape)
-
-====================================================*/
-APP.updateSemPanel = (semid)=>{
-    let pobj = APP.sDB[APP.currPose];
-    if (pobj === undefined) return;
-
-    let S = pobj[semid];
-    if (S === undefined) return;
-
-    // Generate HTML for panel
-    let htmlcode = "";
-    htmlcode += "<div class='atonPopupTitle'>";
-    //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
-    htmlcode += S.SOTTOCATEGORIA+"</div>";
-
-    htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
-    
-    if (S.CATEGORIA) htmlcode += "<b>Categoria</b>: "+S.CATEGORIA+"<br>";
-    if (S.LAYER) htmlcode += "<b>Layer</b>: "+S.LAYER+"<br>";
-    htmlcode += "<br>";
-
-    if (S.IMMAGINI) htmlcode += "<img src='"+APP.pathContent + S.IMMAGINI+"'>";
-
-    htmlcode += "<div class='descriptionText'>";
-    if (S.DESCRIZIONE) htmlcode += S.DESCRIZIONE;
-    htmlcode += "</div></div>";
-
-    //htmlcode += "<div id='idPanelClose' class='atonBTN atonBTN-red atonSidePanelCloseBTN' >X</div>";
-
-    ATON.FE.playAudioFromSemanticNode(semid);
-
-    $("#idPanel").html(htmlcode);
-    APP.toggleInfoPanel(true);
-};
-
-/*
-APP.updateSemPanel_OLD = (semid)=>{
-
-    let S = ATON.getSemanticNode(semid);
-    if (S === undefined) return;
-
-    let descr = S.getDescription();
-    if (descr) descr = JSON.parse(descr);
-
-    let htmlcode = "";
-    htmlcode += "<div class='atonPopupTitle'>";
-    //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
-    htmlcode += semid+"</div>";
-
-    htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
-    if (descr) htmlcode += "<div class='descriptionText'>"+descr+"</div>";
-    htmlcode += "</div>";
-
-    //htmlcode += "<div id='idPanelClose' class='atonBTN atonBTN-red atonSidePanelCloseBTN' >X</div>";
-
-    ATON.FE.playAudioFromSemanticNode(semid);
-
-    $("#idPanel").html(htmlcode);
-    APP.toggleInfoPanel(true);
-};
-*/
 
 // run
 window.onload = ()=>{
