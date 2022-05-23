@@ -487,6 +487,62 @@ APP.toggleHoverLabel = (b, semid)=>{
     ATON.FE._bSem = true;
 };
 
+// Editor
+//==================================================
+APP.addSemanticAnnotation = (semid, O, semtype)=>{
+    if (semid === undefined) return;
+
+    let S = undefined;
+
+    if (semtype === ATON.FE.SEMSHAPE_SPHERE) S = ATON.SemFactory.createSurfaceSphere(semid);
+    if (semtype === ATON.FE.SEMSHAPE_CONVEX) S = ATON.SemFactory.completeConvexShape(semid);
+    if (S === undefined) return;
+
+    ATON.getRootSemantics().add(S);
+
+    APP.updateSemAnnotation(semid, O, semtype);
+};
+
+APP.updateSemAnnotation = (semid, O, semtype)=>{
+    if (semid === undefined) return;
+    if (O === undefined) return;
+
+    let E = {};
+
+    E.sem = {};
+    E.sem[semid] = O;
+
+    E.semanticgraph = {};
+    E.semanticgraph.nodes = {};
+    E.semanticgraph.nodes[semid] = {};
+
+    if (semtype === ATON.FE.SEMSHAPE_SPHERE) E.semanticgraph.nodes[semid].spheres = ATON.SceneHub.getJSONsemanticSpheresList(semid);
+    if (semtype === ATON.FE.SEMSHAPE_CONVEX) E.semanticgraph.nodes[semid].convexshapes = ATON.SceneHub.getJSONsemanticConvexShapes(semid);
+
+    E.semanticgraph.edges = ATON.SceneHub.getJSONgraphEdges(ATON.NTYPES.SEM);
+
+    ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_ADD);
+    console.log("Annotation "+semid+" updated.");
+};
+
+APP.deleteSemAnnotation = (semid)=>{
+    if (ATON.SemFactory.deleteSemanticNode(semid)){
+
+        let E = {};
+        E.semanticgraph = {};
+        E.semanticgraph.nodes = {};
+        E.semanticgraph.nodes[semid] = {};
+
+        E.sem = {};
+        E.sem[semid] = {};
+
+        //console.log(E);
+
+        ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_DEL);
+        console.log("Annotation "+semid+" deleted.");
+    }
+};
+
 // run
 window.onload = ()=>{
     APP.init();
