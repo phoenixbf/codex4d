@@ -487,10 +487,11 @@ APP.toggleHoverLabel = (b, semid)=>{
     ATON.FE._bSem = true;
 };
 
-// Editor
+// Editor routines
 //==================================================
 APP.addSemanticAnnotation = (semid, O, semtype)=>{
     if (semid === undefined) return;
+    if (O === undefined) return;
 
     let S = undefined;
 
@@ -499,13 +500,6 @@ APP.addSemanticAnnotation = (semid, O, semtype)=>{
     if (S === undefined) return;
 
     ATON.getRootSemantics().add(S);
-
-    APP.updateSemAnnotation(semid, O, semtype);
-};
-
-APP.updateSemAnnotation = (semid, O, semtype)=>{
-    if (semid === undefined) return;
-    if (O === undefined) return;
 
     let E = {};
 
@@ -520,6 +514,19 @@ APP.updateSemAnnotation = (semid, O, semtype)=>{
     if (semtype === ATON.FE.SEMSHAPE_CONVEX) E.semanticgraph.nodes[semid].convexshapes = ATON.SceneHub.getJSONsemanticConvexShapes(semid);
 
     E.semanticgraph.edges = ATON.SceneHub.getJSONgraphEdges(ATON.NTYPES.SEM);
+
+    ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_ADD);
+    console.log("Annotation "+semid+" added.");
+};
+
+APP.updateSemAnnotation = (semid, O)=>{
+    if (semid === undefined) return;
+    if (O === undefined) return;
+
+    let E = {};
+
+    E.sem = {};
+    E.sem[semid] = O;
 
     ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_ADD);
     console.log("Annotation "+semid+" updated.");

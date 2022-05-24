@@ -86,7 +86,28 @@ UI.updateSemPanel = (semid)=>{
     UI form (HTML) with structured data
     Editor profile
 ====================================================*/
-// TODO:
+
+// semtype: ATON.FE.SEMSHAPE_SPHERE | ATON.FE.SEMSHAPE_CONVEX
+UI.addAnnotation = (semtype)=>{
+    let O = {};
+    let semid = ATON.Utils.generateID("ann");
+
+    // TODO: HTML form here > fill O
+
+    APP.addSemanticAnnotation(semid, O, semtype);
+};
+
+UI.updateAnnotation = (semid)=>{
+    let d = ATON.SceneHub.currData.sem;
+    if (d === undefined) return;
+
+    let O = d[semid];
+    if (O === undefined) return;
+
+    // TODO: fill HTML form with O data
+
+    APP.updateSemAnnotation(semid, O);
+};
 
 
 
