@@ -109,6 +109,12 @@ UI.updateAnnotation = (semid)=>{
     APP.updateSemAnnotation(semid, O);
 };
 
+UI.deleteAnnotation = (semid)=>{
+    // HTML form
+
+    APP.deleteSemAnnotation(semid);
+};
+
 
 
 export default UI;
