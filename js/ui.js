@@ -28,12 +28,11 @@ UI.buildPublic = ()=>{
 UI.buildEditor = ()=>{
     let html = ""
     html += "<ul style='list-style-type: none;'>"
-    html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/add.png'> </button></li>"
+    html += "<li><button class='atonBTN' type='button' title='zoom in' > <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/add.png'> </button></li>"
     html += "<li><button class='atonBTN' type='button'> <i class='fa fa-minus' style='height: 30px; width: 30px;'></i> </button></li>"
     html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/fullscreen.png'> </button></li>"
     html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/layers.png'></button></li>"
     html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/edit.png'></button></li>"
-    html += "<li><button class='atonBTN' type='button'> <i class='fas fa-ruler' style='height: 30px; width: 30px;'></i> </button></li>"
     html += "</ul>"
     // Clear
     $("#idTopToolbar").html("");
