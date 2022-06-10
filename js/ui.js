@@ -32,7 +32,7 @@ UI.buildEditor = ()=>{
     html += "<li><button class='atonBTN' type='button'> <i class='fa fa-minus' style='height: 30px; width: 30px;'></i> </button></li>"
     html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/fullscreen.png'> </button></li>"
     html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/layers.png'></button></li>"
-    html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/edit.png'></button></li>"
+    html += "<li><button class='atonBTN' type='button' id='annSphere'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/edit.png'></button></li>"
     html += "<li><button class='atonBTN' type='button'> <i class='fas fa-ruler' style='height: 30px; width: 30px;'></i> </button></li>"
     html += "</ul>"
     // Clear
@@ -40,7 +40,9 @@ UI.buildEditor = ()=>{
     $("#idBottomToolbar").html("");
     $("#idLeftToolbar").html(html);
 
-    
+    $("#annSphere").click(()=>{
+        UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
+    });
     
 
     ATON.FE.uiAddButtonHome("idBottomToolbar");
@@ -113,8 +115,12 @@ UI.addAnnotation = (semtype)=>{
     let semid = ATON.Utils.generateID("ann");
 
     // TODO: HTML form here > fill O
+    let htmlcode = "<div class='atonPopupTitle'>Aggiungi Annotazione</div>";
+    htmlcode += "ciao ciao";
 
-    APP.addSemanticAnnotation(semid, O, semtype);
+    if ( !ATON.FE.popupShow(htmlcode) ) return;
+
+    //APP.addSemanticAnnotation(semid, O, semtype);
 };
 
 UI.updateAnnotation = (semid)=>{
