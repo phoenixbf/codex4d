@@ -41,6 +41,9 @@
 
 	<!-- Main js entry -->
 	<script type="module" src="js/main.js"></script>
+
+    <!-- Icons test -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body oncontextmenu="return false;">
@@ -52,9 +55,10 @@
 
 	<!-- Bottom Toolbar -->
 	<div id="idBottomToolbar" class="atonToolbar atonToolbar-bottom">
-        <input id='idIRcontrol' type='range' min='0.0' max='1.0' step='0.5' style="width:200px; padding:10px; display:block; margin:auto;">
+        <input id='idIRcontrol' type='range' min='0.0' max='1.0' step='0.5' style="width:200px; padding:10px; display:block; margin:auto;">    
     </div>
-
+    
+    
     <div class="titleContainer">
         <div id='idVolume' class="titleText">Volume</div>
         <div id='idPose' class="subtitleText">Pose</div>
@@ -67,8 +71,11 @@
     <div id="idPanel" class="atonSidePanelContainer" style="display:none; z-index:130;"></div>
 
     <!-- Loader -->
-    <div id="idLoader" class="atonCenterLoader" style="display:none;"></div>
+    <div id="idLoader" class="atonCenterLoader" style="display:none; "></div>
 
+    <!-- Test -->
+    <div id="idTest" class="test"></div>
+ 
     <!-- Powered by -->
     <div id='idPoweredBy' class="poweredBy" >
         Powered by <a href="http://osiris.itabc.cnr.it/aton/" target="_blank">ATON</a>

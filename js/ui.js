@@ -14,7 +14,8 @@ UI.init = ()=>{
     });
 };
 
-UI.buildPublic = ()=>{
+UI.buildPublic = ()=>{   
+    
     // Clear
     $("#idTopToolbar").html("");
     $("#idBottomToolbar").html("");
@@ -25,9 +26,27 @@ UI.buildPublic = ()=>{
 };
 
 UI.buildEditor = ()=>{
+    let html = ""
+    html += "<ul style='list-style-type: none;'>"
+    html += "<li><button class='button' type='button'> <i class='fa fa-plus' style='height: 30px; width: 30px;'></i> </button></li>"
+    html += "<li><button class='button' type='button'> <i class='fa fa-minus' style='height: 30px; width: 30px;'></i> </button></li>"
+    html += "<li><button class='button' type='button'> <i class='fa fa-arrows-alt' style='height: 30px; width: 30px;'></i> </button></li>"
+    html += "<li><button class='button' type='button'> <i class='fa fa-cloud' style='height: 30px; width: 30px;'></i> </button></li>"
+    html += "<li><button class='button' type='button'> <i class='fa fa-cloud' style='height: 30px; width: 30px;'></i> </button></li>"
+    html += "</ul>"
     // Clear
     $("#idTopToolbar").html("");
     $("#idBottomToolbar").html("");
+    $("#idTest").html(html);
+
+    
+    
+
+    ATON.FE.uiAddButtonHome("idBottomToolbar");
+    
+    
+    
+
 
 
 };

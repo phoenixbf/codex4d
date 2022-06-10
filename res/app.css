@@ -1,45 +1,64 @@
-
 .titleContainer {
-    z-index: 110;
+  z-index: 110;
 
-    position: fixed;
-    display: inline-block;
-  
-    white-space: nowrap;
-    overflow: hidden;
+  position: fixed;
+  display: inline-block;
 
-    width: 100%;
-    text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
 
-    padding: 10px;
+  width: 100%;
+  text-align: center;
 
-    color: #FFF;
-    text-shadow: 0px 0px 10px black;
+  padding: 10px;
 
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+  color: #fff;
+  text-shadow: 0px 0px 10px black;
 
-    pointer-events: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+
+  pointer-events: none;
 }
 
 @media screen and (max-width: 600px) {
-    .titleContainer {
-        display: none;
-    }
+  .titleContainer {
+    display: none;
+  }
 }
 
 .titleText {
-    font-size: max(12px, 2vw);
-    font-weight: bold;
-    margin: 2px;
+  font-size: max(12px, 2vw);
+  font-weight: bold;
+  margin: 2px;
 }
 
 .subtitleText {
-    font-size: max(10px, 1.5vw);
-    margin: 2px;
+  font-size: max(10px, 1.5vw);
+  margin: 2px;
 
-    text-shadow: 0px 0px 4px #bf7b37;
+  text-shadow: 0px 0px 4px #bf7b37;
 }
+
+.test {
+  display: flex;
+  position: fixed;
+  color: white;
+  background-color: black;
+  top: 50px;
+  padding-left: 5px;
+  z-index: 100;
+}
+
+button {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  display: block;
+}
+
+
+
