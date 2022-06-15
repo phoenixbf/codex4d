@@ -60,5 +60,12 @@ button {
   display: block;
 }
 
+.formSelect {
+  display: inline; 
+  width: 207px;
+  height: 37px;
+  border-radius: 5px;
+}
+
 
 

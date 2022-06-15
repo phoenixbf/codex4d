@@ -32,14 +32,17 @@ UI.buildEditor = ()=>{
     html += "<li><button class='atonBTN' type='button'> <i class='fa fa-minus' style='height: 30px; width: 30px;'></i> </button></li>"
     html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/fullscreen.png'> </button></li>"
     html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/layers.png'></button></li>"
-    html += "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/edit.png'></button></li>"
+    html += "<li><button class='atonBTN' type='button' id='annSphere'> <img class='atonSmallIcon' src='"+ATON.PATH_RES+"icons/edit.png'></button></li>"
+    html += "<li><button class='atonBTN' type='button'> <i class='fas fa-ruler' style='height: 30px; width: 30px;'></i> </button></li>"
     html += "</ul>"
     // Clear
     $("#idTopToolbar").html("");
     $("#idBottomToolbar").html("");
     $("#idLeftToolbar").html(html);
 
-    
+    $("#annSphere").click(()=>{
+        UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
+    });
     
 
     ATON.FE.uiAddButtonHome("idBottomToolbar");
@@ -112,8 +115,36 @@ UI.addAnnotation = (semtype)=>{
     let semid = ATON.Utils.generateID("ann");
 
     // TODO: HTML form here > fill O
+    let htmlcode = "<div class='atonPopupTitle' >Aggiungi Annotazione</div>";
+    htmlcode += "<div>"
+    htmlcode += "<div style='justify-content: space-evenly'>";
+    htmlcode += "<p>Inserire l'annotazione compilando i campi correttamente</p>";
+    htmlcode += "</div>";
+    htmlcode += "<form style='display: grid; justify-content: space-evenly'>";
+    htmlcode += "<div style='position: relative; align-content: center'>";
+    htmlcode += "<h3 style='display: inline;'> Layer</h3> <select type='select' class='formSelect'>";
+    htmlcode += "<option value=''>Selezionare un layer...</option>"
+    htmlcode += "<option value='0'>RGB</option>"
+    htmlcode += "<option value='1'>IR-1</option>"
+    htmlcode += "<option value='2'>IR-2</option>"
+    htmlcode += "<option value='3'>IR-3</option>"
+    htmlcode += "</select>"
+    htmlcode += "</div>";
+    htmlcode += "<div style='position: relative; align-content: center' >";
+    htmlcode += "<h3 style='display: inline;'> Area</h3> <input type='text' style='display: inline; width: 200px;'></input>";
+    htmlcode += "</div>";
+    htmlcode += "</form>";
+    htmlcode += "</div>"
+    
 
-    APP.addSemanticAnnotation(semid, O, semtype);
+    //Setting select logic
+    function selectOptions (value) {
+        APP.irValue(value)
+    }
+
+    if ( !ATON.FE.popupShow(htmlcode) ) return;
+
+    //APP.addSemanticAnnotation(semid, O, semtype);
 };
 
 UI.updateAnnotation = (semid)=>{
