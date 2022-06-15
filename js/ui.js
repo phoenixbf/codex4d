@@ -169,45 +169,44 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "</form>";
   htmlcode += "</div>";
 
-  $("document").ready(() => {
-    $("#catSelect").change(function () {
-        // Setting logic to nest SubCategories in Categories
-
-      if (this.value === "Iconologia e Iconografia") {
-         $("#sottoCatSelect").append("<option value='Personaggi e Simboli' >Personaggi e Simboli</option>")
-         $("#sottoCatSelect").append("<option value='Stile' >Stile</option>")
-         $("#sottoCatSelect").append("<option value='Messaggio Ideologico' >Messaggio Ideologico</option>")
-         $("#sottoCatSelect").append("<option value='Fonti e Tradizioni'>Fonti e Tradizioni</option>")
-         $("#sottoCatSelect").append("<option value='Datazione e Attribuzione'>Datazione e Attribuzione</option>")
-         $('#sottoCatSelect').append("<option value='Confronti Visivi'>Confronti Visivi</option>")
-         $("#sottoCatSelect").append("<option value='Ripensamenti'>Ripensamenti</option>")
-         $("#sottoCatSelect").append("<option value='Elementi Ornamentali'>Elementi Ornamentali</option>")
-         $("#sottoCatSelect").append("<option value='Descrizione'>Descrizione</option>")
-         $("#sottoCatSelect").append("<option value='Modifiche Successive'>Modifiche Successive</option>")
-        
-      } else if (this.value === "Materiali e Tecniche Esecutive") {
-        console.log("cliccato", this.value);
-        
-      $('#sottoCatSelect').append("<option value='Particolarità dei Materiali' >Particolarità dei Materiali</option>")
-      $('#sottoCatSelect').append("<option value='Particolarità delle Tecniche Esecutive' >Particolarità delle Tecniche Esecutive</option>")
-
-      } else if (this.value === "Struttura") {
-        console.log("cliccato", this.value);
-      } else if (this.value === "Conservazione e Restauro") {
-        console.log("cliccato", this.value);
-      } else if (this.value === "Testo e Scrittura") {
-        console.log("cliccato", this.value);
-      } else if (this.value === "Censure") {
-        console.log("cliccato", this.value);
-      } else if (this.value === "Notazioni Musicali") {
-        console.log("cliccato", this.value);
-      } else {
-        console.log("cliccato niente");
-      }
-    });
-  });
-
   if (!ATON.FE.popupShow(htmlcode)) return;
+
+  $("#catSelect").change(function () {
+    $("#sottoCatSelect").html("");
+    // Setting logic to nest SubCategories in Categories
+
+  if (this.value === "Iconologia e Iconografia") {
+     $("#sottoCatSelect").append("<option value='Personaggi e Simboli' >Personaggi e Simboli</option>")
+     $("#sottoCatSelect").append("<option value='Stile' >Stile</option>")
+     $("#sottoCatSelect").append("<option value='Messaggio Ideologico' >Messaggio Ideologico</option>")
+     $("#sottoCatSelect").append("<option value='Fonti e Tradizioni'>Fonti e Tradizioni</option>")
+     $("#sottoCatSelect").append("<option value='Datazione e Attribuzione'>Datazione e Attribuzione</option>")
+     $('#sottoCatSelect').append("<option value='Confronti Visivi'>Confronti Visivi</option>")
+     $("#sottoCatSelect").append("<option value='Ripensamenti'>Ripensamenti</option>")
+     $("#sottoCatSelect").append("<option value='Elementi Ornamentali'>Elementi Ornamentali</option>")
+     $("#sottoCatSelect").append("<option value='Descrizione'>Descrizione</option>")
+     $("#sottoCatSelect").append("<option value='Modifiche Successive'>Modifiche Successive</option>")
+    
+  } else if (this.value === "Materiali e Tecniche Esecutive") {
+    console.log("cliccato", this.value);
+    
+  $('#sottoCatSelect').append("<option value='Particolarità dei Materiali' >Particolarità dei Materiali</option>")
+  $('#sottoCatSelect').append("<option value='Particolarità delle Tecniche Esecutive' >Particolarità delle Tecniche Esecutive</option>")
+
+  } else if (this.value === "Struttura") {
+    console.log("cliccato", this.value);
+  } else if (this.value === "Conservazione e Restauro") {
+    console.log("cliccato", this.value);
+  } else if (this.value === "Testo e Scrittura") {
+    console.log("cliccato", this.value);
+  } else if (this.value === "Censure") {
+    console.log("cliccato", this.value);
+  } else if (this.value === "Notazioni Musicali") {
+    console.log("cliccato", this.value);
+  } else {
+    console.log("cliccato niente");
+  }
+});
 
   //APP.addSemanticAnnotation(semid, O, semtype);
 };
