@@ -122,15 +122,15 @@ UI.addAnnotation = (semtype) => {
   let semid = ATON.Utils.generateID("ann");
 
   // TODO: HTML form here > fill O
-  let htmlcode = "<div class='atonPopupTitle' >Aggiungi Annotazione</div>";
+  let htmlcode = "<div class='atonPopupTitle' style='width: 400px;'>Aggiungi Annotazione</div>";
   htmlcode += "<div>";
-  htmlcode += "<div style='justify-content: space-evenly'>";
-  htmlcode += "<p>Inserire l'annotazione compilando i campi correttamente</p>";
+  htmlcode += "<div>";
+  htmlcode += "<p style='justify-content: space-evenly'>Inserire l'annotazione compilando i campi correttamente</p>";
   htmlcode += "</div>";
   htmlcode += "<form style='display: grid; justify-content: space-evenly'>";
-  htmlcode += "<div style='position: relative; align-content: center'>";
+  htmlcode += "<div style='position: relative'>";
   htmlcode +=
-    "<h3 style='display: inline;' > Layer</h3> <select type='select' class='formSelect' id='select' />";
+    "<h3 style='display: inline; position: relative; left: 5px' > Layer</h3> <select type='select' class='formSelect' id='select' style='position: relative; left: 47px' />";
   htmlcode +=
     "<option value='' selected='selected' name='Selezionare un layer'>Selezionare un layer...</option>";
   htmlcode += "<option value='RGB' name='RGB'>RGB</option>";
@@ -139,13 +139,13 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<option value='IR-3' name='IR-3'>IR-3</option>";
   htmlcode += "</select>";
   htmlcode += "</div>";
-  htmlcode += "<div style='position: relative; align-content: center' >";
+  htmlcode += "<div style='display: inline; position: relative; left: 5px' >";
   htmlcode +=
-    "<h3 style='display: inline;'> Areale</h3> <input type='text' style='display: inline; width: 200px;'></input>";
+    "<h3 style='display: inline; position: relative; left: 3px'> Areale</h3> <input type='text' style='display: inline; width: 200px; position: relative; left: 40px'></input>";
   htmlcode += "</div>";
   htmlcode += "<div>";
   htmlcode +=
-    "<h3 style=' display: inline;'> Categoria</h3> <select id='catSelect' type='select' class='formSelect'>";
+    "<h3 style='display: inline; position: relative; left: 3px'> Categoria</h3> <select id='catSelect' type='select' class='formSelect' style='position: relative; left: 35px'>";
   htmlcode += "<option value='' >Selezionare categoria</option>";
   htmlcode +=
     "<option value='Iconologia e Iconografia' >Iconologia e Iconografia</option>";
@@ -159,20 +159,29 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<option value='Notazioni Musicali'>Notazioni Musicali</option>";
   htmlcode += "</select>";
   htmlcode += "</div>";
-  htmlcode += "<div id='selectPlace'>";
+  htmlcode += "<div id='selectPlace' style='position:relative; top:5px'>";
   htmlcode +=
-    "<h3 style=' display: inline;'> Sottocategoria</h3> <select id='sottoCatSelect' type='select' class='formSelect'>";
+    "<h3 style='display: inline; position: relative; left: 0px'> Sottocategoria</h3> <select id='sottoCatSelect' type='select' class='formSelect' style='display: inline; position: relative; left: 18px'>";
   htmlcode +=
     "<option value='' disabled selected>Selezionare sottocategoria</option>";
   htmlcode += "</select>";
   htmlcode += "</div>";
-  htmlcode += "<div>";
-  htmlcode += "<h3 style='display: inline;' >Descrizione</h3> <input type='text' id='idSemDescription' style='display: inline; width: 200px; height: 100px'></input>"
+  htmlcode += "<div style='position:relative; top:5px'>";
+  htmlcode += "<h3 style='display: inline; position: relative; left: 5px' >Descrizione</h3> <input type='text' id='idSemDescription' style='display: inline; width: 199px; height: 100px; position: relative; left: 30px'></input>"
   htmlcode += "</div>";
-  htmlcode += "<div>";
-  htmlcode += "<h3 style='display: inline;' >Immagini</h3> <input id='image' type='file' accept='.jpeg' style='display: inline; width: 200px; height: 100px' multiple></input>"
+  htmlcode += "<div style='position:relative; top:5px'>";
+  htmlcode += "<h3 style='display: inline;' >Immagini</h3> <input id='image' type='file' accept='.jpeg' style='display: inline; width: 200px;  position: relative; left: 35px' multiple></input>"
   htmlcode += "</div>";
+  htmlcode += "<div style='position:relative; top:5px'>";
+  htmlcode += "<h3 style='display: inline;' >Video</h3> <input id='video' type='file' accept='.mp4' style='display: inline; width: 200px;  position: relative; left: 47px'></input>"
+  htmlcode += "</div>";
+  htmlcode += "<div style='position:relative; top:5px'>"
+  htmlcode +=
+    "<h3 style='display: inline;'>Bibliografia</h3> <input type='text' style='display: inline; width: 200px; position: relative; left: 30px'></input>";
+  htmlcode += "</div>"
   htmlcode += "</form>";
+  htmlcode += "<div class='atonBTN atonBTN-green atonBTN-text atonBTN-horizontal' type='submit'> Completa annotazione </div>"
+  htmlcode += "<div class='atonBTN atonBTN-red atonBTN-text atonBTN-horizontal' type> Annulla </div>"
   htmlcode += "</div>";
 
   if (!ATON.FE.popupShow(htmlcode)) return;
@@ -275,7 +284,7 @@ UI.addAnnotation = (semtype) => {
   } else if (this.value === "Notazioni Musicali") {
     $("#selectPlace").remove()
     console.log("cliccato", this.value);
-  } else {
+  } else if (this.value === " "){
     console.log("cliccato niente");
     alert('È necessario selezionare una categoria per procedere alla compilazione del form')
   }
