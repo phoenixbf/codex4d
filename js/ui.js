@@ -146,7 +146,7 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<div>";
   htmlcode +=
     "<h3 style=' display: inline;'> Categoria</h3> <select id='catSelect' type='select' class='formSelect'>";
-  htmlcode += "<option value='' >Selezionare una categoria</option>";
+  htmlcode += "<option value='' >Selezionare categoria</option>";
   htmlcode +=
     "<option value='Iconologia e Iconografia' >Iconologia e Iconografia</option>";
   htmlcode +=
@@ -159,12 +159,18 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<option value='Notazioni Musicali'>Notazioni Musicali</option>";
   htmlcode += "</select>";
   htmlcode += "</div>";
-  htmlcode += "<div>";
+  htmlcode += "<div id='selectPlace'>";
   htmlcode +=
     "<h3 style=' display: inline;'> Sottocategoria</h3> <select id='sottoCatSelect' type='select' class='formSelect'>";
   htmlcode +=
-    "<option value='' disabled selected>Selezionare una sottocategoria</option>";
+    "<option value='' disabled selected>Selezionare sottocategoria</option>";
   htmlcode += "</select>";
+  htmlcode += "</div>";
+  htmlcode += "<div>";
+  htmlcode += "<h3 style='display: inline;' >Descrizione</h3> <input type='text' id='idSemDescription' style='display: inline; width: 200px; height: 100px'></input>"
+  htmlcode += "</div>";
+  htmlcode += "<div>";
+  htmlcode += "<h3 style='display: inline;' >Immagini</h3> <input id='image' type='file' accept='.jpeg' style='display: inline; width: 200px; height: 100px' multiple></input>"
   htmlcode += "</div>";
   htmlcode += "</form>";
   htmlcode += "</div>";
@@ -173,40 +179,115 @@ UI.addAnnotation = (semtype) => {
 
   $("#catSelect").change(function () {
     $("#sottoCatSelect").html("");
+
     // Setting logic to nest SubCategories in Categories
 
   if (this.value === "Iconologia e Iconografia") {
-     $("#sottoCatSelect").append("<option value='Personaggi e Simboli' >Personaggi e Simboli</option>")
-     $("#sottoCatSelect").append("<option value='Stile' >Stile</option>")
-     $("#sottoCatSelect").append("<option value='Messaggio Ideologico' >Messaggio Ideologico</option>")
-     $("#sottoCatSelect").append("<option value='Fonti e Tradizioni'>Fonti e Tradizioni</option>")
-     $("#sottoCatSelect").append("<option value='Datazione e Attribuzione'>Datazione e Attribuzione</option>")
-     $('#sottoCatSelect').append("<option value='Confronti Visivi'>Confronti Visivi</option>")
-     $("#sottoCatSelect").append("<option value='Ripensamenti'>Ripensamenti</option>")
-     $("#sottoCatSelect").append("<option value='Elementi Ornamentali'>Elementi Ornamentali</option>")
-     $("#sottoCatSelect").append("<option value='Descrizione'>Descrizione</option>")
-     $("#sottoCatSelect").append("<option value='Modifiche Successive'>Modifiche Successive</option>")
+    let htmlcode = "";
+    htmlcode +=
+    "<option value='' disabled selected>Selezionare sottocategoria</option>";
+    htmlcode += "<option value='Personaggi e Simboli' >Personaggi e Simboli</option>";
+    htmlcode += "<option value='Stile' >Stile</option>";
+    htmlcode += "<option value='Messaggio Ideologico' >Messaggio Ideologico</option>";
+    htmlcode += "<option value='Fonti e Tradizioni'>Fonti e Tradizioni</option>";
+    htmlcode += "<option value='Datazione e Attribuzione'>Datazione e Attribuzione</option>";
+    htmlcode += "<option value='Confronti Visivi'>Confronti Visivi</option>";
+    htmlcode += "<option value='Ripensamenti'>Ripensamenti</option>";
+    htmlcode += "<option value='Elementi Ornamentali'>Elementi Ornamentali</option>";
+    htmlcode += "<option value='Descrizione'>Descrizione</option>";
+    htmlcode += "<option value='Modifiche Successive'>Modifiche Successive</option>";
+
+     $("#sottoCatSelect").append(htmlcode);
+    
     
   } else if (this.value === "Materiali e Tecniche Esecutive") {
     console.log("cliccato", this.value);
-    
-  $('#sottoCatSelect').append("<option value='Particolarità dei Materiali' >Particolarità dei Materiali</option>")
-  $('#sottoCatSelect').append("<option value='Particolarità delle Tecniche Esecutive' >Particolarità delle Tecniche Esecutive</option>")
+    let htmlcode = "";
+    htmlcode +=
+    "<option value='' disabled selected>Selezionare sottocategoria</option>";
+    htmlcode += "<option value='Particolarità dei Materiali' >Particolarità dei Materiali</option>";
+    htmlcode += "<option value='Particolarità delle Tecniche Esecutive' >Particolarità delle Tecniche Esecutive</option>";
 
+  $('#sottoCatSelect').append(htmlcode);
+  
   } else if (this.value === "Struttura") {
     console.log("cliccato", this.value);
+    let htmlcode = "";
+    htmlcode +=
+    "<option value='' disabled selected>Selezionare sottocategoria</option>";
+    htmlcode += "<option value='Dimensione' >Dimensione</option>";
+    htmlcode += "<option value='Legatura' >Legatura</option>";
+    htmlcode += "<option value='Fascicolazione' >Fascicolazione</option>";
+    htmlcode += "<option value='Impaginazione' >Impaginazione</option>";
+    htmlcode += "<option value='Elementi di Riuso' >Elementi di Riuso</option>";
+    htmlcode += "<option value='Particolarita di Struttura' >Particolarità di Struttura</option>";
+    $("#sottoCatSelect").append(htmlcode)
+    
   } else if (this.value === "Conservazione e Restauro") {
+    let htmlcode = "";
+    htmlcode +=
+    "<option value='' disabled selected>Selezionare sottocategoria</option>";
+    htmlcode +=
+    "<option value='Restauri' >Restauri</option>";
+    htmlcode +=
+    "<option value='Evidenze Biologiche' >Evidenze Biologiche</option>";
+    htmlcode +=
+    "<option value='Evidenze Chimiche' >Evidenze Chimiche</option>";
+    htmlcode +=
+    "<option value='Evidenze Fisiche' >Evidenze Fisiche</option>";
+    htmlcode +=
+    "<option value='Furti E Sottrazioni' >Furti E Sottrazioni</option>";
+    htmlcode +=
+    "<option value='Danni' >Danni</option>";
+    
+    $("#sottoCatSelect").append(htmlcode)
     console.log("cliccato", this.value);
   } else if (this.value === "Testo e Scrittura") {
+    let htmlcode = "";
+    htmlcode +=
+    "<option value='' disabled selected>Selezionare sottocategoria</option>";
+    htmlcode +=
+    "<option value='Particolarità di Scrittura' >Particolarità di Scrittura</option>";
+    htmlcode +=
+    "<option value='Testo da Lettera Miniata' >Testo da Lettera Miniata</option>";
+    htmlcode +=
+    "<option value='Trascrizione e Traduzione' >Trascrizione e Traduzione</option>";
+    htmlcode +=
+    "<option value='Note e Appunti' >Note e Appunti</option>";
+    htmlcode +=
+    "<option value='Modifiche Successive' >Modifiche Successive</option>";
+
+    $("#sottoCatSelect").append(htmlcode);
+    
     console.log("cliccato", this.value);
   } else if (this.value === "Censure") {
+    let htmlcode = "";
+    htmlcode +=
+    "<option value='' disabled selected>Selezionare sottocategoria</option>";
+    htmlcode +=
+    "<option value='Censure di Testo' >Censure di Testo</option>";
+    htmlcode +=
+    "<option value='Censure di Immagini' >Censure di Immagini</option>";
+
+    $("#sottoCatSelect").append(htmlcode);
+
     console.log("cliccato", this.value);
   } else if (this.value === "Notazioni Musicali") {
+    $("#selectPlace").remove()
     console.log("cliccato", this.value);
   } else {
     console.log("cliccato niente");
+    alert('È necessario selezionare una categoria per procedere alla compilazione del form')
   }
 });
+
+$('#image').change(function() {
+  if(this.files.length > 3) {
+    alert('Limite massimo di immagini superato')
+    $('#image').val('')
+  }
+})
+
 
   //APP.addSemanticAnnotation(semid, O, semtype);
 };
