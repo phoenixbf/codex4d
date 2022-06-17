@@ -167,7 +167,10 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "</select>";
   htmlcode += "</div>";
   htmlcode += "<div style='position:relative; top:5px'>";
-  htmlcode += "<h3 style='display: inline; position: relative; left: 5px' >Descrizione</h3> <input type='text' id='idSemDescription' style='display: inline; width: 199px; height: 100px; position: relative; left: 30px'></input>"
+  htmlcode += "<h3 style='display: inline; position: relative; left: 5px' >Descrizione</h3> <textarea type='text' id='idDescription' max-length='500' style='display: inline; width: 200px; height: 100px; position: relative; left: 30px; top: 5px; border-radius: 5px'></textarea>"
+  htmlcode += "</div>";
+  htmlcode += "<div style='position:relative; top:5px'>";
+  htmlcode += "<span style='position: relative; left: 30px;' id='rchars'>500 </span> <span style='position: relative; left: 30px;'> caratteri rimasti</span>"
   htmlcode += "</div>";
   htmlcode += "<div style='position:relative; top:5px'>";
   htmlcode += "<h3 style='display: inline;' >Immagini</h3> <input id='image' type='file' accept='.jpeg' style='display: inline; width: 200px;  position: relative; left: 35px' multiple></input>"
@@ -296,7 +299,12 @@ $('#image').change(function() {
     $('#image').val('')
   }
 })
-
+// setting count limit for characters in the description
+var maxLength = 500
+$('#idDescription').keyup(function(){
+  var textlen = maxLength - $(this).val().length;
+  $('#rchars').text(textlen)
+})
 
   //APP.addSemanticAnnotation(semid, O, semtype);
 };
