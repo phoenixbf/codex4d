@@ -4,7 +4,8 @@ UI.init = () => {
   ATON.FE.uiAddProfile("editor", UI.buildEditor);
   ATON.FE.uiAddProfile("public", UI.buildPublic);
 
-  ATON.FE.uiLoadProfile("public");
+  if (APP.argUIP !== "editor") ATON.FE.uiLoadProfile("public");
+  else ATON.FE.uiLoadProfile("editor");
 
   $("#idIRcontrol").val(APP.irValue);
 

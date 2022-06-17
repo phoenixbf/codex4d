@@ -37,8 +37,9 @@ APP.init = ()=>{
     ATON.FE.realize();
     ATON.FE.addBasicLoaderEvents();
 
-    APP.argV = ATON.FE.urlParams.get('v');
-    APP.argP = ATON.FE.urlParams.get('p');
+    APP.argV   = ATON.FE.urlParams.get('v');
+    APP.argP   = ATON.FE.urlParams.get('p');
+    APP.argUIP = ATON.FE.urlParams.get('uip');
 
     APP.setupEvents();
 
