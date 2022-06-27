@@ -43,7 +43,7 @@ UI.buildEditor = () => {
     ATON.PATH_RES +
     "icons/layers.png'></button></li>";
   html +=
-    "<li><button class='atonBTN' type='button' id='annSphere'> <img class='atonSmallIcon' src='" +
+    "<li><button class='atonBTN' type='button' id='annotation'> <img class='atonSmallIcon' src='" +
     ATON.PATH_RES +
     "icons/edit.png'></button></li>";
   html +=
@@ -54,9 +54,28 @@ UI.buildEditor = () => {
   $("#idBottomToolbar").html("");
   $("#idLeftToolbar").html(html);
 
-  $("#annSphere").click(() => {
-    UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
-  });
+
+  $('#annotation').click(() => {
+    $('#selectAnnType').show();
+    $("#selectAnnType").html("");
+    
+    let htmlcode = "";
+    htmlcode = "<ul style='list-style-type: none;'>"
+    htmlcode += "<li><button id='sphere'>Sphere </button></li>"
+    htmlcode += "<li><button id='free'> Free </button></li>"
+    htmlcode += "</ul>"
+
+    $("#selectAnnType").append(htmlcode)
+
+    $("#sphere").click(() => {
+      UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
+    })
+
+  })
+
+  $('#annotation').mouseleave(() => {
+    ('#selectAnnType').hide()
+  })
 
   ATON.FE.uiAddButtonHome("idBottomToolbar");
 };
