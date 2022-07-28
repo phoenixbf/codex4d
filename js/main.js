@@ -355,8 +355,8 @@ APP.update = ()=>{
     }
 */
     APP.uniforms.vLens.value.x = p.x;
-    APP.uniforms.vLens.value.y = -p.y;
-    APP.uniforms.vLens.value.z = -p.z;
+    APP.uniforms.vLens.value.y = p.y;
+    APP.uniforms.vLens.value.z = p.z;
 
     if (ATON._queryDataScene) APP.uniforms.vLens.value.w = ATON.SUI._selectorRad;
     else if (APP.uniforms.vLens.value.w > APP.LRAD_MIN) APP.uniforms.vLens.value.w *= 0.9;
