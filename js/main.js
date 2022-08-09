@@ -209,7 +209,7 @@ APP.setupLensing = ()=>{
 
             void main(){
                 vUv = uv;
-                vUv.y = 1.0-vUv.y;
+                //vUv.y = 1.0-vUv.y;
 
                 vPositionW = vec3( vec4( position, 1.0 ) * modelMatrix);
 
@@ -253,11 +253,13 @@ APP.setupLensing = ()=>{
     });
 
     ATON.Utils.textureLoader.load(urlBase, (tex)=>{
+        tex.flipY = false;
         APP.matLens.needsUpdate = true;
         APP.uniforms.tBase.value = tex;
     });
 
     ATON.Utils.textureLoader.load(urlIR, (tex)=>{
+        tex.flipY = false;
         APP.matLens.needsUpdate = true;
         APP.uniforms.tIR.value = tex;
     });
