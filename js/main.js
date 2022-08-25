@@ -23,6 +23,8 @@ APP.LRAD_MIN = 0.005;
 APP.currVolume = undefined;
 APP.currPose   = undefined;
 
+APP.currMat = undefined;
+
 APP._bSqueezeHandR = false;
 APP._bSqueezeHandL = false;
 
@@ -58,17 +60,18 @@ APP.init = ()=>{
     APP._reqPointCoords  = [0,0];
     APP._prevPointCoords = [0,0];
 
-    // Lens
-    APP.uniforms = {
-        tBase: { type:'t' /*, value: 0*/ },
-        tIR: { type:'t' /*, value: 0*/ },
-        wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
-        vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
-        time: { type:'float', value: 0.0 },
-    };
+    ATON.Nav.setHomePOV( new ATON.POV().setPosition(0,0.2,0.3).setTarget(0,0,0) );
 
+    // Lens Mat
     APP.matLens = new THREE.ShaderMaterial({
-        uniforms: APP.uniforms,
+        //uniforms: APP.uniforms,
+        uniforms: {
+            tBase: { type:'t' /*, value: 0*/ },
+            tIR: { type:'t' /*, value: 0*/ },
+            wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
+            vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
+            time: { type:'float', value: 0.0 },
+        },
 
         vertexShader: ATON.MatHub.getDefVertexShader(),
 
@@ -247,6 +250,20 @@ APP.loadNextPose = ()=>{
 };
 
 // IR Lensing
+APP.setupLensing2 = ()=>{
+    let main = ATON.getSceneNode("main");
+    if (main === undefined) return;
+
+    main.traverse( ( o ) => {
+		if (o.material && o.material.map){
+			let tex  = o.material.map;
+			let name = tex.name;
+
+            console.log(name)
+        }
+    });
+};
+
 APP.setupLensing = ()=>{
     let D = ATON.SceneHub.currData;
     if (D === undefined) return;
@@ -260,22 +277,23 @@ APP.setupLensing = ()=>{
     let urlBase = ATON.PATH_COLLECTION + base + ".jpg";
     let urlIR   = ATON.PATH_COLLECTION + base + APP.postfixIR;
 
+    APP.currMat = APP.matLens.clone();
+
     ATON.Utils.textureLoader.load(urlBase, (tex)=>{
         tex.flipY = false;
-        APP.matLens.needsUpdate  = true;
-        APP.uniforms.tBase.value = tex;
+        APP.currMat.uniforms.tBase.value = tex;
     });
 
     ATON.Utils.textureLoader.load(urlIR, (tex)=>{
         tex.flipY = false;
-        APP.matLens.needsUpdate = true;
-        APP.uniforms.tIR.value  = tex;
+        //APP.matLens.needsUpdate = true;
+        APP.currMat.uniforms.tIR.value  = tex;
     });
 
     let main = ATON.getSceneNode("main");
     if (main === undefined) return;
 
-    main.setMaterial( APP.matLens );
+    main.setMaterial( APP.currMat );
 
     console.log("Setup lens done")
     APP._bLensMatSet = true;
@@ -289,15 +307,15 @@ APP.setIRvalue = (v)=>{
     APP.irValue = v;
     $("#idIRcontrol").val(APP.irValue);
 
-    if (!APP.uniforms) return;
+    if (!APP.currMat) return;
 
     // extremes
     if (v <= 0.0){
-        APP.uniforms.wIR.value.set(1,0,0);
+        APP.currMat.uniforms.wIR.value.set(1,0,0);
         return;
     }
     if (v >= 1.0){
-        APP.uniforms.wIR.value.set(0,0,1);
+        APP.currMat.uniforms.wIR.value.set(0,0,1);
         return;
     }
 
@@ -306,13 +324,13 @@ APP.setIRvalue = (v)=>{
         let a = v/0.5;
         let b = 1.0 - a;
 
-        APP.uniforms.wIR.value.set(b,a,0);
+        APP.currMat.uniforms.wIR.value.set(b,a,0);
     }
     else {
         let a = (v-0.5)/0.5;
         let b = 1.0 - a;
 
-        APP.uniforms.wIR.value.set(0,b,a);
+        APP.currMat.uniforms.wIR.value.set(0,b,a);
     }
 };
 
@@ -347,7 +365,7 @@ APP.handleScreenPointer = ()=>{
 
 // Main update routine
 APP.update = ()=>{
-    if (!APP._bLensMatSet) return;
+    //if (!APP._bLensMatSet) return;
 
     // Handle req screen pointer
     //APP.handleScreenPointer();
@@ -363,12 +381,21 @@ APP.update = ()=>{
         APP.uniforms.vLens.value.z = -p.z;
     }
 */
+/*
     APP.uniforms.vLens.value.x = p.x;
     APP.uniforms.vLens.value.y = p.y;
     APP.uniforms.vLens.value.z = p.z;
 
     if (ATON._queryDataScene) APP.uniforms.vLens.value.w = ATON.SUI._selectorRad;
     else if (APP.uniforms.vLens.value.w > APP.LRAD_MIN) APP.uniforms.vLens.value.w *= 0.9;
+*/
+
+    if (APP.currMat){
+        APP.currMat.uniforms.vLens.value = p;
+
+        if (ATON._queryDataScene) APP.currMat.uniforms.vLens.value.w = ATON.SUI._selectorRad;
+        else if (APP.currMat.uniforms.vLens.value.w > APP.LRAD_MIN) APP.currMat.uniforms.vLens.value.w *= 0.9;
+    }
 
     // VR
     if (!ATON.XR._bPresenting) return;
