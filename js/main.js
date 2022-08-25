@@ -44,6 +44,7 @@ APP.init = ()=>{
     APP.setupEvents();
 
     APP.UI.init();
+    ATON.SUI.showSelector(false);
 
     APP.loadConfig(APP.pathConf);
 
@@ -56,6 +57,55 @@ APP.init = ()=>{
     APP._tPoint = -1.0;
     APP._reqPointCoords  = [0,0];
     APP._prevPointCoords = [0,0];
+
+    // Lens
+    APP.uniforms = {
+        tBase: { type:'t' /*, value: 0*/ },
+        tIR: { type:'t' /*, value: 0*/ },
+        wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
+        vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
+        time: { type:'float', value: 0.0 },
+    };
+
+    APP.matLens = new THREE.ShaderMaterial({
+        uniforms: APP.uniforms,
+
+        vertexShader: ATON.MatHub.getDefVertexShader(),
+
+        fragmentShader:`
+            varying vec3 vPositionW;
+            varying vec2 vUv;
+
+            uniform vec4 vLens;
+
+            uniform float time;
+            uniform sampler2D tBase;
+            uniform sampler2D tIR;
+            uniform vec3 wIR;
+            //uniform sampler2D tHeight;
+
+		    void main(){
+                float sedge = 6.0f;
+
+                float d = distance(vPositionW, vLens.xyz);
+                float t = d / vLens.w;
+
+                t -= (1.0f - (1.0f/sedge));
+                t *= sedge;
+
+                t = clamp(t, 0.0,1.0);
+
+                vec4 frag = texture2D(tBase, vUv);
+                vec4 ir   = texture2D(tIR, vUv);
+
+                float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
+
+                frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
+
+                gl_FragColor = frag;
+		    }
+        `
+    });
 };
 
 APP.loadAndParseSheet = ()=>{
@@ -156,6 +206,9 @@ APP.loadVolumePose = (v,p)=>{
     if (!v) return;
     if (APP.cdata === undefined) return;
 
+    ATON.SceneHub.clear();
+    APP._bLensMatSet = false;
+
     let vol = APP.cdata.volumes[v];
     if (vol === undefined) return;
 
@@ -171,11 +224,26 @@ APP.loadVolumePose = (v,p)=>{
     $("#idVolume").html(v);
     $("#idPose").html(p);
 
-    ATON.SceneHub.clear();
+    //ATON.SceneHub.clear();
 
     ATON.FE.loadSceneID( sid );
 
-    APP.loadAndParseSheet();
+    //APP.loadAndParseSheet();
+};
+
+APP.getNextPose = ()=>{
+    let vol = APP.cdata.volumes[APP.currVolume];
+
+    let A = Object.keys(vol);
+    let i = A.indexOf(APP.currPose);
+
+    i = (i+1) % A.length;
+
+    return A[i];
+};
+
+APP.loadNextPose = ()=>{
+    APP.loadVolumePose(APP.currVolume, APP.getNextPose());
 };
 
 // IR Lensing
@@ -192,76 +260,16 @@ APP.setupLensing = ()=>{
     let urlBase = ATON.PATH_COLLECTION + base + ".jpg";
     let urlIR   = ATON.PATH_COLLECTION + base + APP.postfixIR;
 
-    APP.uniforms = {
-        tBase: { type:'t' /*, value: 0*/ },
-        tIR: { type:'t' /*, value: 0*/ },
-        wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
-        vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
-        time: { type:'float', value: 0.0 },
-    };
-
-    APP.matLens = new THREE.ShaderMaterial({
-        uniforms: APP.uniforms,
-
-        vertexShader:`
-            varying vec3 vPositionW;
-            varying vec2 vUv;
-
-            void main(){
-                vUv = uv;
-                //vUv.y = 1.0-vUv.y;
-
-                vPositionW = vec3( vec4( position, 1.0 ) * modelMatrix);
-
-                gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-            }
-        `,
-
-        fragmentShader:`
-            varying vec3 vPositionW;
-            varying vec2 vUv;
-
-            uniform vec4 vLens;
-
-            uniform float time;
-            uniform sampler2D tBase;
-            uniform sampler2D tIR;
-            uniform vec3 wIR;
-            //uniform sampler2D tHeight;
-
-		    void main(){
-                float sedge = 6.0f;
-
-                float d = distance(vPositionW, vLens.xyz);
-                float t = d / vLens.w;
-
-                t -= (1.0f - (1.0f/sedge));
-                t *= sedge;
-
-                t = clamp(t, 0.0,1.0);
-
-                vec4 frag = texture2D(tBase, vUv);
-                vec4 ir   = texture2D(tIR, vUv);
-
-                float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
-
-                frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
-
-                gl_FragColor = frag;
-		    }
-        `
-    });
-
     ATON.Utils.textureLoader.load(urlBase, (tex)=>{
         tex.flipY = false;
-        APP.matLens.needsUpdate = true;
+        APP.matLens.needsUpdate  = true;
         APP.uniforms.tBase.value = tex;
     });
 
     ATON.Utils.textureLoader.load(urlIR, (tex)=>{
         tex.flipY = false;
         APP.matLens.needsUpdate = true;
-        APP.uniforms.tIR.value = tex;
+        APP.uniforms.tIR.value  = tex;
     });
 
     let main = ATON.getSceneNode("main");
@@ -269,6 +277,7 @@ APP.setupLensing = ()=>{
 
     main.setMaterial( APP.matLens );
 
+    console.log("Setup lens done")
     APP._bLensMatSet = true;
 };
 
@@ -338,12 +347,10 @@ APP.handleScreenPointer = ()=>{
 
 // Main update routine
 APP.update = ()=>{
-    ATON.SUI.mainSelector.visible = false;
-
     if (!APP._bLensMatSet) return;
 
     // Handle req screen pointer
-    APP.handleScreenPointer();
+    //APP.handleScreenPointer();
 
     let p = ATON.SUI.mainSelector.position;
 /*
@@ -374,6 +381,11 @@ APP.update = ()=>{
 APP.setupEvents = ()=>{
     ATON.on("APP_ConfigLoaded", ()=>{
         APP.loadVolumePose( APP.argV, APP.argP );
+    });
+
+    ATON.on("SceneJSONLoaded",()=>{
+        APP.setupLensing();
+        console.log("Pose loaded.");
     });
 
     ATON.on("AllNodeRequestsCompleted", ()=>{
@@ -411,6 +423,9 @@ APP.setupEvents = ()=>{
         // Modifiers
         if (k ==="Shift")  ATON.Nav.setUserControl(false);
         if (k==="Control") ATON.Nav.setUserControl(false);
+
+        if (k==='ArrowRight') APP.loadNextPose();
+        //if (k==='ArrowLeft') 
     });
 
     ATON.on("KeyUp",(k)=>{
