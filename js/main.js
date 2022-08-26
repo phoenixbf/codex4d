@@ -37,7 +37,7 @@ APP.gsheetID = '1zRS2Dy-p-1G9_7STZFVd4rUs0KwZ34T4L_pFk4wO2Bc';
 
 APP.init = ()=>{
     ATON.FE.realize();
-    ATON.FE.addBasicLoaderEvents();
+    //ATON.FE.addBasicLoaderEvents();
 
     APP.argV   = ATON.FE.urlParams.get('v');
     APP.argP   = ATON.FE.urlParams.get('p');
@@ -61,6 +61,7 @@ APP.init = ()=>{
     APP._prevPointCoords = [0,0];
 
     ATON.Nav.setHomePOV( new ATON.POV().setPosition(0,0.4,0.4).setTarget(0,0,0) );
+    ATON.Nav.requestHome( 0.5 );
 
     // Lens Mat
     APP.matLens = new THREE.ShaderMaterial({
