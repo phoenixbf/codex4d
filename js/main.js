@@ -115,6 +115,15 @@ APP.init = ()=>{
 		    }
         `
     });
+
+    const data = new Uint8Array(4);
+    data[0] = 255;
+    data[1] = 255;
+    data[2] = 255;
+    data[3] = 255;
+
+    APP._tWhite = new THREE.DataTexture( data, 1,1 );
+    APP._tWhite.needsUpdate = true;
 };
 
 APP.postPoseLoaded = ()=>{
@@ -306,7 +315,6 @@ APP.setupLensing = ()=>{
     let urlAO   = ATON.PATH_COLLECTION + base + "-ao.jpg";
 
     APP.currMat = APP.matLens.clone();
-    //APP.currMat.uniforms.tAO.value = new THREE.Vector4(1,0,0, 0);
 
     ATON.Utils.textureLoader.load(urlBase, (tex)=>{
         tex.flipY = false;
@@ -319,16 +327,20 @@ APP.setupLensing = ()=>{
         APP.currMat.uniforms.tIR.value  = tex;
     });
 /*
+    APP.currMat.uniforms.tAO.value = APP._tWhite;
+    APP.currMat.uniforms.tAO.value.needsUpdate = true;
+
     ATON.Utils.textureLoader.load(urlAO, (tex)=>{
         tex.flipY = false;
         APP.currMat.uniforms.tAO.value = tex;
     },
     undefined,
     (err)=>{
-        APP.currMat.uniforms.tAO.value = ATON.MatHub.colors.red;
+        //APP.currMat.uniforms.tAO.value = ATON.MatHub.colors.red;
         console.log(err)
     });
 */
+
     let main = ATON.getSceneNode("main");
     if (main === undefined) return;
 
