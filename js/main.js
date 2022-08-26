@@ -60,7 +60,7 @@ APP.init = ()=>{
     APP._reqPointCoords  = [0,0];
     APP._prevPointCoords = [0,0];
 
-    ATON.Nav.setHomePOV( new ATON.POV().setPosition(0,0.2,0.3).setTarget(0,0,0) );
+    ATON.Nav.setHomePOV( new ATON.POV().setPosition(0,0.4,0.4).setTarget(0,0,0) );
 
     // Lens Mat
     APP.matLens = new THREE.ShaderMaterial({
@@ -68,6 +68,7 @@ APP.init = ()=>{
         uniforms: {
             tBase: { type:'t' /*, value: 0*/ },
             tIR: { type:'t' /*, value: 0*/ },
+            tAO: { type:'t' },
             wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
             vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
             time: { type:'float', value: 0.0 },
@@ -84,6 +85,7 @@ APP.init = ()=>{
             uniform float time;
             uniform sampler2D tBase;
             uniform sampler2D tIR;
+            uniform sampler2D tAO;
             uniform vec3 wIR;
             //uniform sampler2D tHeight;
 
@@ -100,15 +102,39 @@ APP.init = ()=>{
 
                 vec4 frag = texture2D(tBase, vUv);
                 vec4 ir   = texture2D(tIR, vUv);
+                vec4 ao   = texture2D(tAO, vUv);
 
                 float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
 
                 frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
 
+                //frag *= ao;
+
                 gl_FragColor = frag;
 		    }
         `
     });
+};
+
+APP.postPoseLoaded = ()=>{
+	APP.gStand = ATON.createSceneNode("stand");
+	APP.gStand.attachToRoot();
+
+    let base = window.location.href.split('?')[0];
+
+    APP.gStand.load(base + "content/3D/Leggio.gltf");
+    //APP.gStand.disablePicking();
+
+    ATON.setBackgroundColor( ATON.MatHub.colors.black );
+
+    ATON.FX.togglePass(ATON.FX.PASS_AO, true);
+/*
+    ATON.FX.togglePass(ATON.FX.PASS_BLOOM, true);
+    ATON.FX.setBloomThreshold(0.2);
+    ATON.FX.setBloomStrength(0.25);
+*/
+    APP._vLight = new THREE.Vector3(0,-1,0);
+    ATON.setMainLightDirection(APP._vLight);
 };
 
 APP.loadAndParseSheet = ()=>{
@@ -276,8 +302,10 @@ APP.setupLensing = ()=>{
 
     let urlBase = ATON.PATH_COLLECTION + base + ".jpg";
     let urlIR   = ATON.PATH_COLLECTION + base + APP.postfixIR;
+    let urlAO   = ATON.PATH_COLLECTION + base + "-ao.jpg";
 
     APP.currMat = APP.matLens.clone();
+    //APP.currMat.uniforms.tAO.value = new THREE.Vector4(1,0,0, 0);
 
     ATON.Utils.textureLoader.load(urlBase, (tex)=>{
         tex.flipY = false;
@@ -289,7 +317,17 @@ APP.setupLensing = ()=>{
         //APP.matLens.needsUpdate = true;
         APP.currMat.uniforms.tIR.value  = tex;
     });
-
+/*
+    ATON.Utils.textureLoader.load(urlAO, (tex)=>{
+        tex.flipY = false;
+        APP.currMat.uniforms.tAO.value = tex;
+    },
+    undefined,
+    (err)=>{
+        APP.currMat.uniforms.tAO.value = ATON.MatHub.colors.red;
+        console.log(err)
+    });
+*/
     let main = ATON.getSceneNode("main");
     if (main === undefined) return;
 
@@ -400,8 +438,8 @@ APP.update = ()=>{
     // VR
     if (!ATON.XR._bPresenting) return;
 
-    let a = ATON.XR.getAxisValue(ATON.XR.HAND_L);
-    APP.setIRvalue( APP.irValue + (a.y * 0.01) );
+    //let a = ATON.XR.getAxisValue(ATON.XR.HAND_L);
+    //APP.setIRvalue( APP.irValue + (a.y * 0.01) );
 };
 
 // Events
@@ -411,8 +449,10 @@ APP.setupEvents = ()=>{
     });
 
     ATON.on("SceneJSONLoaded",()=>{
-        APP.setupLensing();
+        //APP.setupLensing();
         console.log("Pose loaded.");
+
+        APP.postPoseLoaded();
     });
 
     ATON.on("AllNodeRequestsCompleted", ()=>{
