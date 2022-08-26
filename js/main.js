@@ -326,9 +326,9 @@ APP.setupLensing = ()=>{
         //APP.matLens.needsUpdate = true;
         APP.currMat.uniforms.tIR.value  = tex;
     });
+
 /*
     APP.currMat.uniforms.tAO.value = APP._tWhite;
-    APP.currMat.uniforms.tAO.value.needsUpdate = true;
 
     ATON.Utils.textureLoader.load(urlAO, (tex)=>{
         tex.flipY = false;
