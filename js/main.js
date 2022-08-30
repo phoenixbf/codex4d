@@ -42,11 +42,13 @@ APP.init = ()=>{
     APP.argV   = ATON.FE.urlParams.get('v');
     APP.argP   = ATON.FE.urlParams.get('p');
     APP.argUIP = ATON.FE.urlParams.get('uip');
-
-    APP.setupEvents();
-
+/*
     APP.UI.init();
     ATON.SUI.showSelector(false);
+
+    APP.setupEvents();
+*/
+    APP.setupEvents();
 
     APP.loadConfig(APP.pathConf);
 
@@ -54,7 +56,7 @@ APP.init = ()=>{
 
     //if (APP.bHandTracking && !ATON.device.isMobile) APP.setupTracking();
     
-    APP.LM.setup();
+    //APP.LM.setup();
 
     APP._tPoint = -1.0;
     APP._reqPointCoords  = [0,0];
@@ -64,12 +66,22 @@ APP.init = ()=>{
     ATON.Nav.requestHome( 0.5 );
 
     // Lens Mat
+    const data = new Uint8Array(4);
+    data[0] = 255;
+    data[1] = 255;
+    data[2] = 255;
+    data[3] = 255;
+
+    APP._tWhite = new THREE.DataTexture( data, 1,1 );
+    APP._tWhite.needsUpdate = true;
+
     APP.matLens = new THREE.ShaderMaterial({
         //uniforms: APP.uniforms,
         uniforms: {
             tBase: { type:'t' /*, value: 0*/ },
             tIR: { type:'t' /*, value: 0*/ },
-            tAO: { type:'t' },
+            tAO: { type:'t', value: APP._tWhite },
+            uLD: { type:'vec3', value: new THREE.Vector3(0,1,0) },
             wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
             vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
             time: { type:'float', value: 0.0 },
@@ -81,7 +93,11 @@ APP.init = ()=>{
             varying vec3 vPositionW;
             varying vec2 vUv;
 
+            varying vec3 vNormalW;
+            varying vec3 vNormalV;
+
             uniform vec4 vLens;
+            uniform vec3 uLD;
 
             uniform float time;
             uniform sampler2D tBase;
@@ -103,27 +119,23 @@ APP.init = ()=>{
 
                 vec4 frag = texture2D(tBase, vUv);
                 vec4 ir   = texture2D(tIR, vUv);
-                vec4 ao   = texture2D(tAO, vUv);
+                float ao  = texture2D(tAO, vUv).r;
 
                 float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
 
                 frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
 
-                //frag *= ao;
+                float dLI = max(0.3, dot(vNormalW, uLD));
+                //dLI = clamp(dLI, 0.3,1.0);
+                //dLI -= 1.0;
+
+                frag.rgb *= dLI;
+                //frag.rgb *= ao;
 
                 gl_FragColor = frag;
 		    }
         `
     });
-
-    const data = new Uint8Array(4);
-    data[0] = 255;
-    data[1] = 255;
-    data[2] = 255;
-    data[3] = 255;
-
-    APP._tWhite = new THREE.DataTexture( data, 1,1 );
-    APP._tWhite.needsUpdate = true;
 };
 
 APP.postPoseLoaded = ()=>{
@@ -137,7 +149,7 @@ APP.postPoseLoaded = ()=>{
 
     ATON.setBackgroundColor( ATON.MatHub.colors.black );
 
-    ATON.FX.togglePass(ATON.FX.PASS_AO, true);
+    //ATON.FX.togglePass(ATON.FX.PASS_AO, true);
 /*
     ATON.FX.togglePass(ATON.FX.PASS_BLOOM, true);
     ATON.FX.setBloomThreshold(0.2);
@@ -242,7 +254,7 @@ APP.loadConfig = (path)=>{
 
 // If pose p is not defined/valid, open first available pose
 APP.loadVolumePose = (v,p)=>{
-    if (!v) return;
+    if (!v) v = Object.keys(APP.cdata.volumes)[0];
     if (APP.cdata === undefined) return;
 
     ATON.SceneHub.clear();
@@ -252,16 +264,23 @@ APP.loadVolumePose = (v,p)=>{
     if (vol === undefined) return;
 
     let sid = undefined;
-    if (!p) p = Object.keys(vol)[0];
-    sid = vol[p];
+
+    if (p === undefined || p === null) p = 0;
+
+    let pose = vol.poses[p];
+
+    sid = pose.sid;
+
+    //if (!p) p = Object.keys(vol)[0];
+    //sid = vol[p];
 
     if (sid === undefined) return;
 
     APP.currVolume = v;
     APP.currPose   = p;
 
-    $("#idVolume").html(v);
-    $("#idPose").html(p);
+    $("#idVolume").html(vol.title);
+    $("#idPose").html(pose.title);
 
     //ATON.SceneHub.clear();
 
@@ -273,12 +292,13 @@ APP.loadVolumePose = (v,p)=>{
 APP.getNextPose = ()=>{
     let vol = APP.cdata.volumes[APP.currVolume];
 
-    let A = Object.keys(vol);
-    let i = A.indexOf(APP.currPose);
+    //let A = Object.keys(vol);
+    //let i = A.indexOf(APP.currPose);
+    //i = (i+1) % A.length;
 
-    i = (i+1) % A.length;
+    //return A[i];
 
-    return A[i];
+    return ((APP.currPose + 1) % vol.poses.length);
 };
 
 APP.loadNextPose = ()=>{
@@ -327,7 +347,7 @@ APP.setupLensing = ()=>{
         APP.currMat.uniforms.tIR.value  = tex;
     });
 
-/*
+
     APP.currMat.uniforms.tAO.value = APP._tWhite;
 
     ATON.Utils.textureLoader.load(urlAO, (tex)=>{
@@ -339,7 +359,7 @@ APP.setupLensing = ()=>{
         //APP.currMat.uniforms.tAO.value = ATON.MatHub.colors.red;
         console.log(err)
     });
-*/
+
 
     let main = ATON.getSceneNode("main");
     if (main === undefined) return;
@@ -451,13 +471,21 @@ APP.update = ()=>{
     // VR
     if (!ATON.XR._bPresenting) return;
 
-    //let a = ATON.XR.getAxisValue(ATON.XR.HAND_L);
-    //APP.setIRvalue( APP.irValue + (a.y * 0.01) );
+    let v = ATON.XR.getAxisValue(ATON.XR.HAND_R);
+    let s = ATON.SUI._selectorRad;
+    s += (v.y * 0.01);
+    if (s > 0.001) ATON.SUI.setSelectorRadius(s);
+
+    let a = ATON.XR.getAxisValue(ATON.XR.HAND_L);
+    APP.setIRvalue( APP.irValue + (a.y * 0.01) );
 };
 
 // Events
 APP.setupEvents = ()=>{
     ATON.on("APP_ConfigLoaded", ()=>{
+        APP.UI.init();
+        ATON.SUI.showSelector(false);
+
         APP.loadVolumePose( APP.argV, APP.argP );
     });
 
@@ -469,6 +497,8 @@ APP.setupEvents = ()=>{
     });
 
     ATON.on("AllNodeRequestsCompleted", ()=>{
+        //APP.UI.init();
+        
         APP.setupLensing();
 
         APP.setLensRadius(APP.LRAD_MIN);
@@ -594,6 +624,7 @@ APP.toggleHoverLabel = (b, semid)=>{
         return;
     }
 
+    // FIXME:
     let pobj = APP.sDB[APP.currPose];
     if (pobj === undefined) return;
 

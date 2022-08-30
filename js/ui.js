@@ -26,6 +26,10 @@ UI.buildPublic = () => {
 };
 
 UI.buildEditor = () => {
+  // Clear
+  $("#idTopToolbar").html("");
+  $("#idBottomToolbar").html("");
+
   let html = "";
   html += "<ul style='list-style-type: none;'>";
   html +=
