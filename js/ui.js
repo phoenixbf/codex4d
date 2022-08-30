@@ -4,8 +4,8 @@ UI.init = () => {
   ATON.FE.uiAddProfile("editor", UI.buildEditor);
   ATON.FE.uiAddProfile("public", UI.buildPublic);
 
-  if (APP.argUIP !== "editor") ATON.FE.uiLoadProfile("public");
-  else ATON.FE.uiLoadProfile("editor");
+  if (APP.argUIP !== "editor") APP.setProfilePublic();
+  else APP.setProfileEditor();
 
   $("#idIRcontrol").val(APP.irValue);
 
@@ -97,10 +97,10 @@ UI.toggleSemPanel = (b) => {
     Public profile
 ====================================================*/
 UI.updateSemPanel = (semid) => {
-  let pobj = APP.sDB[APP.currPose];
-  if (pobj === undefined) return;
+  let pDB = ATON.SceneHub.currData.sem; //APP.sDB[APP.currPose];
+  if (pDB === undefined) return;
 
-  let S = pobj[semid];
+  let S = pDB[semid];
   if (S === undefined) return;
 
   // Generate HTML for panel

@@ -472,6 +472,10 @@ APP.setupEvents = ()=>{
         APP.setupLensing();
 
         APP.setLensRadius(APP.LRAD_MIN);
+
+        // Persistent modifications
+        if (ATON.FE.getCurrentUIP() === "editor") ATON.SceneHub.setEditMode(true);
+        else ATON.SceneHub.setEditMode(false);
     });
 
     ATON.on("MouseWheel", (d)=>{
@@ -506,6 +510,10 @@ APP.setupEvents = ()=>{
 
         if (k==='ArrowRight') APP.loadNextPose();
         //if (k==='ArrowLeft') 
+
+        if (k==='a'){
+            APP.addSemanticAnnotation("test", { title: "test test" }, ATON.FE.SEMSHAPE_SPHERE);
+        }
     });
 
     ATON.on("KeyUp",(k)=>{
@@ -560,12 +568,23 @@ APP.setupEvents = ()=>{
 
     ATON.on("Login", (d)=>{
         console.log("Editor login");
-        ATON.FE.uiLoadProfile("editor");
+        APP.setProfileEditor();
     });
     ATON.on("Logout", ()=>{
         console.log("Editor logout");
-        ATON.FE.uiLoadProfile("public");
+        APP.setProfilePublic();
     });
+};
+
+// Profiles
+APP.setProfilePublic = ()=>{
+    ATON.SceneHub.setEditMode(false);
+    ATON.FE.uiLoadProfile("public");
+};
+
+APP.setProfileEditor = ()=>{
+    ATON.SceneHub.setEditMode(true);
+    ATON.FE.uiLoadProfile("editor");
 };
 
 APP.toggleHoverLabel = (b, semid)=>{
