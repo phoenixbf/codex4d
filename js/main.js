@@ -121,6 +121,8 @@ APP.init = ()=>{
                 vec4 ir   = texture2D(tIR, vUv);
                 float ao  = texture2D(tAO, vUv).r;
 
+                //float rou = mix(256.0, 1.0, frag.b);
+
                 float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
 
                 frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
@@ -129,7 +131,19 @@ APP.init = ()=>{
                 //dLI = clamp(dLI, 0.3,1.0);
                 //dLI -= 1.0;
 
+                float sLI = 0.0;
+/*
+                //vec3 lightColor = vec3(1.0,1.0,1.0);
+                vec3 viewDir    = normalize(cameraPosition - vPositionW);
+                vec3 reflectDir = reflect(uLD, vNormalW);
+                sLI = pow(max(dot(viewDir, -reflectDir), 0.0), rou);
+                //vec3 specular = 0.9 * sLI * lightColor;
+
+                frag.rgb *= dLI; //(dLI + sLI);
+                frag.rgb += sLI;
+*/
                 frag.rgb *= dLI;
+
                 //frag.rgb *= ao;
 
                 gl_FragColor = frag;
