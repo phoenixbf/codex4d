@@ -162,7 +162,7 @@ APP.postPoseLoaded = ()=>{
     APP.gStand.load(base + "content/3D/Leggio.gltf");
     //APP.gStand.disablePicking();
 
-    ATON.setBackgroundColor( ATON.MatHub.colors.black );
+    ATON.setBackgroundColor( new THREE.Color(APP.cdata.bgcolor[0],APP.cdata.bgcolor[1],APP.cdata.bgcolor[2]));
 
     //ATON.FX.togglePass(ATON.FX.PASS_AO, true);
 /*

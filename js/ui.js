@@ -19,16 +19,51 @@ UI.buildPublic = () => {
   // Clear
   $("#idTopToolbar").html("");
   $("#idBottomToolbar").html("");
+  $("#idLeftToolbar").html("");
 
-  ATON.FE.uiAddButtonUser("idTopToolbar");
+  //left toolbar for Public UI
+  let htmlLeft = "";
+  htmlLeft += "<ul style='list-style-type: none;'>";
+  htmlLeft +=
+  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_fullsize.png'> </button></li>";
+  htmlLeft += "<hr class='hr' />"
+  htmlLeft +=
+  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_resetvista.png' /> </button></li>";
+  htmlLeft += "<hr class='hr' />"
+  htmlLeft +=
+  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_layer.png' /> </button></li>";
+  htmlLeft += "<hr class='hr' />"
+  htmlLeft +=
+  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_annotazioni.png' /> </button></li>";
+  htmlLeft += "<hr class='hr' />"
+  htmlLeft +=
+  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_size_OFF.png' /> </button></li>";
+  htmlLeft += "<hr class='hr' />"
+  htmlLeft +=
+  "<li><button class='toolbarHelp' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_help.png' /> </button></li>";
+  htmlLeft += "<hr class='helpDivider' />"
+  htmlLeft += "</ul>";
+
+  $("#idLeftToolbar").html(htmlLeft);
+
+  //top toolbar for Public UI to allow Login
+  let htmlTop = "";
+  htmlTop += "<button class='login'> <img class='atonSmallIcon' src='assets/icons/icon_login.png' /> Login</button>";
+  $("#idTopToolbar").html(htmlTop);
+
+  //bottom toolbar for Public UI to allow navigation through poses
+  let htmlBottom = "";
+  htmlBottom += "<a href='#'><img class='codexLogo' src='assets/logo.png' /></a>";
+  $("#idBottomToolbar").html(htmlBottom);
+
   ATON.FE.uiAddButtonVR("idTopToolbar");
-  ATON.FE.uiAddButtonHome("idBottomToolbar");
 };
 
 UI.buildEditor = () => {
   // Clear
   $("#idTopToolbar").html("");
   $("#idBottomToolbar").html("");
+  $("#idLeftToolbar").html("")
 
   let html = "";
   html += "<ul style='list-style-type: none;'>";

@@ -1,89 +1,106 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" href="appicon.png" sizes="512x512" type="image/png">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="icon" href="appicon.png" sizes="512x512" type="image/png" />
 
     <!-- Add iOS meta tags and icons -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Segni">
-    <link rel="apple-touch-icon" href="appicon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Segni" />
+    <link rel="apple-touch-icon" href="appicon.png" />
 
-	<!-- PWA manifest -->
-	<link rel="manifest" href="app.webmanifest">
+    <!-- PWA manifest -->
+    <link rel="manifest" href="app.webmanifest" />
 
-	<meta name="title" content="codex4d">
-	<meta name="description" content="__APPDESC__">
+    <meta name="title" content="codex4d" />
+    <meta name="description" content="__APPDESC__" />
     <!-- Add meta theme-color -->
     <meta name="theme-color" content="#000000" />
 
     <title>Codex 4D</title>
-    <link rel="stylesheet" type="text/css" href="/res/css/aton.css">
-    <link rel="stylesheet" type="text/css" href="res/app.css">
+    <link rel="stylesheet" type="text/css" href="/res/css/aton.css" />
+    <link rel="stylesheet" type="text/css" href="res/app.css" />
 
     <!-- Vendors -->
     <script type="text/javascript" src="/vendors/vendors.min.js"></script>
     <script type="text/javascript" src="/dist/THREE.bundle.js"></script>
 
-<!--
+    <!--
     <script type="text/javascript" src="vendors/handtrack.min.js"></script>
 -->
-    <script type="text/javascript" src="vendors/public-google-sheets-parser.js"></script>
-<!--
+    <script
+      type="text/javascript"
+      src="vendors/public-google-sheets-parser.js"
+    ></script>
+    <!--
     <script type="text/javascript" src="/dist/ATON.min.js"></script>
 -->
     <script type="module" src="/src/ATON.js"></script>
 
-	<!-- Main js entry -->
-	<script type="module" src="js/main.js"></script>
+    <!-- Main js entry -->
+    <script type="module" src="js/main.js"></script>
 
-    <!-- Icons test -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-</head>
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Inter&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body oncontextmenu="return false;">
-
-    <!-- Top Toolbar -->
-    <div id="idTopToolbar" class="atonToolbar">
-        <video id='idVidTrack' style="width:100px; height:100px; display: none;"></video>
-    </div>
-
-	<!-- Bottom Toolbar -->
-	<div id="idBottomToolbar" class="atonToolbar atonToolbar-bottom">
-        <input id='idIRcontrol' type='range' min='0.0' max='1.0' step='0.5' style="width:200px; padding:10px; display:block; margin:auto;">    
-    </div>
-    
-    
-    <div class="titleContainer">
-        <div id='idVolume' class="titleText">Volume</div>
-        <div id='idPose' class="subtitleText">Pose</div>
-    </div>
-
-    <!-- Main Popup -->
-    <div id="idPopup" class="atonPopupContainer" style="display:none;"></div>
-
-    <!-- Info Panel -->
-    <div id="idPanel" class="atonSidePanelContainer" style="display:none; z-index:130;"></div>
-
-    <!-- Loader -->
-    <div id="idLoader" class="atonCenterLoader" style="display:none; "></div>
+  <body oncontextmenu="return false;">
+    <!--Top Toolbar-->
+    <div id="idTopToolbar" class="topToolbar"></div>
 
     <!-- Left Toolbar -->
-    <div id="idLeftToolbar" class="atonToolbar"></div>
+    <div id="idLeftToolbar" class="leftToolbar"></div>
+
+    <!--Bottom Toolbar-->
+    <div id="idBottomToolbar" class="bottomToolbar"></div>
     
-    <!--Dropdown-->
-    <div id="selectAnnType" class='sidebar left' style="display:none;">
-        </div>
- 
-    <!-- Powered by -->
-    <div id='idPoweredBy' class="poweredBy" >
-        Powered by <a href="http://osiris.itabc.cnr.it/aton/" target="_blank">ATON</a>
+
+    <div class="titleContainer">
+      <div id="idVolume" class="titleText">Volume</div>
+      <br />
+      <br />
+      <div id="idPose" class="subtitleText">Pose</div>
+      <hr
+    style="position: absolute;width: 561px;height: 0px;
+      margin-left: 490px;
+      top: 60px;
+      background: #e0c081;
+      border: 1px solid #e0c081;
+    "
+  />
     </div>
 
-</body>
+    
+    <!-- Main Popup -->
+    <div id="idPopup" class="atonPopupContainer" style="display: none"></div>
+
+    <!-- Info Panel -->
+    <div
+      id="idPanel"
+      class="atonSidePanelContainer"
+      style="display: none; z-index: 130"
+    ></div>
+
+    <!-- Loader -->
+    <div id="idLoader" class="atonCenterLoader" style="display: none"></div>
+
+    <!--Dropdown-->
+    <div id="selectAnnType" class="sidebar left" style="display: none"></div>
+
+    <!-- Powered by -->
+    <div id="idPoweredBy" class="poweredBy">
+      Powered by
+      <a href="http://osiris.itabc.cnr.it/aton/" target="_blank">ATON</a>
+    </div>
+  </body>
+</html>
