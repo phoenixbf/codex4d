@@ -121,7 +121,7 @@ APP.init = ()=>{
                 vec4 ir   = texture2D(tIR, vUv);
                 float ao  = texture2D(tAO, vUv).r;
 
-                //float rou = mix(256.0, 1.0, frag.b);
+                //float rou = mix(256.0, 1.0, ir.g);
 
                 float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
 
@@ -136,6 +136,7 @@ APP.init = ()=>{
                 //vec3 lightColor = vec3(1.0,1.0,1.0);
                 vec3 viewDir    = normalize(cameraPosition - vPositionW);
                 vec3 reflectDir = reflect(uLD, vNormalW);
+                
                 sLI = pow(max(dot(viewDir, -reflectDir), 0.0), rou);
                 //vec3 specular = 0.9 * sLI * lightColor;
 
@@ -283,7 +284,7 @@ APP.loadVolumePose = (v,p)=>{
 
     let pose = vol.poses[p];
 
-    sid = pose.sid;
+    sid = "codex4d/"+ v + "-p"+p; //pose.sid;
 
     //if (!p) p = Object.keys(vol)[0];
     //sid = vol[p];

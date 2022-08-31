@@ -1,0 +1,19 @@
+{
+    "volumes":{
+        "0000042948":{
+            "title": "Libro d'Ore Ms. 459",
+            "poses":[
+                { "title": "Chiusa" },
+                { "title": "cc. 21v-22r" }
+            ]
+        },
+
+        "0000102297":{
+            "title": "De Balneis Puteolanis Ms. 1474",
+            "poses":[
+                { "title": "cc. 9v-10r" },
+                { "title": "cc. 12v-13r" }
+            ]
+        }
+    }
+}
