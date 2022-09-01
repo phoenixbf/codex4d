@@ -25,31 +25,31 @@ UI.buildPublic = () => {
   let htmlLeft = "";
   htmlLeft += "<ul style='list-style-type: none;'>";
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_fullsize.png'> </button></li>";
+  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_fullsize.png'> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_resetvista.png' /> </button></li>";
+  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_layer.png' /> </button></li>";
+  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_layer.png' /> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_annotazioni.png' /> </button></li>";
+  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_annotazioni.png' /> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_size_OFF.png' /> </button></li>";
+  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarHelp' type='button'> <img class='atonSmallIcon' src='assets/icons/icon_help.png' /> </button></li>";
+  "<li><button class='toolbarHelp' type='button'> <img class='toolbarIcon' src='assets/icons/icon_help.png' /> </button></li>";
   htmlLeft += "<hr class='helpDivider' />"
   htmlLeft += "</ul>";
 
   $("#idLeftToolbar").html(htmlLeft);
 
   //top toolbar for Public UI to allow Login
-  let htmlTop = "";
-  htmlTop += "<button class='login'> <img class='atonSmallIcon' src='assets/icons/icon_login.png' /> Login</button>";
-  $("#idTopToolbar").html(htmlTop);
+  // let htmlTop = "";
+  // htmlTop += "<button class='login'> <img class='toolbarIcon' src='assets/icons/icon_login.png' /> Login</button>";
+  // $("#idTopToolbar").html(htmlTop);
 
   //bottom toolbar for Public UI to allow navigation through poses
   let htmlBottom = "";
