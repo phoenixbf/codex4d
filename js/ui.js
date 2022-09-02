@@ -123,6 +123,12 @@ UI.buildPublic = () => {
   //bottom toolbar for Public UI to allow navigation through poses
   let htmlBottom = "";
   htmlBottom += "<a href='#'><img class='codexLogo' src='assets/logo.png' /></a>";
+  htmlBottom += "<div class='previewContainer'>"
+  htmlBottom += "<div class='posePreview'> </div>"
+  htmlBottom += "<div class='posePreview' > </div>"
+  htmlBottom +="</div>"
+  
+
   $("#idBottomToolbar").html(htmlBottom);
 
   ATON.FE.uiAddButtonVR("idTopToolbar");
