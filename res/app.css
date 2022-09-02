@@ -190,21 +190,20 @@ button {
 .login:hover {
   color: rgba(224, 192, 129, 1);
 }
-.loginText{
+.loginText {
   position: fixed;
   display: flex;
-  margin-left:1.8%;
+  margin-left: 1.8%;
   margin-top: 0.2%;
 }
 
 .loginIcon {
-  position:fixed;
-  display:flex;
+  position: fixed;
+  display: flex;
   width: 23px;
   height: 23px;
-  margin-right:10%;
+  margin-right: 10%;
 }
-
 
 .codexLogo {
   position: relative;
@@ -242,11 +241,59 @@ button {
   position: fixed;
   width: 213px;
   height: 34px;
-  left: 211px;
-  top: 152px;
-  
-  background: #FFFFFF;
+  top: 7.1%;
+  left: 11.4%;
+  background: #ffffff;
   mix-blend-mode: normal;
   opacity: 0.7;
   border-radius: 24px;
+}
+.selectContainer {
+  position: fixed;
+  width: 287px;
+  height: 46px;
+  top: 6.3%;
+  left: 7%;
+  background: rgb(110, 110, 110);
+  mix-blend-mode: difference;
+  opacity: 0.7;
+  border-radius: 24px;
+}
+
+.filterOption {
+  height: 31px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  align-items: center;
+  color: #422c20;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.selectHr {
+  width: 179px;
+  height: 0px;
+  color: #2f4689;
+  border: 1px solid #2f4689;
+}
+.filterText {
+position: fixed;
+width: 36px;
+height: 16px;
+left: 8.5%;
+top: 6.4%;
+
+font-family: 'Comfortaa';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 16px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+
+color: #FFFFFF;
 }
