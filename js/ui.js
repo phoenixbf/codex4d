@@ -141,33 +141,102 @@ UI.buildEditor = () => {
   $("#idBottomToolbar").html("");
   $("#idLeftToolbar").html("")
 
-  let html = "";
-  html += "<ul style='list-style-type: none;'>";
-  html +=
-    "<li><button class='atonBTN' type='button' title='zoom in' > <img class='atonSmallIcon' src='" +
-    ATON.PATH_RES +
-    "icons/add.png'> </button></li>";
-  html +=
-    "<li><button class='atonBTN' type='button'> <i class='fa fa-minus' style='height: 30px; width: 30px;'></i> </button></li>";
-  html +=
-    "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='" +
-    ATON.PATH_RES +
-    "icons/fullscreen.png'> </button></li>";
-  html +=
-    "<li><button class='atonBTN' type='button'> <img class='atonSmallIcon' src='" +
-    ATON.PATH_RES +
-    "icons/layers.png'></button></li>";
-  html +=
-    "<li><button class='atonBTN' type='button' id='annotation'> <img class='atonSmallIcon' src='" +
-    ATON.PATH_RES +
-    "icons/edit.png'></button></li>";
-  html +=
-    "<li><button class='atonBTN' type='button'> <i class='fas fa-ruler' style='height: 30px; width: 30px;'></i> </button></li>";
-  html += "</ul>";
+  // Initializing top toolbar for Editor User
+  let htmlTopEditor = "";
+  // htmlTopEditor += "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
+  htmlTopEditor +="<div class='selectContainer'>"
+  htmlTopEditor += "<p class='filterText'> Note </p>"
+  htmlTopEditor += "<select class='filterAnnotation'>";
+  htmlTopEditor +=
+    "<option  class='filterOption' value='Iconologia e Iconografia' >Iconologia e Iconografia  &nbsp; &nbsp; &nbsp; &nbsp; <p class='iconColor'>&#x25EF</p></option> ";
+    htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
+  htmlTopEditor +=
+    "<option class='filterOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <p class='iconColor'>&#x25EF</p> </option>";
+    htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
+  htmlTopEditor += "<option class='filterOption' value='Struttura' >Struttura &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p class='iconColor'>&#x25EF</p></option>";
+  htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
+  htmlTopEditor +=
+    "<option class='filterOption' value='Conservazione e Restauro'>Conservazione e Restauro &nbsp; <p class='iconColor'>&#x25EF</p></option>";
+    htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
+  htmlTopEditor += "<option class='filterOption' value='Testo e Scrittura'>Testo e Scrittura  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
+  htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
+  htmlTopEditor += "<option class='filterOption' value='Censure'>Censure &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
+  htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
+  htmlTopEditor += "<option class='filterOption' value='Notazioni Musicali'>Notazioni Musicali  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
+  htmlTopEditor += "</select>";
+  htmlTopEditor += "</div";
   // Clear
-  $("#idTopToolbar").html("");
-  $("#idBottomToolbar").html("");
-  $("#idLeftToolbar").html(html);
+  $("#idTopToolbar").html(htmlTopEditor);
+
+  //Initializing Bottom Toolbar for Editor User
+  let htmlBottomEditor = "";
+  htmlBottomEditor += "<a href='#'><img class='codexLogo' src='assets/logo.png' /></a>";
+  htmlBottomEditor += "<div class='previewContainer'>"
+  htmlBottomEditor += "<div class='posePreview'> </div>"
+  htmlBottomEditor += "<div class='posePreview' > </div>"
+  htmlBottomEditor +="</div>"
+  $("#idBottomToolbar").html(htmlBottomEditor);
+
+  //Initializing Left Toolbar for Editor User
+  let htmlLeftEditor = "";
+  htmlLeftEditor += "<ul style='list-style-type: none;'>";
+  htmlLeftEditor +=
+  "<li><button id='idFull'class='toolbarButton' type='button'> <img id='idFullsize' class='toolbarIcon' src='assets/icons/icon_fullsize.png'> </button></li>";
+  htmlLeftEditor += "<hr class='hr' />"
+  htmlLeftEditor +=
+  "<li><button id='idReset' class='toolbarButton' type='button'> <img id='idResetScene' class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button></li>";
+  htmlLeftEditor += "<hr class='hr' />"
+  htmlLeftEditor +=
+  "<li><button id='idLayer' class='toolbarButton' type='button'> <img id='idChooseLayer' class='toolbarIcon' src='assets/icons/icon_layer.png' /> </button></li>";
+  htmlLeftEditor += "<hr class='hr' />"
+  htmlLeftEditor +=
+  "<li><button id='idAnnotations' class='toolbarButton' type='button'> <img id='idTurnAnnotations' class='toolbarIcon' src='assets/icons/icon_annotazioni.png' /> </button></li>";
+  htmlLeftEditor += "<hr class='hr' />"
+  htmlLeftEditor +=
+  "<li><button id='idSize' class='toolbarButton' type='button'> <img id='idTurnSize' class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button></li>";
+  htmlLeftEditor += "<hr class='hr' />"
+  htmlLeftEditor +=
+  "<li><button id='idHelp' class='toolbarHelp' type='button'> <img id='idTurnHelp' class='toolbarIcon' src='assets/icons/icon_help.png' /> </button></li>";
+  htmlLeftEditor += "<hr class='helpDivider' />"
+  htmlLeftEditor += "</ul>";
+
+  $("#idLeftToolbar").html(htmlLeftEditor);
+
+  $("#idFull").hover(function(){
+    $("#idFullsize").attr("src","assets/icons/icon_fullsizeON.png");
+  }, function() {
+    $( "#idFullsize" ).attr("src","assets/icons/icon_fullsize.png");
+  });
+
+  $("#idReset").hover(function(){
+    $("#idResetScene").attr("src","assets/icons/icon_resetvistaON.png");
+  }, function() {
+    $( "#idResetScene" ).attr("src","assets/icons/icon_resetvista.png");
+  });
+
+  $("#idLayer").hover(function(){
+    $("#idChooseLayer").attr("src","assets/icons/icon_layerON.png");
+  }, function() {
+    $( "#idChooseLayer" ).attr("src","assets/icons/icon_layer.png");
+  });
+
+  $("#idAnnotations").hover(function(){
+    $("#idTurnAnnotations").attr("src","assets/icons/icon_annotazioniON.png");
+  }, function() {
+    $( "#idTurnAnnotations" ).attr("src","assets/icons/icon_annotazioni.png");
+  });
+
+  $("#idSize").hover(function(){
+    $("#idTurnSize").attr("src","assets/icons/icon_size_ON.png");
+  }, function() {
+    $( "#idTurnSize" ).attr("src","assets/icons/icon_size_OFF.png");
+  });
+
+  $("#idHelp").hover(function(){
+    $("#idTurnHelp").attr("src","assets/icons/icon_helpON.png");
+  }, function() {
+    $( "#idTurnHelp" ).attr("src","assets/icons/icon_help.png");
+  });
 
 
   $('#annotation').click(() => {
@@ -192,7 +261,6 @@ UI.buildEditor = () => {
     ('#selectAnnType').hide()
   })
 
-  ATON.FE.uiAddButtonHome("idBottomToolbar");
 };
 
 UI.toggleSemPanel = (b) => {
