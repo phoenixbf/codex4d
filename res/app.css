@@ -278,6 +278,8 @@ button {
   color: #2f4689;
   border: 1px solid #2f4689;
 }
+
+
 .filterText {
 position: relative;
 width: 36px;
@@ -316,3 +318,11 @@ border-radius: 10px;
 z-index: 101;
 }
 
+.iconColor {
+  color: #BF2517B2;
+}
+
+.iconColor2 {
+  color: transparent;
+  text-shadow: 0 0 0 #2F4689;
+}

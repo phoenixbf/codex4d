@@ -92,21 +92,21 @@ UI.buildPublic = () => {
   htmlTop += "<p class='filterText'> Note </p>"
   htmlTop += "<select class='filterAnnotation'>";
   htmlTop +=
-    "<option class='filterOption' value='Iconologia e Iconografia' >Iconologia e Iconografia</option>";
+    "<option  class='filterOption' value='Iconologia e Iconografia' >Iconologia e Iconografia  &nbsp; &nbsp; &nbsp; &nbsp; <p class='iconColor'>&#x25EF</p></option> ";
     htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
   htmlTop +=
-    "<option class='filterOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche Esecutive</option>";
+    "<option class='filterOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <p class='iconColor'>&#x25EF</p> </option>";
     htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTop += "<option class='filterOption' value='Struttura' >Struttura </option>";
+  htmlTop += "<option class='filterOption' value='Struttura' >Struttura &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p class='iconColor'>&#x25EF</p></option>";
   htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
   htmlTop +=
-    "<option class='filterOption' value='Conservazione e Restauro'>Conservazione e Restauro</option>";
+    "<option class='filterOption' value='Conservazione e Restauro'>Conservazione e Restauro &nbsp; <p class='iconColor'>&#x25EF</p></option>";
     htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTop += "<option class='filterOption' value='Testo e Scrittura'>Testo e Scrittura</option>";
+  htmlTop += "<option class='filterOption' value='Testo e Scrittura'>Testo e Scrittura  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
   htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTop += "<option class='filterOption' value='Censure'>Censure</option>";
+  htmlTop += "<option class='filterOption' value='Censure'>Censure &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
   htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTop += "<option class='filterOption' value='Notazioni Musicali'>Notazioni Musicali</option>";
+  htmlTop += "<option class='filterOption' value='Notazioni Musicali'>Notazioni Musicali  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
   htmlTop += "</select>";
   htmlTop += "</div";
   
@@ -118,6 +118,7 @@ UI.buildPublic = () => {
   }, function() {
     $( "#idLoginAction" ).attr("src","assets/icons/icon_login.png");
   });
+
   
 
   //bottom toolbar for Public UI to allow navigation through poses
