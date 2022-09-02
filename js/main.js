@@ -21,6 +21,8 @@ APP._bLensMatSet = false;
 APP.irValue = 0; // 0.0 - 1.0
 APP.LRAD_MIN = 0.005;
 
+APP._vLight = new THREE.Vector3(0,-1,0);
+
 APP.currVolume = undefined;
 APP.currPose   = undefined;
 
@@ -63,6 +65,8 @@ APP.postPoseLoaded = ()=>{
 	APP.gStand = ATON.createSceneNode("stand");
 	APP.gStand.attachToRoot();
 
+    APP.gBook = ATON.getSceneNode("main");
+
     let base = window.location.href.split('?')[0];
 
     APP.gStand.load(base + "content/3D/Leggio.gltf");
@@ -76,8 +80,14 @@ APP.postPoseLoaded = ()=>{
     ATON.FX.setBloomThreshold(0.2);
     ATON.FX.setBloomStrength(0.25);
 */
-    APP._vLight = new THREE.Vector3(0,-1,0);
+    APP.setLightDirection(APP._vLight);
+    
+    //ATON.toggleShadows(true);
+};
+
+APP.setLightDirection = (v)=>{
     ATON.setMainLightDirection(APP._vLight);
+    if (APP.currMat) APP.currMat.uniforms.uLD.value = APP._vLight;
 };
 
 // Config
@@ -210,6 +220,7 @@ APP.handleScreenPointer = ()=>{
 };
 
 // Main update routine
+//===============================================
 APP.update = ()=>{
     //if (!APP._bLensMatSet) return;
 
@@ -253,6 +264,13 @@ APP.update = ()=>{
 
     let a = ATON.XR.getAxisValue(ATON.XR.HAND_L);
     APP.setIRvalue( APP.irValue + (a.y * 0.01) );
+
+    if (APP._bSqueezeHandR){
+        if (APP.gBook.parent !== ATON.XR.controller0) ATON.XR.controller0.add( APP.gBook );
+    }
+    else {
+        APP.gBook.attachToRoot();
+    }
 };
 
 // Events
@@ -318,6 +336,11 @@ APP.setupEvents = ()=>{
         if (k==='a'){
             APP.addSemanticAnnotation("test", { title: "test test" }, ATON.FE.SEMSHAPE_SPHERE);
         }
+
+        if (k==='r'){
+            if (APP.gBook) APP.gBook.rotation.x += 0.1;
+            console.log(APP.gBook);
+        }
     });
 
     ATON.on("KeyUp",(k)=>{
@@ -362,11 +385,20 @@ APP.setupEvents = ()=>{
     ATON.clearEventHandlers("XRsqueezeEnd");
 
     ATON.on("XRsqueezeStart", (c)=>{
-        if (c === XR.HAND_R){
+        if (c === ATON.XR.HAND_R){
             APP._bSqueezeHandR = true;
         }
         else {
             APP._bSqueezeHandL = true;
+            APP.loadNextPose();
+        }
+    });
+    ATON.on("XRsqueezeEnd", (c)=>{
+        if (c === ATON.XR.HAND_R){
+            APP._bSqueezeHandR = false;
+        }
+        else {
+            APP._bSqueezeHandL = false;
         }
     });
 
