@@ -54,8 +54,6 @@ button {
   height: 60px;
   cursor: pointer;
   display: block;
-  background-color: transparent;
-  border: none;
 }
 
 .formSelect {
@@ -173,15 +171,40 @@ button {
 .topToolbar {
   position: fixed;
   background-color: transparent;
+  display: inline-block;
   width: 100%;
 }
-
-
-@media screen and (max-width: 600px) {
-  .login {
-    display: none;
-  }
+.login {
+  position: fixed;
+  display: flex;
+  background-color: transparent;
+  border: none;
+  font-family: Inter;
+  color: rgba(255, 255, 255, 1);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  margin-left: 92%;
+  margin-top: 4%;
 }
+.login:hover {
+  color: rgba(224, 192, 129, 1);
+}
+.loginText{
+  position: fixed;
+  display: flex;
+  margin-left:1.8%;
+  margin-top: 0.2%;
+}
+
+.loginIcon {
+  position:fixed;
+  display:flex;
+  width: 23px;
+  height: 23px;
+  margin-right:10%;
+}
+
 
 .codexLogo {
   position: relative;
@@ -213,4 +236,17 @@ button {
   background: #e0c081;
   border: 1px solid #e0c081;
   padding: 1px;
+}
+
+.filterAnnotation {
+  position: fixed;
+  width: 213px;
+  height: 34px;
+  left: 211px;
+  top: 152px;
+  
+  background: #FFFFFF;
+  mix-blend-mode: normal;
+  opacity: 0.7;
+  border-radius: 24px;
 }

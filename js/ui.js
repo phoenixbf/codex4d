@@ -25,31 +25,93 @@ UI.buildPublic = () => {
   let htmlLeft = "";
   htmlLeft += "<ul style='list-style-type: none;'>";
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_fullsize.png'> </button></li>";
+  "<li><button id='idFull'class='toolbarButton' type='button'> <img id='idFullsize' class='toolbarIcon' src='assets/icons/icon_fullsize.png'> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button></li>";
+  "<li><button id='idReset' class='toolbarButton' type='button'> <img id='idResetScene' class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_layer.png' /> </button></li>";
+  "<li><button id='idLayer' class='toolbarButton' type='button'> <img id='idChooseLayer' class='toolbarIcon' src='assets/icons/icon_layer.png' /> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_annotazioni.png' /> </button></li>";
+  "<li><button id='idAnnotations' class='toolbarButton' type='button'> <img id='idTurnAnnotations' class='toolbarIcon' src='assets/icons/icon_annotazioni.png' /> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarButton' type='button'> <img class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button></li>";
+  "<li><button id='idSize' class='toolbarButton' type='button'> <img id='idTurnSize' class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button></li>";
   htmlLeft += "<hr class='hr' />"
   htmlLeft +=
-  "<li><button class='toolbarHelp' type='button'> <img class='toolbarIcon' src='assets/icons/icon_help.png' /> </button></li>";
+  "<li><button id='idHelp' class='toolbarHelp' type='button'> <img id='idTurnHelp' class='toolbarIcon' src='assets/icons/icon_help.png' /> </button></li>";
   htmlLeft += "<hr class='helpDivider' />"
   htmlLeft += "</ul>";
 
   $("#idLeftToolbar").html(htmlLeft);
 
+  $("#idFull").hover(function(){
+    $("#idFullsize").attr("src","assets/icons/icon_fullsizeON.png");
+  }, function() {
+    $( "#idFullsize" ).attr("src","assets/icons/icon_fullsize.png");
+  });
+
+  $("#idReset").hover(function(){
+    $("#idResetScene").attr("src","assets/icons/icon_resetvistaON.png");
+  }, function() {
+    $( "#idResetScene" ).attr("src","assets/icons/icon_resetvista.png");
+  });
+
+  $("#idLayer").hover(function(){
+    $("#idChooseLayer").attr("src","assets/icons/icon_layerON.png");
+  }, function() {
+    $( "#idChooseLayer" ).attr("src","assets/icons/icon_layer.png");
+  });
+
+  $("#idAnnotations").hover(function(){
+    $("#idTurnAnnotations").attr("src","assets/icons/icon_annotazioniON.png");
+  }, function() {
+    $( "#idTurnAnnotations" ).attr("src","assets/icons/icon_annotazioni.png");
+  });
+
+  $("#idSize").hover(function(){
+    $("#idTurnSize").attr("src","assets/icons/icon_size_ON.png");
+  }, function() {
+    $( "#idTurnSize" ).attr("src","assets/icons/icon_size_OFF.png");
+  });
+
+  $("#idHelp").hover(function(){
+    $("#idTurnHelp").attr("src","assets/icons/icon_helpON.png");
+  }, function() {
+    $( "#idTurnHelp" ).attr("src","assets/icons/icon_help.png");
+  });
+
+  
+  
+
   //top toolbar for Public UI to allow Login
-  // let htmlTop = "";
-  // htmlTop += "<button class='login'> <img class='toolbarIcon' src='assets/icons/icon_login.png' /> Login</button>";
-  // $("#idTopToolbar").html(htmlTop);
+  let htmlTop = "";
+  htmlTop += "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
+  htmlTop += "<select class='filterAnnotation'>"
+  htmlTop += "<option value='' >Selezionare categoria </option>";
+  htmlTop +=
+    "<option value='Iconologia e Iconografia' >Iconologia e Iconografia</option>";
+  htmlTop +=
+    "<option value='Materiali e Tecniche Esecutive' >Materiali e Tecniche Esecutive</option>";
+  htmlTop += "<option value='Struttura' >Struttura</option>";
+  htmlTop +=
+    "<option value='Conservazione e Restauro'>Conservazione e Restauro</option>";
+  htmlTop += "<option value='Testo e Scrittura'>Testo e Scrittura</option>";
+  htmlTop += "<option value='Censure'>Censure</option>";
+  htmlTop += "<option value='Notazioni Musicali'>Notazioni Musicali</option>";
+  htmlTop += "</select>";
+  
+  
+  $("#idTopToolbar").html(htmlTop);
+
+  $("#idLogin").hover(function(){
+    $("#idLoginAction").attr("src","assets/icons/icon_loginON.png");
+    $("idLogin").attr("color", "rgba(224, 192, 129, 1)")
+  }, function() {
+    $( "#idLoginAction" ).attr("src","assets/icons/icon_login.png");
+  });
+  
 
   //bottom toolbar for Public UI to allow navigation through poses
   let htmlBottom = "";
