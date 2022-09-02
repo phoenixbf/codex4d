@@ -175,7 +175,7 @@ button {
   width: 100%;
 }
 .login {
-  position: fixed;
+  position: absolute;
   display: flex;
   background-color: transparent;
   border: none;
@@ -191,10 +191,10 @@ button {
   color: rgba(224, 192, 129, 1);
 }
 .loginText {
-  position: fixed;
+  position: relative;
   display: flex;
-  margin-left: 1.8%;
-  margin-top: 0.2%;
+  left: 30px;
+  top: -12px;
 }
 
 .loginIcon {
@@ -238,22 +238,22 @@ button {
 }
 
 .filterAnnotation {
-  position: fixed;
+  position: relative;
   width: 213px;
   height: 34px;
-  top: 7.1%;
-  left: 11.4%;
+  top: -38px;
+  left: 67px;
   background: #ffffff;
   mix-blend-mode: normal;
   opacity: 0.7;
   border-radius: 24px;
 }
 .selectContainer {
-  position: fixed;
+  position: absolute;
   width: 287px;
   height: 46px;
-  top: 6.3%;
-  left: 7%;
+  top: 70px;
+  left: 8%;
   background: rgb(110, 110, 110);
   mix-blend-mode: difference;
   opacity: 0.7;
@@ -279,11 +279,11 @@ button {
   border: 1px solid #2f4689;
 }
 .filterText {
-position: fixed;
+position: relative;
 width: 36px;
 height: 16px;
 left: 8.5%;
-top: 6.4%;
+top: 3%;
 
 font-family: 'Comfortaa';
 font-style: normal;
