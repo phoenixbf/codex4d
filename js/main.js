@@ -24,7 +24,7 @@ APP.LRAD_MIN = 0.005;
 APP._vLight = new THREE.Vector3(0,-1,0);
 
 APP.currVolume = undefined;
-APP.currPose   = undefined;
+APP.currPose   = 0;
 
 APP.currMat = undefined;
 
@@ -36,6 +36,13 @@ APP.init = ()=>{
     APP.argV   = ATON.FE.urlParams.get('v');
     APP.argP   = ATON.FE.urlParams.get('p');
     APP.argUIP = ATON.FE.urlParams.get('uip');
+
+
+    APP.pathContent = window.location.href.split('?')[0];
+    APP.pathContent += "content/";
+
+    APP.plight = undefined;
+
 /*
     APP.UI.init();
     ATON.SUI.showSelector(false);
@@ -57,7 +64,9 @@ APP.init = ()=>{
     ATON.Nav.setHomePOV( new ATON.POV().setPosition(0,0.4,0.4).setTarget(0,0,0) );
     ATON.Nav.requestHome( 0.5 );
 
-    // Lens Mat
+    APP.defLightPos = new THREE.Vector3(0, 0.5, 0);
+
+    // Manuscript material
     APP.mat.init();
 };
 
@@ -67,9 +76,7 @@ APP.postPoseLoaded = ()=>{
 
     APP.gBook = ATON.getSceneNode("main");
 
-    let base = window.location.href.split('?')[0];
-
-    APP.gStand.load(base + "content/3D/Leggio.gltf");
+    APP.gStand.load(APP.pathContent + "3D/Leggio.gltf");
     //APP.gStand.disablePicking();
 
     let bgcol = new THREE.Color(APP.cdata.bgcolor[0],APP.cdata.bgcolor[1],APP.cdata.bgcolor[2]);
@@ -82,9 +89,39 @@ APP.postPoseLoaded = ()=>{
     //ATON.FX.setBloomThreshold(0.2);
     //ATON.FX.setBloomStrength(0.25);
 
-    APP.setLightDirection(APP._vLight);
+    //APP.setLightDirection(APP._vLight);
+
+    if (!APP.plight){
+        APP.plight = new THREE.PointLight();
+        ATON._rootVisibleGlobal.add(APP.plight);
+
+        APP.matSpriteL = new THREE.SpriteMaterial({ 
+            map: new THREE.TextureLoader().load( APP.pathContent + "plight.jpg" ), 
+            //color: ATON.MatHub.colors.orange,
+            transparent: true,
+            opacity: 1.0,
+            depthWrite: false, 
+            //depthTest: false
+            blending: THREE.AdditiveBlending
+        });
+    
+        APP.spriteL = new THREE.Sprite( APP.matSpriteL );
+        APP.spriteL.scale.set(0.1,0.1,0.1);
+
+        ATON.getRootUI().add(APP.spriteL);
+    }
+
+    APP.plight.intensity = 1.0;
+    ATON.setNeutralAmbientLight(0.3);
+    
+    APP.setLightPostion(APP.defLightPos);
     
     //ATON.toggleShadows(true);
+};
+
+APP.setLightPostion = (p)=>{
+    APP.plight.position.copy(p);
+    APP.spriteL.position.copy(p);
 };
 
 APP.setLightDirection = (v)=>{
@@ -153,7 +190,11 @@ APP.getNextPose = ()=>{
 
     //return A[i];
 
-    return ((APP.currPose + 1) % vol.poses.length);
+    //console.log(APP.currPose)
+    let nextp = (APP.currPose + 1) % vol.poses.length;
+    //console.log(nextp)
+
+    return nextp;
 };
 
 APP.loadNextPose = ()=>{
@@ -270,12 +311,10 @@ APP.update = ()=>{
     let a = ATON.XR.getAxisValue(ATON.XR.HAND_L);
     APP.setIRvalue( APP.irValue + (a.y * 0.01) );
 
-    if (APP._bSqueezeHandR){
-        if (APP.gBook.parent !== ATON.XR.controller0) ATON.XR.controller0.add( APP.gBook );
+    if (APP._bSqueezeHandL){
+        APP.setLightPostion(ATON.XR.controller1pos);
     }
-    else {
-        APP.gBook.attachToRoot();
-    }
+    
 };
 
 // Events
@@ -392,6 +431,8 @@ APP.setupEvents = ()=>{
     ATON.on("XRsqueezeStart", (c)=>{
         if (c === ATON.XR.HAND_R){
             APP._bSqueezeHandR = true;
+
+            ATON.XR.controller0.add( APP.gBook );
         }
         else {
             APP._bSqueezeHandL = true;
@@ -401,9 +442,12 @@ APP.setupEvents = ()=>{
     ATON.on("XRsqueezeEnd", (c)=>{
         if (c === ATON.XR.HAND_R){
             APP._bSqueezeHandR = false;
+
+            APP.gBook.attachToRoot();
         }
         else {
             APP._bSqueezeHandL = false;
+            APP.setLightPostion(APP.defLightPos);
         }
     });
 
