@@ -2,14 +2,11 @@ let mat = {};
 
 mat.init = ()=>{
 
-    const data = new Uint8Array(4);
-    data[0] = 255;
-    data[1] = 255;
-    data[2] = 255;
-    data[3] = 255;
-
-    APP._tWhite = new THREE.DataTexture( data, 1,1 );
+    APP._tWhite = new THREE.DataTexture( new Uint8Array([255,255,255,255]), 1,1 );
     APP._tWhite.needsUpdate = true;
+
+    APP._tPBRbase = new THREE.DataTexture( new Uint8Array([255,255,0,255]), 1,1 );
+    APP._tPBRbase.needsUpdate = true;
 
     APP.matLens = new THREE.ShaderMaterial({
 
@@ -105,21 +102,23 @@ mat.realize = ()=>{
             tBase: { type:'t' },
             tIR: { type:'t' },
             //tAO: { type:'t', value: APP._tWhite },
-            //tPBR: { type:'t', value: APP._tWhite },
+            tPBR: { type:'t', value: APP._tPBRbase },
             uLD: { type:'vec3', value: APP._vLight },
             wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
             vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
-            time: { type:'float', value: 0.0 },
+            //time: { type:'float', value: 0.0 },
         },
 
         vertexShader:`
             varying vec3 vPositionW;
             varying vec3 vNormalW;
             varying vec3 vNormalV;
-            varying vec2 vUv;
+
+            varying vec2 sUV;
 
             void main(){
-                vUv = uv;
+                sUV = uv;
+
                 vPositionW = ( vec4( position, 1.0 ) * modelMatrix).xyz;
                 vNormalV   = normalize( vec3( normalMatrix * normal ));
                 vNormalW   = (modelMatrix * vec4(normal, 0.0)).xyz;
@@ -133,7 +132,7 @@ mat.realize = ()=>{
 
             varying vec3 vNormalW;
             varying vec3 vNormalV;
-            varying vec2 vUv;
+            varying vec2 sUV;
 
             uniform vec4 vLens;
             uniform vec3 uLD;
@@ -141,6 +140,7 @@ mat.realize = ()=>{
             uniform float time;
             uniform sampler2D tBase;
             uniform sampler2D tIR;
+            uniform sampler2D tPBR;
             uniform vec3 wIR;
 
             void main(){
@@ -154,14 +154,19 @@ mat.realize = ()=>{
 
                 t = clamp(t, 0.0,1.0);
 
-                vec4 frag = texture2D(tBase, vUv);
-                vec4 ir   = texture2D(tIR, vUv);
+                vec4 frag = texture2D(tBase, sUV);
+                vec4 ir   = texture2D(tIR, sUV);
+                
+                float rou = texture2D(tPBR, sUV).g;
+                float met = texture2D(tPBR, sUV).b;
 
                 float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
 
                 frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
 
                 csm_DiffuseColor = frag;
+                csm_Roughness    = mix(1.0, rou, t);
+                csm_Metalness    = met * t;
             }
         `
     });
@@ -190,8 +195,8 @@ mat.setupOnLoaded = ()=>{
     let urlAO   = ATON.PATH_COLLECTION + base + "-ao.jpg";
     let urlPBR  = ATON.PATH_COLLECTION + base + "-pbr.jpg";
 
-    //APP.currMat = mat.realize();
-    APP.currMat = APP.matLens.clone();
+    APP.currMat = mat.realize();
+    //APP.currMat = APP.matLens.clone();
 
     ATON.Utils.textureLoader.load(urlBase, (tex)=>{
         tex.flipY = false;
@@ -204,7 +209,7 @@ mat.setupOnLoaded = ()=>{
         APP.currMat.uniforms.tIR.value  = tex;
     });
 
-
+/*
     APP.currMat.uniforms.tAO.value = APP._tWhite;
     ATON.Utils.textureLoader.load(urlAO, (tex)=>{
         tex.flipY = false;
@@ -215,8 +220,8 @@ mat.setupOnLoaded = ()=>{
         //APP.currMat.uniforms.tAO.value = ATON.MatHub.colors.red;
         console.log(err)
     });
-
-    APP.currMat.uniforms.tPBR.value = APP._tWhite;
+*/
+    APP.currMat.uniforms.tPBR.value = APP._tPBRbase;
     ATON.Utils.textureLoader.load(urlPBR, (tex)=>{
         tex.flipY = false;
         APP.currMat.uniforms.tPBR.value = tex;
@@ -228,10 +233,17 @@ mat.setupOnLoaded = ()=>{
     //APP.currMat.metalness = 0.0;
     ATON.Utils.textureLoader.load(urlPBR, (tex)=>{
         tex.flipY = false;
-        tex.encoding = ATON._stdEncoding;
+        //tex.encoding = ATON._stdEncoding;
         APP.currMat.roughnessMap = tex;
         APP.currMat.metalnessMap = tex;
-        //APP.currMat.metalness    = 1.0;
+        
+        APP.currMat.metalness = 1.0;
+        APP.currMat.roughness = 1.0;
+
+        APP.currMat.roughnessMap.needsUpdate = true;
+        APP.currMat.metalnessMap.needsUpdate = true;
+
+        APP.currMat.needsUpdate = true;
     });
 */
 

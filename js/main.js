@@ -72,14 +72,16 @@ APP.postPoseLoaded = ()=>{
     APP.gStand.load(base + "content/3D/Leggio.gltf");
     //APP.gStand.disablePicking();
 
-    ATON.setBackgroundColor( new THREE.Color(APP.cdata.bgcolor[0],APP.cdata.bgcolor[1],APP.cdata.bgcolor[2]));
+    let bgcol = new THREE.Color(APP.cdata.bgcolor[0],APP.cdata.bgcolor[1],APP.cdata.bgcolor[2]);
+
+    ATON.setBackgroundColor( bgcol );
 
     //ATON.FX.togglePass(ATON.FX.PASS_AO, true);
-/*
-    ATON.FX.togglePass(ATON.FX.PASS_BLOOM, true);
-    ATON.FX.setBloomThreshold(0.2);
-    ATON.FX.setBloomStrength(0.25);
-*/
+
+    //ATON.FX.togglePass(ATON.FX.PASS_BLOOM, true);
+    //ATON.FX.setBloomThreshold(0.2);
+    //ATON.FX.setBloomStrength(0.25);
+
     APP.setLightDirection(APP._vLight);
     
     //ATON.toggleShadows(true);
@@ -88,6 +90,9 @@ APP.postPoseLoaded = ()=>{
 APP.setLightDirection = (v)=>{
     ATON.setMainLightDirection(APP._vLight);
     if (APP.currMat) APP.currMat.uniforms.uLD.value = APP._vLight;
+
+    //ATON._dMainL.intensity = 1.2;
+    ATON.setNeutralAmbientLight(0.3);
 };
 
 // Config
