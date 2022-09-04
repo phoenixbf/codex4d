@@ -95,7 +95,7 @@ APP.postPoseLoaded = ()=>{
     );
 
     ground.rotation.set(-1.57079632679,0,0);
-    ground.position.set(0,-0.7,0);
+    ground.position.set(0,-1.2,0);
 
     APP.gGround.add(ground);
     APP.gGround.attachToRoot();
