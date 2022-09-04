@@ -42,6 +42,7 @@ APP.init = ()=>{
     APP.pathContent += "content/";
 
     APP.plight = undefined;
+    APP._bLens = true;
 
 /*
     APP.UI.init();
@@ -71,17 +72,37 @@ APP.init = ()=>{
 };
 
 APP.postPoseLoaded = ()=>{
-	APP.gStand = ATON.createSceneNode("stand");
-	APP.gStand.attachToRoot();
 
-    APP.gBook = ATON.getSceneNode("main");
+    APP.bgcol = new THREE.Color(APP.cdata.bgcolor[0],APP.cdata.bgcolor[1],APP.cdata.bgcolor[2]);
+    ATON.setBackgroundColor( APP.bgcol );
 
+    APP.gStand = ATON.createSceneNode("stand");
+    APP.gStand.attachToRoot();
+    
     APP.gStand.load(APP.pathContent + "3D/Leggio.gltf");
     //APP.gStand.disablePicking();
 
-    let bgcol = new THREE.Color(APP.cdata.bgcolor[0],APP.cdata.bgcolor[1],APP.cdata.bgcolor[2]);
+    // Ground
+/*
+    APP.gGround = ATON.createSceneNode("ground");
+    let ground = new THREE.Mesh(
+        new THREE.PlaneGeometry( 2,2 ),
+        new THREE.MeshStandardMaterial({
+            //color: ATON.MatHub.colors.black, // APP.bgcol,
+            map: ATON.Utils.textureLoader.load(APP.pathContent + "ground.jpg"),
+            blending: THREE.AdditiveBlending
+        })
+    );
 
-    ATON.setBackgroundColor( bgcol );
+    ground.rotation.set(-1.57079632679,0,0);
+    ground.position.set(0,-0.7,0);
+
+    APP.gGround.add(ground);
+    APP.gGround.attachToRoot();
+    //APP.gGround.disablePicking();
+*/
+
+    APP.gBook = ATON.getSceneNode("main");
 
     //ATON.FX.togglePass(ATON.FX.PASS_AO, true);
 
@@ -95,6 +116,31 @@ APP.postPoseLoaded = ()=>{
         APP.plight = new THREE.PointLight();
         ATON._rootVisibleGlobal.add(APP.plight);
 
+/*
+        ATON._renderer.physicallyCorrectLights = true;
+        ATON.setExposure(3.0);
+
+        ///APP.plight.intensity = 1.0; // candela (cd)
+        APP.plight.power     = 4.0; // lumens
+        APP.plight.decay     = 1.0;
+*/
+        // std
+        APP.plight.intensity = 1.5;
+        APP.plight.distance  = 2.5;
+        APP.plight.decay     = 2.0;
+
+/*
+        APP.plight.castShadow            = true;
+        //APP.plight.shadow.bias           = -0.005;
+        APP.plight.shadow.mapSize.width  = 2048;
+        APP.plight.shadow.mapSize.height = 2048;
+        APP.plight.shadow.camera.near    = 0.02;
+        APP.plight.shadow.camera.far     = 1.5;
+        ATON._renderer.shadowMap.enabled = true;
+        ATON._renderer.shadowMap.type    = THREE.BasicShadowMap;
+        //ATON._renderer.shadowMap.type    = THREE.PCFShadowMap;
+*/
+
         APP.matSpriteL = new THREE.SpriteMaterial({ 
             map: new THREE.TextureLoader().load( APP.pathContent + "plight.jpg" ), 
             //color: ATON.MatHub.colors.orange,
@@ -106,12 +152,11 @@ APP.postPoseLoaded = ()=>{
         });
     
         APP.spriteL = new THREE.Sprite( APP.matSpriteL );
-        APP.spriteL.scale.set(0.1,0.1,0.1);
+        APP.spriteL.scale.set(0.05,0.05,0.05);
 
         ATON.getRootUI().add(APP.spriteL);
     }
 
-    APP.plight.intensity = 1.0;
     ATON.setNeutralAmbientLight(0.3);
     
     APP.setLightPostion(APP.defLightPos);
@@ -201,6 +246,17 @@ APP.loadNextPose = ()=>{
     APP.loadVolumePose(APP.currVolume, APP.getNextPose());
 };
 
+// IR Lens
+//==============================
+APP.enableLens = ()=>{
+    APP._bLens = true;
+};
+
+APP.disableLens = ()=>{
+    APP._bLens = false;
+    if (APP.currMat) APP.currMat.uniforms.vLens.value.w = 0.0;
+};
+
 // 0.0 - 1.0
 APP.setIRvalue = (v)=>{
     if (v < 0.0) v = 0.0;
@@ -265,6 +321,8 @@ APP.handleScreenPointer = ()=>{
     ATON._screenPointerCoords.y = THREE.MathUtils.lerp(APP._prevPointCoords[1], APP._reqPointCoords[1], t);
 };
 
+
+
 // Main update routine
 //===============================================
 APP.update = ()=>{
@@ -293,7 +351,7 @@ APP.update = ()=>{
     else if (APP.uniforms.vLens.value.w > APP.LRAD_MIN) APP.uniforms.vLens.value.w *= 0.9;
 */
 
-    if (APP.currMat){
+    if (APP.currMat && APP._bLens){
         APP.currMat.uniforms.vLens.value = p;
 
         if (ATON._queryDataScene) APP.currMat.uniforms.vLens.value.w = ATON.SUI._selectorRad;
@@ -312,7 +370,7 @@ APP.update = ()=>{
     APP.setIRvalue( APP.irValue + (a.y * 0.01) );
 
     if (APP._bSqueezeHandL){
-        APP.setLightPostion(ATON.XR.controller1pos);
+        APP.setLightPostion( ATON.XR.controller1pos );
     }
     
 };
@@ -338,6 +396,14 @@ APP.setupEvents = ()=>{
         APP.mat.setupOnLoaded();
 
         APP.setLensRadius(APP.LRAD_MIN);
+/*
+        APP.gBook.traverse( c => {
+            if ( c.isMesh ){
+                c.castShadow    = true;
+                c.receiveShadow = true;
+            }
+        });
+*/
 
         // Persistent modifications
         if (ATON.FE.getCurrentUIP() === "editor") ATON.SceneHub.setEditMode(true);
@@ -385,6 +451,10 @@ APP.setupEvents = ()=>{
             if (APP.gBook) APP.gBook.rotation.x += 0.1;
             console.log(APP.gBook);
         }
+
+        if (k==='1') APP.setIRvalue( 0.0 );
+        if (k==='2') APP.setIRvalue( 0.5 );
+        if (k==='3') APP.setIRvalue( 1.0 );
     });
 
     ATON.on("KeyUp",(k)=>{
@@ -420,11 +490,20 @@ APP.setupEvents = ()=>{
     });
 
     ATON.on("Tap", (e)=>{
-        if (ATON._hoveredSemNode) APP.UI.updateSemPanel(ATON._hoveredSemNode);
-        else APP.UI.toggleSemPanel(false);
+        if (ATON._hoveredSemNode){
+            APP.UI.updateSemPanel(ATON._hoveredSemNode);
+        }
+        else {
+            APP.UI.toggleSemPanel(false);
+        }
     });
 
     // XR
+    ATON.on("XRmode", (b)=>{
+        if (b) ATON.setBackgroundColor( ATON.MatHub.colors.black );
+        else ATON.setBackgroundColor( APP.bgcol );
+    });
+
     ATON.clearEventHandlers("XRsqueezeStart");
     ATON.clearEventHandlers("XRsqueezeEnd");
 
@@ -433,10 +512,13 @@ APP.setupEvents = ()=>{
             APP._bSqueezeHandR = true;
 
             ATON.XR.controller0.add( APP.gBook );
+
+            APP.gBook.setRotation(0.0,-0.9,1.7); // local book orient
+            APP.disableLens();
         }
         else {
             APP._bSqueezeHandL = true;
-            APP.loadNextPose();
+            //APP.loadNextPose();
         }
     });
     ATON.on("XRsqueezeEnd", (c)=>{
@@ -444,6 +526,8 @@ APP.setupEvents = ()=>{
             APP._bSqueezeHandR = false;
 
             APP.gBook.attachToRoot();
+            APP.gBook.setRotation(0,0,0); // reset book orient
+            APP.enableLens();
         }
         else {
             APP._bSqueezeHandL = false;
