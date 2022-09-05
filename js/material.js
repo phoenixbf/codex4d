@@ -157,14 +157,17 @@ mat.realize = ()=>{
                 vec4 frag = texture2D(tBase, sUV);
                 vec4 ir   = texture2D(tIR, sUV);
                 
+                float ao  = texture2D(tPBR, sUV).r;
                 float rou = texture2D(tPBR, sUV).g;
                 float met = texture2D(tPBR, sUV).b;
 
                 float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
+                //vir *= frag.r;
+                //vir = 1.0 - vir;
 
                 frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
 
-                csm_DiffuseColor = frag;
+                csm_DiffuseColor = frag * ao;
                 csm_Roughness    = mix(1.0, rou, t);
                 csm_Metalness    = met * t;
             }
