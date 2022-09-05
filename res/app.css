@@ -279,72 +279,72 @@ button {
   border: 1px solid #2f4689;
 }
 
-
 .filterText {
-position: relative;
-width: 36px;
-height: 16px;
-left: 8.5%;
-top: 3%;
+  position: relative;
+  width: 36px;
+  height: 16px;
+  left: 8.5%;
+  top: 3%;
 
-font-family: 'Comfortaa';
-font-style: normal;
-font-weight: 700;
-font-size: 14px;
-line-height: 16px;
-/* identical to box height */
+  font-family: "Comfortaa";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  /* identical to box height */
 
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 
-color: #FFFFFF;
+  color: #ffffff;
 }
 
 .previewContainer {
   margin-left: 69px;
-  
 }
 
 .posePreview {
   position: relative;
-width: 108px;
-height: 81px;
-margin-left: 48px;
-top: 18px;
-display: inline-block;
-background: #E7F0F9;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 10px;
-z-index: 101;
+  width: 108px;
+  height: 81px;
+  margin-left: 48px;
+  top: 18px;
+  display: inline-block;
+  background: #e7f0f9;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  z-index: 101;
 }
 
 .iconColor {
-  color: #BF2517B2;
+  color: #bf2517b2;
 }
 
 .iconColor2 {
   color: transparent;
-  text-shadow: 0 0 0 #2F4689;
+  text-shadow: 0 0 0 #2f4689;
 }
 .viewControl {
-  position:relative;
-  background-color:transparent;
-  left:100px;
-  top: 200px;
+  position: absolute;
+  background-color: transparent;
+  left: 100px;
+  top: 530px;
 }
 
 #slider .ui-slider-handle {
   outline: 0;
   background: rgba(217, 217, 217, 1);
   border-radius: 50%;
-  top: -.6em;
+  top: -0.6em;
 }
-  #slider.ui-slider-horizontal {
-    height: 3px;
-    width: 200px;
-    background: transparent;
-    border: 0.3px solid rgba(217, 217, 217, 0.8);
-    border-radius: 10px;
+#slider.ui-slider-horizontal {
+  height: 3px;
+  width: 200px;
+  background: transparent;
+  border: 0.3px solid rgba(217, 217, 217, 0.8);
+  border-radius: 10px;
 }
 
-#slider .ui-slider-range { background: rgba(198, 150, 59, 1); }
+#slider .ui-slider-range {
+  background: rgba(198, 150, 59, 1);
+}
