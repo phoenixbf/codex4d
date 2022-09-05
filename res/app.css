@@ -326,3 +326,25 @@ z-index: 101;
   color: transparent;
   text-shadow: 0 0 0 #2F4689;
 }
+.viewControl {
+  position:relative;
+  background-color:transparent;
+  left:100px;
+  top: 200px;
+}
+
+#slider .ui-slider-handle {
+  outline: 0;
+  background: rgba(217, 217, 217, 1);
+  border-radius: 50%;
+  top: -.6em;
+}
+  #slider.ui-slider-horizontal {
+    height: 3px;
+    width: 200px;
+    background: transparent;
+    border: 0.3px solid rgba(217, 217, 217, 0.8);
+    border-radius: 10px;
+}
+
+#slider .ui-slider-range { background: rgba(198, 150, 59, 1); }

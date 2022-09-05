@@ -131,6 +131,26 @@ UI.buildPublic = () => {
   
 
   $("#idBottomToolbar").html(htmlBottom);
+  
+  // view control to manage the scen
+
+  let htmlView =""
+  htmlView +="<div id='slider' class='slider'></div>"
+
+  $("#idViewControl").html(htmlView);
+  $( function() {
+    $( "#slider" ).slider({
+      value:0,
+      min: 0,
+      max: 3,
+      step: 1,
+      range: "min",
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.value );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+  } );
 
   ATON.FE.uiAddButtonVR("idTopToolbar");
 };

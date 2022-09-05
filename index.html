@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
     <link rel="icon" href="appicon.png" sizes="512x512" type="image/png" />
 
     <!-- Add iOS meta tags and icons -->
@@ -15,9 +18,9 @@
     <meta property="og:title" content="Codex4D" />
     <meta property="og:description" content="Codex4D App" />
     <meta property="og:image" content="appicon.png" />
-    <meta property="og:image:secure_url" content="appicon.png" /> 
-    <meta property="og:image:type" content="image/png" /> 
-    <meta property="og:image:width" content="512" /> 
+    <meta property="og:image:secure_url" content="appicon.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="512" />
     <meta property="og:image:height" content="512" />
 
     <!-- PWA manifest -->
@@ -25,6 +28,7 @@
 
     <meta name="title" content="Codex4D" />
     <meta name="description" content="Codex4D App" />
+
     <!-- Add meta theme-color -->
     <meta name="theme-color" content="#000000" />
 
@@ -36,12 +40,21 @@
     <script type="text/javascript" src="/vendors/vendors.min.js"></script>
     <script type="text/javascript" src="/dist/THREE.bundle.js"></script>
 
-<!--
+    <!--Slider-->
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <!--
     <script type="text/javascript" src="vendors/handtrack.min.js"></script>
 
     <script type="text/javascript" src="vendors/public-google-sheets-parser.js"></script>
 -->
-<!--
+    <!--
     <script type="text/javascript" src="/dist/ATON.min.js"></script>
 -->
     <script type="module" src="/src/ATON.js"></script>
@@ -64,18 +77,20 @@
     <div id="idLeftToolbar" class="leftToolbar"></div>
 
     <!--Bottom Toolbar-->
-    <div id="idBottomToolbar" class="bottomToolbar"></div>
-    
+    <div id="idBottomToolbar" class="bottomToolbar">
+    </div>
 
     <div class="titleContainer">
       <div id="idVolume" class="titleText">Volume</div>
-      
+
       <hr id="idDivider" class="horDivider" />
       <div id="idPose" class="subtitleText">Pose</div>
       <br />
     </div>
-
     
+    <!--View Control Toolbar-->
+    <div id="idViewControl" class="viewControl"></div>
+
     <!-- Main Popup -->
     <div id="idPopup" class="atonPopupContainer" style="display: none"></div>
 
