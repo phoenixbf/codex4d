@@ -213,18 +213,6 @@ button {
   top: 15px;
 }
 
-.downArrow {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 10px;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-}
-
 .horDivider {
   display: flex;
   justify-content: center;
@@ -371,6 +359,16 @@ button {
 }
 
 @media screen and (max-width: 600px) {
+  .leftToolbar{
+    left: 15px;
+  top: 100px;
+  }
+  
+  .hr {
+    height: 0px;
+    left: 22px;
+  }
+  
   .viewControl {
     left: 5em;
     top: 500px;
