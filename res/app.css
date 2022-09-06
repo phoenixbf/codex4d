@@ -1,6 +1,6 @@
 body {
-  min-height: 100vh;
-  min-width: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 .titleContainer {
@@ -326,25 +326,101 @@ button {
 }
 .viewControl {
   position: absolute;
-  background-color: transparent;
-  left: 100px;
-  top: 530px;
-}
-
-#slider .ui-slider-handle {
-  outline: 0;
-  background: rgba(217, 217, 217, 1);
-  border-radius: 50%;
-  top: -0.6em;
-}
-#slider.ui-slider-horizontal {
-  height: 3px;
-  width: 200px;
   background: transparent;
-  border: 0.3px solid rgba(217, 217, 217, 0.8);
-  border-radius: 10px;
+  left: 30em;
+  top: 600px;
 }
 
-#slider .ui-slider-range {
-  background: rgba(198, 150, 59, 1);
+#slider {
+  position: relative;
+  left: 50px;
+  width: 100%;
+  height: 0.4em;
+  background: linear-gradient(
+    to right,
+    rgba(198, 150, 59, 1) 0%,
+    rgba(198, 150, 59, 1) 50%,
+    transparent 50%,
+    transparent 100%
+  );
+  border: 0.5px solid #d9d9d9cc;
+  width: 200px;
+  transition: background 450ms ease-in;
+}
+
+.xAxis {
+  position: absolute;
+  display: flex;
+  width: 580px;
+  height: 0px;
+  left: -40px;
+  top: 500px;
+  background: #e0c081;
+  border: 1px solid #e0c081;
+}
+
+.yAxis {
+  position: absolute;
+  display: flex;
+  width: 0px;
+  height: 555.01px;
+  left: 430px;
+  top: 80px;
+  
+  border: 1px solid #e0c081;
+}
+
+@media screen and (max-width: 600px) {
+  .viewControl {
+    left: 5em;
+    top: 500px;
+  }
+
+  .xAxis {
+    display: none;
+  }
+  .yAxis{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .viewControl {
+    left: 5em;
+    top: 500px;
+  }
+
+  .xAxis {
+    display: none;
+  }
+  .yAxis{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .viewControl {
+    left: 5em;
+    top: 500px;
+  }
+
+  .xAxis {
+    display: none;
+  }
+  .yAxis{
+    display: none;
+  }
+}
+@media screen and (max-width: 1500px) {
+  .viewControl {
+    left: 5em;
+    top: 500px;
+  }
+
+  .xAxis {
+    display: none;
+  }
+  .yAxis{
+    display: none;
+  }
 }

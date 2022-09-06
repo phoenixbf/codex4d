@@ -132,27 +132,38 @@ UI.buildPublic = () => {
 
   $("#idBottomToolbar").html(htmlBottom);
   
-  // view control to manage the scen
+  // range input to manage the lens
+let htmlView = "";
 
-  let htmlView =""
-  htmlView +="<div id='slider' class='slider'></div>"
 
-  $("#idViewControl").html(htmlView);
-  $( () => {
-    $( "#slider" ).slider({
-      value:0,
-      min: 0,
-      max: 3,
-      step: 1,
-      range: "min",
-      slide: ( event, ui ) => {
-        $( "#amount" ).val(ui.value );
+htmlView += "<input type='range' min='0' value='50' max='100' id='slider' class='slider' />";
+
+
+$('#idViewControl').html(htmlView);
+// method to track slider progression
+var isFF = true;
+var addRule = (function (style) {
+  var sheet = document.head.appendChild(style).sheet;
+  return function (selector, css) {
+    if ( isFF ) {
+      if ( sheet.cssRules.length > 0 ) {
+        sheet.deleteRule( 0 );
       }
-    });
-    $( "#amount" ).val($( "#slider" ).slider( "value" ) );
-  }
-  );
+    
+      try {
+        sheet.insertRule(selector + "{" + css + "}", 0);
+      } catch ( ex ) {
+        isFF = false;
+      }
+    }    
+  };
+})(document.createElement("style"));
 
+
+// .chrome styling
+$( '#slider' ).on( 'input', function( ) {
+  $( this ).css( 'background', 'linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) '+this.value +'%, transparent ' + this.value + '%, transparent 100%)' );
+} );
 
   ATON.FE.uiAddButtonVR("idTopToolbar");
 };
