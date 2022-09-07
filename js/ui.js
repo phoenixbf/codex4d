@@ -129,19 +129,21 @@ UI.buildPublic = () => {
   htmlBottom += "<div class='posePreview' > </div>"
   htmlBottom +="</div>"
   
-  
-  $("#idCollapsible").on('click',() => {
-    console.log("Clicca")
-    $("#idBottomToolbar").css("height", "0px");
-    $("#idArrow").attr("src", "assets/downArrow.png")
-    $("#idCollapsible").css("top","730px")
+  $("#idCollapsible").on('click', () => {
+    var initialState = ($("#idBottomToolbar").css("height") ==="0px")
+    console.log(initialState)
+    if (initialState) {
+      $("#idBottomToolbar").css("height", "118px");
+      $("#idArrow").attr("src", "assets/upArrow.png");
+      $("#idCollapsible").css("top","620px");
+    } else {
+      $("#idBottomToolbar").css("height", "0px");
+      $("#idArrow").attr("src", "assets/downArrow.png");
+      $("#idCollapsible").css("top","730px");
+    }
+    
   });
-  $("#idCollapsbile").on("click", ()=> {
-    console.log("Clicca");
-    $("#idBottomToolbar").css("");
-    $("#idArrow").attr("");
-    $("#idCollapsible").css("")
-  })
+  
 
 
   $("#idBottomToolbar").html(htmlBottom);
