@@ -129,13 +129,25 @@ UI.buildPublic = () => {
   htmlBottom += "<div class='posePreview' > </div>"
   htmlBottom +="</div>"
   
+  
+  $("#idCollapsible").on('click',() => {
+    console.log("Clicca")
+    $("#idBottomToolbar").css("height", "0px");
+    $("#idArrow").attr("src", "assets/downArrow.png")
+    $("#idCollapsible").css("top","730px")
+  });
+  $("#idCollapsbile").on("click", ()=> {
+    console.log("Clicca");
+    $("#idBottomToolbar").css("");
+    $("#idArrow").attr("");
+    $("#idCollapsible").css("")
+  })
+
 
   $("#idBottomToolbar").html(htmlBottom);
   
   // range input to manage the lens
 let htmlView = "";
-
-
 htmlView += "<input type='range' min='0' value='50' max='100' id='slider' class='slider' />";
 
 
@@ -159,8 +171,6 @@ var addRule = (function (style) {
   };
 })(document.createElement("style"));
 
-
-// .chrome styling
 $( '#slider' ).on( 'input', function( ) {
   $( this ).css( 'background', 'linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) '+this.value +'%, transparent ' + this.value + '%, transparent 100%)' );
 } );
