@@ -170,6 +170,7 @@ button {
   left: 18px;
   top: 67%;
   border: 1px solid #e0c081;
+  background: #e0c081;
 }
 
 .topToolbar {
@@ -270,13 +271,35 @@ option {
   font-style: normal;
   font-weight: 400;
   line-height: 15px;
-
+  justify-content: center;
   color: #422c20;
+  text-align-last: left;
+  border-radius: 24px;
+  border: none;
 }
 
-.filterOption .cerchioRosso {
-  background-color: red;
+.firstOption {
+  width: 13px;
+  height: 13px;
+  background-color:  rgba(191, 37, 23, 0.7);;
+  border-radius: 50%;
+  display: flex;
+  z-index: 100;
+  position: relative;
+  top: 16px;
 }
+.firstOptionClone {
+  width: 13px;
+  height: 13px;
+  background-color:  rgba(191, 37, 23, 0.7);;
+  border-radius: 50%;
+  display: flex;
+  z-index: 200;
+  position: relative;
+  top: 20px;
+  overflow: visible;
+}
+
 
 .selectHr {
   height: 0px;
@@ -412,6 +435,8 @@ option {
   top: 1em;
   left: 0.6em;
 }
+
+
 
 /* Media queries for mobile visualization */
 

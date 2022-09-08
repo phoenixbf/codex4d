@@ -92,22 +92,23 @@ UI.buildPublic = () => {
   htmlTop += "<p class='filterText'> Note </p>";
   htmlTop += "<select class='filterAnnotation'>";
   htmlTop +=
-    "<option  class='filterOption' value='Iconologia e Iconografia' >Iconologia e Iconografia  </option> ";
+    "<option  class='filterOption' value='Iconologia e Iconografia' > &nbsp;&nbsp;&nbsp&nbspIconologia e Iconografia  </option> ";
     htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
   htmlTop +=
-    "<option class='filterOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche </option>";
+    "<option class='filterOption' value='Materiali e Tecniche Esecutive' > &nbsp;&nbsp;&nbsp&nbspMateriali e Tecniche </option>";
     htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlTop += "<option class='filterOption' value='Struttura' >Struttura </option>";
+  htmlTop += "<option class='filterOption' value='Struttura' > &nbsp;&nbsp;&nbsp&nbspStruttura </option>";
   htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
   htmlTop +=
-    "<option class='filterOption' value='Conservazione e Restauro'>Conservazione e Restauro </option>";
+    "<option class='filterOption' value='Conservazione e Restauro'> &nbsp;&nbsp;&nbsp&nbspConservazione e Restauro </option>";
     htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlTop += "<option class='filterOption' value='Testo e Scrittura'>Testo e Scrittura </option>";
+  htmlTop += "<option class='filterOption' value='Testo e Scrittura'>&nbsp;&nbsp;&nbsp&nbspTesto e Scrittura </option>";
   htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlTop += "<option class='filterOption' value='Censure'>Censure </option>";
+  htmlTop += "<option class='filterOption' value='Censure'>&nbsp;&nbsp;&nbsp&nbspCensure </option>";
   htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlTop += "<option class='filterOption' value='Notazioni Musicali'>Notazioni Musicali  </option>";
+  htmlTop += "<option class='filterOption' value='Notazioni Musicali'>&nbsp;&nbsp;&nbsp&nbspNotazioni Musicali  </option>";
   htmlTop += "</select>";
+
   htmlTop += "</div";
   
   $("#idTopToolbar").html(htmlTop);
