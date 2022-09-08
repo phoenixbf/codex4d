@@ -1,3 +1,6 @@
+html {
+  font-size: 14px;
+}
 body {
   height: 100vh;
   width: 100vw;
@@ -18,7 +21,6 @@ body {
   padding: 10px;
 
   color: #fff;
-  text-shadow: 0px 0px 10px black;
 
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -85,7 +87,8 @@ button {
 
 .sidebar.left {
   position: fixed;
-  top: 300px;
+  display: flex;
+  top: 18.75rem;
   left: 120px;
   bottom: 0;
   width: 200px;
@@ -99,10 +102,10 @@ button {
 .leftToolbar {
   position: fixed;
   display: flex;
-  width: 60px;
-  height: 451px;
-  left: 35px;
-  top: 100px;
+  width: 3.75rem;
+  height: 61%;
+  left: 1rem;
+  top: 15%;
   background: rgb(110, 110, 110);
 
   opacity: 0.7;
@@ -124,11 +127,12 @@ button {
 
 .toolbarButton {
   position: relative;
-  width: 43.39px;
-  height: 43.39px;
-  left: -32px;
+  display: flex;
+  width: 35.39px;
+  height: 35.39px;
+  left: -2.2rem;
   background: transparent;
-  margin-top: 2px;
+  margin-top: 10px;
   border: none;
 }
 .toolbarIcon {
@@ -137,21 +141,23 @@ button {
 }
 
 .hr {
-  position: fixed;
+  position: relative;
+  display: flex;
   width: 43.39px;
   height: 0px;
-  left: 42px;
+  left: -37px;
   background: #e0c081;
   border: 1px solid #e0c081;
   margin-top: 0px;
 }
 
 .toolbarHelp {
-  position: relative;
+  position: absolute;
+  display: flex;
   width: 23px;
   height: 23px;
-  left: -28px;
-  top: 175px;
+  left: 0.6rem;
+  top: 90%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   background: transparent;
   border: none;
@@ -161,9 +167,8 @@ button {
   position: fixed;
   width: 43.39px;
   height: 0px;
-  left: 43px;
-  top: 500px;
-
+  left: 18px;
+  top: 67%;
   border: 1px solid #e0c081;
 }
 
@@ -226,17 +231,20 @@ button {
 
 .filterAnnotation {
   position: relative;
+  display: flex;
   width: 213px;
   height: 34px;
-  top: -38px;
-  left: 67px;
-  background: #ffffff;
+  top: 6px;
+  left: 32px;
   mix-blend-mode: normal;
   opacity: 0.7;
   border-radius: 24px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .selectContainer {
   position: absolute;
+  display: flex;
   width: 287px;
   height: 46px;
   top: 70px;
@@ -246,24 +254,35 @@ button {
   opacity: 0.7;
   border-radius: 24px;
 }
+option {
+  background: #c7c7c7;
+  width: 100%;
+  font-size: 12px;
+  align-items: center;
+}
 
 .filterOption {
+  position: absolute;
+  width: 213px;
+  display: flex;
   height: 31px;
   font-family: Inter;
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
   line-height: 15px;
-  align-items: center;
+
   color: #422c20;
-  background-color: rgba(255, 255, 255, 1);
+}
+
+.filterOption .cerchioRosso {
+  background-color: red;
 }
 
 .selectHr {
-  width: 179px;
   height: 0px;
   color: #2f4689;
   border: 1px solid #2f4689;
+  background: #c7c7c7;
 }
 
 .filterText {
@@ -303,14 +322,6 @@ button {
   z-index: 101;
 }
 
-.iconColor {
-  color: #bf2517b2;
-}
-
-.iconColor2 {
-  color: transparent;
-  text-shadow: 0 0 0 #2f4689;
-}
 .viewControl {
   position: absolute;
   background: transparent;
@@ -320,6 +331,7 @@ button {
 
 #slider {
   position: relative;
+  display: flex;
   left: 50px;
   width: 100%;
   height: 0.4em;
@@ -357,8 +369,33 @@ button {
   border: 1px solid #e0c081;
 }
 
+.layerSelector {
+  position: absolute;
+  display: block;
+  height: 6.25rem;
+  width: 1rem;
+  left: -2.8rem;
+  top: -8.5rem;
+}
+
+.layer {
+  height: 23.1px;
+
+  width: 34.14px;
+  display: block;
+}
+.layerButton {
+  background-color: transparent;
+  display: flex;
+  border: none;
+  width: 34.14px;
+  height: 23.1px;
+  margin-top: -7px;
+}
+
 .collapsible {
   position: absolute;
+  display: flex;
   width: 47.23px;
   height: 47px;
   left: 117.57px;
@@ -367,12 +404,18 @@ button {
   border-radius: 6px;
   border: none;
   z-index: 100;
-  
+}
+
+#idArrow {
+  display: flex;
+  position: relative;
+  top: 1em;
+  left: 0.6em;
 }
 
 /* Media queries for mobile visualization */
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   .leftToolbar {
     left: 15px;
     top: 100px;
@@ -438,4 +481,4 @@ button {
   .yAxis {
     display: none;
   }
-}
+} */

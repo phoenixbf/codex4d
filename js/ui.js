@@ -88,25 +88,25 @@ UI.buildPublic = () => {
   //top toolbar for Public UI to allow Login
   let htmlTop = "";
   htmlTop += "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
-  htmlTop +="<div class='selectContainer'>"
-  htmlTop += "<p class='filterText'> Note </p>"
+  htmlTop +="<div class='selectContainer'>";
+  htmlTop += "<p class='filterText'> Note </p>";
   htmlTop += "<select class='filterAnnotation'>";
   htmlTop +=
-    "<option  class='filterOption' value='Iconologia e Iconografia' >Iconologia e Iconografia  &nbsp; &nbsp; &nbsp; &nbsp; <p class='iconColor'>&#x25EF</p></option> ";
-    htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
+    "<option  class='filterOption' value='Iconologia e Iconografia' >Iconologia e Iconografia  </option> ";
+    htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
   htmlTop +=
-    "<option class='filterOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <p class='iconColor'>&#x25EF</p> </option>";
-    htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTop += "<option class='filterOption' value='Struttura' >Struttura &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p class='iconColor'>&#x25EF</p></option>";
-  htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
+    "<option class='filterOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche </option>";
+    htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  htmlTop += "<option class='filterOption' value='Struttura' >Struttura </option>";
+  htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
   htmlTop +=
-    "<option class='filterOption' value='Conservazione e Restauro'>Conservazione e Restauro &nbsp; <p class='iconColor'>&#x25EF</p></option>";
-    htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTop += "<option class='filterOption' value='Testo e Scrittura'>Testo e Scrittura  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
-  htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTop += "<option class='filterOption' value='Censure'>Censure &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
-  htmlTop += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTop += "<option class='filterOption' value='Notazioni Musicali'>Notazioni Musicali  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
+    "<option class='filterOption' value='Conservazione e Restauro'>Conservazione e Restauro </option>";
+    htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  htmlTop += "<option class='filterOption' value='Testo e Scrittura'>Testo e Scrittura </option>";
+  htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  htmlTop += "<option class='filterOption' value='Censure'>Censure </option>";
+  htmlTop += "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  htmlTop += "<option class='filterOption' value='Notazioni Musicali'>Notazioni Musicali  </option>";
   htmlTop += "</select>";
   htmlTop += "</div";
   
@@ -148,13 +148,23 @@ UI.buildPublic = () => {
 
   $("#idBottomToolbar").html(htmlBottom);
   
-  // range input to manage the lens
+// all the tools to manage the lens, width and depth: 
+
 let htmlView = "";
+htmlView += "<div class='layerSelector'>"
+htmlView += "<button class='layerButton' id='idRgb'><img id='idImgLayer1' class='layer' src='assets/layer.png' alt='layer' /></button>"
+htmlView += "<button class='layerButton' id='idIr1'><img id='idImgLayer2' class='layer' src='assets/layer.png' alt='layer' /></button>"
+htmlView += "<button class='layerButton' id='idIr2'><img id='idImgLayer3' class='layer' src='assets/layer.png' alt='layer' /></button>"
+htmlView += "<button class='layerButton' id='idIr3'><img id='idImgLayer4' class='layer' src='assets/layer.png' alt='layer' /></button>"
+htmlView += "</div>"
+htmlView += "<div class='playPause'>";
+htmlView += "</div>";
 htmlView += "<input type='range' min='0' value='50' max='100' id='slider' class='slider' />";
 
 
+
 $('#idViewControl').html(htmlView);
-// method to track slider progression
+// method to track slider progression to expand the lens width:
 var isFF = true;
 var addRule = (function (style) {
   var sheet = document.head.appendChild(style).sheet;
@@ -177,6 +187,29 @@ $( '#slider' ).on( 'input', function( ) {
   $( this ).css( 'background', 'linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) '+this.value +'%, transparent ' + this.value + '%, transparent 100%)' );
 } );
 
+// hovering actions on the layer selectors:
+
+$('#idRgb').hover(() => {
+  $('#idImgLayer1').attr("src","assets/active_layer.png")
+}, () => {
+  $('#idImgLayer1').attr("src", "assets/layer.png")
+})
+$('#idIr1').hover(() => {
+  $('#idImgLayer2').attr("src","assets/active_layer.png")
+}, () => {
+  $('#idImgLayer2').attr("src", "assets/layer.png")
+})
+$('#idIr2').hover(() => {
+  $('#idImgLayer3').attr("src","assets/active_layer.png")
+}, () => {
+  $('#idImgLayer3').attr("src", "assets/layer.png")
+})
+$('#idIr3').hover(() => {
+  $('#idImgLayer4').attr("src","assets/active_layer.png")
+}, () => {
+  $('#idImgLayer4').attr("src", "assets/layer.png")
+})
+
   ATON.FE.uiAddButtonVR("idTopToolbar");
 };
 
@@ -193,21 +226,21 @@ UI.buildEditor = () => {
   htmlTopEditor += "<p class='filterText'> Note </p>"
   htmlTopEditor += "<select class='filterAnnotation'>";
   htmlTopEditor +=
-    "<option  class='filterOption' value='Iconologia e Iconografia' >Iconologia e Iconografia  &nbsp; &nbsp; &nbsp; &nbsp; <p class='iconColor'>&#x25EF</p></option> ";
+    "<option  class='filterOption' value='Iconologia e Iconografia' >Iconologia e Iconografia  </option> ";
     htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
   htmlTopEditor +=
-    "<option class='filterOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <p class='iconColor'>&#x25EF</p> </option>";
+    "<option class='filterOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche </option>";
     htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTopEditor += "<option class='filterOption' value='Struttura' >Struttura &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p class='iconColor'>&#x25EF</p></option>";
+  htmlTopEditor += "<option class='filterOption' value='Struttura' >Struttura</option>";
   htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
   htmlTopEditor +=
-    "<option class='filterOption' value='Conservazione e Restauro'>Conservazione e Restauro &nbsp; <p class='iconColor'>&#x25EF</p></option>";
+    "<option class='filterOption' value='Conservazione e Restauro'>Conservazione e Restauro </option>";
     htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTopEditor += "<option class='filterOption' value='Testo e Scrittura'>Testo e Scrittura  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
+  htmlTopEditor += "<option class='filterOption' value='Testo e Scrittura'>Testo e Scrittura  </option>";
   htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTopEditor += "<option class='filterOption' value='Censure'>Censure &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
+  htmlTopEditor += "<option class='filterOption' value='Censure'>Censure </option>";
   htmlTopEditor += "<option class='selectHr' disabled>────────────────────</option>"
-  htmlTopEditor += "<option class='filterOption' value='Notazioni Musicali'>Notazioni Musicali  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class='iconColor'>&#x25EF</p></option>";
+  htmlTopEditor += "<option class='filterOption' value='Notazioni Musicali'>Notazioni Musicali </option>";
   htmlTopEditor += "</select>";
   htmlTopEditor += "</div";
   // Clear
