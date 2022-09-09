@@ -281,7 +281,7 @@ option {
 .firstOption {
   width: 13px;
   height: 13px;
-  background-color:  rgba(191, 37, 23, 0.7);;
+  background-color: rgba(191, 37, 23, 0.7);
   border-radius: 50%;
   display: flex;
   z-index: 100;
@@ -291,7 +291,7 @@ option {
 .firstOptionClone {
   width: 13px;
   height: 13px;
-  background-color:  rgba(191, 37, 23, 0.7);;
+  background-color: rgba(191, 37, 23, 0.7);
   border-radius: 50%;
   display: flex;
   z-index: 200;
@@ -299,7 +299,6 @@ option {
   top: 20px;
   overflow: visible;
 }
-
 
 .selectHr {
   height: 0px;
@@ -403,7 +402,6 @@ option {
 
 .layer {
   height: 23.1px;
-
   width: 34.14px;
   display: block;
 }
@@ -414,6 +412,36 @@ option {
   width: 34.14px;
   height: 23.1px;
   margin-top: -7px;
+}
+.pause {
+  background-color: transparent;
+  border: none;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  position: relative;
+  top:10px;
+
+}
+.play {
+  background-color: transparent;
+  border: none;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  position: relative;
+  top:-8px;
+  left: 18px;
+  
+}
+.imgPause {
+  width: 18px;
+  height: 18px;
+  left: -10px;
+}
+.imgPlay {
+  width: 18px;
+  height: 18px;
 }
 
 .collapsible {
@@ -435,8 +463,6 @@ option {
   top: 1em;
   left: 0.6em;
 }
-
-
 
 /* Media queries for mobile visualization */
 

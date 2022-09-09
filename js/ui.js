@@ -150,20 +150,24 @@ UI.buildPublic = () => {
   $("#idBottomToolbar").html(htmlBottom);
   
 // all the tools to manage the lens, width and depth: 
-
 let htmlView = "";
 htmlView += "<div class='layerSelector'>"
 htmlView += "<button class='layerButton' id='idRgb'><img id='idImgLayer1' class='layer' src='assets/layer.png' alt='layer' /></button>"
 htmlView += "<button class='layerButton' id='idIr1'><img id='idImgLayer2' class='layer' src='assets/layer.png' alt='layer' /></button>"
 htmlView += "<button class='layerButton' id='idIr2'><img id='idImgLayer3' class='layer' src='assets/layer.png' alt='layer' /></button>"
 htmlView += "<button class='layerButton' id='idIr3'><img id='idImgLayer4' class='layer' src='assets/layer.png' alt='layer' /></button>"
-htmlView += "</div>"
-htmlView += "<div class='playPause'>";
+htmlView += "<button class='pause' id='idPauseButton'>";
+htmlView += "<img class='imgPause' id='idImgPause' src='assets/icons/Pausa_OFF.png'>";
+htmlView += "</button>";
+htmlView += " <button class='play' id='idPlayButton'>"
+htmlView += "<img class='imgPlay' id='idImgPlay' src='assets/icons/Play_OFF.png'>";
+htmlView += "</button>";
 htmlView += "</div>";
+
+
 htmlView += "<input type='range' min='0' value='50' max='100' id='slider' class='slider' />";
 
-
-
+//populating the #idViewControl div :
 $('#idViewControl').html(htmlView);
 // method to track slider progression to expand the lens width:
 var isFF = true;
@@ -189,27 +193,38 @@ $( '#slider' ).on( 'input', function( ) {
 } );
 
 // hovering actions on the layer selectors:
-
 $('#idRgb').hover(() => {
   $('#idImgLayer1').attr("src","assets/active_layer.png")
 }, () => {
   $('#idImgLayer1').attr("src", "assets/layer.png")
-})
+});
 $('#idIr1').hover(() => {
   $('#idImgLayer2').attr("src","assets/active_layer.png")
 }, () => {
   $('#idImgLayer2').attr("src", "assets/layer.png")
-})
+});
 $('#idIr2').hover(() => {
   $('#idImgLayer3').attr("src","assets/active_layer.png")
 }, () => {
   $('#idImgLayer3').attr("src", "assets/layer.png")
-})
+});
 $('#idIr3').hover(() => {
   $('#idImgLayer4').attr("src","assets/active_layer.png")
 }, () => {
   $('#idImgLayer4').attr("src", "assets/layer.png")
-})
+});
+
+// hovering actions for the play/pause buttons:
+$('#idPauseButton').hover(() => {
+  $('#idImgPause').attr("src","assets/icons/Pausa_ON.png")
+}, () => {
+  $('#idImgPause').attr("src", "assets/icons/Pausa_OFF.png")
+});
+$('#idPlayButton').hover(() => {
+  $('#idImgPlay').attr("src","assets/icons/Play_ON.png")
+}, () => {
+  $('#idImgPlay').attr("src", "assets/icons/Play_OFF.png")
+});
 
   ATON.FE.uiAddButtonVR("idTopToolbar");
 };
