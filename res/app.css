@@ -87,7 +87,7 @@ button {
 
 .sidebar.left {
   position: fixed;
-  display: flex;
+  display: inline-block;
   top: 18.75rem;
   left: 120px;
   bottom: 0;
@@ -236,7 +236,6 @@ button {
   height: 34px;
   top: 13%;
   left: 23%;
-  mix-blend-mode: normal;
   opacity: 0.7;
   border-radius: 24px;
   white-space: nowrap;
@@ -322,15 +321,14 @@ option {
 .viewControl {
   position: absolute;
   background: transparent;
-  left: 22%;
-  top: 65%;
+  left: 10%;
+  top: 70%;
 }
-
 #slider {
   position: fixed;
   display: flex;
-  top:80%;
-  left: 26%;
+  top:84%;
+  left: 14%;
   width: auto;
   height: 0.4em;
   background: linear-gradient(
@@ -349,8 +347,8 @@ option {
   display: flex;
   width: 45%;
   height: 0px;
-  left: 21%;
-  top: 76%;
+  left: 10%;
+  top: 80%;
   background: #e0c081;
   border: 1px solid #e0c081;
 }
@@ -359,10 +357,10 @@ option {
   position: fixed;
   display: flex;
   width: 0px;
-  height: 75%;
-  left: 25%;
+  height: 70%;
+  left: 13%;
   background-color: #e0c081;
-  top: 80px;
+  top: 16%;
 
   border: 1px solid #e0c081;
 }
@@ -370,9 +368,10 @@ option {
 .layerSelector {
   position: absolute;
   display: block;
+  flex-direction: row;
   height: 6.25rem;
   width: 1rem;
-  left: 1000%;
+  left: 0%;
   top: 8%;
 }
 
@@ -456,8 +455,9 @@ option {
     top: 75%
   }
   #slider {
+    position:fixed;
     top: 75%;
-    left: 25%;
+    left: 15%;
   }
 
   .selectContainer {
@@ -466,7 +466,7 @@ option {
   }
   .titleText{
     font-size: max(24px, 2vw);
-    font-weight: bold;;
+    font-weight: bold;
   }
   .login{
     display: none;

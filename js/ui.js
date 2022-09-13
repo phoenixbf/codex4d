@@ -160,7 +160,7 @@ UI.buildPublic = () => {
   let htmlBottom = "";
   htmlBottom +=
     "<a href='#'><img class='codexLogo' src='assets/logo.png' /></a>";
-  htmlBottom += "<div class='previewContainer'>";
+  htmlBottom += "<div class='previewContainer scrollableX'>";
   htmlBottom += "<div class='posePreview'> </div>";
   htmlBottom += "<div class='posePreview' > </div>";
   htmlBottom += "</div>";
@@ -201,8 +201,6 @@ UI.buildPublic = () => {
     "<img class='imgPlay' id='idImgPlay' src='assets/icons/Play_OFF.png'>";
   htmlView += "</button>";
   htmlView += "</div>";
-  htmlView +=
-    "<input type='range' min='0' value='50' max='100' id='slider' class='slider' />";
 
   //populating the #idViewControl div :
   $("#idViewControl").html(htmlView);
