@@ -9,7 +9,7 @@ body {
 .titleContainer {
   z-index: 110;
 
-  position: fixed;
+  position: absolute;
   display: inline-block;
 
   white-space: nowrap;
@@ -33,7 +33,7 @@ body {
 
 @media screen and (max-width: 600px) {
   .titleContainer {
-    display: flex;
+    display: block;
   }
 }
 
@@ -463,6 +463,19 @@ option {
   .selectContainer {
     width: 80%;
     top:10%;
+  }
+  .titleText{
+    font-size: max(24px, 2vw);
+    font-weight: bold;;
+  }
+  .login{
+    display: none;
+  }
+  .subtitleText{
+    font-size: max(18px, 1.5vw);
+  }
+  .horDivider {
+    display: none; 
   }
 }
 
