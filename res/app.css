@@ -33,7 +33,7 @@ body {
 
 @media screen and (max-width: 600px) {
   .titleContainer {
-    display: none;
+    display: flex;
   }
 }
 
@@ -119,7 +119,7 @@ button {
   display: flex;
   bottom: 0;
   width: 100%;
-  height: 0px;
+  height: 0%;
   left: 0px;
 
   background: rgba(110, 110, 110, 0.3);
@@ -164,11 +164,11 @@ button {
 }
 
 .helpDivider {
-  position: fixed;
+  position: absolute;
   width: 43.39px;
   height: 0px;
-  left: 18px;
-  top: 67%;
+  left: 7%;
+  top: 86%;
   border: 1px solid #e0c081;
   background: #e0c081;
 }
@@ -180,7 +180,7 @@ button {
   width: 100%;
 }
 .login {
-  position: absolute;
+  position: relative;
   display: flex;
   background-color: transparent;
   border: none;
@@ -189,17 +189,17 @@ button {
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
-  margin-left: 92%;
-  margin-top: 4%;
+  margin-left: 80%;
+  margin-top:4%;
 }
 .login:hover {
   color: rgba(224, 192, 129, 1);
 }
 .loginText {
-  position: relative;
+  position:relative;
   display: flex;
-  left: 30px;
-  top: -12px;
+  left: 60%;
+  top: -20%;
 }
 
 .loginIcon {
@@ -207,7 +207,7 @@ button {
   display: flex;
   width: 23px;
   height: 23px;
-  margin-right: 10%;
+  margin-right: 5%;
 }
 
 .codexLogo {
@@ -219,24 +219,23 @@ button {
 }
 
 .horDivider {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 34%;
-  width: max(561px, 20vw);
-  top: -30px;
+  display: block;
+  left: 0%;
+  width: 30%;
+  top: 2%;
+  height: 0%;
   background: #e0c081;
   border: 1px solid #e0c081;
-  padding: 1px;
+  position: relative;
 }
 
 .filterAnnotation {
-  position: relative;
+  position: absolute;
   display: flex;
-  width: 213px;
+  width: 75%;
   height: 34px;
-  top: 6px;
-  left: 32px;
+  top: 13%;
+  left: 23%;
   mix-blend-mode: normal;
   opacity: 0.7;
   border-radius: 24px;
@@ -244,16 +243,17 @@ button {
   overflow: hidden;
 }
 .selectContainer {
-  position: absolute;
+  position: fixed;
   display: flex;
-  width: 287px;
+  width: 18.7%;
   height: 46px;
-  top: 70px;
-  left: 8%;
+  top: 6%;
+  left: 5%;
   background: rgb(110, 110, 110);
   mix-blend-mode: difference;
-  opacity: 0.7;
+  opacity: 1;
   border-radius: 24px;
+  z-index: 0;
 }
 option {
   background: #c7c7c7;
@@ -263,8 +263,8 @@ option {
 }
 
 .filterOption {
-  position: absolute;
-  width: 213px;
+  position: fixed;
+  width: 100%;
   display: flex;
   height: 31px;
   font-family: Inter;
@@ -276,28 +276,6 @@ option {
   text-align-last: left;
   border-radius: 24px;
   border: none;
-}
-
-.firstOption {
-  width: 13px;
-  height: 13px;
-  background-color: rgba(191, 37, 23, 0.7);
-  border-radius: 50%;
-  display: flex;
-  z-index: 100;
-  position: relative;
-  top: 16px;
-}
-.firstOptionClone {
-  width: 13px;
-  height: 13px;
-  background-color: rgba(191, 37, 23, 0.7);
-  border-radius: 50%;
-  display: flex;
-  z-index: 200;
-  position: relative;
-  top: 20px;
-  overflow: visible;
 }
 
 .selectHr {
@@ -313,18 +291,15 @@ option {
   height: 16px;
   left: 8.5%;
   top: 3%;
-
   font-family: "Comfortaa";
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 16px;
-  /* identical to box height */
-
   display: flex;
   align-items: center;
-
   color: #ffffff;
+  z-index: 100;
 }
 
 .previewContainer {
@@ -347,15 +322,16 @@ option {
 .viewControl {
   position: absolute;
   background: transparent;
-  left: 30em;
-  top: 600px;
+  left: 22%;
+  top: 65%;
 }
 
 #slider {
-  position: relative;
+  position: fixed;
   display: flex;
-  left: 50px;
-  width: 100%;
+  top:80%;
+  left: 26%;
+  width: auto;
   height: 0.4em;
   background: linear-gradient(
     to right,
@@ -365,27 +341,27 @@ option {
     transparent 100%
   );
   border: 0.5px solid #d9d9d9cc;
-  width: 200px;
   transition: background 450ms ease-in;
 }
 
 .xAxis {
-  position: absolute;
+  position: fixed;
   display: flex;
-  width: 580px;
+  width: 45%;
   height: 0px;
-  left: -40px;
-  top: 500px;
+  left: 21%;
+  top: 76%;
   background: #e0c081;
   border: 1px solid #e0c081;
 }
 
 .yAxis {
-  position: absolute;
+  position: fixed;
   display: flex;
   width: 0px;
-  height: 555.01px;
-  left: 430px;
+  height: 75%;
+  left: 25%;
+  background-color: #e0c081;
   top: 80px;
 
   border: 1px solid #e0c081;
@@ -396,14 +372,13 @@ option {
   display: block;
   height: 6.25rem;
   width: 1rem;
-  left: -2.8rem;
-  top: -8.5rem;
+  left: 1000%;
+  top: 8%;
 }
 
 .layer {
   height: 23.1px;
   width: 34.14px;
-  display: block;
 }
 .layerButton {
   background-color: transparent;
@@ -447,10 +422,10 @@ option {
 .collapsible {
   position: absolute;
   display: flex;
-  width: 47.23px;
+  width: 47px;
   height: 47px;
-  left: 117.57px;
-  top: 730px;
+  left: 8.5%;
+  top: 96%;
   background: rgba(217, 217, 217, 0.6);
   border-radius: 6px;
   border: none;
@@ -462,6 +437,33 @@ option {
   position: relative;
   top: 1em;
   left: 0.6em;
+}
+
+@media screen and (max-width: 600px) {
+  .leftToolbar {
+    left: 80%
+  }
+  .yAxis{
+    display: none;
+  }
+  .xAxis {
+    display:none;
+    width: 0px;
+  }
+
+  .viewControl {
+    left: 1%;
+    top: 75%
+  }
+  #slider {
+    top: 75%;
+    left: 25%;
+  }
+
+  .selectContainer {
+    width: 80%;
+    top:10%;
+  }
 }
 
 /* Media queries for mobile visualization */

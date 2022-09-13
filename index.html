@@ -35,7 +35,6 @@
     <title>Codex 4D</title>
     <link rel="stylesheet" type="text/css" href="res/app.css" />
     <link rel="stylesheet" type="text/css" href="/res/css/aton.css" />
-    
 
     <!-- Vendors -->
     <script type="text/javascript" src="/vendors/vendors.min.js"></script>
@@ -65,14 +64,17 @@
     <!--Top Toolbar-->
     <div id="idTopToolbar" class="topToolbar"></div>
 
+    <!--Note Filter-->
+    <div id="idSelect" class="selectContainer"></div>
+
     <!-- Left Toolbar -->
     <div id="idLeftToolbar" class="leftToolbar"></div>
 
     <!--Bottom Toolbar-->
-    <button id="idCollapsible" class='collapsible'><img id="idArrow" src='assets/upArrow.png' alt='up-arrow'/></button>
-    <div id="idBottomToolbar" class="bottomToolbar">
-      
-    </div>
+    <button id="idCollapsible" class="collapsible">
+      <img id="idArrow" src="assets/downArrow.png" alt="up-arrow" />
+    </button>
+    <div id="idBottomToolbar" class="bottomToolbar"></div>
 
     <div class="titleContainer">
       <div id="idVolume" class="titleText">Volume</div>
@@ -84,11 +86,9 @@
 
     <!--View Control Toolbar-->
 
-    <div id="idViewControl" class="viewControl">
-      
-    </div>
-    <div class='yAxis' />
-    <hr class='xAxis'/>
+    <div id="idViewControl" class="viewControl"></div>
+    <div class="yAxis" />
+    <hr class="xAxis" />
 
     <!-- Main Popup -->
     <div id="idPopup" class="atonPopupContainer" style="display: none"></div>
