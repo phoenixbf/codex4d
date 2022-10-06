@@ -144,12 +144,12 @@ mat.realize = ()=>{
             uniform vec3 wIR;
 
             void main(){
-                float sedge = 6.0f;
+                float sedge = 6.0;
 
                 float d = distance(vPositionW, vLens.xyz);
                 float t = d / vLens.w;
 
-                t -= (1.0f - (1.0f/sedge));
+                t -= (1.0 - (1.0/sedge));
                 t *= sedge;
 
                 t = clamp(t, 0.0,1.0);

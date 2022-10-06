@@ -286,7 +286,7 @@ UI.buildPublic = () => {
     }
   );
 
-  ATON.FE.uiAddButtonVR("idTopToolbar");
+  //ATON.FE.uiAddButtonVR("idTopToolbar");
 };
 
 UI.buildEditor = () => {
