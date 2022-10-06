@@ -351,7 +351,9 @@ UI.buildEditor = () => {
 
   //Initializing Left Toolbar for Editor User
   let htmlLeftEditor = "";
+  
   htmlLeftEditor += "<ul style='list-style-type: none;'>";
+ 
   htmlLeftEditor +=
     "<li><button id='idFull'class='toolbarButton' type='button'> <img id='idFullsize' class='toolbarIcon' src='assets/icons/icon_fullsize.png'> </button></li>";
   htmlLeftEditor += "<hr class='hr' />";
@@ -367,6 +369,7 @@ UI.buildEditor = () => {
   htmlLeftEditor +=
     "<li><button id='idSize' class='toolbarButton' type='button'> <img id='idTurnSize' class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button></li>";
   htmlLeftEditor += "<hr class='hr' />";
+  htmlLeftEditor += "<li><button id='idNote' class='toolbarButton' type='button'><img id='idTurnNote' class='toolbarIcon'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button></li>"
   htmlLeftEditor +=
     "<li><button id='idHelp' class='toolbarHelp' type='button'> <img id='idTurnHelp' class='toolbarIcon' src='assets/icons/icon_help.png' /> </button></li>";
   htmlLeftEditor += "<hr class='helpDivider' />";
@@ -421,6 +424,14 @@ UI.buildEditor = () => {
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
     }
   );
+  $("#idNote").hover(
+    function() {
+      $("#idTurnNote").attr("src","assets/icons/Icona_Aton_Edit_ON.png")
+    },
+    function() {
+      $("#idTurnNote").attr("src","assets/icons/Icona_Aton_Edit_OFF.png")
+    }
+  )
 
   $("#idHelp").hover(
     function () {
@@ -431,17 +442,38 @@ UI.buildEditor = () => {
     }
   );
 
-  $("#annotation").click(() => {
+  $("#idTurnNote").click(() => {
     $("#selectAnnType").show();
+    
     $("#selectAnnType").html("");
 
     let htmlcode = "";
+    htmlcode = "<hr id='idHrNote' />"
     htmlcode = "<ul style='list-style-type: none;'>";
-    htmlcode += "<li><button id='sphere'>Sphere </button></li>";
-    htmlcode += "<li><button id='free'> Free </button></li>";
+    
+    htmlcode += "<li><button id='sphere' class='toolbarButton' type='button'><img id='idTurnSphere' class='toolbarIcon' src='assets/icons/cerchio_annotazione_OFF.png'></button></li>";
+    htmlcode += "<li><button id='free' class='toolbarButton'> <img id='idTurnAreal' class='toolbarIcon' src='assets/icons/Aton_areale_OFF.png'/> </button></li>";
     htmlcode += "</ul>";
 
     $("#selectAnnType").append(htmlcode);
+
+    $("#sphere").hover(
+      function(){
+        $("#idTurnSphere").attr("src", "assets/icons/cerchio_annotazione_ON.png")
+      },
+      function() {
+        $("#idTurnSphere").attr("src", "assets/icons/cerchio_annotazione_OFF.png")
+      }
+    )
+
+    $("#free").hover(
+      function(){
+        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_ON.png")
+      },
+      function() {
+        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png")
+      }
+    )
 
     $("#sphere").click(() => {
       UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);

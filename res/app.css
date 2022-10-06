@@ -88,14 +88,12 @@ button {
 .sidebar.left {
   position: fixed;
   display: inline-block;
-  top: 18.75rem;
-  left: 120px;
+  top: 45%;
+  left: 3.5%;
   bottom: 0;
   width: 200px;
   height: 200px;
-  background: rgb(68, 68, 68, 0.9);
-  color: white;
-  box-shadow: 0 0 5px black;
+  background: transparent;
   text-align: center;
 }
 
