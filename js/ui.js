@@ -169,9 +169,9 @@ UI.buildPublic = () => {
     var initialState = $("#idBottomToolbar").css("height") === "0px";
     console.log(initialState);
     if (initialState) {
-      $("#idBottomToolbar").css("height", "11%");
+      $("#idBottomToolbar").css("height", "12%");
       $("#idArrow").attr("src", "assets/upArrow.png");
-      $("#idCollapsible").css("top", "87%");
+      $("#idCollapsible").css("top", "83%");
     } else {
       $("#idBottomToolbar").css("height", "0%");
       $("#idArrow").attr("src", "assets/downArrow.png");
@@ -347,6 +347,20 @@ UI.buildEditor = () => {
   htmlBottomEditor += "<div class='posePreview'> </div>";
   htmlBottomEditor += "<div class='posePreview' > </div>";
   htmlBottomEditor += "</div>";
+
+  $("#idCollapsible").on("click", () => {
+    var initialState = $("#idBottomToolbar").css("height") === "0px";
+    console.log(initialState);
+    if (initialState) {
+      $("#idBottomToolbar").css("height", "12%");
+      $("#idArrow").attr("src", "assets/upArrow.png");
+      $("#idCollapsible").css("top", "83%");
+    } else {
+      $("#idBottomToolbar").css("height", "0%");
+      $("#idArrow").attr("src", "assets/downArrow.png");
+      $("#idCollapsible").css("top", "96%");
+    }
+  });
   $("#idBottomToolbar").html(htmlBottomEditor);
 
   //Initializing Left Toolbar for Editor User

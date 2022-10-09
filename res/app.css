@@ -213,7 +213,7 @@ button {
   width: 90px;
   height: 90px;
   left: 22px;
-  top: 15px;
+  top: 10px;
 }
 
 .horDivider {
@@ -307,7 +307,7 @@ option {
   width: 108px;
   height: 81px;
   margin-left: 48px;
-  top: 18px;
+  top: 10px;
   display: inline-block;
   background: #e7f0f9;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -317,6 +317,8 @@ option {
 .viewControlContainer {
   position: relative;
   margin-right: 10px;
+  top:-5vh;
+  
 }
 
 .viewControl {
@@ -423,6 +425,7 @@ option {
   border-radius: 6px;
   border: none;
   z-index: 100;
+  margin-left:2%;
 }
 
 #idArrow {
