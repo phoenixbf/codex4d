@@ -618,9 +618,9 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "</div>";
   htmlcode += "</form>";
   htmlcode +=
-    "<div class='atonBTN atonBTN-green atonBTN-text atonBTN-horizontal' type='submit'> Completa annotazione </div>";
+    "<button id='idDelete' type='submit' class='cancelButton'>Annulla</button>";
   htmlcode +=
-    "<div class='atonBTN atonBTN-red atonBTN-text atonBTN-horizontal' type> Annulla </div>";
+    "<button id='idOk' type='submit' class='okButton' >Conferma</button>";
   htmlcode += "</div>";
   $("#idForm").html(htmlcode);
 
@@ -742,6 +742,7 @@ UI.addAnnotation = (semtype) => {
     var textlen = maxLength - $(this).val().length;
     $("#rchars").text(textlen);
   });
+  
 
   //APP.addSemanticAnnotation(semid, O, semtype);
 };

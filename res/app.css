@@ -685,9 +685,9 @@ option {
 .authorContainer {
   position: absolute;
   display: inline;
-  left: 55%;
+  left: 60%;
   width: 40%;
-  top: -1.5vh
+  top: -1.5vh;
 }
 
 .authorInput {
@@ -697,7 +697,7 @@ option {
   align-items: flex-start;
   padding: 15px 20px;
   gap: 10px;
-  width: 100%;
+  width: 80%;
   height: 48px;
   background: rgba(242, 242, 242, 0.6);
   border: 1px solid #bdbdbd;
@@ -705,5 +705,62 @@ option {
   flex: none;
   order: 1;
   flex-grow: 0;
-  
+}
+
+.cancelButton {
+  display: flex;
+  flex-direction: row;
+  padding: 8px 32px;
+  position: relative;
+  width: 13%;
+  height: 35px;
+  left: 60%;
+  top: 5vh;
+  background: rgba(242, 242, 242, 0.6);
+  border: 1.5px solid #666666;
+  border-radius: 8px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  color: #666666;
+}
+.cancelButton:hover{
+  background: rgba(47, 70, 137, 0.15);
+  color: #2F4689;
+  border: 1.5px solid #2F4689;
+}
+
+.okButton {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  padding: 8px 32px;
+  gap: 10px;
+  position: relative;
+  width: 13%;
+  height: 35px;
+  left: 80%;
+  top: 0.5vh;
+  background: rgba(242, 242, 242, 0.6);
+  border: 1.5px solid #666666;
+  border-radius: 8px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  justify-content: center;
+  color: #666666;
+}
+
+.okButton:hover{
+  background: rgba(47, 70, 137, 0.15);
+  color: #2F4689;
+  border: 1.5px solid #2F4689;
 }
