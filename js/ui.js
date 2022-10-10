@@ -365,9 +365,9 @@ UI.buildEditor = () => {
 
   //Initializing Left Toolbar for Editor User
   let htmlLeftEditor = "";
-  
+
   htmlLeftEditor += "<ul style='list-style-type: none;'>";
- 
+
   htmlLeftEditor +=
     "<li><button id='idFull'class='toolbarButton' type='button'> <img id='idFullsize' class='toolbarIcon' src='assets/icons/icon_fullsize.png'> </button></li>";
   htmlLeftEditor += "<hr class='hr' />";
@@ -383,7 +383,8 @@ UI.buildEditor = () => {
   htmlLeftEditor +=
     "<li><button id='idSize' class='toolbarButton' type='button'> <img id='idTurnSize' class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button></li>";
   htmlLeftEditor += "<hr class='hr' />";
-  htmlLeftEditor += "<li><button id='idNote' class='toolbarButton' type='button'><img id='idTurnNote' class='toolbarIcon'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button></li>"
+  htmlLeftEditor +=
+    "<li><button id='idNote' class='toolbarButton' type='button'><img id='idTurnNote' class='toolbarIcon'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button></li>";
   htmlLeftEditor +=
     "<li><button id='idHelp' class='toolbarHelp' type='button'> <img id='idTurnHelp' class='toolbarIcon' src='assets/icons/icon_help.png' /> </button></li>";
   htmlLeftEditor += "<hr class='helpDivider' />";
@@ -439,13 +440,13 @@ UI.buildEditor = () => {
     }
   );
   $("#idNote").hover(
-    function() {
-      $("#idTurnNote").attr("src","assets/icons/Icona_Aton_Edit_ON.png")
+    function () {
+      $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
     },
-    function() {
-      $("#idTurnNote").attr("src","assets/icons/Icona_Aton_Edit_OFF.png")
+    function () {
+      $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
     }
-  )
+  );
 
   $("#idHelp").hover(
     function () {
@@ -458,44 +459,52 @@ UI.buildEditor = () => {
 
   $("#idTurnNote").click(() => {
     $("#selectAnnType").show();
-    
+
     $("#selectAnnType").html("");
 
     let htmlcode = "";
-    htmlcode = "<hr id='idHrNote' />"
+    htmlcode = "<hr id='idHrNote' />";
     htmlcode = "<ul style='list-style-type: none;'>";
-    
-    htmlcode += "<li><button id='sphere' class='toolbarButton' type='button'><img id='idTurnSphere' class='toolbarIcon' src='assets/icons/cerchio_annotazione_OFF.png'></button></li>";
-    htmlcode += "<li><button id='free' class='toolbarButton'> <img id='idTurnAreal' class='toolbarIcon' src='assets/icons/Aton_areale_OFF.png'/> </button></li>";
+
+    htmlcode +=
+      "<li><button id='sphere' class='toolbarButton' type='button'><img id='idTurnSphere' class='toolbarIcon' src='assets/icons/cerchio_annotazione_OFF.png'></button></li>";
+    htmlcode +=
+      "<li><button id='free' class='toolbarButton'> <img id='idTurnAreal' class='toolbarIcon' src='assets/icons/Aton_areale_OFF.png'/> </button></li>";
     htmlcode += "</ul>";
 
     $("#selectAnnType").append(htmlcode);
 
     $("#sphere").hover(
-      function(){
-        $("#idTurnSphere").attr("src", "assets/icons/cerchio_annotazione_ON.png")
+      function () {
+        $("#idTurnSphere").attr(
+          "src",
+          "assets/icons/cerchio_annotazione_ON.png"
+        );
       },
-      function() {
-        $("#idTurnSphere").attr("src", "assets/icons/cerchio_annotazione_OFF.png")
+      function () {
+        $("#idTurnSphere").attr(
+          "src",
+          "assets/icons/cerchio_annotazione_OFF.png"
+        );
       }
-    )
+    );
 
     $("#free").hover(
-      function(){
-        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_ON.png")
+      function () {
+        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_ON.png");
       },
-      function() {
-        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png")
+      function () {
+        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
       }
-    )
+    );
 
     $("#sphere").click(() => {
+      $("#idForm").show();
       UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
     });
   });
-
-  $("#annotation").mouseleave(() => {
-    "#selectAnnType".hide();
+  $("#selectAnnType").mouseleave(() => {
+    $("#selectAnnType").hide();
   });
 };
 
@@ -561,71 +570,51 @@ UI.addAnnotation = (semtype) => {
   let semid = ATON.Utils.generateID("ann");
 
   // TODO: HTML form here > fill O
-  let htmlcode =
-    "<div class='atonPopupTitle' style='width: 400px;'>Aggiungi Annotazione</div>";
-  htmlcode += "<div>";
-  htmlcode += "<div>";
+  let htmlcode = "";
+  htmlcode += "<form style='position:relative; top:2%'>";
+  htmlcode += "<div class='formTitleContainer'>";
   htmlcode +=
-    "<p style='justify-content: space-evenly'>Inserire l'annotazione compilando i campi correttamente</p>";
+    "<h3 id='idTitle' class='formTitle'> Titolo</h3> <input type='text' class='titleInput' ></input>";
   htmlcode += "</div>";
-  htmlcode += "<form style='display: grid; justify-content: space-evenly'>";
-  htmlcode += "<div style='position: relative'>";
+  htmlcode += "<div class='categoryContainer'>";
   htmlcode +=
-    "<h3 style='display: inline; position: relative; left: 5px' > Layer</h3> <select type='select' class='formSelect' id='select' style='position: relative; left: 47px' />";
+    "<h3 class='formTitle'> Categoria</h3> <select id='catSelect' type='select' class='categorySelect'>";
+
   htmlcode +=
-    "<option value='' selected='selected' name='Selezionare un layer'>Selezionare un layer...</option>";
-  htmlcode += "<option value='RGB' name='RGB'>RGB</option>";
-  htmlcode += "<option value='IR-1 name='IR-1'>IR-1</option>";
-  htmlcode += "<option value='IR-2' name='IR-2'>IR-2</option>";
-  htmlcode += "<option value='IR-3' name='IR-3'>IR-3</option>";
+    "<option class='catOption' value='Iconologia e Iconografia' >Iconologia e Iconografia</option>";
+  htmlcode +=
+    "<option class='catOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche Esecutive</option>";
+  htmlcode += "<option class='catOption' value='Struttura' >Struttura</option>";
+  htmlcode +=
+    "<option class='catOption' value='Conservazione e Restauro'>Conservazione e Restauro</option>";
+  htmlcode +=
+    "<option class='catOption' value='Testo e Scrittura'>Testo e Scrittura</option>";
+  htmlcode += "<option class='catOption' value='Censure'>Censure</option>";
+  htmlcode +=
+    "<option class='catOption' value='Notazioni Musicali'>Notazioni Musicali</option>";
   htmlcode += "</select>";
   htmlcode += "</div>";
-  htmlcode += "<div style='display: inline; position: relative; left: 5px' >";
+  htmlcode += "<div id='selectPlace' class='subCatSelectContainer'>";
   htmlcode +=
-    "<h3 style='display: inline; position: relative; left: 3px'> Areale</h3> <input type='text' style='display: inline; width: 200px; position: relative; left: 40px'></input>";
-  htmlcode += "</div>";
-  htmlcode += "<div>";
-  htmlcode +=
-    "<h3 style='display: inline; position: relative; left: 3px'> Categoria</h3> <select id='catSelect' type='select' class='formSelect' style='position: relative; left: 35px'>";
-  htmlcode += "<option value='' >Selezionare categoria</option>";
-  htmlcode +=
-    "<option value='Iconologia e Iconografia' >Iconologia e Iconografia</option>";
-  htmlcode +=
-    "<option value='Materiali e Tecniche Esecutive' >Materiali e Tecniche Esecutive</option>";
-  htmlcode += "<option value='Struttura' >Struttura</option>";
-  htmlcode +=
-    "<option value='Conservazione e Restauro'>Conservazione e Restauro</option>";
-  htmlcode += "<option value='Testo e Scrittura'>Testo e Scrittura</option>";
-  htmlcode += "<option value='Censure'>Censure</option>";
-  htmlcode += "<option value='Notazioni Musicali'>Notazioni Musicali</option>";
+    "<h3 class='formTitle' > Sottocategoria</h3> <select id='sottoCatSelect' type='select' class='subCategorySelect' >";
   htmlcode += "</select>";
   htmlcode += "</div>";
-  htmlcode += "<div id='selectPlace' style='position:relative; top:5px'>";
+  htmlcode += "<div class='descriptionContainer'>";
   htmlcode +=
-    "<h3 style='display: inline; position: relative; left: 0px'> Sottocategoria</h3> <select id='sottoCatSelect' type='select' class='formSelect' style='display: inline; position: relative; left: 18px'>";
-  htmlcode +=
-    "<option value='' disabled selected>Selezionare sottocategoria</option>";
-  htmlcode += "</select>";
+    "<h3 class='formTitle' >Descrizione</h3> <textarea class='descriptionInput' type='text' id='idDescription' max-length='500' ></textarea>";
   htmlcode += "</div>";
   htmlcode += "<div style='position:relative; top:5px'>";
+  // htmlcode +=
+  //   "<span style='position: relative; left: 30px;' id='rchars'>650 </span> <span style='position: relative; left: 30px;'> caratteri rimasti</span>";
+  // htmlcode += "</div>";
+  htmlcode += "<div class='fileContainer'>";
   htmlcode +=
-    "<h3 style='display: inline; position: relative; left: 5px' >Descrizione</h3> <textarea type='text' id='idDescription' max-length='500' style='display: inline; width: 200px; height: 100px; position: relative; left: 30px; top: 5px; border-radius: 5px'></textarea>";
+  "<label for='files' class='formTitle'>File Multimediali </label>";
+ htmlcode += "<input class='uploadLink' id='files' type='text' ></input> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
   htmlcode += "</div>";
-  htmlcode += "<div style='position:relative; top:5px'>";
+  htmlcode += "<div class='authorContainer'>";
   htmlcode +=
-    "<span style='position: relative; left: 30px;' id='rchars'>500 </span> <span style='position: relative; left: 30px;'> caratteri rimasti</span>";
-  htmlcode += "</div>";
-  htmlcode += "<div style='position:relative; top:5px'>";
-  htmlcode +=
-    "<h3 style='display: inline;' >Immagini</h3> <input id='image' type='file' accept='.jpeg' style='display: inline; width: 200px;  position: relative; left: 35px' multiple></input>";
-  htmlcode += "</div>";
-  htmlcode += "<div style='position:relative; top:5px'>";
-  htmlcode +=
-    "<h3 style='display: inline;' >Video</h3> <input id='video' type='file' accept='.mp4' style='display: inline; width: 200px;  position: relative; left: 47px'></input>";
-  htmlcode += "</div>";
-  htmlcode += "<div style='position:relative; top:5px'>";
-  htmlcode +=
-    "<h3 style='display: inline;'>Bibliografia</h3> <input type='text' style='display: inline; width: 200px; position: relative; left: 30px'></input>";
+    "<h3 class='formTitle'>Autore</h3> <input class='authorInput' type='text' ></input>";
   htmlcode += "</div>";
   htmlcode += "</form>";
   htmlcode +=
@@ -633,8 +622,7 @@ UI.addAnnotation = (semtype) => {
   htmlcode +=
     "<div class='atonBTN atonBTN-red atonBTN-text atonBTN-horizontal' type> Annulla </div>";
   htmlcode += "</div>";
-
-  if (!ATON.FE.popupShow(htmlcode)) return;
+  $("#idForm").html(htmlcode);
 
   $("#catSelect").change(function () {
     $("#sottoCatSelect").html("");
@@ -644,79 +632,79 @@ UI.addAnnotation = (semtype) => {
     if (this.value === "Iconologia e Iconografia") {
       let htmlcode = "";
       htmlcode +=
-        "<option value='' disabled selected>Selezionare sottocategoria</option>";
+        "<option class='catOption' value='Personaggi e Simboli' >Personaggi e Simboli</option>";
+      htmlcode += "<option class='catOption' value='Stile' >Stile</option>";
       htmlcode +=
-        "<option value='Personaggi e Simboli' >Personaggi e Simboli</option>";
-      htmlcode += "<option value='Stile' >Stile</option>";
+        "<option class='catOption' value='Messaggio Ideologico' >Messaggio Ideologico</option>";
       htmlcode +=
-        "<option value='Messaggio Ideologico' >Messaggio Ideologico</option>";
+        "<option class='catOption' value='Fonti e Tradizioni'>Fonti e Tradizioni</option>";
       htmlcode +=
-        "<option value='Fonti e Tradizioni'>Fonti e Tradizioni</option>";
+        "<option class='catOption' value='Datazione e Attribuzione'>Datazione e Attribuzione</option>";
       htmlcode +=
-        "<option value='Datazione e Attribuzione'>Datazione e Attribuzione</option>";
-      htmlcode += "<option value='Confronti Visivi'>Confronti Visivi</option>";
-      htmlcode += "<option value='Ripensamenti'>Ripensamenti</option>";
+        "<option class='catOption' value='Confronti Visivi'>Confronti Visivi</option>";
       htmlcode +=
-        "<option value='Elementi Ornamentali'>Elementi Ornamentali</option>";
-      htmlcode += "<option value='Descrizione'>Descrizione</option>";
+        "<option class='catOption' value='Ripensamenti'>Ripensamenti</option>";
       htmlcode +=
-        "<option value='Modifiche Successive'>Modifiche Successive</option>";
+        "<option class='catOption' value='Elementi Ornamentali'>Elementi Ornamentali</option>";
+      htmlcode +=
+        "<option class='catOption' value='Descrizione'>Descrizione</option>";
+      htmlcode +=
+        "<option class='catOption' value='Modifiche Successive'>Modifiche Successive</option>";
 
       $("#sottoCatSelect").append(htmlcode);
     } else if (this.value === "Materiali e Tecniche Esecutive") {
       console.log("cliccato", this.value);
       let htmlcode = "";
       htmlcode +=
-        "<option value='' disabled selected>Selezionare sottocategoria</option>";
+        "<option class='catOption' value='Particolarità dei Materiali' >Particolarità dei Materiali</option>";
       htmlcode +=
-        "<option value='Particolarità dei Materiali' >Particolarità dei Materiali</option>";
-      htmlcode +=
-        "<option value='Particolarità delle Tecniche Esecutive' >Particolarità delle Tecniche Esecutive</option>";
+        "<option class='catOption' value='Particolarità delle Tecniche Esecutive' >Particolarità delle Tecniche Esecutive</option>";
 
       $("#sottoCatSelect").append(htmlcode);
     } else if (this.value === "Struttura") {
       console.log("cliccato", this.value);
       let htmlcode = "";
       htmlcode +=
-        "<option value='' disabled selected>Selezionare sottocategoria</option>";
-      htmlcode += "<option value='Dimensione' >Dimensione</option>";
-      htmlcode += "<option value='Legatura' >Legatura</option>";
-      htmlcode += "<option value='Fascicolazione' >Fascicolazione</option>";
-      htmlcode += "<option value='Impaginazione' >Impaginazione</option>";
+        "<option class='catOption' value='Dimensione' >Dimensione</option>";
       htmlcode +=
-        "<option value='Elementi di Riuso' >Elementi di Riuso</option>";
+        "<option class='catOption' value='Legatura' >Legatura</option>";
       htmlcode +=
-        "<option value='Particolarita di Struttura' >Particolarità di Struttura</option>";
+        "<option class='catOption' value='Fascicolazione' >Fascicolazione</option>";
+      htmlcode +=
+        "<option class='catOption' value='Impaginazione' >Impaginazione</option>";
+      htmlcode +=
+        "<option class='catOption' value='Elementi di Riuso' >Elementi di Riuso</option>";
+      htmlcode +=
+        "<option class='catOption' value='Particolarita di Struttura' >Particolarità di Struttura</option>";
       $("#sottoCatSelect").append(htmlcode);
     } else if (this.value === "Conservazione e Restauro") {
       let htmlcode = "";
       htmlcode +=
-        "<option value='' disabled selected>Selezionare sottocategoria</option>";
-      htmlcode += "<option value='Restauri' >Restauri</option>";
+        "<option class='catOption' value='Restauri' >Restauri</option>";
       htmlcode +=
-        "<option value='Evidenze Biologiche' >Evidenze Biologiche</option>";
+        "<option class='catOption' value='Evidenze Biologiche' >Evidenze Biologiche</option>";
       htmlcode +=
-        "<option value='Evidenze Chimiche' >Evidenze Chimiche</option>";
-      htmlcode += "<option value='Evidenze Fisiche' >Evidenze Fisiche</option>";
+        "<option class='catOption' value='Evidenze Chimiche' >Evidenze Chimiche</option>";
       htmlcode +=
-        "<option value='Furti E Sottrazioni' >Furti E Sottrazioni</option>";
-      htmlcode += "<option value='Danni' >Danni</option>";
+        "<option class='catOption' value='Evidenze Fisiche' >Evidenze Fisiche</option>";
+      htmlcode +=
+        "<option class='catOption' value='Furti E Sottrazioni' >Furti E Sottrazioni</option>";
+      htmlcode += "<option class='catOption' value='Danni' >Danni</option>";
 
       $("#sottoCatSelect").append(htmlcode);
       console.log("cliccato", this.value);
     } else if (this.value === "Testo e Scrittura") {
       let htmlcode = "";
       htmlcode +=
-        "<option value='' disabled selected>Selezionare sottocategoria</option>";
+        "<option class='catOption' value='Particolarità di Scrittura' >Particolarità di Scrittura</option>";
       htmlcode +=
-        "<option value='Particolarità di Scrittura' >Particolarità di Scrittura</option>";
+        "<option class='catOption' value='Testo da Lettera Miniata' >Testo da Lettera Miniata</option>";
       htmlcode +=
-        "<option value='Testo da Lettera Miniata' >Testo da Lettera Miniata</option>";
+        "<option class='catOption' value='Trascrizione e Traduzione' >Trascrizione e Traduzione</option>";
       htmlcode +=
-        "<option value='Trascrizione e Traduzione' >Trascrizione e Traduzione</option>";
-      htmlcode += "<option value='Note e Appunti' >Note e Appunti</option>";
+        "<option class='catOption' value='Note e Appunti' >Note e Appunti</option>";
       htmlcode +=
-        "<option value='Modifiche Successive' >Modifiche Successive</option>";
+        "<option class='catOption' value='Modifiche Successive' >Modifiche Successive</option>";
 
       $("#sottoCatSelect").append(htmlcode);
 
@@ -724,17 +712,16 @@ UI.addAnnotation = (semtype) => {
     } else if (this.value === "Censure") {
       let htmlcode = "";
       htmlcode +=
-        "<option value='' disabled selected>Selezionare sottocategoria</option>";
-      htmlcode += "<option value='Censure di Testo' >Censure di Testo</option>";
+        "<option class='catOption' value='Censure di Testo' >Censure di Testo</option>";
       htmlcode +=
-        "<option value='Censure di Immagini' >Censure di Immagini</option>";
+        "<option class='catOption' value='Censure di Immagini' >Censure di Immagini</option>";
 
       $("#sottoCatSelect").append(htmlcode);
 
       console.log("cliccato", this.value);
     } else if (this.value === "Notazioni Musicali") {
-      $("#selectPlace").remove();
-      console.log("cliccato", this.value);
+      let htmlcode = "";
+      $("selectPlace").append(htmlcode);
     } else if (this.value === " ") {
       console.log("cliccato niente");
       alert(
@@ -750,7 +737,7 @@ UI.addAnnotation = (semtype) => {
     }
   });
   // setting count limit for characters in the description
-  var maxLength = 500;
+  var maxLength = 650;
   $("#idDescription").keyup(function () {
     var textlen = maxLength - $(this).val().length;
     $("#rchars").text(textlen);
