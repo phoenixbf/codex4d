@@ -125,7 +125,7 @@ APP.postPoseLoaded = ()=>{
         APP.plight.decay     = 1.0;
 */
         // std
-        APP.plight.intensity = 1.5;
+        APP.plight.intensity = 1.3;
         APP.plight.distance  = 2.5;
         APP.plight.decay     = 2.0;
 

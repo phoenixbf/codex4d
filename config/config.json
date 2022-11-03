@@ -17,6 +17,13 @@
                 { "title": "cc. 9v-10r" },
                 { "title": "cc. 12v-13r" }
             ]
+        },
+        "0000102213":{
+            "title": "Divina Commedia Ms. 1102",
+            "poses":[
+                { "title": "cc. 4v-5r" },
+                { "title": "cc. 56v-57r" }
+            ]
         }
     }
 }
