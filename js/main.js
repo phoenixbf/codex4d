@@ -443,9 +443,18 @@ APP.setupEvents = ()=>{
         if (k==='ArrowRight') APP.loadNextPose();
         //if (k==='ArrowLeft') 
 
+        // Basic annotation
         if (k==='a'){
             APP.addSemanticAnnotation("test", { title: "test test" }, ATON.FE.SEMSHAPE_SPHERE);
         }
+        // TODO: Convex annotation + ENTER to finalize
+        if (k==='f'){
+            //APP.addSemanticAnnotation("test", { title: "test test" }, ATON.FE.SEMSHAPE_SPHERE);
+        }
+
+        // TODO:
+        if (k === 'Enter')  APP.finalizeSemanticShape();
+        if (k === 'Escape') APP.cancelCurrentTask();
 
         if (k==='r'){
             if (APP.gBook) APP.gBook.rotation.x += 0.1;
