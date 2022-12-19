@@ -104,7 +104,7 @@ UI.buildPublic = () => {
   );
 
   //top toolbar for Public UI to allow Login
-  let htmlTop = "";
+  let htmlTop = "<div>";
   htmlTop +=
     "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
   htmlTop += "</div>";

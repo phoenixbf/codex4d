@@ -187,8 +187,9 @@ button {
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
-  margin-left: 80%;
+  margin-left: 88%;
   margin-top: 4%;
+  margin-right: 40px;
 }
 .login:hover {
   color: rgba(224, 192, 129, 1);
@@ -315,15 +316,16 @@ option {
   z-index: 101;
 }
 .viewControlContainer {
-  position: relative;
+  position: absolute;
   margin-right: 10px;
+  left:-5%;
   top: -5vh;
 }
 
 .viewControl {
   position: absolute;
   background: transparent;
-  top: 68vh;
+  top: 65vh;
   left: 17vw;
   margin-right: 10vw;
 }
