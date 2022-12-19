@@ -102,8 +102,8 @@ button {
   display: flex;
   width: 3.45rem;
   height: 61%;
-  left: 0.5rem;
-  top: 15%;
+  left: 1%;
+  top: 25%;
   background: rgb(110, 110, 110);
 
   opacity: 0.7;
@@ -243,9 +243,9 @@ button {
 .selectContainer {
   position: fixed;
   display: flex;
-  width: 18.7%;
+  width: 30%;
   height: 46px;
-  top: 6%;
+  top: 12%;
   left: 5%;
   background: rgb(110, 110, 110);
   opacity: 1;
@@ -319,7 +319,7 @@ option {
   position: absolute;
   margin-right: 10px;
   left:-5%;
-  top: -5vh;
+  top: 0vh;
 }
 
 .viewControl {
@@ -327,7 +327,13 @@ option {
   background: transparent;
   top: 65vh;
   left: 17vw;
-  margin-right: 10vw;
+  margin-right: 100px;
+}
+@media screen and (max-width: 800px) {
+  .viewControl { 
+    left: 15vw;
+   
+  }
 }
 #slider {
   position: absolute;
