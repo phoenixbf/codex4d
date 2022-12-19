@@ -305,7 +305,7 @@ UI.buildEditor = () => {
   // Note filtering for Editor
 
   let htmlNotesEditor = "";
-  htmlNotesEditor += "<div class='selectContainer'>";
+  htmlNotesEditor += "<div id='idNotesEditor' class='selectContainer'>";
   htmlNotesEditor += "<p class='filterText'> Note </p>";
   htmlNotesEditor += "<select class='filterAnnotation'>";
   htmlNotesEditor +=
@@ -607,6 +607,7 @@ UI.buildEditor = () => {
 
     $("#sphere").click(() => {
       $("#idForm").show();
+      $("#idSelect").hide()
       UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
     });
   });

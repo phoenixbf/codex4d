@@ -245,7 +245,7 @@ button {
   display: flex;
   width: 30%;
   height: 46px;
-  top: 12%;
+  top: 10%;
   left: 5%;
   background: rgb(110, 110, 110);
   opacity: 1;
@@ -697,7 +697,7 @@ option {
   display: inline;
   left: 60%;
   width: 40%;
-  top: -1.5vh;
+  top: -1vh;
 }
 
 .authorInput {
