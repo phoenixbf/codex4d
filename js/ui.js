@@ -717,7 +717,7 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<div class='fileContainer'>";
   htmlcode +=
   "<label for='files' class='formTitle'>File Multimediali </label>";
- htmlcode += "<input class='uploadLink' id='files' type='text' ></input> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
+ htmlcode += "<input class='uploadLink' id='files' type='text'/> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
   htmlcode += "</div>";
   htmlcode += "<div class='authorContainer'>";
   htmlcode +=
