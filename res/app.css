@@ -318,13 +318,13 @@ ul.dropdown li a {
 .dot2 {
   width: 13px;
   height: 13px;
-  background-color: transparent;
+  background-color: #FF7F11;
   border-radius: 50%;
   display: inline-block;
   position: relative;
   left: 42%;
   top:2.5px;
-  border: 1px solid #422c20;
+  
 }
 .dot3 {
   width: 13px;
