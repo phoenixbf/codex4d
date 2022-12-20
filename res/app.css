@@ -228,25 +228,14 @@ button {
   position: relative;
 }
 
-.filterAnnotation {
-  position: absolute;
-  display: flex;
-  width: 75%;
-  height: 34px;
-  top: 13%;
-  left: 23%;
-  opacity: 0.7;
-  border-radius: 24px;
-  white-space: nowrap;
-  overflow: hidden;
-}
+
 .selectContainer {
   position: fixed;
   display: flex;
-  width: 30%;
+  width: 25%;
   height: 46px;
   top: 10%;
-  left: 5%;
+  left: 8%;
   background: rgb(110, 110, 110);
   opacity: 1;
   border-radius: 24px;
@@ -259,20 +248,174 @@ option {
   align-items: center;
 }
 
-.filterOption {
+div#nav {
+  background: rgb(110, 110, 110);
+  opacity: 1;
+
+  z-index: 0;
+}
+div#nav a {
+  padding: 5px 15px 5px;
+}
+.dropdown-toggle {
   position: fixed;
-  width: 100%;
+  text-decoration: none;
   display: flex;
-  height: 31px;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 15px;
-  justify-content: center;
-  color: #422c20;
-  text-align-last: left;
+  width: 17%;
+  height: 26px;
+  top: 10.7%;
+  left: 13.7%;
+  background: #c7c7c7;
   border-radius: 24px;
-  border: none;
+  color: #422c20;
+}
+/**** ****/
+ul.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  height: 260px;
+  margin-top: 5px;
+  width: 52%;
+  left: 35%;
+  background: #c7c7c7;
+  border-radius: 24px;
+}
+ul.dropdown li {
+  list-style-type: none;
+  text-decoration: none;
+  margin-top: 5px;
+}
+ul.dropdown li a {
+  background: #c7c7c7;
+  text-decoration: none;
+  width: 100%;
+  font-size: 12px;
+  height: 100%;
+  align-items: center;
+  color: #422c20;
+}
+
+.arrow{
+  width: 14px;
+  height: 7px;
+  display:inline-block;
+  position: relative;
+  left: 50%;
+  top: 30%;
+}
+
+.dot {
+  width: 13px;
+  height: 13px;
+  background-color: #BF2517B2;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  left: 4%;
+  top:5px;
+}
+.dot2 {
+  width: 13px;
+  height: 13px;
+  background-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  left: 42%;
+  top:2.5px;
+  border: 1px solid #422c20;
+}
+.dot3 {
+  width: 13px;
+  height: 13px;
+  background-color: #422C20;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  left: 14%;
+  top:2.5px;
+}
+.dot4 {
+  width: 13px;
+  height: 13px;
+  background-color: #2F4689;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  left: 39%;
+  top:5px;
+}
+.dot5 {
+  width: 13px;
+  height: 13px;
+  background-color: #D9A441;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  left: -3%;
+  top:5px;
+}
+.dot6 {
+  width: 13px;
+  height: 13px;
+  background-color: #E7F0F9;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  left: 22%;
+  top:5px;
+}
+.dot7 {
+  width: 13px;
+  height: 13px;
+  background-color: #79b857;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  left: 18%;
+  top:5px;
+}
+
+@media screen and (min-width: 2000px) {
+  .arrow{
+    left: 70%;
+
+  }
+  .selectContainer {
+    position: fixed;
+    display: flex;
+    width: 25%;
+    height: 46px;
+    top: 10.5%;
+    left: 7.3%;
+    background: rgb(110, 110, 110);
+    opacity: 1;
+    border-radius: 24px;
+    z-index: 0;
+  }
+  .dot {
+    left: 30%;
+  }
+  .dot2 {
+    left: 54%;
+  }
+  .dot3 {
+    left: 37%;
+  }
+  .dot4 {
+    left: 52%;
+  }
+  .dot5 {
+    left: 27%;
+  
+  }
+  .dot6 {
+    left: 42%;
+  }
+  .dot7 {
+    left: 40%;
+  }
 }
 
 .selectHr {
@@ -280,6 +423,9 @@ option {
   color: #2f4689;
   border: 1px solid #2f4689;
   background: #c7c7c7;
+  position: relative;
+  left:-20px;
+  width:90%
 }
 
 .filterText {
@@ -318,7 +464,7 @@ option {
 .viewControlContainer {
   position: absolute;
   margin-right: 10px;
-  left:-5%;
+  left: -5%;
   top: 0vh;
 }
 
@@ -330,9 +476,8 @@ option {
   margin-right: 100px;
 }
 @media screen and (max-width: 800px) {
-  .viewControl { 
+  .viewControl {
     left: 15vw;
-   
   }
 }
 #slider {
@@ -689,7 +834,7 @@ option {
   order: 1;
   flex-grow: 0;
   position: relative;
-  top:20%;
+  top: 20%;
 }
 
 .authorContainer {
@@ -707,7 +852,7 @@ option {
   align-items: flex-start;
   padding: 15px 20px;
   position: absolute;
-  top:75%;
+  top: 75%;
   gap: 10px;
   width: 80%;
   height: 48px;
@@ -741,10 +886,10 @@ option {
   justify-content: center;
   color: #666666;
 }
-.cancelButton:hover{
+.cancelButton:hover {
   background: rgba(47, 70, 137, 0.15);
-  color: #2F4689;
-  border: 1.5px solid #2F4689;
+  color: #2f4689;
+  border: 1.5px solid #2f4689;
 }
 
 .okButton {
@@ -771,8 +916,8 @@ option {
   color: #666666;
 }
 
-.okButton:hover{
+.okButton:hover {
   background: rgba(47, 70, 137, 0.15);
-  color: #2F4689;
-  border: 1.5px solid #2F4689;
+  color: #2f4689;
+  border: 1.5px solid #2f4689;
 }

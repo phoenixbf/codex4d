@@ -47,58 +47,58 @@ UI.buildPublic = () => {
   $("#idLeftToolbar").html(htmlLeft);
 
   $("#idFull").hover(
-    function () {
+    () => {
       $("#idFullsize").attr("src", "assets/icons/icon_fullsizeON.png");
     },
-    function () {
+    () => {
       $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
     }
   );
 
   $("#idReset").hover(
-    function () {
+    () => {
       $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
     },
-    function () {
+    () => {
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
     }
   );
 
   $("#idLayer").hover(
-    function () {
+    () => {
       $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
     },
-    function () {
+    () => {
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
     }
   );
 
   $("#idAnnotations").hover(
-    function () {
+    () => {
       $("#idTurnAnnotations").attr(
         "src",
         "assets/icons/icon_annotazioniON.png"
       );
     },
-    function () {
+    () => {
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
     }
   );
 
   $("#idSize").hover(
-    function () {
+    () => {
       $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
     },
-    function () {
+    () => {
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
     }
   );
 
   $("#idHelp").hover(
-    function () {
+    () => {
       $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
     },
-    function () {
+    () => {
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
     }
   );
@@ -112,9 +112,9 @@ UI.buildPublic = () => {
   $("#idTopToolbar").html(htmlTop);
 
   $("#idLogin").hover(
-    function () {
+    () => {
       $("#idLoginAction").attr("src", "assets/icons/icon_loginON.png");
-      $("idLogin").attr("color", "rgba(224, 192, 129, 1)");
+      $("#idLogin").attr("color", "rgba(224, 192, 129, 1)");
     },
     function () {
       $("#idLoginAction").attr("src", "assets/icons/icon_login.png");
@@ -124,35 +124,82 @@ UI.buildPublic = () => {
   //Note filtering
   let htmlNotes = "";
   htmlNotes += "<p class='filterText'> Note </p>";
-  htmlNotes += "<select class='filterAnnotation'>";
+  htmlNotes += "<div id='nav'>";
+  htmlNotes +=
+    "<a class='dropdown-toggle' href='#'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></a>";
+  htmlNotes += "<ul class='dropdown'>";
+  htmlNotes +=
+    " <li><a href='#' >Iconologia e Iconografia</a> <div class='dot'/></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes += "<li><a href='#' >Struttura</a> <div class='dot4'/></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes +=
+    "<li><a href='#'> Conservazione e Restauro</a> <div class='dot5'/></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes +=
+    " <li><a href='#' >Testo e Scrittura</a> <div class='dot6'/></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes +=
+    "<li><a href='#'>Materiali e Tecniche</a> <div class='dot3'/></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes += " <li><a href='#' >Censura</a> <div class='dot2'/></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes +=
+    "<li><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
+  htmlNotes += "</ul>";
+  htmlNotes += "</div>";
+  $(function () {
+    // Dropdown toggle
+    $(".dropdown-toggle").click(function () {
+      $(this).next(".dropdown").slideToggle();
+    });
 
-  htmlNotes +=
-    "<option  class='filterOption' value='Iconologia e Iconografia' > &nbsp;&nbsp;&nbsp&nbspIconologia e Iconografia  </option> ";
-  htmlNotes +=
-    "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlNotes +=
-    "<option class='filterOption' value='Materiali e Tecniche Esecutive' > &nbsp;&nbsp;&nbsp&nbspMateriali e Tecniche </option>";
-  htmlNotes +=
-    "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlNotes +=
-    "<option class='filterOption' value='Struttura' > &nbsp;&nbsp;&nbsp&nbspStruttura </option>";
-  htmlNotes +=
-    "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlNotes +=
-    "<option class='filterOption' value='Conservazione e Restauro'> &nbsp;&nbsp;&nbsp&nbspConservazione e Restauro </option>";
-  htmlNotes +=
-    "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlNotes +=
-    "<option class='filterOption' value='Testo e Scrittura'>&nbsp;&nbsp;&nbsp&nbspTesto e Scrittura </option>";
-  htmlNotes +=
-    "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlNotes +=
-    "<option class='filterOption' value='Censure'>&nbsp;&nbsp;&nbsp&nbspCensure </option>";
-  htmlNotes +=
-    "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  htmlNotes +=
-    "<option class='filterOption' value='Notazioni Musicali'>&nbsp;&nbsp;&nbsp&nbspNotazioni Musicali  </option>";
-  htmlNotes += "</select>";
+    $(document).click(function (e) {
+      var target = e.target;
+      if (
+        !$(target).is(".dropdown-toggle") &&
+        !$(target).parents().is(".dropdown-toggle")
+      ) {
+        //{ $('.dropdown').hide(); }
+        $(".dropdown").slideUp();
+      }
+    });
+    $(".dropdown-toggle").click(() => {
+      $("#idSelectArrow").attr("src", "assets/downArrow.png")
+    ,
+  $("#idSelectArrow").attr("src", "assets/upArrow.png")})
+  });
+ 
+  // htmlNotes += "<p class='filterText'> Note </p>";
+  // htmlNotes += "<select class='filterAnnotation'>";
+
+  // htmlNotes +=
+  //   "<option  class='filterOption' value='Iconologia e Iconografia' > &nbsp;&nbsp;&nbsp&nbspIconologia e Iconografia  </option> ";
+  // htmlNotes +=
+  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  // htmlNotes +=
+  //   "<option class='filterOption' value='Materiali e Tecniche Esecutive' > &nbsp;&nbsp;&nbsp&nbspMateriali e Tecniche </option>";
+  // htmlNotes +=
+  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  // htmlNotes +=
+  //   "<option class='filterOption' value='Struttura' > &nbsp;&nbsp;&nbsp&nbspStruttura </option>";
+  // htmlNotes +=
+  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  // htmlNotes +=
+  //   "<option class='filterOption' value='Conservazione e Restauro'> &nbsp;&nbsp;&nbsp&nbspConservazione e Restauro </option>";
+  // htmlNotes +=
+  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  // htmlNotes +=
+  //   "<option class='filterOption' value='Testo e Scrittura'>&nbsp;&nbsp;&nbsp&nbspTesto e Scrittura </option>";
+  // htmlNotes +=
+  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  // htmlNotes +=
+  //   "<option class='filterOption' value='Censure'>&nbsp;&nbsp;&nbsp&nbspCensure </option>";
+  // htmlNotes +=
+  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
+  // htmlNotes +=
+  //   "<option class='filterOption' value='Notazioni Musicali'>&nbsp;&nbsp;&nbsp&nbspNotazioni Musicali  </option>";
+  // htmlNotes += "</select>";
 
   $("#idSelect").html(htmlNotes);
 
@@ -305,7 +352,7 @@ UI.buildEditor = () => {
   // Note filtering for Editor
 
   let htmlNotesEditor = "";
-  htmlNotesEditor += "<div id='idNotesEditor' class='selectContainer'>";
+  htmlNotesEditor += "<div id= class='selectContainer'>";
   htmlNotesEditor += "<p class='filterText'> Note </p>";
   htmlNotesEditor += "<select class='filterAnnotation'>";
   htmlNotesEditor +=
@@ -468,8 +515,6 @@ UI.buildEditor = () => {
     }
   );
 
-
-
   //Initializing Left Toolbar for Editor User
   let htmlLeftEditor = "";
 
@@ -607,7 +652,7 @@ UI.buildEditor = () => {
 
     $("#sphere").click(() => {
       $("#idForm").show();
-      $("#idSelect").hide()
+      $("#id");
       UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
     });
   });
@@ -716,9 +761,9 @@ UI.addAnnotation = (semtype) => {
   //   "<span style='position: relative; left: 30px;' id='rchars'>650 </span> <span style='position: relative; left: 30px;'> caratteri rimasti</span>";
   // htmlcode += "</div>";
   htmlcode += "<div class='fileContainer'>";
+  htmlcode += "<label for='files' class='formTitle'>File Multimediali </label>";
   htmlcode +=
-  "<label for='files' class='formTitle'>File Multimediali </label>";
- htmlcode += "<input class='uploadLink' id='files' type='text'/> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
+    "<input class='uploadLink' id='files' type='text'/> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
   htmlcode += "</div>";
   htmlcode += "<div class='authorContainer'>";
   htmlcode +=
@@ -850,7 +895,6 @@ UI.addAnnotation = (semtype) => {
     var textlen = maxLength - $(this).val().length;
     $("#rchars").text(textlen);
   });
-  
 
   //APP.addSemanticAnnotation(semid, O, semtype);
 };
