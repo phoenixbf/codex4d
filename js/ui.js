@@ -169,37 +169,7 @@ UI.buildPublic = () => {
     ,
   $("#idSelectArrow").attr("src", "assets/upArrow.png")})
   });
- 
-  // htmlNotes += "<p class='filterText'> Note </p>";
-  // htmlNotes += "<select class='filterAnnotation'>";
 
-  // htmlNotes +=
-  //   "<option  class='filterOption' value='Iconologia e Iconografia' > &nbsp;&nbsp;&nbsp&nbspIconologia e Iconografia  </option> ";
-  // htmlNotes +=
-  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  // htmlNotes +=
-  //   "<option class='filterOption' value='Materiali e Tecniche Esecutive' > &nbsp;&nbsp;&nbsp&nbspMateriali e Tecniche </option>";
-  // htmlNotes +=
-  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  // htmlNotes +=
-  //   "<option class='filterOption' value='Struttura' > &nbsp;&nbsp;&nbsp&nbspStruttura </option>";
-  // htmlNotes +=
-  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  // htmlNotes +=
-  //   "<option class='filterOption' value='Conservazione e Restauro'> &nbsp;&nbsp;&nbsp&nbspConservazione e Restauro </option>";
-  // htmlNotes +=
-  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  // htmlNotes +=
-  //   "<option class='filterOption' value='Testo e Scrittura'>&nbsp;&nbsp;&nbsp&nbspTesto e Scrittura </option>";
-  // htmlNotes +=
-  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  // htmlNotes +=
-  //   "<option class='filterOption' value='Censure'>&nbsp;&nbsp;&nbsp&nbspCensure </option>";
-  // htmlNotes +=
-  //   "<option class='selectHr' disabled>&nbsp;&nbsp;&nbsp&nbsp────────────────────</option>";
-  // htmlNotes +=
-  //   "<option class='filterOption' value='Notazioni Musicali'>&nbsp;&nbsp;&nbsp&nbspNotazioni Musicali  </option>";
-  // htmlNotes += "</select>";
 
   $("#idSelect").html(htmlNotes);
 
@@ -352,37 +322,52 @@ UI.buildEditor = () => {
   // Note filtering for Editor
 
   let htmlNotesEditor = "";
-  htmlNotesEditor += "<div id= class='selectContainer'>";
   htmlNotesEditor += "<p class='filterText'> Note </p>";
-  htmlNotesEditor += "<select class='filterAnnotation'>";
+  htmlNotesEditor += "<div id='nav'>";
   htmlNotesEditor +=
-    "<option  class='filterOption' value='Iconologia e Iconografia' >Iconologia e Iconografia  </option> ";
+    "<a class='dropdown-toggle' href='#'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></a>";
+  htmlNotesEditor += "<ul class='dropdown'>";
   htmlNotesEditor +=
-    "<option class='selectHr' disabled>────────────────────</option>";
+    " <li><a href='#' >Iconologia e Iconografia</a> <div class='dot'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
+  htmlNotesEditor += "<li><a href='#' >Struttura</a> <div class='dot4'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<option class='filterOption' value='Materiali e Tecniche Esecutive' >Materiali e Tecniche </option>";
+    "<li><a href='#'> Conservazione e Restauro</a> <div class='dot5'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<option class='selectHr' disabled>────────────────────</option>";
+    " <li><a href='#' >Testo e Scrittura</a> <div class='dot6'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<option class='filterOption' value='Struttura' >Struttura</option>";
+    "<li><a href='#'>Materiali e Tecniche</a> <div class='dot3'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
+  htmlNotesEditor += " <li><a href='#' >Censura</a> <div class='dot2'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<option class='selectHr' disabled>────────────────────</option>";
-  htmlNotesEditor +=
-    "<option class='filterOption' value='Conservazione e Restauro'>Conservazione e Restauro </option>";
-  htmlNotesEditor +=
-    "<option class='selectHr' disabled>────────────────────</option>";
-  htmlNotesEditor +=
-    "<option class='filterOption' value='Testo e Scrittura'>Testo e Scrittura  </option>";
-  htmlNotesEditor +=
-    "<option class='selectHr' disabled>────────────────────</option>";
-  htmlNotesEditor +=
-    "<option class='filterOption' value='Censure'>Censure </option>";
-  htmlNotesEditor +=
-    "<option class='selectHr' disabled>────────────────────</option>";
-  htmlNotesEditor +=
-    "<option class='filterOption' value='Notazioni Musicali'>Notazioni Musicali </option>";
-  htmlNotesEditor += "</select>";
+    "<li><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
+  htmlNotesEditor += "</ul>";
   htmlNotesEditor += "</div>";
+  $(function () {
+    // Dropdown toggle
+    $(".dropdown-toggle").click(function () {
+      $(this).next(".dropdown").slideToggle();
+    });
+
+    $(document).click(function (e) {
+      var target = e.target;
+      if (
+        !$(target).is(".dropdown-toggle") &&
+        !$(target).parents().is(".dropdown-toggle")
+      ) {
+        //{ $('.dropdown').hide(); }
+        $(".dropdown").slideUp();
+      }
+    });
+    $(".dropdown-toggle").click(() => {
+      $("#idSelectArrow").attr("src", "assets/downArrow.png")
+    ,
+  $("#idSelectArrow").attr("src", "assets/upArrow.png")})
+  });
 
   $("#idSelect").html(htmlNotesEditor);
 
