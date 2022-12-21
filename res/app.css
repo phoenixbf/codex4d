@@ -270,7 +270,7 @@ div#nav a {
   width: 60%;
   height: 26px;
   top: 10.7%;
-  left: 30%;
+  left: 28%;
   background: #c7c7c7;
   border-radius: 24px;
   color: #422c20;
@@ -282,7 +282,7 @@ ul.dropdown {
   top: 95%;
   height: 270px;
   margin-top: 5px;
-  width: 100%;
+  width: 250px;
   left: 35%;
   background: #c7c7c7;
   border-radius: 24px;
@@ -311,8 +311,8 @@ ul.dropdown li a {
   height: 7px;
   display:inline-block;
   position:absolute;
-  left: 90%;
-  top: 30%;
+  left: 88%;
+  top: 35%;
 }
 
 .dot {
@@ -394,32 +394,21 @@ ul.dropdown li a {
     left:0%;
     width:10%
   }
-  .dropdown-toggle{
-    left:1%;
-  }
+ 
 }
 @media screen and (max-width: 800px) {
   .filterContainer{
     width:100%;
     top:100px;
   }
-  .dropdown-toggle{
-    left:25%;
-    width:55%;
-  }
   ul.dropdown{
-    height: 350px;
-    width:63%;
-    left:15%;
+    left:0%;
   }
   
 }
-@media screen and (max-width: 1500px) {
-  .dropdown-toggle{
-    left:30%;
-  }
+
   
-}
+
 @media screen and (min-width: 2000px) {
   .selectContainer {
     position: fixed;
