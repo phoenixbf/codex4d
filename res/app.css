@@ -572,19 +572,25 @@ ul.dropdown li a {
   width: 18px;
   height: 18px;
 }
+.collapsibleContanier{
+  position:absolute;
+  top:83%;
+  height:17%;
+  width: 100%;
+}
 
 .collapsible {
-  position: absolute;
+  position: relative;
   display: flex;
   width: 47px;
   height: 47px;
-  left: 8.5%;
-  top: 96%;
   background: rgba(217, 217, 217, 0.6);
   border-radius: 6px;
   border: none;
   z-index: 100;
-  margin-left: 2%;
+  margin-left: 30px;
+  left: 10%;
+  top:80%
 }
 
 #idArrow {

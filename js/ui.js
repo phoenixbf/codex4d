@@ -187,13 +187,13 @@ UI.buildPublic = () => {
     var initialState = $("#idBottomToolbar").css("height") === "0px";
     console.log(initialState);
     if (initialState) {
-      $("#idBottomToolbar").css("height", "12%");
+      $("#idBottomToolbar").css("height", "75%");
       $("#idArrow").attr("src", "assets/upArrow.png");
-      $("#idCollapsible").css("top", "83%");
+      $("#idCollapsible").css("top", "0%");
     } else {
       $("#idBottomToolbar").css("height", "0%");
       $("#idArrow").attr("src", "assets/downArrow.png");
-      $("#idCollapsible").css("top", "96%");
+      $("#idCollapsible").css("top", "80%");
     }
   });
 
