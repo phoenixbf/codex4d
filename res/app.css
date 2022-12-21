@@ -288,9 +288,12 @@ ul.dropdown {
   border-radius: 24px;
 }
 ul.dropdown li {
+  position: relative;
   list-style-type: none;
   text-decoration: none;
   margin-top: 5px;
+  left:-15%;
+  width: 100%
 }
 ul.dropdown li a {
   background: #c7c7c7;
@@ -383,11 +386,70 @@ ul.dropdown li a {
   top:5px;
 }
 @media screen and (max-width: 600px) {
+  .filterContainer{
+    width:50%
+  }
+  .selectContainer{
+    left:0%;
+    width:10%
+  }
   .dropdown-toggle{
-    left:25%;
+    left:1%;
   }
   .arrow{
     left:25%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .filterContainer{
+    width:100%;
+    top:100px;
+  }
+  .dropdown-toggle{
+    left:25%;
+    width:55%;
+  }
+  ul.dropdown{
+    height: 350px;
+    width:63%;
+    left:15%;
+  }
+  .arrow{
+   display:none;
+  }
+  .dot {
+    left: 95%;
+    top:-20px;
+    }
+  .dot2 {
+    left: 45%;
+    top:0px;
+  }
+  .dot3 {
+    left:11%;
+    top:0px
+  }
+  .dot4 {
+    left: 45%;
+  }
+  .dot5 {
+    left: 95%;
+    top:-20px;
+  
+  }
+  .dot6 {
+    left: 22%;
+  }
+  .dot7 {
+    left: 15%;
+  }
+}
+@media screen and (max-width: 1500px) {
+  .dropdown-toggle{
+    left:30%;
+  }
+  .arrow{
+    left:40%;
   }
 }
 @media screen and (min-width: 2000px) {
@@ -414,7 +476,7 @@ ul.dropdown li a {
     left: 54%;
   }
   .dot3 {
-    left: 37%;
+    left: 47%;
   }
   .dot4 {
     left: 52%;
@@ -438,7 +500,7 @@ ul.dropdown li a {
   background: #c7c7c7;
   position: relative;
   left:-20px;
-  width:90%
+  width:100%
 }
 
 .filterText {
