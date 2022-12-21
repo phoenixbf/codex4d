@@ -36,6 +36,8 @@ body {
   display: inline-block;
   position: absolute;
   left: 64%;
+  background-color: transparent;
+  border: none;
   top:10%;
   cursor: pointer;
   z-index: 1030;

@@ -115,14 +115,7 @@ UI.buildPublic = () => {
     "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
   htmlTop += "<a href='#' id='idGoToTheWebSite' class='goToTheWebSite'><img id='idManuscriptDetail' class='goToTheWebSite' src='assets/icons/Icona_scheda_Aton_OFF.png' alt='scheda-aton' /></a>"
 
-  $("#idGoToTheWebSite").hover(
-    () =>{
-      $("#idGoToTheWebSite").attr("src", "assets/icons/Icona_Scheda_aton_ON.png")
-    },
-    () => {
-      $("#idGoToTheWebSite").attr("src", "assets/icons/Icona_Scheda_aton_OFF.png")
-    }
-  )
+  
 
   $("#idTopToolbar").html(htmlTop);
  
@@ -135,6 +128,14 @@ UI.buildPublic = () => {
     },
     function () {
       $("#idLoginAction").attr("src", "assets/icons/icon_login.png");
+    }
+  );
+  $("#idGoToTheWebSite").hover(
+    () => {
+      $("#idManuscriptDetail").attr("src", "assets/icons/Icona_scheda_Aton_ON.png");
+    },
+    function () {
+      $("#idManuscriptDetail").attr("src", "assets/icons/Icona_scheda_Aton_OFF.png");
     }
   );
 
