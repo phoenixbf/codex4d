@@ -387,9 +387,7 @@ ul.dropdown li a {
   top:5px;
 }
 @media screen and (max-width: 600px) {
-  .filterContainer{
-    width:50%
-  }
+  
   .selectContainer{
     left:0%;
     width:10%
@@ -398,7 +396,7 @@ ul.dropdown li a {
 }
 @media screen and (max-width: 800px) {
   .filterContainer{
-    width:100%;
+    width:150%;
     top:100px;
   }
   ul.dropdown{
