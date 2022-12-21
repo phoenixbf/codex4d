@@ -35,10 +35,10 @@ body {
   height: 28px;
   display: inline-block;
   position: absolute;
-  left: 62%;
+  left: 64%;
   top:10%;
   cursor: pointer;
-  z-index: 110;
+  z-index: 1030;
 }
 @media screen and (max-width: 600px) {
   .titleContainer {
