@@ -172,7 +172,7 @@ button {
 }
 
 .topToolbar {
-  position: fixed;
+  position: absolute;
   background-color: transparent;
   display: inline-block;
   width: 100%;
@@ -228,9 +228,15 @@ button {
   position: relative;
 }
 
+.filterContainer{
+  position: relative;
+  display: flex;
+  top:80px;
+  width: 100%;
+}
 
 .selectContainer {
-  position: fixed;
+  position: absolute;
   display: flex;
   width: 25%;
   height: 46px;
@@ -258,13 +264,13 @@ div#nav a {
   padding: 5px 15px 5px;
 }
 .dropdown-toggle {
-  position: fixed;
+  position: absolute;
   text-decoration: none;
   display: flex;
-  width: 17%;
+  width: 60%;
   height: 26px;
   top: 10.7%;
-  left: 13.7%;
+  left: 31%;
   background: #c7c7c7;
   border-radius: 24px;
   color: #422c20;
@@ -376,7 +382,14 @@ ul.dropdown li a {
   left: 18%;
   top:5px;
 }
-
+@media screen and (max-width: 600px) {
+  .dropdown-toggle{
+    left:25%;
+  }
+  .arrow{
+    left:25%;
+  }
+}
 @media screen and (min-width: 2000px) {
   .arrow{
     left: 70%;

@@ -104,10 +104,9 @@ UI.buildPublic = () => {
   );
 
   //top toolbar for Public UI to allow Login
-  let htmlTop = "<div>";
+  let htmlTop = "";
   htmlTop +=
     "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
-  htmlTop += "</div>";
 
   $("#idTopToolbar").html(htmlTop);
 
@@ -123,6 +122,7 @@ UI.buildPublic = () => {
 
   //Note filtering
   let htmlNotes = "";
+  htmlNotes = "<div class='selectContainer'>"
   htmlNotes += "<p class='filterText'> Note </p>";
   htmlNotes += "<div id='nav'>";
   htmlNotes +=
@@ -148,6 +148,7 @@ UI.buildPublic = () => {
     "<li><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
   htmlNotes += "</ul>";
   htmlNotes += "</div>";
+  htmlNotes += "</div>"
   $(function () {
     // Dropdown toggle
     $(".dropdown-toggle").click(function () {
