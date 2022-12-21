@@ -30,7 +30,16 @@ body {
 
   pointer-events: none;
 }
-
+.goToTheWebSite {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  position: absolute;
+  left: 62%;
+  top:10%;
+  cursor: pointer;
+  z-index: 110;
+}
 @media screen and (max-width: 600px) {
   .titleContainer {
     display: block;

@@ -21,6 +21,15 @@ UI.buildPublic = () => {
   $("#idBottomToolbar").html("");
   $("#idLeftToolbar").html("");
 
+
+
+  $("#idManuscriptDetailContainer")
+
+  $("#idGoToTheWebSite").hover(
+    $("#idManuscriptDetail").attr("src", "assets/icons/Icona_scheda_Aton_OFF.png")
+  
+  )
+
   //left toolbar for Public UI
   let htmlLeft = "";
   htmlLeft += "<ul style='list-style-type: none;'>";
