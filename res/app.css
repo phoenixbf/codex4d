@@ -292,7 +292,7 @@ ul.dropdown li {
   list-style-type: none;
   text-decoration: none;
   margin-top: 5px;
-  left:-15%;
+  left:0%;
   width: 100%
 }
 ul.dropdown li a {
@@ -321,7 +321,7 @@ ul.dropdown li a {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  left: 4%;
+  left: 20%;
   top:5px;
 }
 .dot2 {
@@ -331,7 +331,7 @@ ul.dropdown li a {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  left: 42%;
+  left: 60%;
   top:2.5px;
   
 }
@@ -342,7 +342,7 @@ ul.dropdown li a {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  left: 14%;
+  left: 32%;
   top:2.5px;
 }
 .dot4 {
@@ -352,7 +352,7 @@ ul.dropdown li a {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  left: 39%;
+  left: 57%;
   top:5px;
 }
 .dot5 {
@@ -362,7 +362,7 @@ ul.dropdown li a {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  left: -3%;
+  left: 14%;
   top:5px;
 }
 .dot6 {
@@ -372,7 +372,7 @@ ul.dropdown li a {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  left: 22%;
+  left: 39%;
   top:5px;
 }
 .dot7 {
@@ -382,7 +382,7 @@ ul.dropdown li a {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  left: 18%;
+  left: 34%;
   top:5px;
 }
 @media screen and (max-width: 600px) {
@@ -451,6 +451,7 @@ ul.dropdown li a {
   .arrow{
     left:40%;
   }
+  
 }
 @media screen and (min-width: 2000px) {
   .arrow{
@@ -476,7 +477,7 @@ ul.dropdown li a {
     left: 54%;
   }
   .dot3 {
-    left: 47%;
+    left: 37%;
   }
   .dot4 {
     left: 52%;
