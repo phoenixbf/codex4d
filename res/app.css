@@ -387,12 +387,16 @@ ul.dropdown li a {
   top:5px;
 }
 @media screen and (max-width: 600px) {
-  
-  .selectContainer{
-    left:0%;
-    width:10%
+  .filterContainer{
+    width: 40%;
+    left: 0%;
   }
- 
+  .dropdown-toggle{
+    left: 30%;
+  }
+ .selectContainer{
+  width:50%
+ }
 }
 @media screen and (max-width: 800px) {
   .filterContainer{
@@ -620,10 +624,7 @@ ul.dropdown li a {
     left: 15%;
   }
 
-  .selectContainer {
-    width: 80%;
-    top: 10%;
-  }
+ 
   .titleText {
     font-size: max(24px, 2vw);
     font-weight: bold;
