@@ -247,13 +247,12 @@ button {
   border-radius: 24px;
   z-index: 0;
 }
-option {
-  background: #c7c7c7;
-  width: 100%;
-  font-size: 12px;
-  align-items: center;
+.selectButton {
+  border: none;
+  width:50%;
+  background-color: transparent;
+  height:30%;
 }
-
 div#nav {
   background: rgb(110, 110, 110);
   opacity: 1;
@@ -274,6 +273,7 @@ div#nav a {
   background: #c7c7c7;
   border-radius: 24px;
   color: #422c20;
+  border: none;
 }
 /**** ****/
 ul.dropdown {
@@ -431,7 +431,7 @@ ul.dropdown li a {
   height: 0px;
   color: #2f4689;
   border: 1px solid #2f4689;
-  background: #c7c7c7;
+  background: #2f4689;
   position: relative;
   left:-20px;
   width:100%
@@ -487,6 +487,9 @@ ul.dropdown li a {
 @media screen and (max-width: 800px) {
   .viewControl {
     left: 15vw;
+  }
+  .dropdown-toggle{
+    left: 25%
   }
 }
 #slider {
