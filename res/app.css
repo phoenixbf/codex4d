@@ -655,9 +655,9 @@ ul.dropdown li a {
 }
 
 .annotationForm {
-  position: fixed;
+  position: absolute;
   width: 65%;
-  height: 633px;
+  height: 80%;
   left: 15%;
   top: 15%;
   background: #d9d9d9;
