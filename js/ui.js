@@ -342,6 +342,7 @@ UI.buildEditor = () => {
   // Note filtering for Editor
 
   let htmlNotesEditor = "";
+  htmlNotesEditor = "<div class='selectContainer'>"
   htmlNotesEditor += "<p class='filterText'> Note </p>";
   htmlNotesEditor += "<div id='nav'>";
   htmlNotesEditor +=
@@ -367,6 +368,7 @@ UI.buildEditor = () => {
     "<li><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
   htmlNotesEditor += "</ul>";
   htmlNotesEditor += "</div>";
+  htmlNotesEditor += "</div>"
   $(function () {
     // Dropdown toggle
     $(".dropdown-toggle").click(function () {

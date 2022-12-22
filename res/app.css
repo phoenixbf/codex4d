@@ -293,7 +293,7 @@ ul.dropdown {
   top: 95%;
   height: 270px;
   margin-top: 5px;
-  width: 250px;
+  width: 100%;
   left: 35%;
   background: #c7c7c7;
   border-radius: 24px;
