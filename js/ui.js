@@ -148,23 +148,23 @@ UI.buildPublic = () => {
     "<a class='dropdown-toggle' href='#'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></a>";
   htmlNotes += "<ul class='dropdown'>";
   htmlNotes +=
-    " <li><a href='#' >Iconologia e Iconografia</a> <div class='dot'/></li>";
+    " <li id='idIconologia'><a href='#' >Iconologia e Iconografia</a> <div class='dot'/></li>";
   htmlNotes += "<hr class='selectHr'/>";
-  htmlNotes += "<li><a href='#' >Struttura</a> <div class='dot4'/></li>";
-  htmlNotes += "<hr class='selectHr'/>";
-  htmlNotes +=
-    "<li><a href='#'> Conservazione e Restauro</a> <div class='dot5'/></li>";
+  htmlNotes += "<li id='idStruttura' ><a href='#' >Struttura</a> <div class='dot4'/></li>";
   htmlNotes += "<hr class='selectHr'/>";
   htmlNotes +=
-    " <li><a href='#' >Testo e Scrittura</a> <div class='dot6'/></li>";
+    "<li id='idConservazione'><a href='#'> Conservazione e Restauro</a> <div class='dot5'/></li>";
   htmlNotes += "<hr class='selectHr'/>";
   htmlNotes +=
-    "<li><a href='#'>Materiali e Tecniche</a> <div class='dot3'/></li>";
-  htmlNotes += "<hr class='selectHr'/>";
-  htmlNotes += " <li><a href='#' >Censura</a> <div class='dot2'/></li>";
+    " <li id='idTesto'><a href='#' >Testo e Scrittura</a> <div class='dot6'/></li>";
   htmlNotes += "<hr class='selectHr'/>";
   htmlNotes +=
-    "<li><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
+    "<li id='idMateriali'><a href='#'>Materiali e Tecniche</a> <div class='dot3'/></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes += " <li id='idCensura'><a href='#' >Censura</a> <div class='dot2'/></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes +=
+    "<li id='idMusica'><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
   htmlNotes += "</ul>";
   htmlNotes += "</div>";
   htmlNotes += "</div>"
@@ -197,9 +197,9 @@ UI.buildPublic = () => {
   let htmlBottom = "";
   htmlBottom +=
     "<a href='#'><img class='codexLogo' src='assets/logo.png' /></a>";
-  htmlBottom += "<div class='previewContainer scrollableX'>";
-  htmlBottom += "<div class='posePreview'> </div>";
-  htmlBottom += "<div class='posePreview' > </div>";
+  htmlBottom += "<div id='idPoseGallery' class='previewContainer scrollableX'>";
+  // htmlBottom += "<div class='posePreview'> </div>";
+  // htmlBottom += "<div class='posePreview' > </div>";
   htmlBottom += "</div>";
 
   $("#idCollapsible").on("click", () => {
@@ -260,7 +260,7 @@ UI.buildPublic = () => {
     };
   })(document.createElement("style"));
 
-  $("#slider").on("input", function () {
+  $("#idSliderLens").on("input", function () {
     $(this).css(
       "background",
       "linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) " +
@@ -335,9 +335,19 @@ UI.buildEditor = () => {
   // Initializing top toolbar for Editor User
   let htmlTopEditor = "";
   // htmlTopEditor += "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
+  htmlTopEditor += "<a href='#' id='idGoToTheWebSite' class='goToTheWebSite'><img id='idManuscriptDetail' class='goToTheWebSite' src='assets/icons/Icona_scheda_Aton_OFF.png' alt='scheda-aton' /></a>"
 
   // Clear
   $("#idTopToolbar").html(htmlTopEditor);
+  
+  $("#idGoToTheWebSite").hover(
+    () => {
+      $("#idManuscriptDetail").attr("src", "assets/icons/Icona_scheda_Aton_ON.png");
+    },
+    function () {
+      $("#idManuscriptDetail").attr("src", "assets/icons/Icona_scheda_Aton_OFF.png");
+    }
+  );
 
   // Note filtering for Editor
 
@@ -347,25 +357,25 @@ UI.buildEditor = () => {
   htmlNotesEditor += "<div id='nav'>";
   htmlNotesEditor +=
     "<a class='dropdown-toggle' href='#'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></a>";
-  htmlNotesEditor += "<ul class='dropdown'>";
+  htmlNotesEditor+= "<ul class='dropdown'>";
   htmlNotesEditor +=
-    " <li><a href='#' >Iconologia e Iconografia</a> <div class='dot'/></li>";
+    " <li id='idIconologia'><a href='#' >Iconologia e Iconografia</a> <div class='dot'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor += "<li><a href='#' >Struttura</a> <div class='dot4'/></li>";
-  htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor +=
-    "<li><a href='#'> Conservazione e Restauro</a> <div class='dot5'/></li>";
+  htmlNotesEditor += "<li id='idStruttura' ><a href='#' >Struttura</a> <div class='dot4'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    " <li><a href='#' >Testo e Scrittura</a> <div class='dot6'/></li>";
+    "<li id='idConservazione'><a href='#'> Conservazione e Restauro</a> <div class='dot5'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<li><a href='#'>Materiali e Tecniche</a> <div class='dot3'/></li>";
-  htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor += " <li><a href='#' >Censura</a> <div class='dot2'/></li>";
+    " <li id='idTesto'><a href='#' >Testo e Scrittura</a> <div class='dot6'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<li><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
+    "<li id='idMateriali'><a href='#'>Materiali e Tecniche</a> <div class='dot3'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
+  htmlNotesEditor += " <li id='idCensura'><a href='#' >Censura</a> <div class='dot2'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
+  htmlNotesEditor +=
+    "<li id='idMusica'><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
   htmlNotesEditor += "</ul>";
   htmlNotesEditor += "</div>";
   htmlNotesEditor += "</div>"
