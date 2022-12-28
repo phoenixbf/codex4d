@@ -188,6 +188,7 @@ UI.buildPublic = () => {
       $('#idTestoAction').click(()=>{
         $('#idDropdownToggle').html("Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#E7F0F9")
+        $('.filterText').css("color", "rgb(110, 110, 110)")
       })
       $('#idMaterialiAction').click(()=>{
         $('#idDropdownToggle').html("Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
@@ -426,6 +427,7 @@ UI.buildEditor = () => {
       $('#idTestoAction').click(()=>{
         $('#idDropdownToggle').html("Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#E7F0F9")
+        $('.filterText').css("color", "rgb(110, 110, 110)")
       })
       $('#idMaterialiAction').click(()=>{
         $('#idDropdownToggle').html("Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
