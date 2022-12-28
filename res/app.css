@@ -35,7 +35,7 @@ body {
   height: 28px;
   display: inline-block;
   position: relative;
-  margin-left: 55px;
+  margin-left: 60px;
   left: 55%;
   background-color: transparent;
   border: none;
@@ -116,7 +116,7 @@ button {
   position: absolute;
   display: flex;
   width: 3.45rem;
-  height: 80%;
+  height:551px;
   left: 1%;
   top: 15%;
   background: rgb(110, 110, 110);
@@ -264,9 +264,10 @@ button {
 }
 .selectButton {
   border: none;
-  width:50%;
+  width:100%;
   background-color: transparent;
-  height:30%;
+  height:20px;
+  
 }
 div#nav {
   background: rgb(110, 110, 110);
@@ -281,14 +282,23 @@ div#nav a {
   position: absolute;
   text-decoration: none;
   display: flex;
-  width: 60%;
-  height: 26px;
+  width: 70%;
+  height: 34px;
   top: 10.7%;
   left: 28%;
   background: #c7c7c7;
   border-radius: 24px;
   color: #422c20;
   border: none;
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
 }
 /**** ****/
 ul.dropdown {
@@ -309,16 +319,26 @@ ul.dropdown li {
   margin-top: 10px;
   background-color: transparent;
   left:0%;
-  width: 100%
+  width: 100%;
+  align-content: left;
+  margin-top: 13px;
 }
-ul.dropdown li a {
+ul.dropdown li button {
   background-color: transparent;
   text-decoration: none;
   width: 100%;
-  font-size: 12px;
   height: 100%;
   align-items: center;
   color: #422c20;
+  
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 15px;
+display: flex;
+align-items: center;
+border: none;
 }
 
 .arrow{

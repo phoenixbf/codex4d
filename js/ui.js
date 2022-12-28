@@ -143,31 +143,29 @@ UI.buildPublic = () => {
   let htmlNotes = "";
   htmlNotes = "<div class='selectContainer'>"
   htmlNotes += "<p class='filterText'> Note </p>";
-  htmlNotes += "<div id='nav'>";
   htmlNotes +=
-    "<a class='dropdown-toggle' href='#'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></a>";
+    "<button class='dropdown-toggle' id='idDropdownToggle'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
   htmlNotes += "<ul class='dropdown'>";
   htmlNotes +=
-    " <li id='idIconologia'><a href='#' >Iconologia e Iconografia</a> <div class='dot'/></li>";
+    " <li id='idIconologia'><button id='idIconologiaAction' >Iconologia e Iconografia <div class='dot'/> </button></li>";
   htmlNotes += "<hr class='selectHr'/>";
-  htmlNotes += "<li id='idStruttura' ><a href='#' >Struttura</a> <div class='dot4'/></li>";
-  htmlNotes += "<hr class='selectHr'/>";
-  htmlNotes +=
-    "<li id='idConservazione'><a href='#'> Conservazione e Restauro</a> <div class='dot5'/></li>";
+  htmlNotes += "<li id='idStruttura' ><button id='idStrutturaAction'>Struttura <div class='dot4'/> </button></li>";
   htmlNotes += "<hr class='selectHr'/>";
   htmlNotes +=
-    " <li id='idTesto'><a href='#' >Testo e Scrittura</a> <div class='dot6'/></li>";
+    "<li id='idConservazione'><button id='idConservazioneAction'> Conservazione e Restauro <div class='dot5'/> </button></li>";
   htmlNotes += "<hr class='selectHr'/>";
   htmlNotes +=
-    "<li id='idMateriali'><a href='#'>Materiali e Tecniche</a> <div class='dot3'/></li>";
-  htmlNotes += "<hr class='selectHr'/>";
-  htmlNotes += " <li id='idCensura'><a href='#' >Censura</a> <div class='dot2'/></li>";
+    " <li id='idTesto'><button id='idTestoAction'>Testo e Scrittura <div class='dot6'/> </button></li>";
   htmlNotes += "<hr class='selectHr'/>";
   htmlNotes +=
-    "<li id='idMusica'><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
+    "<li id='idMateriali'><button id='idMaterialiAction'>Materiali e Tecniche <div class='dot3'/> </button></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes += " <li id='idCensura'><button id='idCensuraAction'>Censure <div class='dot2'/> </button></li>";
+  htmlNotes += "<hr class='selectHr'/>";
+  htmlNotes +=
+    "<li id='idMusica'><button id='idMusicaAction'>Notazioni Musicali <div class='dot7'/> </button></li>";
   htmlNotes += "</ul>";
   htmlNotes += "</div>";
-  htmlNotes += "</div>"
   $(function () {
     // Dropdown toggle
     $(".dropdown-toggle").click(function () {
@@ -175,6 +173,35 @@ UI.buildPublic = () => {
     });
 
     $(document).click(function (e) {
+      $('#idIconologiaAction').click(()=>{
+        $('#idDropdownToggle').html("Iconologia e iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#BF2517B2")
+      })
+      $('#idStrutturaAction').click(()=>{
+        $('#idDropdownToggle').html("Struttura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#2F4689")
+      })
+      $('#idConservazioneAction').click(()=>{
+        $('#idDropdownToggle').html("Conservazione e Restauro <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#D9A441")
+      })
+      $('#idTestoAction').click(()=>{
+        $('#idDropdownToggle').html("Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#E7F0F9")
+      })
+      $('#idMaterialiAction').click(()=>{
+        $('#idDropdownToggle').html("Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#422C20")
+      })
+      $('#idCensuraAction').click(()=>{
+        $('#idDropdownToggle').html("Censure <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#FF7F11")
+      })
+      $('#idMusicaAction').click(()=>{
+        $('#idDropdownToggle').html("Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#79b857")
+      })
+      
       var target = e.target;
       if (
         !$(target).is(".dropdown-toggle") &&
@@ -354,31 +381,29 @@ UI.buildEditor = () => {
   let htmlNotesEditor = "";
   htmlNotesEditor = "<div class='selectContainer'>"
   htmlNotesEditor += "<p class='filterText'> Note </p>";
-  htmlNotesEditor += "<div id='nav'>";
   htmlNotesEditor +=
-    "<a class='dropdown-toggle' id='selezioneCategoria' href='#'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></a>";
+    "<button class='dropdown-toggle' id='selezioneCategoria' >Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
   htmlNotesEditor+= "<ul  class='dropdown'>";
   htmlNotesEditor +=
-    " <li id='idIconologia'><a href='#' >Iconologia e Iconografia</a> <div class='dot'/></li>";
+    " <li id='idIconologia'><button  >Iconologia e Iconografia</button> <div class='dot'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor += "<li id='idStruttura' ><a href='#' >Struttura</a> <div class='dot4'/></li>";
-  htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor +=
-    "<li id='idConservazione'><a href='#'> Conservazione e Restauro</a> <div class='dot5'/></li>";
+  htmlNotesEditor += "<li id='idStruttura' ><button >Struttura</button> <div class='dot4'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    " <li id='idTesto'><a href='#' >Testo e Scrittura</a> <div class='dot6'/></li>";
+    "<li id='idConservazione'><button > Conservazione e Restauro</button> <div class='dot5'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<li id='idMateriali'><a href='#'>Materiali e Tecniche</a> <div class='dot3'/></li>";
-  htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor += " <li id='idCensura'><a href='#' >Censura</a> <div class='dot2'/></li>";
+    " <li id='idTesto'><button  >Testo e Scrittura</button> <div class='dot6'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<li id='idMusica'><a href='#' >Notazioni Musicali</a> <div class='dot7'/></li>";
+    "<li id='idMateriali'><button >Materiali e Tecniche</button> <div class='dot3'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
+  htmlNotesEditor += " <li id='idCensura'><button >Censura</button> <div class='dot2'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
+  htmlNotesEditor +=
+    "<li id='idMusica'><button href='#' >Notazioni Musicali</button> <div class='dot7'/></li>";
   htmlNotesEditor += "</ul>";
   htmlNotesEditor += "</div>";
-  htmlNotesEditor += "</div>"
   $(function () {
     // Dropdown toggle
     $(".dropdown-toggle").click(function () {
@@ -386,6 +411,34 @@ UI.buildEditor = () => {
     });
 
     $(document).click(function (e) {
+      $('#idIconologiaAction').click(()=>{
+        $('#idDropdownToggle').html("Iconologia e iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#BF2517B2")
+      })
+      $('#idStrutturaAction').click(()=>{
+        $('#idDropdownToggle').html("Struttura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#2F4689")
+      })
+      $('#idConservazioneAction').click(()=>{
+        $('#idDropdownToggle').html("Conservazione e Restauro <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#D9A441")
+      })
+      $('#idTestoAction').click(()=>{
+        $('#idDropdownToggle').html("Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#E7F0F9")
+      })
+      $('#idMaterialiAction').click(()=>{
+        $('#idDropdownToggle').html("Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#422C20")
+      })
+      $('#idCensuraAction').click(()=>{
+        $('#idDropdownToggle').html("Censure <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#FF7F11")
+      })
+      $('#idMusicaAction').click(()=>{
+        $('#idDropdownToggle').html("Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('.selectContainer').css("background-color", "#79b857")
+      })
       var target = e.target;
       if (
         !$(target).is(".dropdown-toggle") &&
