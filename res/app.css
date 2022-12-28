@@ -202,8 +202,8 @@ button {
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
-  top: 10px;
-  right: 40px;
+  top: 20px;
+  right: 60px;
 }
 .login:hover {
   color: rgba(224, 192, 129, 1);
