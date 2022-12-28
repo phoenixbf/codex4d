@@ -34,17 +34,21 @@ body {
   width: 28px;
   height: 28px;
   display: inline-block;
-  position: absolute;
-  left: 64%;
+  position: relative;
+  margin-left: 55px;
+  left: 55%;
   background-color: transparent;
   border: none;
-  top:10%;
+  top:5px;
   cursor: pointer;
   z-index: 1030;
 }
 @media screen and (max-width: 600px) {
   .titleContainer {
     display: block;
+  }
+  .goToTheWebSite {
+    display: none;
   }
 }
 
@@ -249,13 +253,14 @@ button {
 .selectContainer {
   position: absolute;
   display: flex;
-  width: 25%;
+  width: 300px;
   height: 46px;
   top: 10%;
   background: rgb(110, 110, 110);
   opacity: 1;
   border-radius: 24px;
-  z-index: 0;
+  z-index: 101;
+  left: -70px
 }
 .selectButton {
   border: none;
@@ -491,7 +496,7 @@ ul.dropdown li a {
   position: absolute;
   background: transparent;
   top: 65vh;
-  left: 17vw;
+  left: 174px;
   margin-right: 100px;
 }
 @media screen and (max-width: 800px) {
@@ -506,7 +511,7 @@ ul.dropdown li a {
   position: absolute;
   display: flex;
   top: 84vh;
-  left: 24vw;
+  left: 270px;
   width: auto;
   height: 0.4em;
   background: linear-gradient(
@@ -523,9 +528,9 @@ ul.dropdown li a {
 .xAxis {
   position: absolute;
   display: flex;
-  width: 40vw;
+  width: 568px;
   height: 0px;
-  left: 18vw;
+  left: 177px;
   top: 80vh;
   background: #e0c081;
   border: 1px solid #e0c081;
@@ -534,10 +539,10 @@ ul.dropdown li a {
 .yAxis {
   position: absolute;
   width: 0px;
-  height: 62vh;
-  left: 19vw;
+  height:568px;
+  left: 230px;
   background-color: #e0c081;
-  top: 24vh;
+  top: 20vh;
   margin-left: 2.5vh;
   border: 1px solid #e0c081;
 }
