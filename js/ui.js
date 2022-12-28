@@ -356,8 +356,8 @@ UI.buildEditor = () => {
   htmlNotesEditor += "<p class='filterText'> Note </p>";
   htmlNotesEditor += "<div id='nav'>";
   htmlNotesEditor +=
-    "<a class='dropdown-toggle' href='#'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></a>";
-  htmlNotesEditor+= "<ul class='dropdown'>";
+    "<a class='dropdown-toggle' id='selezioneCategoria' href='#'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></a>";
+  htmlNotesEditor+= "<ul  class='dropdown'>";
   htmlNotesEditor +=
     " <li id='idIconologia'><a href='#' >Iconologia e Iconografia</a> <div class='dot'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
