@@ -683,7 +683,7 @@ UI.buildEditor = () => {
 
   $("#idTurnNote").click(() => {
     $("#selectAnnType").show();
-
+/*
     $("#selectAnnType").html("");
 
     let htmlcode = "";
@@ -697,7 +697,7 @@ UI.buildEditor = () => {
     htmlcode += "</ul>";
 
     $("#selectAnnType").append(htmlcode);
-
+*/
     $("#sphere").hover(
       function () {
         $("#idTurnSphere").attr(
@@ -721,12 +721,13 @@ UI.buildEditor = () => {
         $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
       }
     );
-
+/*
     $("#sphere").click(() => {
       $("#idForm").show();
-      $("#id");
-      UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
+      //$("#id");
+      //UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
     });
+*/
   });
   $("#selectAnnType").mouseleave(() => {
     $("#selectAnnType").hide();
@@ -760,20 +761,20 @@ UI.updateSemPanel = (semid) => {
   let htmlcode = "";
   htmlcode += "<div class='atonPopupTitle'>";
   //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
-  htmlcode += S.SOTTOCATEGORIA + "</div>";
+  htmlcode += S.title + "</div>";
 
   htmlcode +=
     "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
 
-  if (S.CATEGORIA) htmlcode += "<b>Categoria</b>: " + S.CATEGORIA + "<br>";
-  if (S.LAYER) htmlcode += "<b>Layer</b>: " + S.LAYER + "<br>";
+  if (S.cat)    htmlcode += "<b>Categoria</b>: " + S.cat + "<br>";
+  if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
+  if (S.layer)  htmlcode += "<b>Layer</b>: " + S.layer + "<br>";
   htmlcode += "<br>";
 
-  if (S.IMMAGINI)
-    htmlcode += "<img src='" + APP.pathContent + S.IMMAGINI + "'>";
+  if (S.img) htmlcode += "<img src='" + APP.pathContent + S.img + "'>";
 
   htmlcode += "<div class='descriptionText'>";
-  if (S.DESCRIZIONE) htmlcode += S.DESCRIZIONE;
+  if (S.descr) htmlcode += S.descr;
   htmlcode += "</div></div>";
 
   //htmlcode += "<div id='idPanelClose' class='atonBTN atonBTN-red atonSidePanelCloseBTN' >X</div>";
@@ -796,10 +797,11 @@ UI.addAnnotation = (semtype) => {
 
   // TODO: HTML form here > fill O
   let htmlcode = "";
-  htmlcode += "<form style='position:relative; top:2%'>";
+
+  //htmlcode += "<form style='position:relative; top:2%'>";
   htmlcode += "<div class='formTitleContainer'>";
   htmlcode +=
-    "<h3 id='idTitle' class='formTitle'> Titolo</h3> <input type='text' class='titleInput' ></input>";
+    "<h3 class='formTitle'> Titolo</h3> <input id='idTitle' type='text' class='titleInput' ></input>";
   htmlcode += "</div>";
   htmlcode += "<div class='categoryContainer'>";
   htmlcode +=
@@ -834,19 +836,17 @@ UI.addAnnotation = (semtype) => {
   // htmlcode += "</div>";
   htmlcode += "<div class='fileContainer'>";
   htmlcode += "<label for='files' class='formTitle'>File Multimediali </label>";
-  htmlcode +=
-    "<input class='uploadLink' id='files' type='text'/> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
+  htmlcode += "<input class='uploadLink' id='files' type='text'/> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
   htmlcode += "</div>";
   htmlcode += "<div class='authorContainer'>";
-  htmlcode +=
-    "<h3 class='formTitle'>Autore</h3> <input class='authorInput' type='text' ></input>";
+  htmlcode += "<h3 class='formTitle'>Autore</h3> <input class='authorInput' type='text' ></input>";
   htmlcode += "</div>";
-  htmlcode += "</form>";
-  htmlcode +=
-    "<button id='idDelete' type='submit' class='cancelButton'>Annulla</button>";
-  htmlcode +=
-    "<button id='idOk' type='submit' class='okButton' >Conferma</button>";
+  //htmlcode += "</form>";
+
+  htmlcode += "<button id='idDelete' class='cancelButton'>Annulla</button>";
+  htmlcode += "<button id='idOk' class='okButton' >Conferma</button>";
   htmlcode += "</div>";
+  
   $("#idForm").html(htmlcode);
 
   $("#catSelect").change(function () {
@@ -968,7 +968,30 @@ UI.addAnnotation = (semtype) => {
     $("#rchars").text(textlen);
   });
 
-  //APP.addSemanticAnnotation(semid, O, semtype);
+  $("#idDelete").click(()=>{
+    $("#idForm").hide();
+  });
+
+  $("#idOk").click(()=>{
+    $("#idForm").hide();
+
+    let title = $("#idTitle").val();
+    if (title) title.trim();
+
+    let descr = $("#idDescription").val();
+    if (descr) descr.trim();
+
+    let cat    = $("#catSelect").val();
+    let subcat = $("#sottoCatSelect").val();
+
+    let O = {};
+    if (title)  O.title  = title;
+    if (descr)  O.descr  = descr;
+    if (cat)    O.cat    = cat;
+    if (subcat) O.subcat = subcat;
+
+    APP.addSemanticAnnotation(semid, O, semtype);
+  });
 };
 
 UI.updateAnnotation = (semid) => {

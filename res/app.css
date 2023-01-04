@@ -505,6 +505,27 @@ border: none;
   border-radius: 10px;
   z-index: 101;
 }
+
+.posesContainer {
+  margin-top: 10px;
+  margin-left: 20px;
+  
+  display: inline-block;
+  text-align: center;
+}
+
+.poseIMG {
+  position: relative;
+  display: inline-block;
+
+  height: 80px;
+  width: 80px;
+
+  border-radius: 10px;
+  
+  margin: 2px;
+}
+
 .viewControlContainer {
   position: absolute;
   margin-right: 10px;

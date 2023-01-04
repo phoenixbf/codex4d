@@ -106,6 +106,7 @@ mat.realize = ()=>{
             uLD: { type:'vec3', value: APP._vLight },
             wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
             vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
+            wLens: { type:'float', value: 1.0 }
             //time: { type:'float', value: 0.0 },
         },
 
@@ -141,7 +142,9 @@ mat.realize = ()=>{
             uniform sampler2D tBase;
             uniform sampler2D tIR;
             uniform sampler2D tPBR;
+            
             uniform vec3 wIR;
+            uniform float wLens;
 
             void main(){
                 float sedge = 6.0;
@@ -153,6 +156,7 @@ mat.realize = ()=>{
                 t *= sedge;
 
                 t = clamp(t, 0.0,1.0);
+                t = max(t, 1.0-wLens);
 
                 vec4 frag = texture2D(tBase, sUV);
                 vec4 ir   = texture2D(tIR, sUV);
@@ -181,10 +185,13 @@ mat.setupOnLoaded = ()=>{
     let D = ATON.SceneHub.currData;
     if (D === undefined) return;
 
-    if (APP.currMat){
+    if (APP.currMat !== undefined){
         APP.currMat.uniforms.tBase.value.dispose();
         APP.currMat.uniforms.tIR.value.dispose();
-        APP.currMat = null;
+        APP.currMat.uniforms.tPBR.value.dispose();
+        //APP.currMat.uniforms = null;
+
+        APP.currMat = undefined;
     }
 
     let urlGLTF = D.scenegraph.nodes.main.urls[0];
@@ -254,6 +261,8 @@ mat.setupOnLoaded = ()=>{
     if (main === undefined) return;
 
     main.setMaterial( APP.currMat );
+
+    //APP.currMat.update();
 
     console.log("Setup lens done")
     APP._bLensMatSet = true;

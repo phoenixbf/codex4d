@@ -18,8 +18,8 @@ APP.cdata = undefined;
 
 APP.postfixIR = "-ir.jpg";
 APP._bLensMatSet = false;
-APP.irValue = 0; // 0.0 - 1.0
-APP.LRAD_MIN = 0.005;
+APP.irValue  = 0; // 0.0 - 1.0
+APP.LRAD_MIN = 0.0; //0.005;
 
 APP._vLight = new THREE.Vector3(0,-1,0);
 
@@ -27,6 +27,14 @@ APP.currVolume = undefined;
 APP.currPose   = 0;
 
 APP.currMat = undefined;
+
+// App states
+APP.STATE_NAV       = 0;
+APP.STATE_MEASURE   = 1;
+APP.STATE_ANN_BASIC = 2;
+APP.STATE_ANN_FREE  = 3;
+
+APP.state = APP.STATE_NAV;
 
 
 APP.init = ()=>{
@@ -76,11 +84,13 @@ APP.postPoseLoaded = ()=>{
     APP.bgcol = new THREE.Color(APP.cdata.bgcolor[0],APP.cdata.bgcolor[1],APP.cdata.bgcolor[2]);
     ATON.setBackgroundColor( APP.bgcol );
 
+/*
     APP.gStand = ATON.createSceneNode("stand");
     APP.gStand.attachToRoot();
     
     APP.gStand.load(APP.pathContent + "3D/Leggio.gltf");
     //APP.gStand.disablePicking();
+*/
 
     // Ground
 /*
@@ -164,6 +174,11 @@ APP.postPoseLoaded = ()=>{
     //ATON.toggleShadows(true);
 };
 
+APP.setState = (s)=>{
+    APP.state = s;
+};
+
+
 APP.setLightPostion = (p)=>{
     APP.plight.position.copy(p);
     APP.spriteL.position.copy(p);
@@ -224,6 +239,22 @@ APP.loadVolumePose = (v,p)=>{
     ATON.FE.loadSceneID( sid );
 
     //APP.loadAndParseSheet();
+    APP.updatePoseGallery(v);
+};
+
+APP.updatePoseGallery = (v)=>{
+    $("#idPoseGallery").html("");
+    
+    let vol = APP.cdata.volumes[v];
+
+    for (let p in vol.poses){
+        let P = vol.poses[p];
+        let sid = v + "-p"+p;
+
+        //console.log(sid)
+
+        $("#idPoseGallery").append("<div class='posesContainer'><img class='poseIMG' src='"+ATON.PATH_RESTAPI+"cover/codex4d/"+sid+"' onclick='APP.loadPose("+p+")'><br>"+P.title+"</div>");
+    }
 };
 
 APP.getNextPose = ()=>{
@@ -242,30 +273,38 @@ APP.getNextPose = ()=>{
     return nextp;
 };
 
+APP.loadPose = (p)=>{
+    if (p === APP.currPose) return;
+
+    APP.loadVolumePose(APP.currVolume, p);
+};
+
 APP.loadNextPose = ()=>{
-    APP.loadVolumePose(APP.currVolume, APP.getNextPose());
+    APP.loadPose( APP.getNextPose() );
 };
 
 // IR Lens
 //==============================
 APP.enableLens = ()=>{
     APP._bLens = true;
+    if (APP.currMat) APP.currMat.uniforms.wLens.value = 1.0;
 };
 
 APP.disableLens = ()=>{
     APP._bLens = false;
-    if (APP.currMat) APP.currMat.uniforms.vLens.value.w = 0.0;
+    //if (APP.currMat) APP.currMat.uniforms.vLens.value.w = 0.0;
+    if (APP.currMat) APP.currMat.uniforms.wLens.value = 0.0;
 };
 
 // 0.0 - 1.0
 APP.setIRvalue = (v)=>{
+    if (APP.currMat === undefined) return;
+
     if (v < 0.0) v = 0.0;
     if (v > 1.0) v = 1.0;
 
     APP.irValue = v;
     $("#idIRcontrol").val(APP.irValue);
-
-    if (!APP.currMat) return;
 
     // extremes
     if (v <= 0.0){
@@ -322,7 +361,6 @@ APP.handleScreenPointer = ()=>{
 };
 
 
-
 // Main update routine
 //===============================================
 APP.update = ()=>{
@@ -375,13 +413,74 @@ APP.update = ()=>{
     
 };
 
+// Attach UI routines
+APP._attachUI = ()=>{
+    $("#idFull").click(()=>{
+        ATON.toggleFullScreen();
+    });
+    $("#idReset").click(()=>{
+        ATON.Nav.requestHomePOV();
+    });
+    $("#idSize").click(()=>{
+        APP.setState(APP.STATE_MEASURE);
+    });
+
+    $("#idSliderLens").on("input change",()=>{
+        let r = parseFloat( $("#idSliderLens").val() )
+        
+        APP.setLensRadius(r * 0.002);
+    });
+
+    // Layers
+    $("#idRgb").click(()=>{
+        APP.disableLens();
+    });
+    $("#idIr1").click(()=>{
+        APP.enableLens();
+        APP.setIRvalue( 0.0 );
+    });
+    $("#idIr2").click(()=>{
+        APP.enableLens();
+        APP.setIRvalue( 0.5 );
+    });
+    $("#idIr3").click(()=>{
+        APP.enableLens();
+        APP.setIRvalue( 1.0 );
+    });
+
+    // Editor
+    $("#sphere").click(()=>{
+        APP.setState(APP.STATE_ANN_BASIC);
+    });
+};
+
 // Events
 APP.setupEvents = ()=>{
     ATON.on("APP_ConfigLoaded", ()=>{
         APP.UI.init();
-        ATON.SUI.showSelector(false);
 
         APP.loadVolumePose( APP.argV, APP.argP );
+
+        // Attach UI events
+        APP._attachUI();
+    });
+
+    ATON.on("Tap",(e)=>{
+        if (APP.state === APP.STATE_MEASURE){
+            let M = APP.measure();
+
+            if (!M) return;
+            APP.setState(APP.STATE_NAV);
+            return;
+        }
+
+        if (APP.state === APP.STATE_ANN_BASIC){
+            APP.setState(APP.STATE_NAV);
+
+            $("#idForm").show();
+            APP.UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
+            return;
+        }
     });
 
     ATON.on("SceneJSONLoaded",()=>{
@@ -445,7 +544,8 @@ APP.setupEvents = ()=>{
 
         // Basic annotation
         if (k==='a'){
-            APP.addSemanticAnnotation("test", { title: "test test" }, ATON.FE.SEMSHAPE_SPHERE);
+            $("#idForm").show();
+            APP.UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
         }
         // TODO: Convex annotation + ENTER to finalize
         if (k==='f'){
@@ -455,6 +555,7 @@ APP.setupEvents = ()=>{
         // TODO:
         if (k === 'Enter')  APP.finalizeSemanticShape();
         if (k === 'Escape') APP.cancelCurrentTask();
+        if (k === 'Delete') APP.deleteSemAnnotation(ATON._hoveredSemNode);
 
         if (k==='r'){
             if (APP.gBook) APP.gBook.rotation.x += 0.1;
@@ -558,11 +659,15 @@ APP.setupEvents = ()=>{
 APP.setProfilePublic = ()=>{
     ATON.SceneHub.setEditMode(false);
     ATON.FE.uiLoadProfile("public");
+
+    ATON.SUI.showSelector(false);
 };
 
 APP.setProfileEditor = ()=>{
     ATON.SceneHub.setEditMode(true);
     ATON.FE.uiLoadProfile("editor");
+
+    ATON.SUI.showSelector(true);
 };
 
 APP.toggleHoverLabel = (b, semid)=>{
@@ -583,6 +688,16 @@ APP.toggleHoverLabel = (b, semid)=>{
     ATON.FE.showSemLabel(S.AREALE);
 */
     ATON.FE._bSem = true;
+};
+
+// Tools
+//=============================================
+APP.measure = ()=>{
+    let P = ATON.getSceneQueriedPoint();
+    let M = ATON.SUI.addMeasurementPoint( P );
+
+    console.log(M);
+    return M;
 };
 
 // Editor routines
@@ -631,6 +746,8 @@ APP.updateSemAnnotation = (semid, O)=>{
 };
 
 APP.deleteSemAnnotation = (semid)=>{
+    if (semid === undefined) return;
+
     if (ATON.SemFactory.deleteSemanticNode(semid)){
 
         let E = {};
