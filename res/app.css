@@ -704,7 +704,7 @@ border: none;
   width: 65%;
   height: 80%;
   left: 15%;
-  top: 15%;
+  top: 20%;
   background: #d9d9d9;
 
   opacity: 0.8;
@@ -725,8 +725,6 @@ border: none;
   font-weight: 700;
   font-size: 16px;
   line-height: 18px;
-  /* or 112% */
-
   display: flex;
   align-items: flex-end;
   letter-spacing: 0.25px;
@@ -761,12 +759,12 @@ border: none;
 }
 
 .categoryContainer {
-  position: relative;
+  position: absolute;
   display: inline;
   width: 90%;
   left: 5%;
   z-index: 150;
-  top: 30%;
+  top:14%;
 }
 
 .categorySelect {
@@ -849,9 +847,10 @@ border: none;
 }
 
 .descriptionContainer {
-  position: relative;
+  position: absolute;
   width: 90%;
   left: 5%;
+  top:30%
 }
 
 .descriptionInput {
@@ -872,12 +871,12 @@ border: none;
 }
 
 .fileContainer {
-  position: relative;
+  position: absolute;
   display: inline;
   width: 100%;
   left: 5%;
   z-index: 150;
-  top: 100%;
+  top: 320px;
 }
 
 .uploadIcon {
@@ -905,7 +904,7 @@ border: none;
   order: 1;
   flex-grow: 0;
   position: relative;
-  top: 20%;
+  top: 30%;
 }
 
 .authorContainer {
@@ -913,7 +912,7 @@ border: none;
   display: inline;
   left: 60%;
   width: 40%;
-  top: -1vh;
+  top:315px;
 }
 
 .authorInput {
@@ -942,8 +941,8 @@ border: none;
   position: absolute;
   width: 13%;
   height: 35px;
-  left: 60%;
-  top: 100%;
+  left: 61%;
+  top: 400px;
   background: rgba(242, 242, 242, 0.6);
   border: 1.5px solid #666666;
   border-radius: 8px;
@@ -973,7 +972,7 @@ border: none;
   width: 13%;
   height: 35px;
   left: 80%;
-  top: 100%;
+  top: 400px;
   background: rgba(242, 242, 242, 0.6);
   border: 1.5px solid #666666;
   border-radius: 8px;
