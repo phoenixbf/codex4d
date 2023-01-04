@@ -399,23 +399,23 @@ UI.buildEditor = () => {
     "<button class='dropdown-toggle' id='selezioneCategoria' >Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
   htmlNotesEditor+= "<ul  class='dropdown'>";
   htmlNotesEditor +=
-    " <li id='idIconologia'><button  >Iconologia e Iconografia</button> <div class='dot'/></li>";
+    " <li id='idIconologia'><button id='idIconologiaAction'  >Iconologia e Iconografia</button> <div class='dot'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor += "<li id='idStruttura' ><button >Struttura</button> <div class='dot4'/></li>";
-  htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor +=
-    "<li id='idConservazione'><button > Conservazione e Restauro</button> <div class='dot5'/></li>";
+  htmlNotesEditor += "<li id='idStruttura' ><button id='idStrutturaAction' >Struttura</button> <div class='dot4'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    " <li id='idTesto'><button  >Testo e Scrittura</button> <div class='dot6'/></li>";
+    "<li id='idConservazione'><button id='idConservazioneAction' > Conservazione e Restauro</button> <div class='dot5'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<li id='idMateriali'><button >Materiali e Tecniche</button> <div class='dot3'/></li>";
-  htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor += " <li id='idCensura'><button >Censura</button> <div class='dot2'/></li>";
+    " <li id='idTesto'><button id='idTestoAction'  >Testo e Scrittura</button> <div class='dot6'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
-    "<li id='idMusica'><button href='#' >Notazioni Musicali</button> <div class='dot7'/></li>";
+    "<li id='idMateriali'><button id='idMaterialiAction' >Materiali e Tecniche</button> <div class='dot3'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
+  htmlNotesEditor += " <li id='idCensura'><button id='idCensuraAction' >Censura</button> <div class='dot2'/></li>";
+  htmlNotesEditor += "<hr class='selectHr'/>";
+  htmlNotesEditor +=
+    "<li id='idMusica'><button id='idMusicaAction' >Notazioni Musicali</button> <div class='dot7'/></li>";
   htmlNotesEditor += "</ul>";
   htmlNotesEditor += "</div>";
   $(function () {
@@ -454,6 +454,7 @@ UI.buildEditor = () => {
         $('#idDropdownToggle').html("Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#79b857")
       })
+      
       var target = e.target;
       if (
         !$(target).is(".dropdown-toggle") &&
