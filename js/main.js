@@ -36,6 +36,8 @@ APP.STATE_ANN_FREE  = 3;
 
 APP.state = APP.STATE_NAV;
 
+// Categories
+APP.filterCat = undefined;
 
 APP.init = ()=>{
     ATON.FE.realize();
@@ -494,7 +496,7 @@ APP.setupEvents = ()=>{
 
         APP.mat.setupOnLoaded();
 
-        APP.setLensRadius(APP.LRAD_MIN);
+        APP.setLensRadius(0.02);
 /*
         APP.gBook.traverse( c => {
             if ( c.isMesh ){
@@ -507,6 +509,19 @@ APP.setupEvents = ()=>{
         // Persistent modifications
         if (ATON.FE.getCurrentUIP() === "editor") ATON.SceneHub.setEditMode(true);
         else ATON.SceneHub.setEditMode(false);
+
+        // Annotations
+        let pDB = ATON.SceneHub.currData.sem;
+
+        for (let s in ATON.semnodes){
+            let S = ATON.semnodes[s];
+            let e = pDB[s];
+
+            if (S && e){
+                let M = mat.sems[e.cat];
+                S.setDefaultAndHighlightMaterials(ATON.MatHub.materials.semanticShape, M);
+            }
+        }
     });
 
     ATON.on("MouseWheel", (d)=>{
@@ -762,6 +777,29 @@ APP.deleteSemAnnotation = (semid)=>{
 
         ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_DEL);
         console.log("Annotation "+semid+" deleted.");
+    }
+};
+
+APP.getCatName = (i)=>{
+    if (!APP.cdata) return;
+
+    return APP.cdata.categories[i].name;
+};
+
+APP.filterAnnotationsByCat = (cat)=>{
+    let pDB = ATON.SceneHub.currData.sem;
+
+    if (cat === undefined) cat = APP.filterCat;
+    else APP.filterCat = cat;
+
+    for (let s in ATON.semnodes){
+        let S = ATON.semnodes[s];
+        let e = pDB[s];
+        
+        if (e !== undefined){
+            if (e.cat !== cat) S.hide();
+            else S.show();
+        }
     }
 };
 

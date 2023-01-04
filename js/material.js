@@ -91,6 +91,14 @@ mat.init = ()=>{
         }
         `
     });
+
+    // Semantics
+    ATON.MatHub._uSem.tint.value.set(1,1,1,0.2);
+    //mat.semidle = ATON.MatHub.materials.semanticShape.clone();
+
+    mat.sems = {};
+    mat.sems["Iconologia e Iconografia"] = ATON.MatHub.materials.semanticShapeHL.clone();
+    mat.sems["Iconologia e Iconografia"].color = new THREE.Color("#BF2517");
 };
 
 mat.realize = ()=>{
