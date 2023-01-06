@@ -245,7 +245,7 @@ button {
 .filterContainer{
   position: relative;
   display: flex;
-  top:80px;
+  top:60px;
   width: 90%;
   left:10%
 }
@@ -530,29 +530,22 @@ border: none;
   position: absolute;
   margin-right: 10px;
   left: 0%;
-  top: 0vh;
+  top: 5vh;
 }
 
 .viewControl {
-  position: absolute;
+  position: fixed;
   background: transparent;
-  top: 65vh;
+  top: 65%;
   left: 174px;
   margin-right: 100px;
 }
-@media screen and (max-width: 800px) {
-  .viewControl {
-    left: 15vw;
-  }
-  .dropdown-toggle{
-    left: 25%
-  }
-}
+
 #idSliderLens {
-  position: absolute;
+  position: fixed;
   display: flex;
-  top: 84vh;
-  left: 270px;
+  top: 85vh;
+  left: 20%;
   width: auto;
   height: 0.4em;
   background: linear-gradient(
@@ -566,27 +559,38 @@ border: none;
   transition: background 450ms ease-in;
 }
 
+.axisContainer{
+  position:absolute;
+  top:50px;
+  width: 100px;
+  border: 1px solid;
+  width: 528px;
+  height:528px;
+  left: 30px;
+}
+
 .xAxis {
-  position: absolute;
-  display: flex;
+  position:fixed;
   width: 528px;
   height: 0px;
   left: 177px;
-  top: 80vh;
+  top: 80%;
   background: #e0c081;
   border: 1px solid #e0c081;
 }
 
 .yAxis {
-  position: absolute;
+  position:fixed;
   width: 0px;
   height:528px;
   left: 230px;
   background-color: #e0c081;
-  top: 20vh;
-  margin-left: 2.5vh;
+  top: 18%;
+  margin-left: 1vw;
   border: 1px solid #e0c081;
 }
+
+
 
 .layerSelector {
   position: absolute;
@@ -633,6 +637,8 @@ border: none;
   width: 18px;
   height: 18px;
 }
+
+
 .collapsibleContanier{
   position:absolute;
   top:83%;
