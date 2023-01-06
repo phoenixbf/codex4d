@@ -451,6 +451,10 @@ APP._attachUI = ()=>{
     });
 
     // Editor
+    $("#idLogin").click(()=>{
+        ATON.FE.popupUser();
+    });
+
     $("#sphere").click(()=>{
         APP.setState(APP.STATE_ANN_BASIC);
     });
@@ -465,6 +469,14 @@ APP.setupEvents = ()=>{
 
         // Attach UI events
         APP._attachUI();
+    });
+
+    ATON.on("Logout",()=>{
+        APP.setProfilePublic();
+    });
+
+    ATON.on("Login",(r)=>{
+        APP.setProfileEditor();
     });
 
     ATON.on("Tap",(e)=>{
