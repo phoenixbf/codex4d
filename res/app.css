@@ -103,13 +103,23 @@ button {
 .sidebar.left {
   position: fixed;
   display: inline-block;
-  top: 46%;
-  left: 4%;
+ 
+  top: 338px;
+  left: 60px;
   bottom: 0;
-  width: 200px;
-  height: 200px;
+  width: 50px;
+  height: 100px;
   background: transparent;
   text-align: center;
+}
+
+.divHR {
+  position: absolute;
+  width: 40px;
+  left:5px;
+  color: rgba(224, 192, 129, 1);
+  border: 1px solid rgba(224, 192, 129, 1);
+  background-color: rgba(224, 192, 129, 1);
 }
 
 .leftToolbar {
