@@ -116,7 +116,7 @@ button {
   position: absolute;
   display: flex;
   width: 3.45rem;
-  height:551px;
+  height:450px;
   left: 1%;
   top: 15%;
   background: rgb(110, 110, 110);
@@ -247,7 +247,7 @@ button {
   display: flex;
   top:60px;
   width: 90%;
-  left:10%
+  left:150px;
 }
 
 .selectContainer {
@@ -424,10 +424,10 @@ border: none;
 @media screen and (max-width: 600px) {
   .filterContainer{
     width: 40%;
-    left: 0%;
+    left: 18%;
   }
   .dropdown-toggle{
-    left: 30%;
+    left: 28%;
   }
  .selectContainer{
   width:50%
@@ -536,16 +536,16 @@ border: none;
 .viewControl {
   position: fixed;
   background: transparent;
-  top: 65%;
-  left: 174px;
+  top: 60%;
+  left: 190px;
   margin-right: 100px;
 }
 
 #idSliderLens {
   position: fixed;
   display: flex;
-  top: 85vh;
-  left: 20%;
+  top: 80vh;
+  left: 250px;
   width: auto;
   height: 0.4em;
   background: linear-gradient(
@@ -571,10 +571,10 @@ border: none;
 
 .xAxis {
   position:fixed;
-  width: 528px;
+  width: 438px;
   height: 0px;
   left: 177px;
-  top: 80%;
+  top: 75%;
   background: #e0c081;
   border: 1px solid #e0c081;
 }
@@ -582,7 +582,7 @@ border: none;
 .yAxis {
   position:fixed;
   width: 0px;
-  height:528px;
+  height:438px;
   left: 230px;
   background-color: #e0c081;
   top: 18%;
@@ -590,7 +590,61 @@ border: none;
   border: 1px solid #e0c081;
 }
 
+@media screen and (min-width: 1500px){
+  .xAxis{
+    top: 40%;
+  }
 
+  .viewControl{
+    top: 32%;
+  }
+  .collapsible{
+    top:900px
+  }
+}
+
+@media screen and (min-width: 1000px){
+  .yAxis {
+    top:20%
+  }
+  .xAxis{
+    top: 70%;
+  }
+
+  .viewControl{
+    top: 55%;
+  }
+
+  #idSliderLens {
+    top: 75vh;
+  }
+  .collapsible{
+    top:900px
+  }
+}
+
+@media screen and (min-width:750px ){
+  .yAxis {
+    top:22%;
+    left:180px
+  }
+  .xAxis{
+    top: 70%;
+    left: 100px;
+  }
+
+  .viewControl{
+    top: 55%;
+    left: 150px
+  }
+
+  #idSliderLens {
+    top: 75vh;
+  }
+  .collapsible{
+    top:900px
+  }
+}
 
 .layerSelector {
   position: absolute;
@@ -639,15 +693,8 @@ border: none;
 }
 
 
-.collapsibleContanier{
-  position:absolute;
-  top:83%;
-  height:17%;
-  width: 100%;
-}
-
 .collapsible {
-  position: relative;
+  position: absolute;
   display: flex;
   width: 47px;
   height: 47px;
@@ -656,8 +703,8 @@ border: none;
   border: none;
   z-index: 100;
   margin-left: 30px;
-  left: 10%;
-  top:80%
+  left: 80px;
+  top:95%
 }
 
 #idArrow {
@@ -681,15 +728,12 @@ border: none;
 
   .viewControl {
     left: 25px;
-    top: 75vh;
+    top: 65vh;
   }
-  #slider {
-    position: fixed;
-    top: 75%;
-    left: 20%;
-  }
-
  
+  #idSliderLens {
+    left:100px;
+  }
   .titleText {
     font-size: max(24px, 2vw);
     font-weight: bold;
