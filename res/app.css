@@ -459,7 +459,6 @@ border: none;
     border-radius: 24px;
     z-index: 0;
   }
- 
 }
 
 .selectHr {
@@ -544,8 +543,8 @@ border: none;
 #idSliderLens {
   position: fixed;
   display: flex;
-  top: 80vh;
-  left: 250px;
+  top: 530px;
+  left: 280px;
   width: auto;
   height: 0.4em;
   background: linear-gradient(
@@ -574,7 +573,7 @@ border: none;
   width: 438px;
   height: 0px;
   left: 177px;
-  top: 75%;
+  top: 510px;
   background: #e0c081;
   border: 1px solid #e0c081;
 }
@@ -585,66 +584,27 @@ border: none;
   height:438px;
   left: 230px;
   background-color: #e0c081;
-  top: 18%;
+  top: 150px;
   margin-left: 1vw;
   border: 1px solid #e0c081;
 }
-
-@media screen and (min-width: 1500px){
-  .xAxis{
-    top: 40%;
+@media screen and (min-width: 2560px){
+  .yAxis {
+    top: 600px;
   }
-
-  .viewControl{
-    top: 32%;
-  }
-  .collapsible{
-    top:900px
+  .xAxis {
+    top: 1000px
   }
 }
-
 @media screen and (min-width: 1000px){
   .yAxis {
-    top:20%
+    top: 130px;
   }
-  .xAxis{
-    top: 70%;
-  }
-
-  .viewControl{
-    top: 55%;
-  }
-
-  #idSliderLens {
-    top: 75vh;
-  }
-  .collapsible{
-    top:900px
+  .xAxis {
+    top: 510px
   }
 }
 
-@media screen and (min-width:750px ){
-  .yAxis {
-    top:22%;
-    left:180px
-  }
-  .xAxis{
-    top: 70%;
-    left: 100px;
-  }
-
-  .viewControl{
-    top: 55%;
-    left: 150px
-  }
-
-  #idSliderLens {
-    top: 75vh;
-  }
-  .collapsible{
-    top:900px
-  }
-}
 
 .layerSelector {
   position: absolute;
