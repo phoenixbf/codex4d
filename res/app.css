@@ -722,9 +722,9 @@ border: none;
 .annotationForm {
   position: absolute;
   width: 65%;
-  height: 80%;
-  left: 15%;
-  top: 20%;
+  height: 633px;
+  left: 20%;
+  top: 130px;
   background: #d9d9d9;
 
   opacity: 0.8;
@@ -784,7 +784,7 @@ border: none;
   width: 90%;
   left: 5%;
   z-index: 150;
-  top:14%;
+  top:80px;
 }
 
 .categorySelect {
@@ -863,14 +863,14 @@ border: none;
   width: 90%;
   left: 55%;
   z-index: 150;
-  top: 14%;
+  top:80px;
 }
 
 .descriptionContainer {
   position: absolute;
   width: 90%;
   left: 5%;
-  top:30%
+  top:160px
 }
 
 .descriptionInput {
