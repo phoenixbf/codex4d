@@ -266,7 +266,7 @@ button {
   position: relative;
   display: flex;
   top:100px;
-  width: 90%;
+  width: 100%;
   left:250px;
 }
 
@@ -327,8 +327,8 @@ ul.dropdown {
   top: 95%;
   height: 270px;
   margin-top: 5px;
-  width: 100%;
-  left: 35%;
+  width: 265px;
+  left:-15%;
   background: #c7c7c7;
   border-radius: 24px;
 }
@@ -339,7 +339,7 @@ ul.dropdown li {
   margin-top: 10px;
   background-color: transparent;
   left:0%;
-  width: 100%;
+  width:260px;
   align-content: left;
   margin-top: 13px;
 }
@@ -442,9 +442,10 @@ border: none;
   top:5px;
 }
 @media screen and (max-width: 600px) {
+
   .filterContainer{
-    width: 40%;
-    left: 18%;
+    width:400px;
+    left: 25%;
   }
   .dropdown-toggle{
     left: 28%;
