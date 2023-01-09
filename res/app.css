@@ -34,14 +34,24 @@ body {
   width: 28px;
   height: 28px;
   display: inline-block;
-  position: relative;
-  margin-left: 60px;
-  left: 55%;
+  position: fixed;
   background-color: transparent;
   border: none;
-  top:5px;
   cursor: pointer;
-  z-index: 1030;
+  right: 30%;
+  margin-left: 60px;
+  background-color: transparent;
+  top: 10px;
+ 
+}
+.goToIMG {
+  width: 28px;
+  height: 28px;
+}
+@media screen and ( max-width: 770px){
+  .goToTheWebSite {
+    right: 23%;
+  }
 }
 @media screen and (max-width: 600px) {
   .titleContainer {
@@ -255,9 +265,9 @@ button {
 .filterContainer{
   position: relative;
   display: flex;
-  top:60px;
+  top:100px;
   width: 90%;
-  left:150px;
+  left:250px;
 }
 
 .selectContainer {
@@ -265,7 +275,7 @@ button {
   display: flex;
   width: 300px;
   height: 46px;
-  top: 10%;
+  top: 15%;
   background: rgb(110, 110, 110);
   opacity: 1;
   border-radius: 24px;
@@ -444,10 +454,6 @@ border: none;
  }
 }
 @media screen and (max-width: 800px) {
-  .filterContainer{
-    width:150%;
-    top:100px;
-  }
   ul.dropdown{
     left:0%;
   }
@@ -455,21 +461,6 @@ border: none;
 }
 
   
-
-@media screen and (min-width: 2000px) {
-  .selectContainer {
-    position: fixed;
-    display: flex;
-    width: 25%;
-    height: 46px;
-    top: 10.5%;
-    left: 7.3%;
-    background: rgb(110, 110, 110);
-    opacity: 1;
-    border-radius: 24px;
-    z-index: 0;
-  }
-}
 
 .selectHr {
   height: 0px;
