@@ -52,60 +52,89 @@ UI.buildPublic = () => {
 
   $("#idLeftToolbar").html(htmlLeft);
 
-  $("#idFull").hover(
+  $("#idFull").click(
     () => {
+      
       $("#idFullsize").attr("src", "assets/icons/icon_fullsizeON.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png")
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
     },
-    () => {
-      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-    }
   );
 
-  $("#idReset").hover(
+
+  $("#idReset").click(
     () => {
       $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
-    },
-    () => {
-      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-    }
-  );
-
-  $("#idLayer").hover(
-    () => {
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
-    },
-    () => {
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+      location.reload();
+      $("#idSelect").hide()
+      $("#idViewControlContainer").hide();
     }
   );
 
-  $("#idAnnotations").hover(
+  $("#idLayer").click(
     () => {
-      $("#idTurnAnnotations").attr(
-        "src",
-        "assets/icons/icon_annotazioniON.png"
+        $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
+        $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+  $("#idViewControlContainer").show();
+  $("#idSelect").hide()
+      }
       );
-    },
-    () => {
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
-    }
-  );
 
-  $("#idSize").hover(
+  $("#idAnnotations").click(() => {
+    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+    $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+  $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
+  $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
+  $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+  $("#idTurnAnnotations").attr(
+      "src",
+      "assets/icons/icon_annotazioniON.png"
+    );
+    $("#idSelect").show()
+    $("#idViewControlContainer").hide();
+  })
+
+ 
+
+  $("#idSize").click(
     () => {
       $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
-    },
-    () => {
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+    $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+  $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
+  $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+  $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+  $("#idSelect").hide()
+  $("#idViewControlContainer").hide();
     }
   );
 
-  $("#idHelp").hover(
+
+  $("#idHelp").click(
     () => {
       $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
-    },
-    () => {
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+    $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+  $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
+  $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+  $("#idSelect").hide()
+  $("#idViewControlContainer").hide();
     }
   );
 
@@ -249,11 +278,12 @@ UI.buildPublic = () => {
     if (initialState) {
       $("#idBottomToolbar").css("height", "100px");
       $("#idArrow").attr("src", "assets/upArrow.png");
-      $("#idCollapsible").css("top", "83%");
+      $("#idCollapsible").css("bottom", "80px")
     } else {
       $("#idBottomToolbar").css("height", "0%");
       $("#idArrow").attr("src", "assets/downArrow.png");
-      $("#idCollapsible").css("top", "95%");
+      $("#idCollapsible").css("bottom", "0px")
+     
     }
   });
 
@@ -279,6 +309,7 @@ UI.buildPublic = () => {
     "<img class='imgPlay' id='idImgPlay' src='assets/icons/Play_OFF.png'>";
   htmlView += "</button>";
   htmlView += "</div>";
+
 
   //populating the #idViewControl div :
   $("#idViewControl").html(htmlView);
@@ -313,54 +344,50 @@ UI.buildPublic = () => {
   });
 
   // hovering actions on the layer selectors:
-  $("#idRgb").hover(
+  $("#idRgb").click(
     () => {
       $("#idImgLayer1").attr("src", "assets/active_layer.png");
-    },
-    () => {
-      $("#idImgLayer1").attr("src", "assets/layer.png");
+      $("#idImgLayer2").attr("src", "assets/layer.png")
+      $("#idImgLayer3").attr("src", "assets/layer.png")
+      $("#idImgLayer4").attr("src", "assets/layer.png")
     }
   );
-  $("#idIr1").hover(
+  $("#idIr1").click(
     () => {
       $("#idImgLayer2").attr("src", "assets/active_layer.png");
-    },
-    () => {
-      $("#idImgLayer2").attr("src", "assets/layer.png");
+      $("#idImgLayer1").attr("src", "assets/layer.png")
+      $("#idImgLayer3").attr("src", "assets/layer.png")
+      $("#idImgLayer4").attr("src", "assets/layer.png")
     }
   );
-  $("#idIr2").hover(
+  $("#idIr2").click(
     () => {
       $("#idImgLayer3").attr("src", "assets/active_layer.png");
-    },
-    () => {
-      $("#idImgLayer3").attr("src", "assets/layer.png");
+      $("#idImgLayer1").attr("src", "assets/layer.png")
+      $("#idImgLayer2").attr("src", "assets/layer.png")
+      $("#idImgLayer4").attr("src", "assets/layer.png")
     }
   );
-  $("#idIr3").hover(
+  $("#idIr3").click(
     () => {
       $("#idImgLayer4").attr("src", "assets/active_layer.png");
-    },
-    () => {
-      $("#idImgLayer4").attr("src", "assets/layer.png");
+      $("#idImgLayer1").attr("src", "assets/layer.png")
+      $("#idImgLayer2").attr("src", "assets/layer.png")
+      $("#idImgLayer3").attr("src", "assets/layer.png")
     }
   );
 
   // hovering actions for the play/pause buttons:
-  $("#idPauseButton").hover(
+  $("#idPauseButton").click(
     () => {
       $("#idImgPause").attr("src", "assets/icons/Pausa_ON.png");
-    },
-    () => {
-      $("#idImgPause").attr("src", "assets/icons/Pausa_OFF.png");
+      $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
     }
   );
-  $("#idPlayButton").hover(
+  $("#idPlayButton").click(
     () => {
       $("#idImgPlay").attr("src", "assets/icons/Play_ON.png");
-    },
-    () => {
-      $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
+      $("#idImgPause").attr("src", "assets/icons/Pausa_OFF.png");
     }
   );
 
@@ -550,54 +577,50 @@ UI.buildEditor = () => {
   });
 
   // hovering actions on the layer selectors:
-  $("#idRgb").hover(
+  $("#idRgb").click(
     () => {
       $("#idImgLayer1").attr("src", "assets/active_layer.png");
-    },
-    () => {
-      $("#idImgLayer1").attr("src", "assets/layer.png");
+      $("#idImgLayer2").attr("src", "assets/layer.png")
+      $("#idImgLayer3").attr("src", "assets/layer.png")
+      $("#idImgLayer4").attr("src", "assets/layer.png")
     }
   );
-  $("#idIr1").hover(
+  $("#idIr1").click(
     () => {
       $("#idImgLayer2").attr("src", "assets/active_layer.png");
-    },
-    () => {
-      $("#idImgLayer2").attr("src", "assets/layer.png");
+      $("#idImgLayer1").attr("src", "assets/layer.png")
+      $("#idImgLayer3").attr("src", "assets/layer.png")
+      $("#idImgLayer4").attr("src", "assets/layer.png")
     }
   );
-  $("#idIr2").hover(
+  $("#idIr2").click(
     () => {
       $("#idImgLayer3").attr("src", "assets/active_layer.png");
-    },
-    () => {
-      $("#idImgLayer3").attr("src", "assets/layer.png");
+      $("#idImgLayer1").attr("src", "assets/layer.png")
+      $("#idImgLayer2").attr("src", "assets/layer.png")
+      $("#idImgLayer4").attr("src", "assets/layer.png")
     }
   );
-  $("#idIr3").hover(
+  $("#idIr3").click(
     () => {
       $("#idImgLayer4").attr("src", "assets/active_layer.png");
-    },
-    () => {
-      $("#idImgLayer4").attr("src", "assets/layer.png");
+      $("#idImgLayer1").attr("src", "assets/layer.png")
+      $("#idImgLayer2").attr("src", "assets/layer.png")
+      $("#idImgLayer3").attr("src", "assets/layer.png")
     }
   );
 
   // hovering actions for the play/pause buttons:
-  $("#idPauseButton").hover(
+  $("#idPauseButton").click(
     () => {
       $("#idImgPause").attr("src", "assets/icons/Pausa_ON.png");
-    },
-    () => {
-      $("#idImgPause").attr("src", "assets/icons/Pausa_OFF.png");
+      $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
     }
   );
-  $("#idPlayButton").hover(
+  $("#idPlayButton").click(
     () => {
       $("#idImgPlay").attr("src", "assets/icons/Play_ON.png");
-    },
-    () => {
-      $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
+      $("#idImgPause").attr("src", "assets/icons/Pausa_OFF.png");
     }
   );
 
@@ -630,54 +653,40 @@ UI.buildEditor = () => {
 
   $("#idLeftToolbar").html(htmlLeftEditor);
 
-  $("#idFull").hover(
-    function () {
+  
+  $("#idFull").click(
+    () => {
       $("#idFullsize").attr("src", "assets/icons/icon_fullsizeON.png");
-    },
-    function () {
-      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
     }
   );
 
-  $("#idReset").hover(
-    function () {
+  $("#idReset").click(
+     () => {
       $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
-    },
-    function () {
-      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
     }
   );
 
-  $("#idLayer").hover(
-    function () {
+  $("#idLayer").click(
+   () => {
       $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
-    },
-    function () {
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
     }
   );
 
-  $("#idAnnotations").hover(
-    function () {
+  $("#idAnnotations").click(
+     ()=>{
       $("#idTurnAnnotations").attr(
         "src",
         "assets/icons/icon_annotazioniON.png"
       );
-    },
-    function () {
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
     }
   );
 
-  $("#idSize").hover(
-    function () {
+  $("#idSize").click(
+    () => {
       $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
-    },
-    function () {
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
     }
   );
-  $("#idNote").hover(
+  $("#idNote").click(
     function () {
       $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
     },

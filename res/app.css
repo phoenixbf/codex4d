@@ -518,7 +518,7 @@ border: none;
 .posesContainer {
   margin-top: 10px;
   margin-left: 20px;
-  
+  cursor: pointer;
   display: inline-block;
   text-align: center;
 }
@@ -674,7 +674,7 @@ border: none;
   z-index: 100;
   margin-left: 30px;
   left: 80px;
-  top:95%
+  bottom: 0px
 }
 
 #idArrow {
