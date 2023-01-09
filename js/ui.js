@@ -503,7 +503,7 @@ UI.buildEditor = () => {
   let htmlBottomEditor = "";
   htmlBottomEditor +=
     "<a href='#'><img class='codexLogo' src='assets/logo.png' /></a>";
-  htmlBottomEditor += "<div class='previewContainer'>";
+  htmlBottomEditor += "<div id='idPoseGallery' class='previewContainer scrollableX'>";
  
   htmlBottomEditor += "</div>";
 
