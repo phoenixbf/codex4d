@@ -524,14 +524,16 @@ APP.setupEvents = ()=>{
 
         // Annotations
         let pDB = ATON.SceneHub.currData.sem;
+        if (pDB){
+            for (let s in ATON.semnodes){
+                let S = ATON.semnodes[s];
+                let e = pDB[s];
 
-        for (let s in ATON.semnodes){
-            let S = ATON.semnodes[s];
-            let e = pDB[s];
-
-            if (S && e){
-                let M = mat.sems[e.cat];
-                S.setDefaultAndHighlightMaterials(ATON.MatHub.materials.semanticShape, M);
+                if (S && e){
+                    let M = mat.sems[e.cat];
+                    S.setDefaultAndHighlightMaterials(M.base, M.hl);
+                    S.setMaterial(M.base);
+                }
             }
         }
     });

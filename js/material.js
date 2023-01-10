@@ -97,8 +97,13 @@ mat.init = ()=>{
     //mat.semidle = ATON.MatHub.materials.semanticShape.clone();
 
     mat.sems = {};
-    mat.sems["Iconologia e Iconografia"] = ATON.MatHub.materials.semanticShapeHL.clone();
-    mat.sems["Iconologia e Iconografia"].color = new THREE.Color("#BF2517");
+    mat.sems["Iconologia e Iconografia"] = {
+        base: ATON.MatHub.materials.defUI.clone(),
+        hl: ATON.MatHub.materials.semanticShapeHL.clone()
+    };
+    mat.sems["Iconologia e Iconografia"].hl.color     = new THREE.Color("#BF2517");
+    mat.sems["Iconologia e Iconografia"].base.uniforms.tint.value    = mat.sems["Iconologia e Iconografia"].hl.color;
+    mat.sems["Iconologia e Iconografia"].base.uniforms.opacity.value = 0.0;
 };
 
 mat.realize = ()=>{
