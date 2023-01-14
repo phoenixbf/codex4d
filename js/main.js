@@ -36,6 +36,14 @@ APP.STATE_ANN_FREE  = 3;
 
 APP.state = APP.STATE_NAV;
 
+// Layers
+APP.LAYER_RGB = 0;
+APP.LAYER_IR1 = 1;
+APP.LAYER_IR2 = 2;
+APP.LAYER_IR3 = 3;
+
+APP.currLayer = APP.LAYER_RGB
+
 // Categories
 APP.filterCat = undefined;
 
@@ -53,6 +61,8 @@ APP.init = ()=>{
 
     APP.plight = undefined;
     APP._bLens = true;
+
+    //ATON.SUI.enableSemIcons();
 
 /*
     APP.UI.init();
@@ -296,6 +306,8 @@ APP.disableLens = ()=>{
     APP._bLens = false;
     //if (APP.currMat) APP.currMat.uniforms.vLens.value.w = 0.0;
     if (APP.currMat) APP.currMat.uniforms.wLens.value = 0.0;
+
+    APP.currLayer = APP.LAYER_RGB;
 };
 
 // 0.0 - 1.0
@@ -335,6 +347,22 @@ APP.setIRvalue = (v)=>{
 
 APP.setLensRadius = (v)=>{
     ATON.SUI.setSelectorRadius(v);
+};
+
+// Set current APP layer 
+APP.setLayer = (L)=>{
+    if (L === APP.LAYER_RGB){
+        APP.disableLens();
+        return;
+    }
+
+    APP.enableLens();
+    
+    if (L === APP.LAYER_IR1) APP.setIRvalue( 0.0 );
+    if (L === APP.LAYER_IR2) APP.setIRvalue( 0.5 );
+    if (L === APP.LAYER_IR3) APP.setIRvalue( 1.0 );
+    
+    APP.currLayer = L;
 };
 
 APP.requestScreenPointer = (x,y)=>{
@@ -435,19 +463,16 @@ APP._attachUI = ()=>{
 
     // Layers
     $("#idRgb").click(()=>{
-        APP.disableLens();
+        APP.setLayer(APP.LAYER_RGB);
     });
     $("#idIr1").click(()=>{
-        APP.enableLens();
-        APP.setIRvalue( 0.0 );
+        APP.setLayer(APP.LAYER_IR1);
     });
     $("#idIr2").click(()=>{
-        APP.enableLens();
-        APP.setIRvalue( 0.5 );
+        APP.setLayer(APP.LAYER_IR2);
     });
     $("#idIr3").click(()=>{
-        APP.enableLens();
-        APP.setIRvalue( 1.0 );
+        APP.setLayer(APP.LAYER_IR3);
     });
 
     // Editor
@@ -509,6 +534,7 @@ APP.setupEvents = ()=>{
         APP.mat.setupOnLoaded();
 
         APP.setLensRadius(0.02);
+        APP.setLayer(APP.LAYER_RGB);
 /*
         APP.gBook.traverse( c => {
             if ( c.isMesh ){
@@ -522,20 +548,8 @@ APP.setupEvents = ()=>{
         if (ATON.FE.getCurrentUIP() === "editor") ATON.SceneHub.setEditMode(true);
         else ATON.SceneHub.setEditMode(false);
 
-        // Annotations
-        let pDB = ATON.SceneHub.currData.sem;
-        if (pDB){
-            for (let s in ATON.semnodes){
-                let S = ATON.semnodes[s];
-                let e = pDB[s];
-
-                if (S && e){
-                    let M = mat.sems[e.cat];
-                    S.setDefaultAndHighlightMaterials(M.base, M.hl);
-                    S.setMaterial(M.base);
-                }
-            }
-        }
+        // Annotations visitor
+        APP.semVisitor();
     });
 
     ATON.on("MouseWheel", (d)=>{
@@ -564,6 +578,8 @@ APP.setupEvents = ()=>{
 
     // Keyboard
     ATON.on("KeyPress", (k)=>{
+        if ($("#idForm").is(":visible")) return;
+
         // Modifiers
         if (k ==="Shift")  ATON.Nav.setUserControl(false);
         if (k==="Control") ATON.Nav.setUserControl(false);
@@ -578,11 +594,11 @@ APP.setupEvents = ()=>{
         }
         // TODO: Convex annotation + ENTER to finalize
         if (k==='f'){
-            //APP.addSemanticAnnotation("test", { title: "test test" }, ATON.FE.SEMSHAPE_SPHERE);
+            ATON.SemFactory.addSurfaceConvexPoint();
+            console.log(ATON.SemFactory.convexPoints)
         }
-
-        // TODO:
         if (k === 'Enter')  APP.finalizeSemanticShape();
+
         if (k === 'Escape') APP.cancelCurrentTask();
         if (k === 'Delete') APP.deleteSemAnnotation(ATON._hoveredSemNode);
 
@@ -591,12 +607,15 @@ APP.setupEvents = ()=>{
             console.log(APP.gBook);
         }
 
-        if (k==='1') APP.setIRvalue( 0.0 );
-        if (k==='2') APP.setIRvalue( 0.5 );
-        if (k==='3') APP.setIRvalue( 1.0 );
+        if (k==='0') APP.setLayer(APP.LAYER_RGB);
+        if (k==='1') APP.setLayer(APP.LAYER_IR1);
+        if (k==='2') APP.setLayer(APP.LAYER_IR2);
+        if (k==='3') APP.setLayer(APP.LAYER_IR3);
     });
 
     ATON.on("KeyUp",(k)=>{
+        if ($("#idForm").is(":visible")) return;
+        
         if (k==="Shift") ATON.Nav.setUserControl(true);
         if (k==="Control") ATON.Nav.setUserControl(true);
     });
@@ -731,6 +750,19 @@ APP.measure = ()=>{
 
 // Editor routines
 //==================================================
+APP.cancelCurrentTask = ()=>{
+    if (ATON.SemFactory.isBuildingShape()){
+        ATON.SemFactory.stopCurrentConvex();
+    }
+};
+
+APP.finalizeSemanticShape = ()=>{
+    if (ATON.SemFactory.isBuildingShape()){
+        $("#idForm").show();
+        APP.UI.addAnnotation(ATON.FE.SEMSHAPE_CONVEX);
+    }
+};
+
 APP.addSemanticAnnotation = (semid, O, semtype)=>{
     if (semid === undefined) return;
     if (O === undefined) return;
@@ -759,6 +791,8 @@ APP.addSemanticAnnotation = (semid, O, semtype)=>{
 
     ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_ADD);
     console.log("Annotation "+semid+" added.");
+
+    APP.semVisitor();
 };
 
 APP.updateSemAnnotation = (semid, O)=>{
@@ -816,6 +850,27 @@ APP.filterAnnotationsByCat = (cat)=>{
         }
     }
 };
+
+APP.semVisitor = ()=>{
+    let pDB = ATON.SceneHub.currData.sem;
+
+    if (!pDB) return;
+
+    for (let s in ATON.semnodes){
+        let S = ATON.semnodes[s];
+        let e = pDB[s];
+
+        if (S && e){
+            let M = mat.sems[e.cat];
+            if (M){
+                S.setDefaultAndHighlightMaterials(M.base, M.hl);
+                S.setMaterial(M.base);
+            }
+        }
+    }
+};
+
+
 
 // run
 window.onload = ()=>{

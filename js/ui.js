@@ -73,7 +73,7 @@ UI.buildPublic = () => {
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-      location.reload();
+
       $("#idSelect").hide()
       $("#idViewControlContainer").hide();
     }
@@ -675,7 +675,7 @@ UI.buildEditor = () => {
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-      location.reload();
+
       $("#idSelect").hide()
       $("#idViewControlContainer").hide();
     }
@@ -1058,6 +1058,8 @@ UI.addAnnotation = (semtype) => {
     if (descr)  O.descr  = descr;
     if (cat)    O.cat    = cat;
     if (subcat) O.subcat = subcat;
+
+    O.layer = APP.currLayer;
 
     APP.addSemanticAnnotation(semid, O, semtype);
   });
