@@ -615,7 +615,7 @@ APP.setupEvents = ()=>{
 
     ATON.on("KeyUp",(k)=>{
         if ($("#idForm").is(":visible")) return;
-        
+
         if (k==="Shift") ATON.Nav.setUserControl(true);
         if (k==="Control") ATON.Nav.setUserControl(true);
     });

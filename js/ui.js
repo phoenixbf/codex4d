@@ -455,31 +455,45 @@ UI.buildEditor = () => {
       $('#idIconologiaAction').click(()=>{
         $('#idDropdownToggle').html("Iconologia e iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#BF2517B2")
+
+        APP.filterAnnotationsByCat("Iconologia e Iconografia");
       })
       $('#idStrutturaAction').click(()=>{
         $('#idDropdownToggle').html("Struttura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#2F4689")
+
+        APP.filterAnnotationsByCat("Struttura");
       })
       $('#idConservazioneAction').click(()=>{
         $('#idDropdownToggle').html("Conservazione e Restauro <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#D9A441")
+
+        APP.filterAnnotationsByCat("Conservazione e Restauro");
       })
       $('#idTestoAction').click(()=>{
         $('#idDropdownToggle').html("Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#E7F0F9")
         $('.filterText').css("color", "rgb(110, 110, 110)")
+
+        APP.filterAnnotationsByCat("Testo e Scrittura");
       })
       $('#idMaterialiAction').click(()=>{
         $('#idDropdownToggle').html("Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#422C20")
+
+        APP.filterAnnotationsByCat("Materiali e Tecniche");
       })
       $('#idCensuraAction').click(()=>{
         $('#idDropdownToggle').html("Censure <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#FF7F11")
+
+        APP.filterAnnotationsByCat("Censure");
       })
       $('#idMusicaAction').click(()=>{
         $('#idDropdownToggle').html("Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#79b857")
+
+        APP.filterAnnotationsByCat("Notazioni Musicali");
       })
       
       var target = e.target;
@@ -817,7 +831,6 @@ UI.toggleSemPanel = (b) => {
 
 /*
     Update UI panel (HTML) from semantic ID (shape)
-    Public profile
 ====================================================*/
 UI.updateSemPanel = (semid) => {
   let pDB = ATON.SceneHub.currData.sem; //APP.sDB[APP.currPose];
@@ -828,16 +841,21 @@ UI.updateSemPanel = (semid) => {
 
   // Generate HTML for panel
   let htmlcode = "";
-  htmlcode += "<div class='atonPopupTitle'>";
+  htmlcode += "<div class='appPanelHeader'>";
   //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
   htmlcode += S.title + "</div>";
 
-  htmlcode +=
-    "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
+  htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
 
-  if (S.cat)    htmlcode += "<b>Categoria</b>: " + S.cat + "<br>";
+  htmlcode += "<div class='appPanelLayer'>";
+  if (S.layer === APP.LAYER_RGB) htmlcode += "Livello RGB";
+  if (S.layer === APP.LAYER_IR1) htmlcode += "Livello IR 1";
+  if (S.layer === APP.LAYER_IR2) htmlcode += "Livello IR 2";
+  if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";
+  htmlcode += "</div>";
+
+  if (S.cat)    htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
   if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
-  if (S.layer)  htmlcode += "<b>Layer</b>: " + S.layer + "<br>";
   htmlcode += "<br>";
 
   if (S.img) htmlcode += "<img src='" + APP.pathContent + S.img + "'>";
