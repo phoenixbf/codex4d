@@ -842,8 +842,16 @@ UI.updateSemPanel = (semid) => {
   // Generate HTML for panel
   let htmlcode = "";
   htmlcode += "<div class='appPanelHeader'>";
+  htmlcode += "<div class='appPanelBTN' onclick='APP.UI.toggleSemPanel(false)'><img src='"+ATON.FE.PATH_RES_ICONS+"cancel.png'></div>&nbsp;&nbsp;";
   //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
-  htmlcode += S.title + "</div>";
+  htmlcode += S.title;
+
+  if (ATON.SceneHub._bEdit){
+    htmlcode += "<div style='float:right'>";
+    htmlcode += "<div class='appPanelBTN'><img src='"+ATON.FE.PATH_RES_ICONS+"edit.png'></div>";
+    htmlcode += "<div class='appPanelBTN'><img src='"+ATON.FE.PATH_RES_ICONS+"trash.png'></div></div>";
+  }
+  htmlcode += "</div>";
 
   htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
 

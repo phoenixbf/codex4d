@@ -141,14 +141,14 @@ mat.init = ()=>{
     mat.sems["Testo e Scrittura"].base.opacity = 0.1;
 
 
-    mat.sems["Materiali e Tecniche"] = {
+    mat.sems["Materiali e Tecniche Esecutive"] = {
         base: ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
         hl: ATON.MatHub.materials.semanticShapeHL.clone()
     };
-    mat.sems["Materiali e Tecniche"].hl.color     = new THREE.Color("#422C20");
-    mat.sems["Materiali e Tecniche"].hl.opacity   = 0.3;
-    mat.sems["Materiali e Tecniche"].base.color   = mat.sems["Materiali e Tecniche"].hl.color;
-    mat.sems["Materiali e Tecniche"].base.opacity = 0.1;
+    mat.sems["Materiali e Tecniche Esecutive"].hl.color     = new THREE.Color("#422C20");
+    mat.sems["Materiali e Tecniche Esecutive"].hl.opacity   = 0.3;
+    mat.sems["Materiali e Tecniche Esecutive"].base.color   = mat.sems["Materiali e Tecniche Esecutive"].hl.color;
+    mat.sems["Materiali e Tecniche Esecutive"].base.opacity = 0.1;
 
 
     mat.sems["Censure"] = {
