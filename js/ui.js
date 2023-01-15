@@ -149,13 +149,7 @@ UI.buildPublic = () => {
     }
   });
 
-  //top toolbar for Public UI to allow Login
-  let htmlTop = "";
-  htmlTop +=
-    "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
-  
 
-  $("#idTopToolbar").html(htmlTop);
 
   $("#idLogin").hover(
     () => {
@@ -446,29 +440,16 @@ UI.buildEditor = () => {
   $("#idBottomToolbar").html("");
   $("#idLeftToolbar").html("");
 
-  // Initializing top toolbar for Editor User
-  let htmlTopEditor = "";
-  htmlTopEditor +=
-    "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/avatar.png' /><p id='idLoginActionText' class='loginText'> User</p></button>";
-  
+  // changing user avatar
+  $("idLogin").html("")
 
-  // Clear
-  $("#idTopToolbar").html(htmlTopEditor);
+  let htmlUserEditor = ""
+  htmlUserEditor = "<button id='idLogin' class='user'>"
+  htmlUserEditor += "<img id='idUserAction' class='userIcon' src='assets/icons/avatar.png' alt='user'/>"
+  htmlUserEditor += "<p id='idLoginActionText' class='userText'> User</p>"
+  htmlUserEditor += "</button>"
 
-  $("#idGoToTheWebSite").hover(
-    () => {
-      $("#idManuscriptDetail").attr(
-        "src",
-        "assets/icons/Icona_scheda_Aton_ON.png"
-      );
-    },
-    function () {
-      $("#idManuscriptDetail").attr(
-        "src",
-        "assets/icons/Icona_scheda_Aton_OFF.png"
-      );
-    }
-  );
+  $("#idLogin").html(htmlUserEditor)
 
   // Note filtering for Editor
 

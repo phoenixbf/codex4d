@@ -111,22 +111,17 @@ body {
   height: 25px;
 }
 
-.goToTheWebSite {
-  width: 28px;
-  height: 28px;
-  display: inline-block;
-  position: fixed;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  right: 30%;
-  margin-left: 60px;
-  background-color: transparent;
-  top: 10px;
-}
 .goToIMG {
   width: 28px;
   height: 28px;
+  display: inline-block;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  left:180px;
+  background-color: transparent;
+  top: -35px;
 }
 @media screen and (max-width: 770px) {
   .goToTheWebSite {
@@ -136,9 +131,6 @@ body {
 @media screen and (max-width: 600px) {
   .titleContainer {
     display: block;
-  }
-  .goToTheWebSite {
-    display: none;
   }
 }
 
@@ -153,6 +145,8 @@ body {
   font-size: max(24px, 1.5vw);
   margin: 2px;
   font-family: Comfortaa;
+  position:relative;
+  top:-20px
 }
 
 button {
@@ -323,6 +317,37 @@ button {
   margin-right: 5%;
 }
 
+.user {
+  position: absolute;
+  display: flex;
+  background-color: transparent;
+  border: none;
+  font-family: Inter;
+  color: rgba(255, 255, 255, 1);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  top: 20px;
+  right: 80px;
+}
+.user:hover {
+  color: rgba(224, 192, 129, 1);
+}
+.userText {
+  position: relative;
+  display: flex;
+  left: 30px;
+  top: -20%;
+}
+
+.userIcon {
+  position: fixed;
+  display: flex;
+  width: 23px;
+  height: 23px;
+  margin-right: 5%;
+}
+
 .codexLogo {
   position: relative;
   width: 90px;
@@ -335,7 +360,7 @@ button {
   display: block;
   left: 0%;
   width: 30%;
-  top: 2%;
+  top:-30px;
   height: 0%;
   background: #e0c081;
   border: 1px solid #e0c081;
