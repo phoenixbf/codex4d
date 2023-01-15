@@ -21,12 +21,6 @@ UI.buildPublic = () => {
   $("#idBottomToolbar").html("");
   $("#idLeftToolbar").html("");
 
-
-
-
-
- 
-
   //left toolbar for Public UI
   let htmlLeft = "";
   htmlLeft += "<ul style='list-style-type: none;'>";
@@ -52,132 +46,113 @@ UI.buildPublic = () => {
 
   $("#idLeftToolbar").html(htmlLeft);
 
-  $("#idFull").on("click",
-    () => {
-     if($("#idFullsize").attr("src") == "assets/icons/icon_fullsize.png"){
+  $("#idFull").on("click", () => {
+    if ($("#idFullsize").attr("src") == "assets/icons/icon_fullsize.png") {
       $("#idFullsize").attr("src", "assets/icons/icon_fullsizeON.png");
 
-      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png")
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-     } else {
-      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png")
-     }
-      
-      
-    },
-  )
-  
- 
-  $("#idReset").on("click",
-    () => {
-      if($("#idResetScene").attr("src") == "assets/icons/icon_resetvista.png"){
-        $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
-        $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-        $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-        $("#idSelect").hide()
-        $("#idViewControlContainer").hide();
-      }
-      else {
-        $("#idResetScene").attr("src","assets/icons/icon_resetvista.png")
-      }
-    }
-  );
-
-  $("#idLayer").click(
-    () => {
-      if($("#idChooseLayer").attr("src") == "assets/icons/icon_layer.png"){
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
-        $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+    } else {
       $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-  $("#idViewControlContainer").show();
-  $("#idSelect").hide()
-} else {
-  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-  $("#idViewControlContainer").hide()
-}
-      }
-      );
+    }
+  });
+
+  $("#idReset").on("click", () => {
+    if ($("#idResetScene").attr("src") == "assets/icons/icon_resetvista.png") {
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idSelect").hide();
+      $("#idViewControlContainer").hide();
+    } else {
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+    }
+  });
+
+  $("#idLayer").click(() => {
+    if ($("#idChooseLayer").attr("src") == "assets/icons/icon_layer.png") {
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idViewControlContainer").show();
+      $("#idSelect").hide();
+    } else {
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idViewControlContainer").hide();
+    }
+  });
 
   $("#idAnnotations").click(() => {
-    if($("#idTurnAnnotations").attr("src") == "assets/icons/icon_annotazioni.png"){
-    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-    $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-  $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-  $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-  $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-  $("#idTurnAnnotations").attr(
-      "src",
-      "assets/icons/icon_annotazioniON.png"
-    );
-    $("#idSelect").show()
-    $("#idViewControlContainer").hide();
-  } else {
-    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
-    $("#idSelect").hide()
-  }
-  })
-
- 
-
-  $("#idSize").click(
-    () => {
-      if($("#idTurnSize").attr("src") == "assets/icons/icon_size_OFF.png"){
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+    if (
+      $("#idTurnAnnotations").attr("src") == "assets/icons/icon_annotazioni.png"
+    ) {
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-    $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-    $("#idSelect").hide()
-    $("#idViewControlContainer").hide();
-      } else{
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-      }
-      
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idTurnAnnotations").attr(
+        "src",
+        "assets/icons/icon_annotazioniON.png"
+      );
+      $("#idSelect").show();
+      $("#idViewControlContainer").hide();
+    } else {
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idSelect").hide();
     }
-  );
+  });
 
-
-  $("#idHelp").click(
-    () => {
-      if($("#idTurnHelp").attr("src") == "assets/icons/icon_help.png"){
-        $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+  $("#idSize").click(() => {
+    if ($("#idTurnSize").attr("src") == "assets/icons/icon_size_OFF.png") {
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-    $("#idSelect").hide()
-    $("#idViewControlContainer").hide();
-      } else {
-        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-      }
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idSelect").hide();
+      $("#idViewControlContainer").hide();
+    } else {
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
     }
-  );
+  });
+
+  $("#idHelp").click(() => {
+    if ($("#idTurnHelp").attr("src") == "assets/icons/icon_help.png") {
+      $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idSelect").hide();
+      $("#idViewControlContainer").hide();
+    } else {
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+    }
+  });
 
   //top toolbar for Public UI to allow Login
   let htmlTop = "";
   htmlTop +=
     "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
-    htmlTop += "<a href='#' id='idGoToTheWebSite' class='goToTheWebSite'><img id='idManuscriptDetail' class='goToIMG' src='assets/icons/Icona_scheda_Aton_OFF.png' alt='scheda-aton' /></a>"
-
-  
+  htmlTop +=
+    "<a href='#' id='idGoToTheWebSite' class='goToTheWebSite'><img id='idManuscriptDetail' class='goToIMG' src='assets/icons/Icona_scheda_Aton_OFF.png' alt='scheda-aton' /></a>";
 
   $("#idTopToolbar").html(htmlTop);
- 
-  
 
   $("#idLogin").hover(
     () => {
@@ -190,16 +165,22 @@ UI.buildPublic = () => {
   );
   $("#idGoToTheWebSite").hover(
     () => {
-      $("#idManuscriptDetail").attr("src", "assets/icons/Icona_scheda_Aton_ON.png");
+      $("#idManuscriptDetail").attr(
+        "src",
+        "assets/icons/Icona_scheda_Aton_ON.png"
+      );
     },
     function () {
-      $("#idManuscriptDetail").attr("src", "assets/icons/Icona_scheda_Aton_OFF.png");
+      $("#idManuscriptDetail").attr(
+        "src",
+        "assets/icons/Icona_scheda_Aton_OFF.png"
+      );
     }
   );
 
   //Note filtering
   let htmlNotes = "";
-  htmlNotes = "<div class='selectContainer'>"
+  htmlNotes = "<div class='selectContainer'>";
   htmlNotes += "<p class='filterText'> Note </p>";
   htmlNotes +=
     "<button class='dropdown-toggle' id='idDropdownToggle'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
@@ -207,7 +188,8 @@ UI.buildPublic = () => {
   htmlNotes +=
     " <li id='idIconologia'><button id='idIconologiaAction' >Iconologia e Iconografia <div class='dot'/> </button></li>";
   htmlNotes += "<hr class='selectHr'/>";
-  htmlNotes += "<li id='idStruttura' ><button id='idStrutturaAction'>Struttura <div class='dot4'/> </button></li>";
+  htmlNotes +=
+    "<li id='idStruttura' ><button id='idStrutturaAction'>Struttura <div class='dot4'/> </button></li>";
   htmlNotes += "<hr class='selectHr'/>";
   htmlNotes +=
     "<li id='idConservazione'><button id='idConservazioneAction'> Conservazione e Restauro <div class='dot5'/> </button></li>";
@@ -218,7 +200,8 @@ UI.buildPublic = () => {
   htmlNotes +=
     "<li id='idMateriali'><button id='idMaterialiAction'>Materiali e Tecniche <div class='dot3'/> </button></li>";
   htmlNotes += "<hr class='selectHr'/>";
-  htmlNotes += " <li id='idCensura'><button id='idCensuraAction'>Censure <div class='dot2'/> </button></li>";
+  htmlNotes +=
+    " <li id='idCensura'><button id='idCensuraAction'>Censure <div class='dot2'/> </button></li>";
   htmlNotes += "<hr class='selectHr'/>";
   htmlNotes +=
     "<li id='idMusica'><button id='idMusicaAction'>Notazioni Musicali <div class='dot7'/> </button></li>";
@@ -231,49 +214,63 @@ UI.buildPublic = () => {
     });
 
     $(document).click(function (e) {
-      $('#idIconologiaAction').click(()=>{
-        $('#idDropdownToggle').html("Iconologia e Iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#BF2517B2")
-        
+      $("#idIconologiaAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Iconologia e Iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#BF2517B2");
+
         APP.filterAnnotationsByCat("Iconologia e Iconografia");
-      })
-      $('#idStrutturaAction').click(()=>{
-        $('#idDropdownToggle').html("Struttura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#2F4689")
-        
+      });
+      $("#idStrutturaAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Struttura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#2F4689");
+
         APP.filterAnnotationsByCat("Struttura");
-      })
-      $('#idConservazioneAction').click(()=>{
-        $('#idDropdownToggle').html("Conservazione e Restauro <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#D9A441")
-        
+      });
+      $("#idConservazioneAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Conservazione e Restauro <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#D9A441");
+
         APP.filterAnnotationsByCat("Conservazione e Restauro");
-      })
-      $('#idTestoAction').click(()=>{
-        $('#idDropdownToggle').html("Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#E7F0F9")
-        $('.filterText').css("color", "rgb(110, 110, 110)")
-        
+      });
+      $("#idTestoAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#E7F0F9");
+        $(".filterText").css("color", "rgb(110, 110, 110)");
+
         APP.filterAnnotationsByCat("Testo e Scrittura");
-      })
-      $('#idMaterialiAction').click(()=>{
-        $('#idDropdownToggle').html("Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#422C20")
+      });
+      $("#idMaterialiAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#422C20");
         APP.filterAnnotationsByCat("Materiali e Tecniche");
-      })
-      $('#idCensuraAction').click(()=>{
-        $('#idDropdownToggle').html("Censure <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#FF7F11")
-        
+      });
+      $("#idCensuraAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Censure <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#FF7F11");
+
         APP.filterAnnotationsByCat("Censure");
-      })
-      $('#idMusicaAction').click(()=>{
-        $('#idDropdownToggle').html("Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#79b857")
+      });
+      $("#idMusicaAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#79b857");
 
         APP.filterAnnotationsByCat("Notazioni Musicali");
-      })
-      
+      });
+
       var target = e.target;
       if (
         !$(target).is(".dropdown-toggle") &&
@@ -284,11 +281,10 @@ UI.buildPublic = () => {
       }
     });
     $(".dropdown-toggle").click(() => {
-      $("#idSelectArrow").attr("src", "assets/downArrow.png")
-    ,
-  $("#idSelectArrow").attr("src", "assets/upArrow.png")})
+      $("#idSelectArrow").attr("src", "assets/downArrow.png"),
+        $("#idSelectArrow").attr("src", "assets/upArrow.png");
+    });
   });
-
 
   $("#idSelect").html(htmlNotes);
 
@@ -307,12 +303,11 @@ UI.buildPublic = () => {
     if (initialState) {
       $("#idBottomToolbar").css("height", "100px");
       $("#idArrow").attr("src", "assets/upArrow.png");
-      $("#idCollapsible").css("bottom", "80px")
+      $("#idCollapsible").css("bottom", "80px");
     } else {
       $("#idBottomToolbar").css("height", "0%");
       $("#idArrow").attr("src", "assets/downArrow.png");
-      $("#idCollapsible").css("bottom", "0px")
-     
+      $("#idCollapsible").css("bottom", "0px");
     }
   });
 
@@ -338,7 +333,6 @@ UI.buildPublic = () => {
     "<img class='imgPlay' id='idImgPlay' src='assets/icons/Play_OFF.png'>";
   htmlView += "</button>";
   htmlView += "</div>";
-
 
   //populating the #idViewControl div :
   $("#idViewControl").html(htmlView);
@@ -373,52 +367,66 @@ UI.buildPublic = () => {
   });
 
   // hovering actions on the layer selectors:
-  $("#idRgb").click(
-    () => {
-      $("#idImgLayer1").attr("src", "assets/active_layer.png");
-      $("#idImgLayer2").attr("src", "assets/layer.png")
-      $("#idImgLayer3").attr("src", "assets/layer.png")
-      $("#idImgLayer4").attr("src", "assets/layer.png")
-    }
-  );
-  $("#idIr1").click(
-    () => {
+  $("#idRgb").click(() => {
+    $("#idImgLayer1").attr("src", "assets/active_layer.png");
+    $("#idImgLayer2").attr("src", "assets/layer.png");
+    $("#idImgLayer3").attr("src", "assets/layer.png");
+    $("#idImgLayer4").attr("src", "assets/layer.png");
+  });
+  $("#idIr1").click(() => {
+    $("#idImgLayer2").attr("src", "assets/active_layer.png");
+    $("#idImgLayer1").attr("src", "assets/layer.png");
+    $("#idImgLayer3").attr("src", "assets/layer.png");
+    $("#idImgLayer4").attr("src", "assets/layer.png");
+  });
+  $("#idIr2").click(() => {
+    $("#idImgLayer3").attr("src", "assets/active_layer.png");
+    $("#idImgLayer1").attr("src", "assets/layer.png");
+    $("#idImgLayer2").attr("src", "assets/layer.png");
+    $("#idImgLayer4").attr("src", "assets/layer.png");
+  });
+  $("#idIr3").click(() => {
+    $("#idImgLayer4").attr("src", "assets/active_layer.png");
+    $("#idImgLayer1").attr("src", "assets/layer.png");
+    $("#idImgLayer2").attr("src", "assets/layer.png");
+    $("#idImgLayer3").attr("src", "assets/layer.png");
+  });
+  function loop() {
+    setTimeout(() => {
       $("#idImgLayer2").attr("src", "assets/active_layer.png");
-      $("#idImgLayer1").attr("src", "assets/layer.png")
-      $("#idImgLayer3").attr("src", "assets/layer.png")
-      $("#idImgLayer4").attr("src", "assets/layer.png")
-    }
-  );
-  $("#idIr2").click(
-    () => {
-      $("#idImgLayer3").attr("src", "assets/active_layer.png");
-      $("#idImgLayer1").attr("src", "assets/layer.png")
-      $("#idImgLayer2").attr("src", "assets/layer.png")
-      $("#idImgLayer4").attr("src", "assets/layer.png")
-    }
-  );
-  $("#idIr3").click(
-    () => {
-      $("#idImgLayer4").attr("src", "assets/active_layer.png");
-      $("#idImgLayer1").attr("src", "assets/layer.png")
-      $("#idImgLayer2").attr("src", "assets/layer.png")
-      $("#idImgLayer3").attr("src", "assets/layer.png")
-    }
-  );
-
-  // hovering actions for the play/pause buttons:
-  $("#idPauseButton").click(
-    () => {
+      $("#idImgLayer1").attr("src", "assets/layer.png");
+      setTimeout(() => {
+        $("#idImgLayer2").attr("src", "assets/layer.png");
+        $("#idImgLayer3").attr("src", "assets/active_layer.png");
+        setTimeout(() => {
+          $("#idImgLayer3").attr("src", "assets/layer.png");
+          $("#idImgLayer4").attr("src", "assets/active_layer.png");
+          setTimeout(() => {
+            $("#idImgLayer4").attr("src", "assets/layer.png");
+          }, 500);
+        }, 500);
+      }, 500);
+    }, 500);
+  }
+  // click actions for the play/pause buttons:
+  $("#idPauseButton").on("click",
+  () => {
+    if($("#idImgPause").attr("src") == "assets/icons/Pausa_OFF.png"){
       $("#idImgPause").attr("src", "assets/icons/Pausa_ON.png");
       $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
     }
-  );
-  $("#idPlayButton").click(
-    () => {
+    
+  });
+  $("#idPlayButton").on("click", () => {
+    if ($("#idImgPlay").attr("src") == "assets/icons/Play_OFF.png") {
       $("#idImgPlay").attr("src", "assets/icons/Play_ON.png");
       $("#idImgPause").attr("src", "assets/icons/Pausa_OFF.png");
+      $("#idImgLayer1").attr("src", "assets/active_layer.png");
+      loop();
+    } else {
+      $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
     }
-  );
+  });
 
   //ATON.FE.uiAddButtonVR("idTopToolbar");
 };
@@ -432,32 +440,40 @@ UI.buildEditor = () => {
   // Initializing top toolbar for Editor User
   let htmlTopEditor = "";
   // htmlTopEditor += "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
-  htmlTopEditor += "<a href='#' id='idGoToTheWebSite' class='goToTheWebSite'><img id='idManuscriptDetail' class='goToTheWebSite' src='assets/icons/Icona_scheda_Aton_OFF.png' alt='scheda-aton' /></a>"
+  htmlTopEditor +=
+    "<a href='#' id='idGoToTheWebSite' class='goToTheWebSite'><img id='idManuscriptDetail' class='goToTheWebSite' src='assets/icons/Icona_scheda_Aton_OFF.png' alt='scheda-aton' /></a>";
 
   // Clear
   $("#idTopToolbar").html(htmlTopEditor);
-  
+
   $("#idGoToTheWebSite").hover(
     () => {
-      $("#idManuscriptDetail").attr("src", "assets/icons/Icona_scheda_Aton_ON.png");
+      $("#idManuscriptDetail").attr(
+        "src",
+        "assets/icons/Icona_scheda_Aton_ON.png"
+      );
     },
     function () {
-      $("#idManuscriptDetail").attr("src", "assets/icons/Icona_scheda_Aton_OFF.png");
+      $("#idManuscriptDetail").attr(
+        "src",
+        "assets/icons/Icona_scheda_Aton_OFF.png"
+      );
     }
   );
 
   // Note filtering for Editor
 
   let htmlNotesEditor = "";
-  htmlNotesEditor = "<div class='selectContainer'>"
+  htmlNotesEditor = "<div class='selectContainer'>";
   htmlNotesEditor += "<p class='filterText'> Note </p>";
   htmlNotesEditor +=
     "<button class='dropdown-toggle' id='selezioneCategoria' >Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
-  htmlNotesEditor+= "<ul  class='dropdown'>";
+  htmlNotesEditor += "<ul  class='dropdown'>";
   htmlNotesEditor +=
     " <li id='idIconologia'><button id='idIconologiaAction'  >Iconologia e Iconografia</button> <div class='dot'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor += "<li id='idStruttura' ><button id='idStrutturaAction' >Struttura</button> <div class='dot4'/></li>";
+  htmlNotesEditor +=
+    "<li id='idStruttura' ><button id='idStrutturaAction' >Struttura</button> <div class='dot4'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
     "<li id='idConservazione'><button id='idConservazioneAction' > Conservazione e Restauro</button> <div class='dot5'/></li>";
@@ -468,7 +484,8 @@ UI.buildEditor = () => {
   htmlNotesEditor +=
     "<li id='idMateriali'><button id='idMaterialiAction' >Materiali e Tecniche</button> <div class='dot3'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
-  htmlNotesEditor += " <li id='idCensura'><button id='idCensuraAction' >Censura</button> <div class='dot2'/></li>";
+  htmlNotesEditor +=
+    " <li id='idCensura'><button id='idCensuraAction' >Censura</button> <div class='dot2'/></li>";
   htmlNotesEditor += "<hr class='selectHr'/>";
   htmlNotesEditor +=
     "<li id='idMusica'><button id='idMusicaAction' >Notazioni Musicali</button> <div class='dot7'/></li>";
@@ -481,38 +498,52 @@ UI.buildEditor = () => {
     });
 
     $(document).click(function (e) {
-      $('#idIconologiaAction').click(()=>{
-        $('#idDropdownToggle').html("Iconologia e Iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#BF2517B2")
-      })
-      $('#idStrutturaAction').click(()=>{
-        $('#idDropdownToggle').html("Struttura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#2F4689")
-      })
-      $('#idConservazioneAction').click(()=>{
-        $('#idDropdownToggle').html("Conservazione e Restauro <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#D9A441")
-      })
-      $('#idTestoAction').click(()=>{
-        $('#idDropdownToggle').html("Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#E7F0F9")
-        $('.filterText').css("color", "rgb(110, 110, 110)")
-      })
-      $('#idMaterialiAction').click(()=>{
-        $('#idDropdownToggle').html("Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#422C20")
-      })
-      $('#idCensuraAction').click(()=>{
-        $('#idDropdownToggle').html("Censure <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#FF7F11")
-      })
-      $('#idMusicaAction').click(()=>{
-        $('#idDropdownToggle').html("Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
-        $('.selectContainer').css("background-color", "#79b857")
+      $("#idIconologiaAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Iconologia e Iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#BF2517B2");
+      });
+      $("#idStrutturaAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Struttura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#2F4689");
+      });
+      $("#idConservazioneAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Conservazione e Restauro <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#D9A441");
+      });
+      $("#idTestoAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#E7F0F9");
+        $(".filterText").css("color", "rgb(110, 110, 110)");
+      });
+      $("#idMaterialiAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#422C20");
+      });
+      $("#idCensuraAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Censure <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#FF7F11");
+      });
+      $("#idMusicaAction").click(() => {
+        $("#idDropdownToggle").html(
+          "Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+        );
+        $(".selectContainer").css("background-color", "#79b857");
 
         APP.filterAnnotationsByCat("Notazioni Musicali");
-      })
-      
+      });
+
       var target = e.target;
       if (
         !$(target).is(".dropdown-toggle") &&
@@ -523,9 +554,9 @@ UI.buildEditor = () => {
       }
     });
     $(".dropdown-toggle").click(() => {
-      $("#idSelectArrow").attr("src", "assets/downArrow.png")
-    ,
-  $("#idSelectArrow").attr("src", "assets/upArrow.png")})
+      $("#idSelectArrow").attr("src", "assets/downArrow.png"),
+        $("#idSelectArrow").attr("src", "assets/upArrow.png");
+    });
   });
 
   $("#idSelect").html(htmlNotesEditor);
@@ -534,8 +565,9 @@ UI.buildEditor = () => {
   let htmlBottomEditor = "";
   htmlBottomEditor +=
     "<a href='#'><img class='codexLogo' src='assets/logo.png' /></a>";
-  htmlBottomEditor += "<div id='idPoseGallery' class='previewContainer scrollableX'>";
- 
+  htmlBottomEditor +=
+    "<div id='idPoseGallery' class='previewContainer scrollableX'>";
+
   htmlBottomEditor += "</div>";
 
   $("#idCollapsible").on("click", () => {
@@ -544,12 +576,11 @@ UI.buildEditor = () => {
     if (initialState) {
       $("#idBottomToolbar").css("height", "100px");
       $("#idArrow").attr("src", "assets/upArrow.png");
-      $("#idCollapsible").css("bottom", "80px")
+      $("#idCollapsible").css("bottom", "80px");
     } else {
       $("#idBottomToolbar").css("height", "0%");
       $("#idArrow").attr("src", "assets/downArrow.png");
-      $("#idCollapsible").css("bottom", "0px")
-     
+      $("#idCollapsible").css("bottom", "0px");
     }
   });
   $("#idBottomToolbar").html(htmlBottomEditor);
@@ -608,52 +639,40 @@ UI.buildEditor = () => {
   });
 
   // hovering actions on the layer selectors:
-  $("#idRgb").click(
-    () => {
-      $("#idImgLayer1").attr("src", "assets/active_layer.png");
-      $("#idImgLayer2").attr("src", "assets/layer.png")
-      $("#idImgLayer3").attr("src", "assets/layer.png")
-      $("#idImgLayer4").attr("src", "assets/layer.png")
-    }
-  );
-  $("#idIr1").click(
-    () => {
-      $("#idImgLayer2").attr("src", "assets/active_layer.png");
-      $("#idImgLayer1").attr("src", "assets/layer.png")
-      $("#idImgLayer3").attr("src", "assets/layer.png")
-      $("#idImgLayer4").attr("src", "assets/layer.png")
-    }
-  );
-  $("#idIr2").click(
-    () => {
-      $("#idImgLayer3").attr("src", "assets/active_layer.png");
-      $("#idImgLayer1").attr("src", "assets/layer.png")
-      $("#idImgLayer2").attr("src", "assets/layer.png")
-      $("#idImgLayer4").attr("src", "assets/layer.png")
-    }
-  );
-  $("#idIr3").click(
-    () => {
-      $("#idImgLayer4").attr("src", "assets/active_layer.png");
-      $("#idImgLayer1").attr("src", "assets/layer.png")
-      $("#idImgLayer2").attr("src", "assets/layer.png")
-      $("#idImgLayer3").attr("src", "assets/layer.png")
-    }
-  );
+  $("#idRgb").click(() => {
+    $("#idImgLayer1").attr("src", "assets/active_layer.png");
+    $("#idImgLayer2").attr("src", "assets/layer.png");
+    $("#idImgLayer3").attr("src", "assets/layer.png");
+    $("#idImgLayer4").attr("src", "assets/layer.png");
+  });
+  $("#idIr1").click(() => {
+    $("#idImgLayer2").attr("src", "assets/active_layer.png");
+    $("#idImgLayer1").attr("src", "assets/layer.png");
+    $("#idImgLayer3").attr("src", "assets/layer.png");
+    $("#idImgLayer4").attr("src", "assets/layer.png");
+  });
+  $("#idIr2").click(() => {
+    $("#idImgLayer3").attr("src", "assets/active_layer.png");
+    $("#idImgLayer1").attr("src", "assets/layer.png");
+    $("#idImgLayer2").attr("src", "assets/layer.png");
+    $("#idImgLayer4").attr("src", "assets/layer.png");
+  });
+  $("#idIr3").click(() => {
+    $("#idImgLayer4").attr("src", "assets/active_layer.png");
+    $("#idImgLayer1").attr("src", "assets/layer.png");
+    $("#idImgLayer2").attr("src", "assets/layer.png");
+    $("#idImgLayer3").attr("src", "assets/layer.png");
+  });
 
   // hovering actions for the play/pause buttons:
-  $("#idPauseButton").click(
-    () => {
-      $("#idImgPause").attr("src", "assets/icons/Pausa_ON.png");
-      $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
-    }
-  );
-  $("#idPlayButton").click(
-    () => {
-      $("#idImgPlay").attr("src", "assets/icons/Play_ON.png");
-      $("#idImgPause").attr("src", "assets/icons/Pausa_OFF.png");
-    }
-  );
+  $("#idPauseButton").click(() => {
+    $("#idImgPause").attr("src", "assets/icons/Pausa_ON.png");
+    $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
+  });
+  $("#idPlayButton").click(() => {
+    $("#idImgPlay").attr("src", "assets/icons/Play_ON.png");
+    $("#idImgPause").attr("src", "assets/icons/Pausa_OFF.png");
+  });
 
   //Initializing Left Toolbar for Editor User
   let htmlLeftEditor = "";
@@ -684,148 +703,127 @@ UI.buildEditor = () => {
 
   $("#idLeftToolbar").html(htmlLeftEditor);
 
-  
-  $("#idFull").on("click",
-    () => {
-     if($("#idFullsize").attr("src") == "assets/icons/icon_fullsize.png"){
+  $("#idFull").on("click", () => {
+    if ($("#idFullsize").attr("src") == "assets/icons/icon_fullsize.png") {
       $("#idFullsize").attr("src", "assets/icons/icon_fullsizeON.png");
 
-      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png")
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-     } else {
-      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png")
-     }
-      
-      
-    },
-  )
-  
- 
-  $("#idReset").on("click",
-    () => {
-      if($("#idResetScene").attr("src") == "assets/icons/icon_resetvista.png"){
-        $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
-        $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-        $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-        $("#idSelect").hide()
-        $("#idViewControlContainer").hide();
-      }
-      else {
-        $("#idResetScene").attr("src","assets/icons/icon_resetvista.png")
-      }
-    }
-  );
-
-  $("#idLayer").click(
-    () => {
-      if($("#idChooseLayer").attr("src") == "assets/icons/icon_layer.png"){
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
-        $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+    } else {
       $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-  $("#idViewControlContainer").show();
-  $("#idSelect").hide()
-} else {
-  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-  $("#idViewControlContainer").hide()
-}
-      }
-      );
+    }
+  });
+
+  $("#idReset").on("click", () => {
+    if ($("#idResetScene").attr("src") == "assets/icons/icon_resetvista.png") {
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idSelect").hide();
+      $("#idViewControlContainer").hide();
+    } else {
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+    }
+  });
+
+  $("#idLayer").click(() => {
+    if ($("#idChooseLayer").attr("src") == "assets/icons/icon_layer.png") {
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idViewControlContainer").show();
+      $("#idSelect").hide();
+    } else {
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idViewControlContainer").hide();
+    }
+  });
 
   $("#idAnnotations").click(() => {
-    if($("#idTurnAnnotations").attr("src") == "assets/icons/icon_annotazioni.png"){
-    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-    $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-  $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-  $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-  $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-  $("#idTurnAnnotations").attr(
-      "src",
-      "assets/icons/icon_annotazioniON.png"
-    );
-    $("#idSelect").show()
-    $("#idViewControlContainer").hide();
-  } else {
-    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
-    $("#idSelect").hide()
-  }
-  })
-
- 
-
-  $("#idSize").click(
-    () => {
-      if($("#idTurnSize").attr("src") == "assets/icons/icon_size_OFF.png"){
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+    if (
+      $("#idTurnAnnotations").attr("src") == "assets/icons/icon_annotazioni.png"
+    ) {
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-    $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-    $("#idSelect").hide()
-    $("#idViewControlContainer").hide();
-      } else{
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-      }
-      
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idTurnAnnotations").attr(
+        "src",
+        "assets/icons/icon_annotazioniON.png"
+      );
+      $("#idSelect").show();
+      $("#idViewControlContainer").hide();
+    } else {
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idSelect").hide();
     }
-  );
+  });
 
-
-  $("#idHelp").click(
-    () => {
-      if($("#idTurnHelp").attr("src") == "assets/icons/icon_help.png"){
-        $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+  $("#idSize").click(() => {
+    if ($("#idTurnSize").attr("src") == "assets/icons/icon_size_OFF.png") {
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-    $("#idSelect").hide()
-    $("#idViewControlContainer").hide();
-      } else {
-        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-      }
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idSelect").hide();
+      $("#idViewControlContainer").hide();
+    } else {
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
     }
-  );
-  $("#idNote").on("click",
-    () => {
-      if($("#idTurnNote").attr("src") == "assets/icons/Icona_Aton_Edit_OFF.png"){
-        $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
-        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-    $("#idSelect").hide()
-    $("#idViewControlContainer").hide();
-    
-      }
-      else {
-          $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");      
-    }
-  }
-    
-  );
+  });
 
+  $("#idHelp").click(() => {
+    if ($("#idTurnHelp").attr("src") == "assets/icons/icon_help.png") {
+      $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idSelect").hide();
+      $("#idViewControlContainer").hide();
+    } else {
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+    }
+  });
+  $("#idNote").on("click", () => {
+    if (
+      $("#idTurnNote").attr("src") == "assets/icons/Icona_Aton_Edit_OFF.png"
+    ) {
+      $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
+      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+      $("#idSelect").hide();
+      $("#idViewControlContainer").hide();
+    } else {
+      $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+    }
+  });
 
   $("#idTurnNote").click(() => {
-    console.log("cliccato")
+    console.log("cliccato");
     $("#selectAnnType").show();
-/*
+    /*
     $("#selectAnnType").html("");
 
     let htmlcode = "";
@@ -840,34 +838,35 @@ UI.buildEditor = () => {
 
     $("#selectAnnType").append(htmlcode);
 */
-    $("#sphere").on("click",
+    $("#sphere").on(
+      "click",
 
-    () =>{
-      if($("#idTurnSphere").attr("src") == "assets/icons/cerchio_annotazione_OFF.png") {
-        $("#idTurnSphere").attr(
-          "src",
-          "assets/icons/cerchio_annotazione_ON.png"
-        );
-      } else {
-        $("#idTurnSphere").attr(
-          "src",
+      () => {
+        if (
+          $("#idTurnSphere").attr("src") ==
           "assets/icons/cerchio_annotazione_OFF.png"
-        );
+        ) {
+          $("#idTurnSphere").attr(
+            "src",
+            "assets/icons/cerchio_annotazione_ON.png"
+          );
+        } else {
+          $("#idTurnSphere").attr(
+            "src",
+            "assets/icons/cerchio_annotazione_OFF.png"
+          );
+        }
       }
-    }
     );
 
-    $("#free").on("click",
-    () => {
-      if($("#idTurnAreal").attr("src") == "assets/icons/Aton_areale_OFF.png"){
+    $("#free").on("click", () => {
+      if ($("#idTurnAreal").attr("src") == "assets/icons/Aton_areale_OFF.png") {
         $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_ON.png");
       } else {
         $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
       }
-       
-      },
-    );
-/*
+    });
+    /*
     $("#sphere").click(() => {
       $("#idForm").show();
       //$("#id");
@@ -905,18 +904,28 @@ UI.updateSemPanel = (semid) => {
   // Generate HTML for panel
   let htmlcode = "";
   htmlcode += "<div class='appPanelHeader'>";
-  htmlcode += "<div class='appPanelBTN' onclick='APP.UI.toggleSemPanel(false)'><img src='"+ATON.FE.PATH_RES_ICONS+"cancel.png'></div>&nbsp;&nbsp;";
+  htmlcode +=
+    "<div class='appPanelBTN' onclick='APP.UI.toggleSemPanel(false)'><img src='" +
+    ATON.FE.PATH_RES_ICONS +
+    "cancel.png'></div>&nbsp;&nbsp;";
   //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
   htmlcode += S.title;
 
-  if (ATON.SceneHub._bEdit){
+  if (ATON.SceneHub._bEdit) {
     htmlcode += "<div style='float:right'>";
-    htmlcode += "<div class='appPanelBTN'><img src='"+ATON.FE.PATH_RES_ICONS+"edit.png'></div>";
-    htmlcode += "<div class='appPanelBTN'><img src='"+ATON.FE.PATH_RES_ICONS+"trash.png'></div></div>";
+    htmlcode +=
+      "<div class='appPanelBTN'><img src='" +
+      ATON.FE.PATH_RES_ICONS +
+      "edit.png'></div>";
+    htmlcode +=
+      "<div class='appPanelBTN'><img src='" +
+      ATON.FE.PATH_RES_ICONS +
+      "trash.png'></div></div>";
   }
   htmlcode += "</div>";
 
-  htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
+  htmlcode +=
+    "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
 
   htmlcode += "<div class='appPanelLayer'>";
   if (S.layer === APP.LAYER_RGB) htmlcode += "Livello RGB";
@@ -925,7 +934,7 @@ UI.updateSemPanel = (semid) => {
   if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";
   htmlcode += "</div>";
 
-  if (S.cat)    htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
+  if (S.cat) htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
   if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
   htmlcode += "<br>";
 
@@ -994,17 +1003,19 @@ UI.addAnnotation = (semtype) => {
   // htmlcode += "</div>";
   htmlcode += "<div class='fileContainer'>";
   htmlcode += "<label for='files' class='formTitle'>File Multimediali </label>";
-  htmlcode += "<input class='uploadLink' id='files' type='text'/> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
+  htmlcode +=
+    "<input class='uploadLink' id='files' type='text'/> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
   htmlcode += "</div>";
   htmlcode += "<div class='authorContainer'>";
-  htmlcode += "<h3 class='formTitle'>Autore</h3> <input class='authorInput' type='text' ></input>";
+  htmlcode +=
+    "<h3 class='formTitle'>Autore</h3> <input class='authorInput' type='text' ></input>";
   htmlcode += "</div>";
   //htmlcode += "</form>";
 
   htmlcode += "<button id='idDelete' class='cancelButton'>Annulla</button>";
   htmlcode += "<button id='idOk' class='okButton' >Conferma</button>";
   htmlcode += "</div>";
-  
+
   $("#idForm").html(htmlcode);
 
   $("#catSelect").change(function () {
@@ -1126,11 +1137,11 @@ UI.addAnnotation = (semtype) => {
     $("#rchars").text(textlen);
   });
 
-  $("#idDelete").click(()=>{
+  $("#idDelete").click(() => {
     $("#idForm").hide();
   });
 
-  $("#idOk").click(()=>{
+  $("#idOk").click(() => {
     $("#idForm").hide();
 
     let title = $("#idTitle").val();
@@ -1139,13 +1150,13 @@ UI.addAnnotation = (semtype) => {
     let descr = $("#idDescription").val();
     if (descr) descr.trim();
 
-    let cat    = $("#catSelect").val();
+    let cat = $("#catSelect").val();
     let subcat = $("#sottoCatSelect").val();
 
     let O = {};
-    if (title)  O.title  = title;
-    if (descr)  O.descr  = descr;
-    if (cat)    O.cat    = cat;
+    if (title) O.title = title;
+    if (descr) O.descr = descr;
+    if (cat) O.cat = cat;
     if (subcat) O.subcat = subcat;
 
     O.layer = APP.currLayer;

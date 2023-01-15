@@ -616,6 +616,7 @@ border: none;
   height: 438px;
   left: 100px;
   z-index: 100;
+  
 }
 @media screen and (max-width: 600px){
   .viewControlContainer {
