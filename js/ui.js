@@ -453,33 +453,46 @@ UI.buildEditor = () => {
 
     $(document).click(function (e) {
       $('#idIconologiaAction').click(()=>{
-        $('#idDropdownToggle').html("Iconologia e iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
+        $('#idDropdownToggle').html("Iconologia e Iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#BF2517B2")
+        
+        APP.filterAnnotationsByCat("Iconologia e Iconografia");
       })
       $('#idStrutturaAction').click(()=>{
         $('#idDropdownToggle').html("Struttura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#2F4689")
+        
+        APP.filterAnnotationsByCat("Struttura");
       })
       $('#idConservazioneAction').click(()=>{
         $('#idDropdownToggle').html("Conservazione e Restauro <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#D9A441")
+        
+        APP.filterAnnotationsByCat("Conservazione e Restauro");
       })
       $('#idTestoAction').click(()=>{
         $('#idDropdownToggle').html("Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#E7F0F9")
         $('.filterText').css("color", "rgb(110, 110, 110)")
+        
+        APP.filterAnnotationsByCat("Testo e Scrittura");
       })
       $('#idMaterialiAction').click(()=>{
         $('#idDropdownToggle').html("Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#422C20")
+        APP.filterAnnotationsByCat("Materiali e Tecniche");
       })
       $('#idCensuraAction').click(()=>{
         $('#idDropdownToggle').html("Censure <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#FF7F11")
+        
+        APP.filterAnnotationsByCat("Censure");
       })
       $('#idMusicaAction').click(()=>{
         $('#idDropdownToggle').html("Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#79b857")
+
+        APP.filterAnnotationsByCat("Notazioni Musicali");
       })
       
       var target = e.target;
