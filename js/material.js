@@ -98,16 +98,22 @@ mat.init = ()=>{
 
     mat.sems = {};
 
-    for (let c in APP.cats){
-        mat.sems[c] = {
-            base: ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
-            hl: ATON.MatHub.materials.semanticShapeHL.clone()
-        };
-        mat.sems[c].hl.color     = new THREE.Color(APP.catsColor[c]);
-        mat.sems[c].hl.opacity   = 0.3;
-        mat.sems[c].base.color   = mat.sems[c].hl.color;
+    for (let i in APP.cats){
+        let c = APP.cats[i];
+
+        mat.sems[c] = {};
+
+        // ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
+        mat.sems[c].base         = ATON.MatHub.materials.semanticShapeHL.clone();
+        mat.sems[c].base.color   = new THREE.Color(APP.catsColors[i]);
         mat.sems[c].base.opacity = 0.1;
+
+        mat.sems[c].hl           = ATON.MatHub.materials.semanticShapeHL.clone();
+        mat.sems[c].hl.color     = mat.sems[c].base.color
+        mat.sems[c].hl.opacity   = 0.3;
     }
+
+    console.log(mat.sems)
 };
 
 mat.realize = ()=>{

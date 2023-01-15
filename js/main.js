@@ -899,6 +899,8 @@ APP.semVisitor = ()=>{
                     S.setDefaultAndHighlightMaterials(M.base, M.hl);
                     S.setMaterial(M.base);
                 }
+
+                console.log("x");
             }
         }
     }
