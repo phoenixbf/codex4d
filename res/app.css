@@ -303,7 +303,7 @@ button {
   font-size: 14px;
   line-height: 17px;
   top: 20px;
-  right: 150px;
+  right: 80px;
 }
 .login:hover {
   color: rgba(224, 192, 129, 1);
