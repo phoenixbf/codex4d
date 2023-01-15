@@ -205,6 +205,10 @@ APP.postPoseLoaded = ()=>{
     APP.setLightPostion(APP.defLightPos);
     
     //ATON.toggleShadows(true);
+
+    // For cached poses
+    APP.mat.setupOnLoaded();
+    APP.semVisitor();
 };
 
 APP.setState = (s)=>{
@@ -268,6 +272,7 @@ APP.loadVolumePose = (v,p)=>{
     $("#idPose").html(pose.title);
 
     //ATON.SceneHub.clear();
+    ATON.SUI.clearMeasurements();
 
     ATON.FE.loadSceneID( sid );
 
@@ -519,10 +524,12 @@ APP.setupEvents = ()=>{
 
     ATON.on("Logout",()=>{
         APP.setProfilePublic();
+        APP.updatePoseGallery(APP.currVolume);
     });
 
     ATON.on("Login",(r)=>{
         APP.setProfileEditor();
+        APP.updatePoseGallery(APP.currVolume);
     });
 
     ATON.on("Tap",(e)=>{

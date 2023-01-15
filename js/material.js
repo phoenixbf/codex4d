@@ -234,12 +234,16 @@ mat.setupOnLoaded = ()=>{
     ATON.Utils.textureLoader.load(urlBase, (tex)=>{
         tex.flipY = false;
         APP.currMat.uniforms.tBase.value = tex;
+
+        APP.currMat.needsUpdate = true;
     });
 
     ATON.Utils.textureLoader.load(urlIR, (tex)=>{
         tex.flipY = false;
         //APP.matLens.needsUpdate = true;
         APP.currMat.uniforms.tIR.value  = tex;
+
+        APP.currMat.needsUpdate = true;
     });
 
 /*
@@ -258,8 +262,9 @@ mat.setupOnLoaded = ()=>{
     ATON.Utils.textureLoader.load(urlPBR, (tex)=>{
         tex.flipY = false;
         APP.currMat.uniforms.tPBR.value = tex;
-    });
 
+        APP.currMat.needsUpdate = true;
+    });
 
 /*
     //APP.currMat.roughnessMap = APP._tWhite;
