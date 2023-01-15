@@ -153,8 +153,7 @@ UI.buildPublic = () => {
   let htmlTop = "";
   htmlTop +=
     "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
-  htmlTop +=
-    "<a href='#' id='idGoToTheWebSite' class='goToTheWebSite'><img id='idManuscriptDetail' class='goToIMG' src='assets/icons/Icona_scheda_Aton_OFF.png' alt='scheda-aton' /></a>";
+  
 
   $("#idTopToolbar").html(htmlTop);
 
@@ -450,9 +449,8 @@ UI.buildEditor = () => {
   // Initializing top toolbar for Editor User
   let htmlTopEditor = "";
   htmlTopEditor +=
-    "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> User</p></button>";
-  htmlTopEditor +=
-    "<a href='#' id='idGoToTheWebSite' class='goToTheWebSite'><img id='idManuscriptDetail' class='goToTheWebSite' src='assets/icons/Icona_scheda_Aton_OFF.png' alt='scheda-aton' /></a>";
+    "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/avatar.png' /><p id='idLoginActionText' class='loginText'> User</p></button>";
+  
 
   // Clear
   $("#idTopToolbar").html(htmlTopEditor);
