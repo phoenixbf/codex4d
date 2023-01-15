@@ -685,35 +685,46 @@ UI.buildEditor = () => {
   $("#idLeftToolbar").html(htmlLeftEditor);
 
   
-  $("#idFull").click(
+  $("#idFull").on("click",
     () => {
-      
+     if($("#idFullsize").attr("src") == "assets/icons/icon_fullsize.png"){
       $("#idFullsize").attr("src", "assets/icons/icon_fullsizeON.png");
+
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png")
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+     } else {
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png")
+     }
+      
+      
     },
-  );
-
-
-  $("#idReset").click(
+  )
+  
+ 
+  $("#idReset").on("click",
     () => {
-      $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
-      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-
-      $("#idSelect").hide()
-      $("#idViewControlContainer").hide();
+      if($("#idResetScene").attr("src") == "assets/icons/icon_resetvista.png"){
+        $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
+        $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+        $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
+        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+        $("#idSelect").hide()
+        $("#idViewControlContainer").hide();
+      }
+      else {
+        $("#idResetScene").attr("src","assets/icons/icon_resetvista.png")
+      }
     }
   );
 
   $("#idLayer").click(
     () => {
+      if($("#idChooseLayer").attr("src") == "assets/icons/icon_layer.png"){
         $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
         $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
       $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
@@ -722,10 +733,15 @@ UI.buildEditor = () => {
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
   $("#idViewControlContainer").show();
   $("#idSelect").hide()
+} else {
+  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+  $("#idViewControlContainer").hide()
+}
       }
       );
 
   $("#idAnnotations").click(() => {
+    if($("#idTurnAnnotations").attr("src") == "assets/icons/icon_annotazioni.png"){
     $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
     $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
   $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
@@ -738,45 +754,71 @@ UI.buildEditor = () => {
     );
     $("#idSelect").show()
     $("#idViewControlContainer").hide();
+  } else {
+    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+    $("#idSelect").hide()
+  }
   })
 
  
 
   $("#idSize").click(
     () => {
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-    $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-  $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-  $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-  $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-  $("#idSelect").hide()
-  $("#idViewControlContainer").hide();
+      if($("#idTurnSize").attr("src") == "assets/icons/icon_size_OFF.png"){
+        $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
+        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
+    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+    $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+    $("#idSelect").hide()
+    $("#idViewControlContainer").hide();
+      } else{
+        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
+      }
+      
     }
   );
 
 
   $("#idHelp").click(
     () => {
-      $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-    $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-  $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-  $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-  $("#idSelect").hide()
-  $("#idViewControlContainer").hide();
+      if($("#idTurnHelp").attr("src") == "assets/icons/icon_help.png"){
+        $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
+        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
+    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+    $("#idSelect").hide()
+    $("#idViewControlContainer").hide();
+      } else {
+        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+      }
     }
   );
-  $("#idNote").hover(
-    function () {
-      $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
-    },
-    function () {
-      $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+  $("#idNote").on("click",
+    () => {
+      if($("#idTurnNote").attr("src") == "assets/icons/Icona_Aton_Edit_OFF.png"){
+        $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
+        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
+    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+    $("#idSelect").hide()
+    $("#idViewControlContainer").hide();
+    
+      }
+      else {
+          $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");      
     }
+  }
+    
   );
 
 
