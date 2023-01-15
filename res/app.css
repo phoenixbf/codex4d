@@ -625,7 +625,7 @@ ul.dropdown li button {
 
 .viewControl {
   position: relative;
-  top: 55%;
+  top: 65%;
   left: 60px;
   pointer-events: auto;
 }
@@ -633,10 +633,10 @@ ul.dropdown li button {
 #idSliderLens {
   position: relative;
   display: flex;
-  top: 90%;
-  left: 150px;
+  top: 428px;
+  left: 120px;
   width: auto;
-  height: 0.4em;
+  height: 0.3em;
   background: linear-gradient(
     to right,
     rgba(198, 150, 59, 1) 0%,
@@ -648,13 +648,27 @@ ul.dropdown li button {
   transition: background 450ms ease-in;
   pointer-events: auto;
 }
+#idSliderLens::-webkit-slider-thumb {
+  width: 16.3px;
+  height: 16.06px;
+}
+
+.zoom {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 260px;
+  top: 426px;
+  pointer-events: auto;
+  cursor: pointer;
+}
 
 .xAxis {
   position: absolute;
   width: 438px;
   height: 0px;
-  left: 0%;
-  top: 80%;
+  left: 60px;
+  top: 390px;
   background: #e0c081;
   border: 1px solid #e0c081;
 }
@@ -757,7 +771,6 @@ ul.dropdown li button {
   border: none;
   width: 34.14px;
   height: 23.1px;
-  
 }
 
 .collapsible {

@@ -369,6 +369,14 @@ UI.buildPublic = () => {
         "%, transparent 100%)"
     );
   });
+  $("#idZoom").on("click",
+  () => {
+if ($("#idZoom").attr("src") == "assets/icons/Zoom_OFF.png"){
+  $("#idZoom").attr("src", "assets/icons/Zoom_ON.png")
+} else {
+  $("#idZoom").attr("src", "assets/icons/Zoom_OFF.png")
+}
+  })
 
   // hovering actions on the layer selectors:
   $("#idRgb").click(() => {
