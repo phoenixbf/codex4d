@@ -984,8 +984,7 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<div class='categoryContainer'>";
   htmlcode +=
     "<h3 class='formTitle'> Categoria</h3> <select id='catSelect' type='select' class='categorySelect'>";
-  htmlcode +=
-    "<option class='catOption' value='Seleziona Categoria' >Seleziona Categoria</option>";
+ 
   htmlcode +=
     "<option class='catOption' value='Iconologia e Iconografia' >Iconologia e Iconografia</option>";
   htmlcode +=
@@ -1003,8 +1002,8 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<div id='selectPlace' class='subCatSelectContainer'>";
   htmlcode +=
     "<h3 class='formTitle' > Sottocategoria</h3> <select id='sottoCatSelect' type='select' class='subCategorySelect' >";
-  htmlcode +=
-    "<option class='catOption' value='Seleziona Sottocategoria'> Seleziona Sottocategoria </option>";
+    htmlcode +=
+    "<option class='catOption' value='Personaggi e Simboli' >Personaggi e Simboli</option>";
   htmlcode += "</select>";
   htmlcode += "</div>";
   htmlcode += "<div class='descriptionContainer'>";
@@ -1035,12 +1034,7 @@ UI.addAnnotation = (semtype) => {
   $("#catSelect").change(function () {
     $("#sottoCatSelect").html("");
     // Setting logic to nest SubCategories in Categories
-    if (this.value === "Seleziona Categoria") {
-      let htmlcode = "";
-      htmlcode +=
-        "<option class='catOption' value='Seleziona Sottocategoria' >Seleziona Sottocategoria</option>";
-      $("#sottoCatSelect").append(htmlcode);
-    } else if (this.value === "Iconologia e Iconografia") {
+    if (this.value === "Iconologia e Iconografia") {
       let htmlcode = "";
       htmlcode +=
         "<option class='catOption' value='Personaggi e Simboli' >Personaggi e Simboli</option>";
