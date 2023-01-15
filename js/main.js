@@ -856,6 +856,8 @@ APP.deleteSemAnnotation = (semid)=>{
         ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_DEL);
         console.log("Annotation "+semid+" deleted.");
     }
+
+    APP.UI.toggleSemPanel(false);
 };
 
 APP.getCatName = (i)=>{

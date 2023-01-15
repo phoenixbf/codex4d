@@ -929,7 +929,7 @@ UI.updateSemPanel = (semid) => {
       ATON.FE.PATH_RES_ICONS +
       "edit.png'></div>";
     htmlcode +=
-      "<div class='appPanelBTN'><img src='" +
+      "<div class='appPanelBTN' onclick='APP.deleteSemAnnotation(\""+semid+"\")'><img src='" +
       ATON.FE.PATH_RES_ICONS +
       "trash.png'></div></div>";
   }
@@ -949,7 +949,9 @@ UI.updateSemPanel = (semid) => {
   if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
   htmlcode += "<br>";
 
-  if (S.img) htmlcode += "<img src='" + APP.pathContent + S.img + "'>";
+  if (S.media){
+    htmlcode += "<img src='" + S.media + "'><br>";
+  }
 
   htmlcode += "<div class='descriptionText'>";
   if (S.descr) htmlcode += S.descr;
@@ -1014,14 +1016,15 @@ UI.addAnnotation = (semtype) => {
   // htmlcode +=
   //   "<span style='position: relative; left: 30px;' id='rchars'>650 </span> <span style='position: relative; left: 30px;'> caratteri rimasti</span>";
   // htmlcode += "</div>";
+
   htmlcode += "<div class='fileContainer'>";
   htmlcode += "<label for='files' class='formTitle'>File Multimediali </label>";
-  htmlcode +=
-    "<input class='uploadLink' id='files' type='text'/> <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>";
+  htmlcode += "<input class='uploadLink' id='files' type='text'/>"; // <img class='uploadIcon' src='assets/icons/Upload_icon_OFF.png' alt='upload'>
   htmlcode += "</div>";
+
+
   htmlcode += "<div class='authorContainer'>";
-  htmlcode +=
-    "<h3 class='formTitle'>Autore</h3> <input class='authorInput' type='text' ></input>";
+  htmlcode += "<h3 class='formTitle'>Autore</h3> <input class='authorInput' type='text' ></input>";
   htmlcode += "</div>";
   //htmlcode += "</form>";
 
@@ -1135,12 +1138,15 @@ UI.addAnnotation = (semtype) => {
     }
   });
 
+/*
   $("#image").change(function () {
     if (this.files.length > 3) {
       alert("Limite massimo di immagini superato");
       $("#image").val("");
     }
   });
+*/
+
   // setting count limit for characters in the description
   var maxLength = 650;
   $("#idDescription").keyup(function () {
@@ -1164,11 +1170,16 @@ UI.addAnnotation = (semtype) => {
     let cat = $("#catSelect").val();
     let subcat = $("#sottoCatSelect").val();
 
+    let files = $("#files").val();
+    if (files) files = files.trim();
+
     let O = {};
     if (title) O.title = title;
     if (descr) O.descr = descr;
     if (cat) O.cat = cat;
     if (subcat) O.subcat = subcat;
+
+    if (files) O.media = files;
 
     O.layer = APP.currLayer;
 
