@@ -840,28 +840,32 @@ UI.buildEditor = () => {
 
     $("#selectAnnType").append(htmlcode);
 */
-    $("#sphere").hover(
-      function () {
+    $("#sphere").on("click",
+
+    () =>{
+      if($("#idTurnSphere").attr("src") == "assets/icons/cerchio_annotazione_OFF.png") {
         $("#idTurnSphere").attr(
           "src",
           "assets/icons/cerchio_annotazione_ON.png"
         );
-      },
-      function () {
+      } else {
         $("#idTurnSphere").attr(
           "src",
           "assets/icons/cerchio_annotazione_OFF.png"
         );
       }
+    }
     );
 
-    $("#free").hover(
-      function () {
+    $("#free").on("click",
+    () => {
+      if($("#idTurnAreal").attr("src") == "assets/icons/Aton_areale_OFF.png"){
         $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_ON.png");
-      },
-      function () {
+      } else {
         $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
       }
+       
+      },
     );
 /*
     $("#sphere").click(() => {
