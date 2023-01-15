@@ -8,32 +8,32 @@ body {
 
 .titleContainer {
   z-index: 110;
-  
+
   position: absolute;
   display: inline-block;
-  
+
   white-space: nowrap;
   overflow: hidden;
 
   width: 100%;
   text-align: center;
-  
+
   padding: 10px;
-  
+
   color: #fff;
-  
+
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
   user-select: none;
-  
+
   pointer-events: none;
 }
 
 /* Info Panel */
 .atonSidePanelContainer {
-  background-color: rgba(255,255,255, 0.5) !important;
+  background-color: rgba(255, 255, 255, 0.5) !important;
   color: black;
 
   padding: 30px !important;
@@ -55,7 +55,7 @@ body {
   padding: 0px;
   padding-bottom: 10px;
   /*border-radius: 10px;*/
-  
+
   margin: 0px;
   margin-bottom: 10px;
 }
@@ -123,13 +123,12 @@ body {
   margin-left: 60px;
   background-color: transparent;
   top: 10px;
- 
 }
 .goToIMG {
   width: 28px;
   height: 28px;
 }
-@media screen and ( max-width: 770px){
+@media screen and (max-width: 770px) {
   .goToTheWebSite {
     right: 23%;
   }
@@ -194,7 +193,7 @@ button {
 .sidebar.left {
   position: fixed;
   display: inline-block;
- 
+
   top: 338px;
   left: 60px;
   bottom: 0;
@@ -207,7 +206,7 @@ button {
 .divHR {
   position: absolute;
   width: 40px;
-  left:5px;
+  left: 5px;
   color: rgba(224, 192, 129, 1);
   border: 1px solid rgba(224, 192, 129, 1);
   background-color: rgba(224, 192, 129, 1);
@@ -217,7 +216,7 @@ button {
   position: absolute;
   display: flex;
   width: 3.45rem;
-  height:450px;
+  height: 450px;
   left: 1%;
   top: 15%;
   background: rgb(110, 110, 110);
@@ -304,7 +303,7 @@ button {
   font-size: 14px;
   line-height: 17px;
   top: 20px;
-  right: 60px;
+  right: 150px;
 }
 .login:hover {
   color: rgba(224, 192, 129, 1);
@@ -312,7 +311,7 @@ button {
 .loginText {
   position: relative;
   display: flex;
-  left: 60%;
+  left: 30px;
   top: -20%;
 }
 
@@ -343,12 +342,12 @@ button {
   position: relative;
 }
 
-.filterContainer{
+.filterContainer {
   position: relative;
   display: flex;
-  top:100px;
+  top: 100px;
   width: 100%;
-  left:177px;
+  left: 177px;
 }
 
 .selectContainer {
@@ -361,14 +360,13 @@ button {
   opacity: 1;
   border-radius: 24px;
   z-index: 101;
-  left: -70px
+  left: -70px;
 }
 .selectButton {
   border: none;
-  width:100%;
+  width: 100%;
   background-color: transparent;
-  height:20px;
-  
+  height: 20px;
 }
 div#nav {
   background: rgb(110, 110, 110);
@@ -391,15 +389,15 @@ div#nav a {
   border-radius: 24px;
   color: #422c20;
   border: none;
-  font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 15px;
-/* identical to box height */
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
 
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 /**** ****/
 ul.dropdown {
@@ -409,7 +407,7 @@ ul.dropdown {
   height: 270px;
   margin-top: 5px;
   width: 265px;
-  left:-15%;
+  left: -15%;
   background: #c7c7c7;
   border-radius: 24px;
 }
@@ -419,8 +417,8 @@ ul.dropdown li {
   text-decoration: none;
   margin-top: 10px;
   background-color: transparent;
-  left:0%;
-  width:260px;
+  left: 0%;
+  width: 260px;
   align-content: left;
   margin-top: 13px;
 }
@@ -431,22 +429,22 @@ ul.dropdown li button {
   height: 100%;
   align-items: center;
   color: #422c20;
-  
-  font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 15px;
-display: flex;
-align-items: center;
-border: none;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  border: none;
 }
 
-.arrow{
+.arrow {
   width: 14px;
   height: 7px;
-  display:inline-block;
-  position:absolute;
+  display: inline-block;
+  position: absolute;
   left: 88%;
   top: 35%;
 }
@@ -454,63 +452,62 @@ border: none;
 .dot {
   width: 13px;
   height: 13px;
-  background-color: #BF2517B2;
+  background-color: #bf2517b2;
   border-radius: 50%;
   display: inline-block;
   position: absolute;
   left: 80%;
-  top:5px;
+  top: 5px;
 }
 .dot2 {
   width: 13px;
   height: 13px;
-  background-color: #FF7F11;
+  background-color: #ff7f11;
   border-radius: 50%;
   display: inline-block;
   position: absolute;
   left: 80%;
-  top:2.5px;
-  
+  top: 2.5px;
 }
 .dot3 {
   width: 13px;
   height: 13px;
-  background-color: #422C20;
+  background-color: #422c20;
   border-radius: 50%;
   display: inline-block;
   position: absolute;
   left: 80%;
-  top:2.5px;
+  top: 2.5px;
 }
 .dot4 {
   width: 13px;
   height: 13px;
-  background-color: #2F4689;
+  background-color: #2f4689;
   border-radius: 50%;
   display: inline-block;
   position: absolute;
   left: 80%;
-  top:5px;
+  top: 5px;
 }
 .dot5 {
   width: 13px;
   height: 13px;
-  background-color: #D9A441;
+  background-color: #d9a441;
   border-radius: 50%;
   display: inline-block;
   position: absolute;
   left: 80%;
-  top:5px;
+  top: 5px;
 }
 .dot6 {
   width: 13px;
   height: 13px;
-  background-color: #E7F0F9;
+  background-color: #e7f0f9;
   border-radius: 50%;
   display: inline-block;
   position: absolute;
   left: 80%;
-  top:5px;
+  top: 5px;
 }
 .dot7 {
   width: 13px;
@@ -520,28 +517,25 @@ border: none;
   display: inline-block;
   position: absolute;
   left: 80%;
-  top:5px;
+  top: 5px;
 }
 @media screen and (max-width: 600px) {
-
-  .filterContainer{
-    width:400px;
+  .filterContainer {
+    width: 400px;
     left: 25%;
   }
-  .dropdown-toggle{
+  .dropdown-toggle {
     left: 28%;
   }
- .selectContainer{
-  width:50%
- }
+  .selectContainer {
+    width: 50%;
+  }
 }
 @media screen and (max-width: 800px) {
-  ul.dropdown{
-    left:0%;
+  ul.dropdown {
+    left: 0%;
   }
-  
 }
-  
 
 .selectHr {
   height: 0px;
@@ -549,8 +543,8 @@ border: none;
   border: 1px solid #2f4689;
   background: #2f4689;
   position: relative;
-  left:-20px;
-  width:100%
+  left: -20px;
+  width: 100%;
 }
 
 .filterText {
@@ -603,7 +597,7 @@ border: none;
   width: 80px;
 
   border-radius: 10px;
-  
+
   margin: 2px;
 }
 
@@ -617,24 +611,22 @@ border: none;
   left: 90px;
   z-index: 100;
   pointer-events: none;
-  
 }
-@media screen and (max-width: 600px){
+@media screen and (max-width: 600px) {
   .viewControlContainer {
     width: 300px;
-    left: 0%
+    left: 0%;
   }
   #idSliderLens {
     top: 60%;
-    left: 0px
+    left: 0px;
   }
 }
-
 
 .viewControl {
   position: relative;
   top: 55%;
-  left:60px;
+  left: 60px;
   pointer-events: auto;
 }
 
@@ -658,7 +650,7 @@ border: none;
 }
 
 .xAxis {
-  position:absolute;
+  position: absolute;
   width: 438px;
   height: 0px;
   left: 0%;
@@ -668,21 +660,21 @@ border: none;
 }
 
 .yAxis {
-  position:absolute;
+  position: absolute;
   width: 0px;
-  height:438px;
+  height: 438px;
   left: 20%;
   background-color: #e0c081;
   top: 0px;
   margin-left: 1vw;
   border: 1px solid #e0c081;
 }
-@media screen and (min-width: 2560px){
-  .viewControlContainer{
+@media screen and (min-width: 2560px) {
+  .viewControlContainer {
     width: 638px;
-    height: 638px ;
+    height: 638px;
     left: 200px;
-    top: 40%
+    top: 40%;
   }
   .xAxis {
     width: 638px;
@@ -745,6 +737,28 @@ border: none;
   height: 18px;
 }
 
+.layerPanelSelector {
+  position: absolute;
+  display: block;
+  right: 60px;
+  top: 100.96px;
+}
+
+.layerPanel {
+  display: flex;
+  height: 23.1px;
+  width: 34.14px;
+  margin-top: -10px;
+}
+
+.layerButtonPanel {
+  background-color: transparent;
+  display: flex;
+  border: none;
+  width: 34.14px;
+  height: 23.1px;
+  
+}
 
 .collapsible {
   position: absolute;
@@ -757,7 +771,7 @@ border: none;
   z-index: 100;
   margin-left: 30px;
   left: 60px;
-  bottom: 0px
+  bottom: 0px;
 }
 
 #idArrow {
@@ -783,9 +797,9 @@ border: none;
     left: 25px;
     top: 65vh;
   }
- 
+
   #idSliderLens {
-    left:100px;
+    left: 100px;
   }
   .titleText {
     font-size: max(24px, 2vw);
@@ -867,7 +881,7 @@ border: none;
   width: 90%;
   left: 5%;
   z-index: 150;
-  top:80px;
+  top: 80px;
 }
 
 .categorySelect {
@@ -946,14 +960,14 @@ border: none;
   width: 90%;
   left: 55%;
   z-index: 150;
-  top:80px;
+  top: 80px;
 }
 
 .descriptionContainer {
   position: absolute;
   width: 90%;
   left: 5%;
-  top:160px
+  top: 160px;
 }
 
 .descriptionInput {
@@ -1015,7 +1029,7 @@ border: none;
   display: inline;
   left: 60%;
   width: 40%;
-  top:315px;
+  top: 315px;
 }
 
 .authorInput {

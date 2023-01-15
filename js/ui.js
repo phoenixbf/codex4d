@@ -441,7 +441,8 @@ UI.buildEditor = () => {
 
   // Initializing top toolbar for Editor User
   let htmlTopEditor = "";
-  // htmlTopEditor += "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> Login</p></button>";
+  htmlTopEditor +=
+    "<button id='idLogin' class='login'> <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' /><p id='idLoginActionText' class='loginText'> User</p></button>";
   htmlTopEditor +=
     "<a href='#' id='idGoToTheWebSite' class='goToTheWebSite'><img id='idManuscriptDetail' class='goToTheWebSite' src='assets/icons/Icona_scheda_Aton_OFF.png' alt='scheda-aton' /></a>";
 
@@ -934,7 +935,33 @@ UI.updateSemPanel = (semid) => {
       "trash.png'></div></div>";
   }
   htmlcode += "</div>";
+ htmlcode += "<div class='layerPanelSelector'>"
+ if (S.layer === APP.LAYER_RGB) {
+  htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />"
+  htmlcode += "<img id='idImgPanelLayer2' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer3' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer4' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+};
+if (S.layer === APP.LAYER_IR1) {
+  htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+  htmlcode += "<img id='idImgPanelLayer2' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer3' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer4' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+};
+if (S.layer === APP.LAYER_IR2) {
+  htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+  htmlcode += "<img id='idImgPanelLayer2' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer3' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer4' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+};
+if (S.layer === APP.LAYER_IR3) {
+  htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+  htmlcode += "<img id='idImgPanelLayer2' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer3' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer4' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />"
+};
 
+  htmlcode += "</div>"
   htmlcode +=
     "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
 
@@ -943,8 +970,9 @@ UI.updateSemPanel = (semid) => {
   if (S.layer === APP.LAYER_IR1) htmlcode += "Livello IR 1";
   if (S.layer === APP.LAYER_IR2) htmlcode += "Livello IR 2";
   if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";
+  
   htmlcode += "</div>";
-
+ 
   if (S.cat) htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
   if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
   htmlcode += "<br>";
