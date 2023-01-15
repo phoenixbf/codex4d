@@ -444,12 +444,24 @@ UI.buildEditor = () => {
   $("idLogin").html("")
 
   let htmlUserEditor = ""
-  htmlUserEditor = "<button id='idLogin' class='user'>"
+  htmlUserEditor = "<button id='idUser' class='user'>"
   htmlUserEditor += "<img id='idUserAction' class='userIcon' src='assets/icons/avatar.png' alt='user'/>"
   htmlUserEditor += "<p id='idLoginActionText' class='userText'> User</p>"
   htmlUserEditor += "</button>"
+  htmlUserEditor += "<button id='#idLogout' class='logoutButton'>Pippo</button>"
 
-  $("#idLogin").html(htmlUserEditor)
+
+  $("#idLogin").replaceWith(htmlUserEditor)
+
+  $("#idUser").on("click",
+  () => {
+$("#idLogout").show()
+  })
+
+// $("#idLogin").on("click", 
+// () => {
+//   console.log("pippo")
+// })
 
   // Note filtering for Editor
 
