@@ -47,6 +47,27 @@ APP.currLayer = APP.LAYER_RGB
 // Categories
 APP.filterCat = undefined;
 
+APP.cats = [
+    "Iconologia e Iconografia",
+    "Struttura",
+    "Conservazione e Restauro",
+    "Testo e Scrittura",
+    "Materiali e Tecniche Esecutive",
+    "Censure",
+    "Notazioni Musicali"
+];
+
+APP.catsColors = [
+    "#BF2517",
+    "#2F4689",
+    "#D9A441",
+    "#E7F0F9",
+    "#422C20",
+    "#FF7F11",
+    "#79B857"
+];
+
+
 APP.init = ()=>{
     ATON.FE.realize();
     //ATON.FE.addBasicLoaderEvents();
@@ -772,7 +793,16 @@ APP.addSemanticAnnotation = (semid, O, semtype)=>{
     if (semtype === ATON.FE.SEMSHAPE_SPHERE) S = ATON.SemFactory.createSurfaceSphere(semid);
     if (semtype === ATON.FE.SEMSHAPE_CONVEX) S = ATON.SemFactory.completeConvexShape(semid);
     if (S === undefined) return;
+/*
+    let pDB = ATON.SceneHub.currData.sem;
+    if (pDB){
+        let e = pDB[semid];
+        let M = mat.sems[e.cat];
 
+        S.setDefaultAndHighlightMaterials(M.base, M.hl);
+        S.setMaterial(M.base);
+    }
+*/
     ATON.getRootSemantics().add(S);
 
     let E = {};
@@ -841,12 +871,14 @@ APP.filterAnnotationsByCat = (cat)=>{
     else APP.filterCat = cat;
 
     for (let s in ATON.semnodes){
-        let S = ATON.semnodes[s];
-        let e = pDB[s];
-        
-        if (e !== undefined){
-            if (e.cat !== cat) S.hide();
-            else S.show();
+        if (s!==ATON.ROOT_NID){
+            let S = ATON.semnodes[s];
+            let e = pDB[s];
+            
+            if (e !== undefined){
+                if (e.cat !== cat) S.hide();
+                else S.show();
+            }
         }
     }
 };
@@ -857,14 +889,16 @@ APP.semVisitor = ()=>{
     if (!pDB) return;
 
     for (let s in ATON.semnodes){
-        let S = ATON.semnodes[s];
-        let e = pDB[s];
+        if (s!==ATON.ROOT_NID){
+            let S = ATON.semnodes[s];
+            let e = pDB[s];
 
-        if (S && e){
-            let M = mat.sems[e.cat];
-            if (M){
-                S.setDefaultAndHighlightMaterials(M.base, M.hl);
-                S.setMaterial(M.base);
+            if (S && e){
+                let M = mat.sems[e.cat];
+                if (M){
+                    S.setDefaultAndHighlightMaterials(M.base, M.hl);
+                    S.setMaterial(M.base);
+                }
             }
         }
     }
