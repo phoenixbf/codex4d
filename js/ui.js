@@ -110,6 +110,10 @@ UI.buildPublic = () => {
     } else {
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
       $("#idSelect").hide();
+      $("#idDropdownToggle").html(
+        "Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+      );
+      $(".selectContainer").css("background-color", "rgb(110, 110, 110)");
     }
   });
 
@@ -409,13 +413,11 @@ UI.buildPublic = () => {
     }, 500);
   }
   // click actions for the play/pause buttons:
-  $("#idPauseButton").on("click",
-  () => {
-    if($("#idImgPause").attr("src") == "assets/icons/Pausa_OFF.png"){
+  $("#idPauseButton").on("click", () => {
+    if ($("#idImgPause").attr("src") == "assets/icons/Pausa_OFF.png") {
       $("#idImgPause").attr("src", "assets/icons/Pausa_ON.png");
       $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
     }
-    
   });
   $("#idPlayButton").on("click", () => {
     if ($("#idImgPlay").attr("src") == "assets/icons/Play_OFF.png") {
@@ -540,8 +542,6 @@ UI.buildEditor = () => {
           "Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
         );
         $(".selectContainer").css("background-color", "#79b857");
-
-        APP.filterAnnotationsByCat("Notazioni Musicali");
       });
 
       var target = e.target;
@@ -767,6 +767,7 @@ UI.buildEditor = () => {
     } else {
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
       $("#idSelect").hide();
+      $(".selectContainer").css("background-color", "rgb(110, 110, 110)");
     }
   });
 
@@ -973,7 +974,8 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<div class='categoryContainer'>";
   htmlcode +=
     "<h3 class='formTitle'> Categoria</h3> <select id='catSelect' type='select' class='categorySelect'>";
-
+  htmlcode +=
+    "<option class='catOption' value='Seleziona Categoria' >Seleziona Categoria</option>";
   htmlcode +=
     "<option class='catOption' value='Iconologia e Iconografia' >Iconologia e Iconografia</option>";
   htmlcode +=
@@ -991,6 +993,8 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<div id='selectPlace' class='subCatSelectContainer'>";
   htmlcode +=
     "<h3 class='formTitle' > Sottocategoria</h3> <select id='sottoCatSelect' type='select' class='subCategorySelect' >";
+  htmlcode +=
+    "<option class='catOption' value='Seleziona Sottocategoria'> Seleziona Sottocategoria </option>";
   htmlcode += "</select>";
   htmlcode += "</div>";
   htmlcode += "<div class='descriptionContainer'>";
@@ -1020,10 +1024,13 @@ UI.addAnnotation = (semtype) => {
 
   $("#catSelect").change(function () {
     $("#sottoCatSelect").html("");
-
     // Setting logic to nest SubCategories in Categories
-
-    if (this.value === "Iconologia e Iconografia") {
+    if (this.value === "Seleziona Categoria") {
+      let htmlcode = "";
+      htmlcode +=
+        "<option class='catOption' value='Seleziona Sottocategoria' >Seleziona Sottocategoria</option>";
+      $("#sottoCatSelect").append(htmlcode);
+    } else if (this.value === "Iconologia e Iconografia") {
       let htmlcode = "";
       htmlcode +=
         "<option class='catOption' value='Personaggi e Simboli' >Personaggi e Simboli</option>";
