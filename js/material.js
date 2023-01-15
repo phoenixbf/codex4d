@@ -93,12 +93,82 @@ mat.init = ()=>{
     });
 
     // Semantics
-    ATON.MatHub._uSem.tint.value.set(1,1,1,0.2);
+    //ATON.MatHub._uSem.tint.value.set(1,1,1,0.2);
     //mat.semidle = ATON.MatHub.materials.semanticShape.clone();
 
     mat.sems = {};
-    mat.sems["Iconologia e Iconografia"] = ATON.MatHub.materials.semanticShapeHL.clone();
-    mat.sems["Iconologia e Iconografia"].color = new THREE.Color("#BF2517");
+
+    mat.sems["Iconologia e Iconografia"] = {
+        base: ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
+        hl: ATON.MatHub.materials.semanticShapeHL.clone()
+    };
+    mat.sems["Iconologia e Iconografia"].hl.color     = new THREE.Color("#BF2517");
+    mat.sems["Iconologia e Iconografia"].hl.opacity   = 0.3;
+    mat.sems["Iconologia e Iconografia"].base.color   = mat.sems["Iconologia e Iconografia"].hl.color;
+    mat.sems["Iconologia e Iconografia"].base.opacity = 0.1;
+
+    //mat.sems["Iconologia e Iconografia"].base.uniforms.tint.value    = mat.sems["Iconologia e Iconografia"].hl.color;
+    //mat.sems["Iconologia e Iconografia"].base.uniforms.opacity.value = 0.0;
+
+
+    mat.sems["Struttura"] = {
+        base: ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
+        hl: ATON.MatHub.materials.semanticShapeHL.clone()
+    };
+    mat.sems["Struttura"].hl.color     = new THREE.Color("#2F4689");
+    mat.sems["Struttura"].hl.opacity   = 0.3;
+    mat.sems["Struttura"].base.color   = mat.sems["Struttura"].hl.color;
+    mat.sems["Struttura"].base.opacity = 0.1;
+
+
+    mat.sems["Conservazione e Restauro"] = {
+        base: ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
+        hl: ATON.MatHub.materials.semanticShapeHL.clone()
+    };
+    mat.sems["Conservazione e Restauro"].hl.color     = new THREE.Color("#D9A441");
+    mat.sems["Conservazione e Restauro"].hl.opacity   = 0.3;
+    mat.sems["Conservazione e Restauro"].base.color   = mat.sems["Conservazione e Restauro"].hl.color;
+    mat.sems["Conservazione e Restauro"].base.opacity = 0.1;
+
+
+    mat.sems["Testo e Scrittura"] = {
+        base: ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
+        hl: ATON.MatHub.materials.semanticShapeHL.clone()
+    };
+    mat.sems["Testo e Scrittura"].hl.color     = new THREE.Color("#E7F0F9");
+    mat.sems["Testo e Scrittura"].hl.opacity   = 0.3;
+    mat.sems["Testo e Scrittura"].base.color   = mat.sems["Testo e Scrittura"].hl.color;
+    mat.sems["Testo e Scrittura"].base.opacity = 0.1;
+
+
+    mat.sems["Materiali e Tecniche Esecutive"] = {
+        base: ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
+        hl: ATON.MatHub.materials.semanticShapeHL.clone()
+    };
+    mat.sems["Materiali e Tecniche Esecutive"].hl.color     = new THREE.Color("#422C20");
+    mat.sems["Materiali e Tecniche Esecutive"].hl.opacity   = 0.3;
+    mat.sems["Materiali e Tecniche Esecutive"].base.color   = mat.sems["Materiali e Tecniche Esecutive"].hl.color;
+    mat.sems["Materiali e Tecniche Esecutive"].base.opacity = 0.1;
+
+
+    mat.sems["Censure"] = {
+        base: ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
+        hl: ATON.MatHub.materials.semanticShapeHL.clone()
+    };
+    mat.sems["Censure"].hl.color     = new THREE.Color("#FF7F11");
+    mat.sems["Censure"].hl.opacity   = 0.3;
+    mat.sems["Censure"].base.color   = mat.sems["Censure"].hl.color;
+    mat.sems["Censure"].base.opacity = 0.1;
+
+
+    mat.sems["Notazioni Musicali"] = {
+        base: ATON.MatHub.materials.semanticShapeHL.clone(), //ATON.MatHub.materials.defUI.clone(),
+        hl: ATON.MatHub.materials.semanticShapeHL.clone()
+    };
+    mat.sems["Notazioni Musicali"].hl.color     = new THREE.Color("#79b857");
+    mat.sems["Notazioni Musicali"].hl.opacity   = 0.3;
+    mat.sems["Notazioni Musicali"].base.color   = mat.sems["Notazioni Musicali"].hl.color;
+    mat.sems["Notazioni Musicali"].base.opacity = 0.1;
 };
 
 mat.realize = ()=>{

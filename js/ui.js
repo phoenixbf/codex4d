@@ -52,35 +52,46 @@ UI.buildPublic = () => {
 
   $("#idLeftToolbar").html(htmlLeft);
 
-  $("#idFull").click(
+  $("#idFull").on("click",
     () => {
-      
+     if($("#idFullsize").attr("src") == "assets/icons/icon_fullsize.png"){
       $("#idFullsize").attr("src", "assets/icons/icon_fullsizeON.png");
+
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png")
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+     } else {
+      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png")
+     }
+      
+      
     },
-  );
-
-
-  $("#idReset").click(
+  )
+  
+ 
+  $("#idReset").on("click",
     () => {
-      $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
-      $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-      location.reload();
-      $("#idSelect").hide()
-      $("#idViewControlContainer").hide();
+      if($("#idResetScene").attr("src") == "assets/icons/icon_resetvista.png"){
+        $("#idResetScene").attr("src", "assets/icons/icon_resetvistaON.png");
+        $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+        $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
+        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+        $("#idSelect").hide()
+        $("#idViewControlContainer").hide();
+      }
+      else {
+        $("#idResetScene").attr("src","assets/icons/icon_resetvista.png")
+      }
     }
   );
 
   $("#idLayer").click(
     () => {
+      if($("#idChooseLayer").attr("src") == "assets/icons/icon_layer.png"){
         $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
         $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
       $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
@@ -89,10 +100,15 @@ UI.buildPublic = () => {
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
   $("#idViewControlContainer").show();
   $("#idSelect").hide()
+} else {
+  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+  $("#idViewControlContainer").hide()
+}
       }
       );
 
   $("#idAnnotations").click(() => {
+    if($("#idTurnAnnotations").attr("src") == "assets/icons/icon_annotazioni.png"){
     $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
     $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
   $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
@@ -105,36 +121,49 @@ UI.buildPublic = () => {
     );
     $("#idSelect").show()
     $("#idViewControlContainer").hide();
+  } else {
+    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
+    $("#idSelect").hide()
+  }
   })
 
  
 
   $("#idSize").click(
     () => {
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-    $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-  $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-  $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-  $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-  $("#idSelect").hide()
-  $("#idViewControlContainer").hide();
+      if($("#idTurnSize").attr("src") == "assets/icons/icon_size_OFF.png"){
+        $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
+        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
+    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+    $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+    $("#idSelect").hide()
+    $("#idViewControlContainer").hide();
+      } else{
+        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
+      }
+      
     }
   );
 
 
   $("#idHelp").click(
     () => {
-      $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
-    $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-  $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
-  $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
-  $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
-  $("#idSelect").hide()
-  $("#idViewControlContainer").hide();
+      if($("#idTurnHelp").attr("src") == "assets/icons/icon_help.png"){
+        $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
+        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
+    $("#idFullsize").attr("src", "assets/icons/icon_fullsize.png");
+    $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png")
+    $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
+    $("#idSelect").hide()
+    $("#idViewControlContainer").hide();
+      } else {
+        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
+      }
     }
   );
 
@@ -455,38 +484,27 @@ UI.buildEditor = () => {
       $('#idIconologiaAction').click(()=>{
         $('#idDropdownToggle').html("Iconologia e Iconografia <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#BF2517B2")
-        
-        APP.filterAnnotationsByCat("Iconologia e Iconografia");
       })
       $('#idStrutturaAction').click(()=>{
         $('#idDropdownToggle').html("Struttura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#2F4689")
-        
-        APP.filterAnnotationsByCat("Struttura");
       })
       $('#idConservazioneAction').click(()=>{
         $('#idDropdownToggle').html("Conservazione e Restauro <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#D9A441")
-        
-        APP.filterAnnotationsByCat("Conservazione e Restauro");
       })
       $('#idTestoAction').click(()=>{
         $('#idDropdownToggle').html("Testo e Scrittura <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#E7F0F9")
         $('.filterText').css("color", "rgb(110, 110, 110)")
-        
-        APP.filterAnnotationsByCat("Testo e Scrittura");
       })
       $('#idMaterialiAction').click(()=>{
         $('#idDropdownToggle').html("Materiali e Tecniche <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#422C20")
-        APP.filterAnnotationsByCat("Materiali e Tecniche");
       })
       $('#idCensuraAction').click(()=>{
         $('#idDropdownToggle').html("Censure <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
         $('.selectContainer').css("background-color", "#FF7F11")
-        
-        APP.filterAnnotationsByCat("Censure");
       })
       $('#idMusicaAction').click(()=>{
         $('#idDropdownToggle').html("Notazioni Musicali <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>")
@@ -688,7 +706,7 @@ UI.buildEditor = () => {
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png")
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png")
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png")
-      location.reload();
+
       $("#idSelect").hide()
       $("#idViewControlContainer").hide();
     }
@@ -830,7 +848,6 @@ UI.toggleSemPanel = (b) => {
 
 /*
     Update UI panel (HTML) from semantic ID (shape)
-    Public profile
 ====================================================*/
 UI.updateSemPanel = (semid) => {
   let pDB = ATON.SceneHub.currData.sem; //APP.sDB[APP.currPose];
@@ -841,16 +858,29 @@ UI.updateSemPanel = (semid) => {
 
   // Generate HTML for panel
   let htmlcode = "";
-  htmlcode += "<div class='atonPopupTitle'>";
+  htmlcode += "<div class='appPanelHeader'>";
+  htmlcode += "<div class='appPanelBTN' onclick='APP.UI.toggleSemPanel(false)'><img src='"+ATON.FE.PATH_RES_ICONS+"cancel.png'></div>&nbsp;&nbsp;";
   //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
-  htmlcode += S.title + "</div>";
+  htmlcode += S.title;
 
-  htmlcode +=
-    "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
+  if (ATON.SceneHub._bEdit){
+    htmlcode += "<div style='float:right'>";
+    htmlcode += "<div class='appPanelBTN'><img src='"+ATON.FE.PATH_RES_ICONS+"edit.png'></div>";
+    htmlcode += "<div class='appPanelBTN'><img src='"+ATON.FE.PATH_RES_ICONS+"trash.png'></div></div>";
+  }
+  htmlcode += "</div>";
 
-  if (S.cat)    htmlcode += "<b>Categoria</b>: " + S.cat + "<br>";
+  htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
+
+  htmlcode += "<div class='appPanelLayer'>";
+  if (S.layer === APP.LAYER_RGB) htmlcode += "Livello RGB";
+  if (S.layer === APP.LAYER_IR1) htmlcode += "Livello IR 1";
+  if (S.layer === APP.LAYER_IR2) htmlcode += "Livello IR 2";
+  if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";
+  htmlcode += "</div>";
+
+  if (S.cat)    htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
   if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
-  if (S.layer)  htmlcode += "<b>Layer</b>: " + S.layer + "<br>";
   htmlcode += "<br>";
 
   if (S.img) htmlcode += "<img src='" + APP.pathContent + S.img + "'>";
@@ -1071,6 +1101,8 @@ UI.addAnnotation = (semtype) => {
     if (descr)  O.descr  = descr;
     if (cat)    O.cat    = cat;
     if (subcat) O.subcat = subcat;
+
+    O.layer = APP.currLayer;
 
     APP.addSemanticAnnotation(semid, O, semtype);
   });
