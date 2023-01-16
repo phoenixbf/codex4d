@@ -76,6 +76,8 @@ APP.init = ()=>{
     APP.argP   = ATON.FE.urlParams.get('p');
     APP.argUIP = ATON.FE.urlParams.get('uip');
 
+    APP._bPose   = false;
+    APP._bAssets = false;
 
     APP.pathContent = window.location.href.split('?')[0];
     APP.pathContent += "content/";
@@ -207,8 +209,10 @@ APP.postPoseLoaded = ()=>{
     //ATON.toggleShadows(true);
 
     // For cached poses
-    APP.mat.setupOnLoaded();
+    /*if (ATON._numReqLoad <= 0)*/ APP.mat.setupOnLoaded();
     APP.semVisitor();
+
+    APP.setLayer(APP.LAYER_RGB);
 };
 
 APP.setState = (s)=>{
@@ -281,6 +285,7 @@ APP.loadVolumePose = (v,p)=>{
 };
 
 APP.updatePoseGallery = (v)=>{
+    if (!APP.cdata) return;
     $("#idPoseGallery").html("");
     
     let vol = APP.cdata.volumes[v];
@@ -422,6 +427,19 @@ APP.handleScreenPointer = ()=>{
 APP.update = ()=>{
     //if (!APP._bLensMatSet) return;
 
+/*
+    if (APP._bPose && APP._bAssets){
+        APP.mat.setupOnLoaded();
+        APP.semVisitor();
+
+        APP.postPoseLoaded();
+
+        APP._bPose   = false;
+        APP._bAssets = false;
+        console.log("x")
+    }
+*/
+
     // Handle req screen pointer
     //APP.handleScreenPointer();
 
@@ -553,16 +571,17 @@ APP.setupEvents = ()=>{
     ATON.on("SceneJSONLoaded",()=>{
         console.log("Pose loaded.");
 
+        APP._bPose = true;
         APP.postPoseLoaded();
     });
 
     ATON.on("AllNodeRequestsCompleted", ()=>{
         //APP.UI.init();
 
-        APP.mat.setupOnLoaded();
+        APP._bAssets = true;
 
-        APP.setLensRadius(0.02);
-        APP.setLayer(APP.LAYER_RGB);
+        APP.mat.setupOnLoaded();
+        APP.semVisitor();
 /*
         APP.gBook.traverse( c => {
             if ( c.isMesh ){
@@ -572,12 +591,8 @@ APP.setupEvents = ()=>{
         });
 */
 
-        // Persistent modifications
-        if (ATON.FE.getCurrentUIP() === "editor") ATON.SceneHub.setEditMode(true);
-        else ATON.SceneHub.setEditMode(false);
-
-        // Annotations visitor
-        APP.semVisitor();
+        APP.setLensRadius(0.02);
+        APP.setLayer(APP.LAYER_RGB);
     });
 
     ATON.on("MouseWheel", (d)=>{
@@ -596,7 +611,7 @@ APP.setupEvents = ()=>{
             if (d > 0.0) r *= 0.9;
             else r /= 0.9;
 
-            if (r < ATON.FE._selRanges[0]) r = ATON.FE._selRanges[0];
+            if (r < 0.001) r = 0.001;
             if (r > ATON.FE._selRanges[1]) r = ATON.FE._selRanges[1];
 
             ATON.SUI.setSelectorRadius(r);

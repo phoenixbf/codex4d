@@ -920,7 +920,8 @@ UI.updateSemPanel = (semid) => {
     ATON.FE.PATH_RES_ICONS +
     "cancel.png'></div>&nbsp;&nbsp;";
   //htmlcode += "<div id='idPanelClose' class='atonBTN' style='float:left; margin:0px;'>X</div>"; // background-color: #bf7b37
-  htmlcode += S.title;
+  
+  if (S.title) htmlcode += S.title;
 
   if (ATON.SceneHub._bEdit) {
     htmlcode += "<div style='float:right'>";
@@ -999,6 +1000,8 @@ if (S.layer === APP.LAYER_IR3) {
 
 // semtype: ATON.FE.SEMSHAPE_SPHERE | ATON.FE.SEMSHAPE_CONVEX
 UI.addAnnotation = (semtype) => {
+  ATON._bPauseQuery = true;
+
   let O = {};
   let semid = ATON.Utils.generateID("ann");
 
@@ -1183,6 +1186,7 @@ UI.addAnnotation = (semtype) => {
 
   $("#idDelete").click(() => {
     $("#idForm").hide();
+    ATON._bPauseQuery = false;
   });
 
   $("#idOk").click(() => {
@@ -1211,6 +1215,8 @@ UI.addAnnotation = (semtype) => {
     O.layer = APP.currLayer;
 
     APP.addSemanticAnnotation(semid, O, semtype);
+
+    ATON._bPauseQuery = false;
   });
 };
 
