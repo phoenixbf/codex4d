@@ -210,10 +210,10 @@ mat.setupOnLoaded = ()=>{
     let D = ATON.SceneHub.currData;
     if (D === undefined) return;
 
-    if (APP.currMat !== undefined){
-        APP.currMat.uniforms.tBase.value.dispose();
-        APP.currMat.uniforms.tIR.value.dispose();
-        APP.currMat.uniforms.tPBR.value.dispose();
+    if (APP.currMat !== undefined && APP.currMat.uniforms !== undefined){
+        if (APP.currMat.uniforms.tBase.value) APP.currMat.uniforms.tBase.value.dispose();
+        if (APP.currMat.uniforms.tIR.value)   APP.currMat.uniforms.tIR.value.dispose();
+        if (APP.currMat.uniforms.tPBR.value)  APP.currMat.uniforms.tPBR.value.dispose();
         //APP.currMat.uniforms = null;
 
         APP.currMat = undefined;

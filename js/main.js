@@ -638,7 +638,7 @@ APP.setupEvents = ()=>{
         // TODO: Convex annotation + ENTER to finalize
         if (k==='f'){
             ATON.SemFactory.addSurfaceConvexPoint();
-            console.log(ATON.SemFactory.convexPoints)
+            //console.log(ATON.SemFactory.convexPoints)
         }
         if (k === 'Enter')  APP.finalizeSemanticShape();
 
