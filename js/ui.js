@@ -1036,6 +1036,23 @@ UI.addAnnotation = (semtype) => {
     "<h3 class='formTitle' > Sottocategoria</h3> <select id='sottoCatSelect' type='select' class='subCategorySelect' >";
     htmlcode +=
     "<option class='catOption' value='Personaggi e Simboli' >Personaggi e Simboli</option>";
+  htmlcode += "<option class='catOption' value='Stile' >Stile</option>";
+  htmlcode +=
+    "<option class='catOption' value='Messaggio Ideologico' >Messaggio Ideologico</option>";
+  htmlcode +=
+    "<option class='catOption' value='Fonti e Tradizioni'>Fonti e Tradizioni</option>";
+  htmlcode +=
+    "<option class='catOption' value='Datazione e Attribuzione'>Datazione e Attribuzione</option>";
+  htmlcode +=
+    "<option class='catOption' value='Confronti Visivi'>Confronti Visivi</option>";
+  htmlcode +=
+    "<option class='catOption' value='Ripensamenti'>Ripensamenti</option>";
+  htmlcode +=
+    "<option class='catOption' value='Elementi Ornamentali'>Elementi Ornamentali</option>";
+  htmlcode +=
+    "<option class='catOption' value='Descrizione'>Descrizione</option>";
+  htmlcode +=
+    "<option class='catOption' value='Modifiche Successive'>Modifiche Successive</option>";
   htmlcode += "</select>";
   htmlcode += "</div>";
   htmlcode += "<div class='descriptionContainer'>";
