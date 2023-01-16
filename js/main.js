@@ -289,6 +289,7 @@ APP.updatePoseGallery = (v)=>{
     $("#idPoseGallery").html("");
     
     let vol = APP.cdata.volumes[v];
+    if (!vol) return;
 
     for (let p in vol.poses){
         let P = vol.poses[p];
@@ -538,16 +539,23 @@ APP.setupEvents = ()=>{
 
         // Attach UI events
         APP._attachUI();
+
+        ATON.checkAuth((r)=>{
+            APP.setProfileEditor();
+            $("#idLoginActionText").html(r.username);
+        }, undefined);
     });
 
     ATON.on("Logout",()=>{
         APP.setProfilePublic();
-        APP.updatePoseGallery(APP.currVolume);
+        //APP.updatePoseGallery(APP.currVolume);
+        $("#idLoginActionText").html("Login");
     });
 
     ATON.on("Login",(r)=>{
         APP.setProfileEditor();
-        APP.updatePoseGallery(APP.currVolume);
+        //APP.updatePoseGallery(APP.currVolume);
+        $("#idLoginActionText").html(r.username);
     });
 
     ATON.on("Tap",(e)=>{
@@ -632,11 +640,15 @@ APP.setupEvents = ()=>{
 
         // Basic annotation
         if (k==='a'){
+            if (!ATON.SceneHub._bEdit) return;
+
             $("#idForm").show();
             APP.UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
         }
         // TODO: Convex annotation + ENTER to finalize
-        if (k==='f'){
+        if (k==='s'){
+            if (!ATON.SceneHub._bEdit) return;
+
             ATON.SemFactory.addSurfaceConvexPoint();
             //console.log(ATON.SemFactory.convexPoints)
         }
@@ -735,34 +747,29 @@ APP.setupEvents = ()=>{
             APP.setLightPostion(APP.defLightPos);
         }
     });
-
-    ATON.on("Login", (d)=>{
-        console.log("Editor login");
-        APP.setProfileEditor();
-    });
-    ATON.on("Logout", ()=>{
-        console.log("Editor logout");
-        APP.setProfilePublic();
-    });
 };
 
 // Profiles
 APP.setProfilePublic = ()=>{
     ATON.SceneHub.setEditMode(false);
-    ATON.FE.uiLoadProfile("public");
+    //ATON.FE.uiLoadProfile("public");
+    APP.UI.buildPublic();
 
     ATON.SUI.showSelector(false);
 
     APP._attachUI();
+    APP.updatePoseGallery(APP.currVolume);
 };
 
 APP.setProfileEditor = ()=>{
     ATON.SceneHub.setEditMode(true);
-    ATON.FE.uiLoadProfile("editor");
+    //ATON.FE.uiLoadProfile("editor");
+    APP.UI.buildEditor();
 
     ATON.SUI.showSelector(true);
 
     APP._attachUI();
+    APP.updatePoseGallery(APP.currVolume);
 };
 
 APP.toggleHoverLabel = (b, semid)=>{

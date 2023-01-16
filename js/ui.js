@@ -1,8 +1,8 @@
 let UI = {};
 
 UI.init = () => {
-  ATON.FE.uiAddProfile("editor", UI.buildEditor);
-  ATON.FE.uiAddProfile("public", UI.buildPublic);
+  //ATON.FE.uiAddProfile("editor", UI.buildEditor);
+  //ATON.FE.uiAddProfile("public", UI.buildPublic);
 
   if (APP.argUIP !== "editor") APP.setProfilePublic();
   else APP.setProfileEditor();
@@ -294,6 +294,7 @@ UI.buildPublic = () => {
   // htmlBottom += "<div class='posePreview' > </div>";
   htmlBottom += "</div>";
 
+  $("#idCollapsible").off("click");
   $("#idCollapsible").on("click", () => {
     var initialState = $("#idBottomToolbar").css("height") === "0px";
     console.log(initialState);
@@ -440,6 +441,9 @@ UI.buildEditor = () => {
   $("#idBottomToolbar").html("");
   $("#idLeftToolbar").html("");
 
+/*
+  TODO: dynamic username (REST API), logout routine
+
   // changing user avatar
   $("idLogin").html("")
 
@@ -450,13 +454,13 @@ UI.buildEditor = () => {
   htmlUserEditor += "</button>"
   htmlUserEditor += "<button id='#idLogout' class='logoutButton'>Pippo</button>"
 
-
   $("#idLogin").replaceWith(htmlUserEditor)
 
   $("#idUser").on("click",
   () => {
 $("#idLogout").show()
   })
+*/
 
 // $("#idLogin").on("click", 
 // () => {
@@ -580,6 +584,7 @@ $("#idLogout").show()
 
   htmlBottomEditor += "</div>";
 
+  $("#idCollapsible").off("click");
   $("#idCollapsible").on("click", () => {
     var initialState = $("#idBottomToolbar").css("height") === "0px";
     console.log(initialState);
