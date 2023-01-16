@@ -737,6 +737,8 @@ APP.setProfilePublic = ()=>{
     ATON.FE.uiLoadProfile("public");
 
     ATON.SUI.showSelector(false);
+
+    APP._attachUI();
 };
 
 APP.setProfileEditor = ()=>{
@@ -744,6 +746,8 @@ APP.setProfileEditor = ()=>{
     ATON.FE.uiLoadProfile("editor");
 
     ATON.SUI.showSelector(true);
+
+    APP._attachUI();
 };
 
 APP.toggleHoverLabel = (b, semid)=>{
@@ -800,17 +804,16 @@ APP.addSemanticAnnotation = (semid, O, semtype)=>{
     if (semtype === ATON.FE.SEMSHAPE_SPHERE) S = ATON.SemFactory.createSurfaceSphere(semid);
     if (semtype === ATON.FE.SEMSHAPE_CONVEX) S = ATON.SemFactory.completeConvexShape(semid);
     if (S === undefined) return;
-/*
+
+    ATON.getRootSemantics().add(S);
+
     let pDB = ATON.SceneHub.currData.sem;
-    if (pDB){
-        let e = pDB[semid];
-        let M = mat.sems[e.cat];
+    if (pDB && O && O.cat){
+        let M = APP.mat.sems[O.cat];
 
         S.setDefaultAndHighlightMaterials(M.base, M.hl);
         S.setMaterial(M.base);
     }
-*/
-    ATON.getRootSemantics().add(S);
 
     let E = {};
 
@@ -909,7 +912,7 @@ APP.semVisitor = ()=>{
                     S.setMaterial(M.base);
                 }
 
-                console.log("x");
+                //console.log("x");
             }
         }
     }

@@ -31,6 +31,12 @@ body {
   pointer-events: none;
 }
 
+/* Popups */
+.atonPopup {
+  background-color: rgba(110, 110, 110, 0.7) !important;
+  /*color: black !important;*/
+}
+
 /* Info Panel */
 .atonSidePanelContainer {
   background-color: rgba(255, 255, 255, 0.5) !important;
