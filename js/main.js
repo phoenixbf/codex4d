@@ -619,7 +619,7 @@ APP.setupEvents = ()=>{
             if (d > 0.0) r *= 0.9;
             else r /= 0.9;
 
-            if (r < 0.001) r = 0.001;
+            if (r < 0.0005) r = 0.0005;
             if (r > ATON.FE._selRanges[1]) r = ATON.FE._selRanges[1];
 
             ATON.SUI.setSelectorRadius(r);
