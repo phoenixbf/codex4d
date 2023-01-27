@@ -342,6 +342,15 @@ APP.disableLens = ()=>{
     APP.currLayer = APP.LAYER_RGB;
 };
 
+APP.invertIR = ()=>{
+    if (!APP.currMat) return;
+
+    let v = APP.currMat.uniforms.bInvIR.value;
+
+    if (v > 0.0) APP.currMat.uniforms.bInvIR.value = 0.0;
+    else APP.currMat.uniforms.bInvIR.value = 1.0;
+};
+
 // 0.0 - 1.0
 APP.setIRvalue = (v)=>{
     if (APP.currMat === undefined) return;
@@ -383,6 +392,8 @@ APP.setLensRadius = (v)=>{
 
 // Set current APP layer 
 APP.setLayer = (L)=>{
+    APP.UI.setLayer(L);
+
     if (L === APP.LAYER_RGB){
         APP.disableLens();
         return;
@@ -666,6 +677,8 @@ APP.setupEvents = ()=>{
         if (k==='1') APP.setLayer(APP.LAYER_IR1);
         if (k==='2') APP.setLayer(APP.LAYER_IR2);
         if (k==='3') APP.setLayer(APP.LAYER_IR3);
+
+        if (k==='i') APP.invertIR();
     });
 
     ATON.on("KeyUp",(k)=>{

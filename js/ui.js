@@ -15,6 +15,37 @@ UI.init = () => {
   });
 };
 
+UI.setLayer = (layer) => {
+
+  if (layer === APP.LAYER_RGB){
+    $("#idImgLayer1").attr("src", "assets/active_layer.png");
+    $("#idImgLayer2").attr("src", "assets/layer.png");
+    $("#idImgLayer3").attr("src", "assets/layer.png");
+    $("#idImgLayer4").attr("src", "assets/layer.png");
+  }
+
+  if (layer === APP.LAYER_IR1){
+    $("#idImgLayer1").attr("src", "assets/layer.png");
+    $("#idImgLayer2").attr("src", "assets/active_layer.png");
+    $("#idImgLayer3").attr("src", "assets/layer.png");
+    $("#idImgLayer4").attr("src", "assets/layer.png");
+  }
+
+  if (layer === APP.LAYER_IR2){
+    $("#idImgLayer1").attr("src", "assets/layer.png");
+    $("#idImgLayer2").attr("src", "assets/layer.png");
+    $("#idImgLayer3").attr("src", "assets/active_layer.png");
+    $("#idImgLayer4").attr("src", "assets/layer.png");
+  }
+
+  if (layer === APP.LAYER_IR3){
+    $("#idImgLayer1").attr("src", "assets/layer.png");
+    $("#idImgLayer2").attr("src", "assets/layer.png");
+    $("#idImgLayer3").attr("src", "assets/layer.png");
+    $("#idImgLayer4").attr("src", "assets/active_layer.png");
+  }
+}
+
 UI.buildPublic = () => {
   // Clear
   $("#idTopToolbar").html("");
@@ -374,29 +405,18 @@ if ($("#idZoom").attr("src") == "assets/icons/Zoom_OFF.png"){
 
   // hovering actions on the layer selectors:
   $("#idRgb").click(() => {
-    $("#idImgLayer1").attr("src", "assets/active_layer.png");
-    $("#idImgLayer2").attr("src", "assets/layer.png");
-    $("#idImgLayer3").attr("src", "assets/layer.png");
-    $("#idImgLayer4").attr("src", "assets/layer.png");
+    UI.setLayer(APP.LAYER_RGB);
   });
   $("#idIr1").click(() => {
-    $("#idImgLayer2").attr("src", "assets/active_layer.png");
-    $("#idImgLayer1").attr("src", "assets/layer.png");
-    $("#idImgLayer3").attr("src", "assets/layer.png");
-    $("#idImgLayer4").attr("src", "assets/layer.png");
+    UI.setLayer(APP.LAYER_IR1);
   });
   $("#idIr2").click(() => {
-    $("#idImgLayer3").attr("src", "assets/active_layer.png");
-    $("#idImgLayer1").attr("src", "assets/layer.png");
-    $("#idImgLayer2").attr("src", "assets/layer.png");
-    $("#idImgLayer4").attr("src", "assets/layer.png");
+    UI.setLayer(APP.LAYER_IR2);
   });
   $("#idIr3").click(() => {
-    $("#idImgLayer4").attr("src", "assets/active_layer.png");
-    $("#idImgLayer1").attr("src", "assets/layer.png");
-    $("#idImgLayer2").attr("src", "assets/layer.png");
-    $("#idImgLayer3").attr("src", "assets/layer.png");
+    UI.setLayer(APP.LAYER_IR3);
   });
+
   function loop() {
     setTimeout(() => {
       $("#idImgLayer2").attr("src", "assets/active_layer.png");
@@ -655,28 +675,16 @@ $("#idLogout").show()
 
   // hovering actions on the layer selectors:
   $("#idRgb").click(() => {
-    $("#idImgLayer1").attr("src", "assets/active_layer.png");
-    $("#idImgLayer2").attr("src", "assets/layer.png");
-    $("#idImgLayer3").attr("src", "assets/layer.png");
-    $("#idImgLayer4").attr("src", "assets/layer.png");
+    UI.setLayer(APP.LAYER_RGB);
   });
   $("#idIr1").click(() => {
-    $("#idImgLayer2").attr("src", "assets/active_layer.png");
-    $("#idImgLayer1").attr("src", "assets/layer.png");
-    $("#idImgLayer3").attr("src", "assets/layer.png");
-    $("#idImgLayer4").attr("src", "assets/layer.png");
+    UI.setLayer(APP.LAYER_IR1);
   });
   $("#idIr2").click(() => {
-    $("#idImgLayer3").attr("src", "assets/active_layer.png");
-    $("#idImgLayer1").attr("src", "assets/layer.png");
-    $("#idImgLayer2").attr("src", "assets/layer.png");
-    $("#idImgLayer4").attr("src", "assets/layer.png");
+    UI.setLayer(APP.LAYER_IR2);
   });
   $("#idIr3").click(() => {
-    $("#idImgLayer4").attr("src", "assets/active_layer.png");
-    $("#idImgLayer1").attr("src", "assets/layer.png");
-    $("#idImgLayer2").attr("src", "assets/layer.png");
-    $("#idImgLayer3").attr("src", "assets/layer.png");
+    UI.setLayer(APP.LAYER_IR3);
   });
 
   // hovering actions for the play/pause buttons:

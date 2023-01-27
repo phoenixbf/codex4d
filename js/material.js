@@ -131,7 +131,8 @@ mat.realize = ()=>{
             uLD: { type:'vec3', value: APP._vLight },
             wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
             vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
-            wLens: { type:'float', value: 1.0 }
+            wLens: { type:'float', value: 1.0 },
+            bInvIR: { type:'float', value: 0.0 }
             //time: { type:'float', value: 0.0 },
         },
 
@@ -170,6 +171,7 @@ mat.realize = ()=>{
             
             uniform vec3 wIR;
             uniform float wLens;
+            uniform float bInvIR;
 
             void main(){
                 float sedge = 6.0;
@@ -193,6 +195,8 @@ mat.realize = ()=>{
                 float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
                 //vir *= frag.r;
                 //vir = 1.0 - vir;
+
+                vir = abs(vir - bInvIR);
 
                 frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
 
