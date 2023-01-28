@@ -507,8 +507,15 @@ APP._attachUI = ()=>{
     $("#idReset").click(()=>{
         ATON.Nav.requestHomePOV();
     });
+
     $("#idSize").click(()=>{
-        APP.setState(APP.STATE_MEASURE);
+        console.log("xx")
+
+        if (APP.state !== APP.STATE_MEASURE) APP.setState(APP.STATE_MEASURE);
+        else {
+            ATON.SUI.clearMeasurements();
+            APP.setState(APP.STATE_NAV);
+        }
     });
 
     $("#idSliderLens").on("input change",()=>{
@@ -561,20 +568,22 @@ APP.setupEvents = ()=>{
         APP.setProfilePublic();
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html("Login");
+        APP._attachUI();
     });
 
     ATON.on("Login",(r)=>{
         APP.setProfileEditor();
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html(r.username);
+        APP._attachUI();
     });
 
     ATON.on("Tap",(e)=>{
         if (APP.state === APP.STATE_MEASURE){
             let M = APP.measure();
 
-            if (!M) return;
-            APP.setState(APP.STATE_NAV);
+            //if (!M) return;
+            //APP.setState(APP.STATE_NAV);
             return;
         }
 
@@ -770,7 +779,7 @@ APP.setProfilePublic = ()=>{
 
     ATON.SUI.showSelector(false);
 
-    APP._attachUI();
+    //APP._attachUI();
     APP.updatePoseGallery(APP.currVolume);
 };
 
@@ -781,7 +790,7 @@ APP.setProfileEditor = ()=>{
 
     ATON.SUI.showSelector(true);
 
-    APP._attachUI();
+    //APP._attachUI();
     APP.updatePoseGallery(APP.currVolume);
 };
 
