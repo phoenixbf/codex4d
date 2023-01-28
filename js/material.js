@@ -8,11 +8,12 @@ mat.init = ()=>{
     APP._tPBRbase = new THREE.DataTexture( new Uint8Array([255,255,0,255]), 1,1 );
     APP._tPBRbase.needsUpdate = true;
 
+/*
     APP.matLens = new THREE.ShaderMaterial({
 
         uniforms: {
-            tBase: { type:'t' /*, value: 0*/ },
-            tIR: { type:'t' /*, value: 0*/ },
+            tBase: { type:'t' },
+            tIR: { type:'t' },
             tAO: { type:'t', value: APP._tWhite },
             tPBR: { type:'t', value: APP._tWhite },
             uLD: { type:'vec3', value: APP._vLight },
@@ -91,6 +92,7 @@ mat.init = ()=>{
         }
         `
     });
+*/
 
     // Semantics
     //ATON.MatHub._uSem.tint.value.set(1,1,1,0.2);
