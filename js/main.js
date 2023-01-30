@@ -83,7 +83,7 @@ APP.init = ()=>{
     APP.pathContent += "content/";
 
     APP.plight = undefined;
-    APP._bLens = true;
+    APP._bLens = false;
 
     //ATON.SUI.enableSemIcons();
 
@@ -336,6 +336,7 @@ APP.loadNextPose = ()=>{
 //==============================
 APP.enableLens = ()=>{
     APP._bLens = true;
+
     if (APP.currMat) APP.currMat.uniforms.wLens.value = 1.0;
 };
 
@@ -521,6 +522,11 @@ APP._attachUI = ()=>{
             ATON.SUI.clearMeasurements();
             APP.setState(APP.STATE_NAV);
         }
+    });
+
+    // Defaults to IR1
+    $("#idLayer").click(()=>{
+        if ($("#idViewControlContainer").is(":visible")) APP.setLayer(APP.LAYER_IR1);
     });
 
     $("#idSliderLens").on("input change",()=>{

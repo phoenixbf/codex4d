@@ -1036,7 +1036,6 @@ UI.addAnnotation = (semtype) => {
   let O = {};
   let semid = ATON.Utils.generateID("ann");
 
-  // TODO: HTML form here > fill O
   let htmlcode = "";
 
   //htmlcode += "<form style='position:relative; top:2%'>";
