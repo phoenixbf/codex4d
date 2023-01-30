@@ -278,6 +278,7 @@ APP.loadVolumePose = (v,p)=>{
     if (pose.descr){
         APP.UI.setIntroPanel(pose.descr);
     }
+    else APP.UI.toggleSemPanel(false);
 
     //ATON.SceneHub.clear();
     ATON.SUI.clearMeasurements();
