@@ -202,6 +202,13 @@ mat.realize = ()=>{
 
                 frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
 
+                // Border
+/*
+                float bd = abs(vLens.w - d);
+                bd *= 1000.0;
+                bd = clamp(bd, 0.1,1.0);
+                frag = mix( vec4(0.87,0.75,0.5, 1.0), frag, bd);
+*/
                 csm_DiffuseColor = frag * ao;
                 csm_Roughness    = mix(1.0, rou, t);
                 csm_Metalness    = met * t;

@@ -908,10 +908,14 @@ UI.toggleSemPanel = (b) => {
     $("#idPanel").show();
     $("#idTopToolbar").hide();
     $("#idBottomToolbar").hide();
+    $("#idCollapsible").hide();
+    $("#idLeftToolbar").hide();
   } else {
     $("#idPanel").hide();
     $("#idTopToolbar").show();
     $("#idBottomToolbar").show();
+    $("#idCollapsible").show();
+    $("#idLeftToolbar").show();
   }
 };
 
@@ -1001,6 +1005,20 @@ if (S.layer === APP.LAYER_IR3) {
   //htmlcode += "<div id='idPanelClose' class='atonBTN atonBTN-red atonSidePanelCloseBTN' >X</div>";
 
   ATON.FE.playAudioFromSemanticNode(semid);
+
+  $("#idPanel").html(htmlcode);
+  UI.toggleSemPanel(true);
+};
+
+UI.setIntroPanel = (content)=>{
+  let htmlcode = "";
+
+  htmlcode += "<div class='appPanelHeader'>";
+  htmlcode += "<div class='appPanelBTN' onclick='APP.UI.toggleSemPanel(false)'><img src='" +ATON.FE.PATH_RES_ICONS +"cancel.png'></div></div>";
+  
+  htmlcode += "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
+  htmlcode += content;
+  htmlcode += "</div>";
 
   $("#idPanel").html(htmlcode);
   UI.toggleSemPanel(true);

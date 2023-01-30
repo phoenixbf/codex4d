@@ -275,6 +275,10 @@ APP.loadVolumePose = (v,p)=>{
     $("#idVolume").html(vol.title);
     $("#idPose").html(pose.title);
 
+    if (pose.descr){
+        APP.UI.setIntroPanel(pose.descr);
+    }
+
     //ATON.SceneHub.clear();
     ATON.SUI.clearMeasurements();
 

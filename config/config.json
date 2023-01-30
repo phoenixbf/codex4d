@@ -15,24 +15,39 @@
         "0000042948":{
             "title": "Libro d'Ore Ms. 459",
             "poses":[
-                { "title": "Chiusa" },
-                { "title": "cc. 21v-22r" },
-                { "title": "cc. 67v-68r" }
+                {
+                    "title": "Chiusa",
+                    "descr": "ciao ciao"
+                },
+                {
+                    "title": "cc. 21v-22r"
+                },
+                {
+                    "title": "cc. 67v-68r"
+                }
             ]
         },
 
         "0000102297":{
             "title": "De Balneis Puteolanis Ms. 1474",
             "poses":[
-                { "title": "cc. 9v-10r" },
-                { "title": "cc. 12v-13r" }
+                {
+                    "title": "cc. 9v-10r"
+                },
+                {
+                    "title": "cc. 12v-13r"
+                }
             ]
         },
         "0000102213":{
             "title": "Divina Commedia Ms. 1102",
             "poses":[
-                { "title": "cc. 4v-5r" },
-                { "title": "cc. 56v-57r" }
+                {
+                    "title": "cc. 4v-5r"
+                },
+                {
+                    "title": "cc. 56v-57r"
+                }
             ]
         }
     }
