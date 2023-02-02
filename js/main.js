@@ -699,6 +699,11 @@ APP.setupEvents = ()=>{
         if (k==='3') APP.setLayer(APP.LAYER_IR3);
 
         if (k==='i') APP.invertIR();
+
+        if (k==='l'){
+            let e = ATON.Nav.getCurrentEyeLocation();
+            APP.setLightPostion(e);
+        }
     });
 
     ATON.on("KeyUp",(k)=>{
