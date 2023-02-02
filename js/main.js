@@ -680,7 +680,7 @@ APP.setupEvents = ()=>{
         if (k==='s'){
             if (!ATON.SceneHub._bEdit) return;
 
-            ATON.SemFactory.addSurfaceConvexPoint();
+            ATON.SemFactory.addSurfaceConvexPoint(0.01);
             //console.log(ATON.SemFactory.convexPoints)
         }
         if (k === 'Enter')  APP.finalizeSemanticShape();
