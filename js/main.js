@@ -351,14 +351,14 @@ APP.disableLens = ()=>{
 APP.invertIR = ()=>{
     if (!APP.currMat) return;
 
-    let v = APP.currMat.uniforms.bInvIR.value;
+    let v = APP.currMat.uniforms.bInv.value;
 
-    if (v > 0.0) APP.currMat.uniforms.bInvIR.value = 0.0;
-    else APP.currMat.uniforms.bInvIR.value = 1.0;
+    if (v > 0.0) APP.currMat.uniforms.bInv.value = 0.0;
+    else APP.currMat.uniforms.bInv.value = 1.0;
 };
 
 // 0.0 - 1.0
-APP.setIRvalue = (v)=>{
+APP.setDiscoveryDepth = (v)=>{
     if (APP.currMat === undefined) return;
 
     if (v < 0.0) v = 0.0;
@@ -369,11 +369,11 @@ APP.setIRvalue = (v)=>{
 
     // extremes
     if (v <= 0.0){
-        APP.currMat.uniforms.wIR.value.set(1,0,0);
+        APP.currMat.uniforms.vDisc.value.set(1,0,0);
         return;
     }
     if (v >= 1.0){
-        APP.currMat.uniforms.wIR.value.set(0,0,1);
+        APP.currMat.uniforms.vDisc.value.set(0,0,1);
         return;
     }
 
@@ -382,13 +382,13 @@ APP.setIRvalue = (v)=>{
         let a = v/0.5;
         let b = 1.0 - a;
 
-        APP.currMat.uniforms.wIR.value.set(b,a,0);
+        APP.currMat.uniforms.vDisc.value.set(b,a,0);
     }
     else {
         let a = (v-0.5)/0.5;
         let b = 1.0 - a;
 
-        APP.currMat.uniforms.wIR.value.set(0,b,a);
+        APP.currMat.uniforms.vDisc.value.set(0,b,a);
     }
 };
 
@@ -407,9 +407,9 @@ APP.setLayer = (L)=>{
 
     APP.enableLens();
     
-    if (L === APP.LAYER_IR1) APP.setIRvalue( 0.0 );
-    if (L === APP.LAYER_IR2) APP.setIRvalue( 0.5 );
-    if (L === APP.LAYER_IR3) APP.setIRvalue( 1.0 );
+    if (L === APP.LAYER_IR1) APP.setDiscoveryDepth( 0.0 );
+    if (L === APP.LAYER_IR2) APP.setDiscoveryDepth( 0.5 );
+    if (L === APP.LAYER_IR3) APP.setDiscoveryDepth( 1.0 );
     
     APP.currLayer = L;
 };
@@ -497,7 +497,7 @@ APP.update = ()=>{
     if (s > 0.001) ATON.SUI.setSelectorRadius(s);
 
     let a = ATON.XR.getAxisValue(ATON.XR.HAND_L);
-    APP.setIRvalue( APP.irValue + (a.y * 0.01) );
+    APP.setDiscoveryDepth( APP.irValue + (a.y * 0.01) );
 
     if (APP._bSqueezeHandL){
         APP.setLightPostion( ATON.XR.controller1pos );
@@ -640,7 +640,7 @@ APP.setupEvents = ()=>{
             let v = APP.irValue;
             v -= (d * 0.0005);
 
-            APP.setIRvalue( v );
+            APP.setDiscoveryDepth( v );
             return;
         }
 

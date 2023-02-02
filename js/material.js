@@ -2,22 +2,24 @@ let mat = {};
 
 mat.init = ()=>{
 
+    mat._baseName = undefined;
+
     APP._tWhite = new THREE.DataTexture( new Uint8Array([255,255,255,255]), 1,1 );
     APP._tWhite.needsUpdate = true;
 
-    APP._tPBRbase = new THREE.DataTexture( new Uint8Array([255,255,0,255]), 1,1 );
-    APP._tPBRbase.needsUpdate = true;
+    APP._tORMbase = new THREE.DataTexture( new Uint8Array([255,255,0,255]), 1,1 );
+    APP._tORMbase.needsUpdate = true;
 
 /*
     APP.matLens = new THREE.ShaderMaterial({
 
         uniforms: {
             tBase: { type:'t' },
-            tIR: { type:'t' },
+            tDisc: { type:'t' },
             tAO: { type:'t', value: APP._tWhite },
-            tPBR: { type:'t', value: APP._tWhite },
+            tORM: { type:'t', value: APP._tWhite },
             uLD: { type:'vec3', value: APP._vLight },
-            wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
+            vDisc: { type:'vec3', value: new THREE.Vector3(0,1,0) },
             vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
             vEyeW: { type:'vec3' },
             //time: { type:'float', value: 0.0 },
@@ -39,10 +41,10 @@ mat.init = ()=>{
 
         //uniform float time;
         uniform sampler2D tBase;
-        uniform sampler2D tIR;
+        uniform sampler2D tDisc;
         uniform sampler2D tAO;
-        uniform sampler2D tPBR;
-        uniform vec3 wIR;
+        uniform sampler2D tORM;
+        uniform vec3 vDisc;
 
         void main(){
             float sedge = 6.0f;
@@ -56,17 +58,17 @@ mat.init = ()=>{
             t = clamp(t, 0.0,1.0);
 
             vec4 frag = texture2D(tBase, vUv);
-            vec4 ir   = texture2D(tIR, vUv);
+            vec4 ir   = texture2D(tDisc, vUv);
             float ao  = texture2D(tAO, vUv).r;
 
-            float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
+            float vir = (vDisc.x * ir.r) + (vDisc.y * ir.g) + (vDisc.z * ir.b);
 
             float dLI = max(0.3, dot(vNormalW, -uLD));
 
             float sLI = 0.0;
 
             vec3 F0 = mix(vec3(1,1,1), frag.rgb, 1.0);
-            float rou = texture2D(tPBR, vUv).g;
+            float rou = texture2D(tORM, vUv).g;
             float rF = (1.0 - rou);
             rF *= rF;
             rF  = 1.0 + (rF * 512.0);
@@ -127,14 +129,13 @@ mat.realize = ()=>{
 
         uniforms: {
             tBase: { type:'t' },
-            tIR: { type:'t' },
+            tDisc: { type:'t' },
             //tAO: { type:'t', value: APP._tWhite },
-            tPBR: { type:'t', value: APP._tPBRbase },
-            uLD: { type:'vec3', value: APP._vLight },
-            wIR: { type:'vec3', value: new THREE.Vector3(0,1,0) },
+            tORM: { type:'t', value: APP._tORMbase },
+            vDisc: { type:'vec3', value: new THREE.Vector3(0,1,0) },
             vLens: { type:'vec4', value: new THREE.Vector4(0,0,0, 0.2) },
             wLens: { type:'float', value: 1.0 },
-            bInvIR: { type:'float', value: 0.0 }
+            bInv: { type:'float', value: 0.0 }
             //time: { type:'float', value: 0.0 },
         },
 
@@ -164,16 +165,15 @@ mat.realize = ()=>{
             varying vec2 sUV;
 
             uniform vec4 vLens;
-            uniform vec3 uLD;
 
             uniform float time;
             uniform sampler2D tBase;
-            uniform sampler2D tIR;
-            uniform sampler2D tPBR;
+            uniform sampler2D tDisc;
+            uniform sampler2D tORM;
             
-            uniform vec3 wIR;
+            uniform vec3 vDisc;
             uniform float wLens;
-            uniform float bInvIR;
+            uniform float bInv;
 
             void main(){
                 float sedge = 6.0;
@@ -188,17 +188,17 @@ mat.realize = ()=>{
                 t = max(t, 1.0-wLens);
 
                 vec4 frag = texture2D(tBase, sUV);
-                vec4 ir   = texture2D(tIR, sUV);
+                vec4 ir   = texture2D(tDisc, sUV);
                 
-                float ao  = texture2D(tPBR, sUV).r;
-                float rou = texture2D(tPBR, sUV).g;
-                float met = texture2D(tPBR, sUV).b;
+                float ao  = texture2D(tORM, sUV).r;
+                float rou = texture2D(tORM, sUV).g;
+                float met = texture2D(tORM, sUV).b;
 
-                float vir = (wIR.x * ir.r) + (wIR.y * ir.g) + (wIR.z * ir.b);
+                float vir = (vDisc.x * ir.r) + (vDisc.y * ir.g) + (vDisc.z * ir.b);
                 //vir *= frag.r;
                 //vir = 1.0 - vir;
 
-                vir = abs(vir - bInvIR);
+                vir = abs(vir - bInv);
 
                 frag = mix( vec4(vir,vir,vir, 1.0), frag, t);
 
@@ -225,8 +225,8 @@ mat.setupOnLoaded = ()=>{
 
     if (APP.currMat !== undefined && APP.currMat.uniforms !== undefined){
         if (APP.currMat.uniforms.tBase.value) APP.currMat.uniforms.tBase.value.dispose();
-        if (APP.currMat.uniforms.tIR.value)   APP.currMat.uniforms.tIR.value.dispose();
-        if (APP.currMat.uniforms.tPBR.value)  APP.currMat.uniforms.tPBR.value.dispose();
+        if (APP.currMat.uniforms.tDisc.value)   APP.currMat.uniforms.tDisc.value.dispose();
+        if (APP.currMat.uniforms.tORM.value)  APP.currMat.uniforms.tORM.value.dispose();
         //APP.currMat.uniforms = null;
 
         APP.currMat = undefined;
@@ -238,10 +238,11 @@ mat.setupOnLoaded = ()=>{
     let base = ATON.Utils.removeFileExtension(urlGLTF);
     console.log(base)
 
-    let urlBase = ATON.PATH_COLLECTION + base + ".jpg";
-    let urlIR   = ATON.PATH_COLLECTION + base + APP.postfixIR;
-    let urlAO   = ATON.PATH_COLLECTION + base + "-ao.jpg";
-    let urlPBR  = ATON.PATH_COLLECTION + base + "-pbr.jpg";
+    mat._baseName = ATON.PATH_COLLECTION + base;
+
+    let urlBase = mat._baseName + ".jpg";
+    let urlDisc = mat._baseName + APP.postfixIR;
+    let urlORM  = mat._baseName + "-pbr.jpg";
 
     APP.currMat = mat.realize();
     //APP.currMat = APP.matLens.clone();
@@ -253,10 +254,18 @@ mat.setupOnLoaded = ()=>{
         APP.currMat.needsUpdate = true;
     });
 
-    ATON.Utils.textureLoader.load(urlIR, (tex)=>{
+    APP.currMat.uniforms.tORM.value = APP._tORMbase;
+    ATON.Utils.textureLoader.load(urlORM, (tex)=>{
+        tex.flipY = false;
+        APP.currMat.uniforms.tORM.value = tex;
+
+        APP.currMat.needsUpdate = true;
+    });
+
+    ATON.Utils.textureLoader.load(urlDisc, (tex)=>{
         tex.flipY = false;
         //APP.matLens.needsUpdate = true;
-        APP.currMat.uniforms.tIR.value  = tex;
+        APP.currMat.uniforms.tDisc.value  = tex;
 
         APP.currMat.needsUpdate = true;
     });
@@ -273,13 +282,6 @@ mat.setupOnLoaded = ()=>{
         console.log(err)
     });
 */
-    APP.currMat.uniforms.tPBR.value = APP._tPBRbase;
-    ATON.Utils.textureLoader.load(urlPBR, (tex)=>{
-        tex.flipY = false;
-        APP.currMat.uniforms.tPBR.value = tex;
-
-        APP.currMat.needsUpdate = true;
-    });
 
 /*
     //APP.currMat.roughnessMap = APP._tWhite;
@@ -309,6 +311,21 @@ mat.setupOnLoaded = ()=>{
 
     console.log("Setup lens done")
     APP._bLensMatSet = true;
+};
+
+// Load another discovery layer
+mat.setDiscoveryLayer = (postfix)=>{
+    if (!APP.currMat) return;
+    if (!mat._baseName) return;
+
+    let urlLayer = mat._baseName + postfix;
+
+    ATON.Utils.textureLoader.load(urlLayer, (tex)=>{
+        tex.flipY = false;
+        APP.currMat.uniforms.tDisc.value = tex;
+
+        APP.currMat.needsUpdate = true;
+    });
 };
 
 mat.setupOnLoaded2 = ()=>{
