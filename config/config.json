@@ -1,5 +1,6 @@
 {
     "bgcolor" : [0.19, 0.19, 0.19],
+    "lightcolor": [1,1,1],
 
     "categories":[
         {"name":"Iconologia e Iconografia"},

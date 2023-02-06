@@ -173,6 +173,7 @@ APP.postPoseLoaded = ()=>{
         APP.plight.intensity = 1.3;
         APP.plight.distance  = 2.5;
         APP.plight.decay     = 2.0;
+        APP.plight.color     = new THREE.Color(APP.cdata.lightcolor[0],APP.cdata.lightcolor[1],APP.cdata.lightcolor[2]);
 
 /*
         APP.plight.castShadow            = true;
@@ -188,7 +189,7 @@ APP.postPoseLoaded = ()=>{
 
         APP.matSpriteL = new THREE.SpriteMaterial({ 
             map: new THREE.TextureLoader().load( APP.pathContent + "plight.jpg" ), 
-            //color: ATON.MatHub.colors.orange,
+            color: APP.plight.color,
             transparent: true,
             opacity: 1.0,
             depthWrite: false, 
