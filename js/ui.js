@@ -16,7 +16,7 @@ UI.init = () => {
 };
 
 UI.setLayer = (layer) => {
-
+//todo
   if (layer === APP.LAYER_RGB){
     $("#idImgLayer1").attr("src", "assets/active_layer.png");
     $("#idImgLayer2").attr("src", "assets/layer.png");
