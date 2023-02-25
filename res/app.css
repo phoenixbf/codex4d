@@ -382,6 +382,8 @@ button {
 }
 
 .selectContainer {
+  justify-content: space-around;
+  align-items: center;
   position: absolute;
   display: flex;
   width: 300px;
@@ -409,9 +411,8 @@ div#nav a {
   padding: 5px 15px 5px;
 }
 .dropdown-toggle {
-  position: absolute;
+  justify-content: space-between;
   text-decoration: none;
-  display: flex;
   width: 70%;
   height: 34px;
   top: 10.7%;
@@ -432,13 +433,13 @@ div#nav a {
 }
 /**** ****/
 ul.dropdown {
+  padding-bottom: 0.5em;
   display: none;
-  position: relative;
+  position: absolute;
   top: 95%;
   height: 270px;
   margin-top: 5px;
   width: 265px;
-  left: -15%;
   background: #c7c7c7;
   border-radius: 24px;
 }
@@ -474,8 +475,7 @@ ul.dropdown li button {
 .arrow {
   width: 14px;
   height: 7px;
-  display: inline-block;
-  position: absolute;
+  
   left: 88%;
   top: 35%;
 }
@@ -579,7 +579,9 @@ ul.dropdown li button {
 }
 
 .filterText {
-  position: relative;
+  font-size: 20px;
+  -webkit-text-stroke: 0.00001px black;
+  align-self: center;
   width: 36px;
   height: 16px;
   left: 8.5%;
@@ -587,11 +589,10 @@ ul.dropdown li button {
   font-family: "Comfortaa";
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
   line-height: 16px;
   display: flex;
   align-items: center;
-  color: #ffffff;
+  color: rgb(255 255 255);
   z-index: 100;
 }
 
