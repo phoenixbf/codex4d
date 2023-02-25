@@ -7,28 +7,20 @@ body {
 }
 
 .titleContainer {
-  z-index: 110;
-
-  position: absolute;
-  display: inline-block;
-
-  white-space: nowrap;
-  overflow: hidden;
-
+  justify-content: center;
   width: 100%;
+  align-items: center;
+  display: flex;
+  z-index: 110;
+  position: absolute;
+  white-space: nowrap;
   text-align: center;
-
   padding: 10px;
-
-  color: #fff;
-
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
   user-select: none;
-
-  pointer-events: none;
 }
 
 /* Popups */
@@ -118,16 +110,12 @@ body {
 }
 
 .goToIMG {
-  width: 28px;
-  height: 28px;
-  display: inline-block;
-  position: relative;
+  width: 2em;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  left: 180px;
   background-color: transparent;
-  top: -35px;
+  
 }
 @media screen and (max-width: 770px) {
   .goToTheWebSite {
@@ -151,8 +139,6 @@ body {
   font-size: max(24px, 1.5vw);
   margin: 2px;
   font-family: Comfortaa;
-  position: relative;
-  top: -20px;
 }
 
 button {
@@ -215,15 +201,13 @@ button {
 .leftToolbar {
   position: absolute;
   display: flex;
-  width: 3.45rem;
-  height: 450px;
-  left: 1%;
+  
   top: 15%;
   background: rgb(110, 110, 110);
-
+  margin-left: 2em;
   opacity: 0.7;
   border-radius: 24px;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
 }
 
 .bottomToolbar {
@@ -239,14 +223,14 @@ button {
 }
 
 .toolbarButton {
-  position: relative;
-  display: flex;
-  width: 35.39px;
-  height: 35.39px;
-  left: -2.5rem;
+  border-bottom: 3px solid #e0c081;
+  width: fit-content;
+  
   background: transparent;
-  margin-top: 10px;
-  border: none;
+ 
+  border-right: none;
+  border-top: none;
+  border-left: none;
 }
 .toolbarIcon {
   width: 23px;
@@ -265,13 +249,6 @@ button {
 }
 
 .toolbarHelp {
-  position: absolute;
-  display: flex;
-  width: 23px;
-  height: 23px;
-  left: 0.4rem;
-  top: 90%;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   background: transparent;
   border: none;
 }
@@ -293,6 +270,7 @@ button {
   width: 100%;
 }
 .login {
+  height: auto;
   position: absolute;
   display: flex;
   background-color: transparent;
@@ -300,10 +278,11 @@ button {
   font-family: Inter;
   color: rgba(255, 255, 255, 1);
   font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  top: 20px;
-  right: 80px;
+  font-size: 1em;
+  line-height: 1em;
+  top: 5em;
+  right: 5em;
+  align-items: center;
 }
 .login:hover {
   color: rgba(224, 192, 129, 1);
@@ -855,40 +834,7 @@ ul.dropdown li button {
   left: 0.6em;
 }
 
-@media screen and (max-width: 600px) {
-  .leftToolbar {
-    left: 80%;
-  }
-  .yAxis {
-    display: none;
-  }
-  .xAxis {
-    display: none;
-    width: 0px;
-  }
 
-  .viewControl {
-    left: 25px;
-    top: 65vh;
-  }
-
-  #idSliderLens {
-    left: 100px;
-  }
-  .titleText {
-    font-size: max(24px, 2vw);
-    font-weight: bold;
-  }
-  .login {
-    display: none;
-  }
-  .subtitleText {
-    font-size: max(18px, 1.5vw);
-  }
-  .horDivider {
-    display: none;
-  }
-}
 
 .annotationForm {
   position: absolute;
@@ -1182,3 +1128,60 @@ ul.dropdown li button {
   color: #2f4689;
   border: 1.5px solid #2f4689;
 }
+.centered{
+  position: absolute;
+  display: flex;
+  width: 0;
+  justify-content: center;
+  height: 100%;
+  top: 0%;
+}
+.leftList{
+  padding: 1em;
+  display: flex;
+  list-style-type: none;
+  flex-direction: column;
+}
+@media screen and (max-width: 600px) {
+  .leftToolbar {
+    margin-left: none;
+  }
+  .toolbarButton{
+    border-right: 3px solid #e0c081;
+    border-bottom: none;
+  }
+  .leftList{
+    
+    flex-direction: row;
+  }
+  .yAxis {
+    display: none;
+  }
+  .xAxis {
+    display: none;
+    width: 0px;
+  }
+
+  .viewControl {
+    left: 25px;
+    top: 65vh;
+  }
+
+  #idSliderLens {
+    left: 100px;
+  }
+  .titleText {
+    font-size: max(1.5em, 2vw);
+    font-weight: bold;
+  }
+  .login {
+    display: none;
+  }
+  .subtitleText {
+    font-size: max(18px, 1.5vw);
+  }
+  .horDivider {
+    display: none;
+  }
+}
+

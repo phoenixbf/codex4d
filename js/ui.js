@@ -81,33 +81,31 @@ UI.setLayer = (layer) => {
  */
 UI.buildLeftBar = (logged) => {
   let htmlLeft = "";
-  htmlLeft += "<ul style='list-style-type: none;'>";
-  htmlLeft +="<li><button id='idFull'class='toolbarButton' type='button'> <img id='idFullsize' class='toolbarIcon' src='assets/icons/maximize.png'> </button></li>";
-  htmlLeft += "<hr class='hr' />";
+  htmlLeft += "<div class='leftList' >";
+  htmlLeft +="<button id='idFull'class='toolbarButton' type='button'> <img id='idFullsize' class='toolbarIcon' src='assets/icons/maximize.png'> </button>";
+  
   htmlLeft +=
-    "<li><button id='idReset' class='toolbarButton' type='button'> <img id='idResetScene' class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button></li>";
-  htmlLeft += "<hr class='hr' />";
+    "<button id='idReset' class='toolbarButton' type='button'> <img id='idResetScene' class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button>";
+  
   htmlLeft +=
-    "<li><button id='idLayer' class='toolbarButton' type='button'> <img id='idChooseLayer' class='toolbarIcon' src='assets/icons/icon_layer.png' /> </button></li>";
-  htmlLeft += "<hr class='hr' />";
+    "<button id='idLayer' class='toolbarButton' type='button'> <img id='idChooseLayer' class='toolbarIcon' src='assets/icons/icon_layer.png' /> </button>";
+  
   htmlLeft +=
-    "<li><button id='idAnnotations' class='toolbarButton' type='button'> <img id='idTurnAnnotations' class='toolbarIcon' src='assets/icons/icon_annotazioni.png' /> </button></li>";
-  htmlLeft += "<hr class='hr' />";
+    "<button id='idAnnotations' class='toolbarButton' type='button'> <img id='idTurnAnnotations' class='toolbarIcon' src='assets/icons/icon_annotazioni.png' /> </button>";
+ 
   htmlLeft +=
-    "<li><button id='idSize' class='toolbarButton' type='button'> <img id='idTurnSize' class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button></li>";
-  htmlLeft += "<hr class='hr' />";
+    "<button id='idSize' class='toolbarButton' type='button'> <img id='idTurnSize' class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button>";
   
   if(logged){
-    htmlLeft+="<li><button id='idNote' class='toolbarButton' type='button'><img id='idTurnNote' class='toolbarIcon'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button></li>";
-    htmlLeft += "<hr class='hr' />";
+    htmlLeft+="<button id='idNote' class='toolbarButton' type='button'><img id='idTurnNote' class='toolbarIcon'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button>";
+    
   }
   
 
   
   htmlLeft +=
-    "<li><button id='idHelp' class='toolbarHelp' type='button'> <img id='idTurnHelp' class='toolbarIcon' src='assets/icons/icon_help.png' /> </button></li>";
-  htmlLeft += "<hr class='helpDivider' />";
-  htmlLeft += "</ul>";
+    "<button id='idHelp' class='toolbarButton' type='button'> <img id='idTurnHelp' class='toolbarIcon' src='assets/icons/icon_help.png' /> </button>";
+  htmlLeft += "</div>";
   $("#idLeftToolbar").html(htmlLeft);
 
   $("#idFull").on("click", () => {
@@ -205,17 +203,24 @@ UI.buildLeftBar = (logged) => {
       } else {
         $("#idNote").removeClass("clicked")
         $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+        $("#selectAnnType").hide();
       }
     });
-  
-    $("#idTurnNote").click(() => {
-      console.log("cliccato");
-      $("#selectAnnType").show();
+    $(document).click(function (e) {
+      if($("#idTurnNote").hasClass("clicked") && e.target!==$("#idTurnNote")[0]){
+        
+        $("#selectAnnType").hide();
+        $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+        $("#idNote").removeClass("clicked")
+        $("#idTurnSphere").attr("src","assets/icons/cerchio_annotazione_OFF.png");
+        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
+      }
       
-      $("#sphere").on(
-        "click",
-  
-        () => {
+    });
+    $("#idTurnNote").click(() => {
+      $("#selectAnnType").show();
+      $("#idTurnNote").addClass("clicked")
+      $("#sphere").on("click",() => {
           if (
             $("#idTurnSphere").attr("src") ==
             "assets/icons/cerchio_annotazione_OFF.png"
@@ -242,9 +247,7 @@ UI.buildLeftBar = (logged) => {
       });
       
     });
-    $("#selectAnnType").mouseleave(() => {
-      $("#selectAnnType").hide();
-    });
+
 
 
   }
