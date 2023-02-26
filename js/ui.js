@@ -120,6 +120,7 @@ UI.buildLeftBar = (logged) => {
       $(".openClose").text(">"); // Cambia il testo del pulsante
       $(".leftToolbarMobile").removeClass("extend")
       $(".leftToolbarMobile").addClass("close")
+      $(".leftListMobile").addClass("close")
       $(".leftToolbarMobile").removeClass("open")
       
     } else {
