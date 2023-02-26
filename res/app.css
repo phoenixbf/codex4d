@@ -207,6 +207,7 @@ button {
   opacity: 0.7;
   border-radius: 24px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
+  transform: scale(0.9);
 }
 
 .bottomToolbar {
@@ -1153,6 +1154,32 @@ ul.dropdown li button {
   list-style-type: none;
   flex-direction: column;
 }
+.leftListMobile{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  
+}
+.close{
+  border-radius: 0!important;
+}
+.open{
+  
+}
+.leftToolbarMobile{
+  
+  position: absolute;
+  
+  top: 20%;
+  background: rgb(110, 110, 110);
+  /* margin-left: 2em; */
+
+  opacity: 0.7;
+  border-radius: 24px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
+  display: none;
+
+}
 @media screen and (max-width: 900px) {
   .yAxis {
     display: none;
@@ -1163,7 +1190,14 @@ ul.dropdown li button {
   }
 }
 @media screen and (max-width: 600px) {
+  .leftToolbarMobile{
+    left: -1em;
+    /* transform: scale(0.9); */
+    display: flex;
+    
+  }
   .leftToolbar {
+    display: none!important;
     top: 15%;
     width: 100%;
     transform: scale(0.9);
@@ -1182,7 +1216,7 @@ ul.dropdown li button {
     width: 100%;
     justify-content: space-around;
     flex-direction: row;
-}
+
   }
   
 
@@ -1209,3 +1243,40 @@ ul.dropdown li button {
   }
 }
 
+@media screen and (orientation: landscape) {
+  .leftToolbar {
+    /* top: 0%; */
+    /* width: 100%; */
+    
+  }
+  /* .toolbarButton{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    
+    border-right: 3px solid #e0c081;
+    border-bottom: none;
+  } */
+  /* .leftList{
+    
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: row;
+
+  } */
+  .titleText {
+    font-size: max(2em, 2vw);
+    font-weight: bold;
+  }
+}
+.extend{
+  width: 100%;
+}
+.openClose{
+  font-size: x-large;
+  font-weight: 900;
+}
+.openListButton{
+  padding: 2em 1em 2em 1em;
+}

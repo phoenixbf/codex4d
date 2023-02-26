@@ -508,10 +508,10 @@ APP.update = ()=>{
 
 // Attach UI routines
 APP._attachUI = ()=>{
-    $("#idFull").click(()=>{
+    $(".toggleFull").click(()=>{
         ATON.toggleFullScreen();
     });
-    $("#idReset").click(()=>{
+    $(".toggleReset").click(()=>{
         ATON.Nav.requestHomePOV();
     });
 
@@ -526,7 +526,7 @@ APP._attachUI = ()=>{
     });
 
     // Defaults to IR1
-    $("#idLayer").click(()=>{
+    $(".toggleLayer").click(()=>{
         if ($("#idViewControlContainer").is(":visible")) APP.setLayer(APP.LAYER_IR1);
     });
 

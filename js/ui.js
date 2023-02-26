@@ -80,15 +80,19 @@ UI.setLayer = (layer) => {
  * @param {boolean} logged - Indicates if the user is logged in or not.
  */
 UI.buildLeftBar = (logged) => {
+
+
   let htmlLeft = "";
-  htmlLeft += "<div class='leftList' >";
-  htmlLeft +="<button id='idFull'class='toolbarButton' type='button'> <img id='idFullsize' class='toolbarIcon' src='assets/icons/maximize.png'> </button>";
+  htmlLeft += "<div class='leftListMobile' >";
+  htmlLeft += "<div id='idOpenList' class='openListButton' type='button'><span class='openClose '>></span></div>";
+  htmlLeft += "<div id='idList'class='leftList' style='display: none;'>";
+  htmlLeft +="<button id='idFull'class='toolbarButton toggleFull' type='button'> <img id='idFullsize' class='toolbarIcon toggleFullImg' src='assets/icons/maximize.png'> </button>";
   
   htmlLeft +=
-    "<button id='idReset' class='toolbarButton' type='button'> <img id='idResetScene' class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button>";
+    "<button id='idReset' class='toolbarButton toggleReset' type='button'> <img id='idResetScene' class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button>";
   
   htmlLeft +=
-    "<button id='idLayer' class='toolbarButton' type='button'> <img id='idChooseLayer' class='toolbarIcon' src='assets/icons/icon_layer.png' /> </button>";
+    "<button id='idLayer' class='toolbarButton toggleLayer' type='button'> <img id='idChooseLayer' class='toolbarIcon toggleLayerImg' src='assets/icons/icon_layer.png' /> </button>";
   
   htmlLeft +=
     "<button id='idAnnotations' class='toolbarButton' type='button'> <img id='idTurnAnnotations' class='toolbarIcon' src='assets/icons/icon_annotazioni.png' /> </button>";
@@ -106,23 +110,74 @@ UI.buildLeftBar = (logged) => {
   htmlLeft +=
     "<button id='idHelp' class='toolbarButton' style='border:none;' type='button'> <img id='idTurnHelp'  class='toolbarIcon' src='assets/icons/icon_help.png' /> </button>";
   htmlLeft += "</div>";
+  htmlLeft += "</div>";
+  $("#idLeftToolbarMobile").html(htmlLeft);
+
+  let listVisible = false; // Variabile che indica se la lista è visibile o meno
+  $("#idOpenList").click(() => {
+    if (listVisible) {
+      $("#idList").hide(); // Nascondi la lista
+      $(".openClose").text(">"); // Cambia il testo del pulsante
+      $(".leftToolbarMobile").removeClass("extend")
+      $(".leftToolbarMobile").addClass("close")
+      $(".leftToolbarMobile").removeClass("open")
+      
+    } else {
+      $("#idList").show(); // Mostra la lista
+      $(".openClose").text("<"); // Cambia il testo del pulsante
+      $(".leftToolbarMobile").addClass("extend")
+      $(".leftToolbarMobile").removeClass("close")
+      $(".leftToolbarMobile").addClass("open")
+
+    }
+    listVisible = !listVisible; // Cambia lo stato della variabile
+  });
+
+
+  htmlLeft = "";
+  htmlLeft += "<div class='leftList' >";
+  
+  htmlLeft +="<button id='idFull'class='toolbarButton toggleFull' type='button'> <img id='idFullsize' class='toolbarIcon toggleFullImg' src='assets/icons/maximize.png'> </button>";
+  
+  htmlLeft +=
+    "<button id='idReset' class='toolbarButton toggleReset' type='button'> <img id='idResetScene' class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button>";
+  
+  htmlLeft +=
+    "<button id='idLayer' class='toolbarButton toggleLayer'  type='button'> <img id='idChooseLayer' class='toolbarIcon toggleLayerImg' src='assets/icons/icon_layer.png' /> </button>";
+  
+  htmlLeft +=
+    "<button id='idAnnotations' class='toolbarButton toggleAnnotation' type='button'> <img id='idTurnAnnotations' class='toolbarIcon toggleAnnotationImg' src='assets/icons/icon_annotazioni.png' /> </button>";
+ 
+  htmlLeft +=
+    "<button id='idSize' class='toolbarButton' type='button'> <img id='idTurnSize' class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button>";
+  
+  if(logged){
+    htmlLeft+="<button id='idNote' class='toolbarButton' type='button'><img id='idTurnNote' class='toolbarIcon'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button>";
+    
+  }
+  
+
+  
+  htmlLeft +=
+    "<button id='idHelp' class='toolbarButton' style='border:none;' type='button'> <img id='idTurnHelp'  class='toolbarIcon' src='assets/icons/icon_help.png' /> </button>";
+  htmlLeft += "</div>";
   $("#idLeftToolbar").html(htmlLeft);
 
-  $("#idFull").on("click", () => {
-    if($("#idFull").hasClass("full")){
-      $("#idFull").removeClass("full")
-      $("#idFullsize").attr("src", "assets/icons/maximize.png")
+  $(".toggleFull").on("click", () => {
+    if($(".toggleFull").hasClass("full")){
+      $(".toggleFull").removeClass("full")
+      $(".toggleFullImg").attr("src", "assets/icons/maximize.png")
     }
     else{
-      $("#idFull").addClass("full")
-      $("#idFullsize").attr("src", "assets/icons/minimize.png")
+      $(".toggleFull").addClass("full")
+      $(".toggleFullImg").attr("src", "assets/icons/minimize.png")
     }
   });
-  $("#idLayer").click(() => {
-    if (!$("#idLayer").hasClass("clicked")) {
-      $("#idLayer").addClass("clicked")
+  $(".toggleLayer").click(() => {
+    if (!$(".toggleLayer").hasClass("clicked")) {
+      $(".toggleLayer").addClass("clicked")
 
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layerON.png");
+      $(".toggleLayerImg").attr("src", "assets/icons/icon_layerON.png");
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
@@ -130,8 +185,8 @@ UI.buildLeftBar = (logged) => {
       $("#idSelect").hide();
     } 
     else {
-      $("#idLayer").removeClass("clicked")
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $(".toggleLayer").removeClass("clicked")
+      $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
       $("#idViewControlContainer").hide();
     }
   });
@@ -140,7 +195,7 @@ UI.buildLeftBar = (logged) => {
       $("#idAnnotations").addClass("clicked")
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
       $("#idTurnAnnotations").attr("src","assets/icons/icon_annotazioniON.png");
@@ -158,9 +213,8 @@ UI.buildLeftBar = (logged) => {
     if (!$("#idSize").hasClass("clicked")) {
       $("#idSize").addClass("clicked")
       $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
       $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
       $("#idSelect").hide();
@@ -175,9 +229,8 @@ UI.buildLeftBar = (logged) => {
       $("#idHelp").addClass("clicked")
       $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
       $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-      $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+      $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
       $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
       $("#idSelect").hide();
       $("#idViewControlContainer").hide();
@@ -194,9 +247,8 @@ UI.buildLeftBar = (logged) => {
         $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
         $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
         $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
         $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-        $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
+        $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
         $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
         $("#idSelect").hide();
         $("#idViewControlContainer").hide();
