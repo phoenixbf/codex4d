@@ -201,10 +201,9 @@ button {
 .leftToolbar {
   position: absolute;
   display: flex;
-  
   top: 15%;
   background: rgb(110, 110, 110);
-  margin-left: 2em;
+  /* margin-left: 2em; */
   opacity: 0.7;
   border-radius: 24px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
@@ -224,10 +223,8 @@ button {
 
 .toolbarButton {
   border-bottom: 3px solid #e0c081;
-  width: fit-content;
-  
+  /* width: fit-content; */
   background: transparent;
- 
   border-right: none;
   border-top: none;
   border-left: none;
@@ -531,14 +528,21 @@ ul.dropdown li button {
 }
 @media screen and (max-width: 600px) {
   .filterContainer {
-    width: 400px;
-    left: 25%;
+    width: 100%;
+    
+    left: 2em;
+
+    top: 28%;
+    position: absolute;
+    justify-content: center;
   }
   .dropdown-toggle {
     left: 28%;
   }
   .selectContainer {
-    width: 50%;
+    left: 0;
+    width: 21em;
+        position: none;
   }
 }
 @media screen and (max-width: 800px) {
@@ -642,20 +646,26 @@ ul.dropdown li button {
 }
 
 .viewControlContainer {
+  width: 100%;
+  /* left: 0%; */
+  justify-content: space-around;
+  align-items: center;
   position: absolute;
   display: flex;
-  top: 20%;
-  background-color: transparent;
-  width: 438px;
-  height: 438px;
-  left: 90px;
+  top: 75%;
+  /* background-color: transparent; */
+  /* width: 438px; */
+  /* height: 438px; */
+  /* left: 90px; */
   z-index: 100;
   pointer-events: none;
 }
 @media screen and (max-width: 600px) {
   .viewControlContainer {
-    width: 300px;
-    left: 0%;
+    width: 100%;
+    /* left: 0%; */
+    justify-content: space-around;
+    align-items: center;
   }
   #idSliderLens {
     top: 60%;
@@ -664,14 +674,14 @@ ul.dropdown li button {
 }
 
 .viewControl {
-  position: relative;
+  /* position: relative;
   top: 65%;
-  left: 60px;
+  left: 60px; */
   pointer-events: auto;
 }
 
 #idSliderLens {
-  position: relative;
+  /* position: relative; */
   display: flex;
   top: 428px;
   left: 120px;
@@ -694,7 +704,7 @@ ul.dropdown li button {
 }
 
 .zoom {
-  position: absolute;
+  /* position: absolute; */
   width: 18px;
   height: 18px;
   left: 260px;
@@ -705,22 +715,22 @@ ul.dropdown li button {
 
 .xAxis {
   position: absolute;
-  width: 438px;
+  width: 80%;
   height: 0px;
   left: 60px;
-  top: 390px;
+  top: -16px;
   background: #e0c081;
   border: 1px solid #e0c081;
 }
 
 .yAxis {
   position: absolute;
-  width: 0px;
-  height: 438px;
+  width: -1px;
+  height: 37em;
   left: 20%;
   background-color: #e0c081;
-  top: 0px;
-  margin-left: 1vw;
+  top: -30em;
+  /* margin-left: 1vw; */
   border: 1px solid #e0c081;
 }
 @media screen and (min-width: 2560px) {
@@ -746,9 +756,10 @@ ul.dropdown li button {
 }
 
 .layerSelector {
-  position: absolute;
+  padding-top: 2em;
+  /* position: absolute;
   display: block;
-  left: -5px;
+  left: -5px; */
 }
 
 .layer {
@@ -1142,30 +1153,43 @@ ul.dropdown li button {
   list-style-type: none;
   flex-direction: column;
 }
-@media screen and (max-width: 600px) {
-  .leftToolbar {
-    margin-left: none;
-  }
-  .toolbarButton{
-    border-right: 3px solid #e0c081;
-    border-bottom: none;
-  }
-  .leftList{
-    
-    flex-direction: row;
-  }
+@media screen and (max-width: 900px) {
   .yAxis {
     display: none;
   }
   .xAxis {
     display: none;
-    width: 0px;
+    /* width: 0px; */
   }
+}
+@media screen and (max-width: 600px) {
+  .leftToolbar {
+    top: 15%;
+    width: 100%;
+    transform: scale(0.9);
+  }
+  .toolbarButton{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    /* padding-right: 2em; */
+    border-right: 3px solid #e0c081;
+    border-bottom: none;
+  }
+  .leftList{
+    
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: row;
+}
+  }
+  
 
-  .viewControl {
+  /* .viewControl {
     left: 25px;
     top: 65vh;
-  }
+  } */
 
   #idSliderLens {
     left: 100px;

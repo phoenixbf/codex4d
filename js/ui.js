@@ -104,7 +104,7 @@ UI.buildLeftBar = (logged) => {
 
   
   htmlLeft +=
-    "<button id='idHelp' class='toolbarButton' type='button'> <img id='idTurnHelp' class='toolbarIcon' src='assets/icons/icon_help.png' /> </button>";
+    "<button id='idHelp' class='toolbarButton' style='border:none;' type='button'> <img id='idTurnHelp'  class='toolbarIcon' src='assets/icons/icon_help.png' /> </button>";
   htmlLeft += "</div>";
   $("#idLeftToolbar").html(htmlLeft);
 
