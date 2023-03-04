@@ -8,19 +8,16 @@ body {
 
 .titleContainer {
   justify-content: center;
-  width: 100%;
-  align-items: center;
-  display: flex;
+ 
   z-index: 110;
-  position: absolute;
-  white-space: nowrap;
+  
   text-align: center;
-  padding: 10px;
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
   user-select: none;
+  padding-top: 2em;
 }
 
 /* Popups */
@@ -129,9 +126,11 @@ body {
 }
 
 .titleText {
+  border-bottom: 1px solid #e0c081;
   font-size: max(32px, 2vw);
   font-weight: bold;
-  margin: 2px;
+ 
+  padding-bottom: 0.3em;
   font-family: Comfortaa;
 }
 
@@ -200,7 +199,7 @@ button {
 
 .leftToolbar {
   position: absolute;
-  display: flex;
+  display: flex!important;
   top: 15%;
   background: rgb(110, 110, 110);
   /* margin-left: 2em; */
@@ -208,6 +207,9 @@ button {
   border-radius: 24px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
   transform: scale(0.9);
+  width: 5em;
+  
+  justify-content: center;
 }
 
 .bottomToolbar {
@@ -223,11 +225,11 @@ button {
 }
 
 .toolbarButton {
-  border-bottom: 3px solid #e0c081;
+  border-top: 3px solid #e0c081;
   /* width: fit-content; */
   background: transparent;
   border-right: none;
-  border-top: none;
+  border-bottom: none;
   border-left: none;
 }
 .toolbarIcon {
@@ -268,36 +270,32 @@ button {
   width: 100%;
 }
 .login {
-  height: auto;
-  position: absolute;
-  display: flex;
+  
+  padding-top: 3em;
   background-color: transparent;
   border: none;
   font-family: Inter;
   color: rgba(255, 255, 255, 1);
   font-weight: 600;
   font-size: 1em;
-  line-height: 1em;
-  top: 5em;
-  right: 5em;
+  flex-direction: column;
   align-items: center;
+  display: flex;
+  /* padding-right: 1em; */
+  position: absolute;
+  
+  right: -20em;
 }
 .login:hover {
   color: rgba(224, 192, 129, 1);
 }
 .loginText {
-  position: relative;
-  display: flex;
-  left: 30px;
-  top: -20%;
+ 
 }
 
 .loginIcon {
-  position: fixed;
-  display: flex;
-  width: 23px;
-  height: 23px;
-  margin-right: 5%;
+  width: 2em;
+  height: auto;
 }
 
 .user {
@@ -352,25 +350,22 @@ button {
 
 .filterContainer {
   position: relative;
-  display: flex;
-  top: 100px;
-  width: 100%;
-  left: 177px;
+  left: 2em;
+  animation: slideInLeftRight 0.5s forwards;
+}
+.closeFilterContainer{
+  animation: slideOutRightLeft 0.5s forwards;
 }
 
 .selectContainer {
   justify-content: space-around;
   align-items: center;
-  position: absolute;
   display: flex;
   width: 300px;
-  height: 46px;
-  top: 15%;
   background: rgb(110, 110, 110);
   opacity: 1;
   border-radius: 24px;
   z-index: 101;
-  left: -70px;
 }
 .selectButton {
   border: none;
@@ -528,15 +523,8 @@ ul.dropdown li button {
   top: 5px;
 }
 @media screen and (max-width: 600px) {
-  .filterContainer {
-    width: 100%;
-    
-    left: 2em;
-
-    top: 28%;
-    position: absolute;
-    justify-content: center;
-  }
+  
+  
   .dropdown-toggle {
     left: 28%;
   }
@@ -648,16 +636,12 @@ ul.dropdown li button {
 
 .viewControlContainer {
   width: 100%;
-  /* left: 0%; */
   justify-content: space-around;
   align-items: center;
   position: absolute;
   display: flex;
   top: 75%;
-  /* background-color: transparent; */
-  /* width: 438px; */
-  /* height: 438px; */
-  /* left: 90px; */
+  
   z-index: 100;
   pointer-events: none;
 }
@@ -835,7 +819,7 @@ ul.dropdown li button {
   border: none;
   z-index: 100;
   margin-left: 30px;
-  left: 60px;
+  right: 0;
   bottom: 0px;
 }
 
@@ -1153,10 +1137,10 @@ ul.dropdown li button {
   display: flex;
   list-style-type: none;
   flex-direction: column;
+  padding-left: 1.2em;
 }
 .leftListMobile{
-  width: 100%;
-  display: flex;
+  
   align-items: center;
   
 }
@@ -1164,30 +1148,65 @@ ul.dropdown li button {
  /*  border-radius: 0!important; */
  animation: slideOut 0.5s forwards;
 }
-.open{
+.open {
+  -webkit-animation: slideIn 0.5s forwards;
   animation: slideIn 0.5s forwards;
 }
-.leftToolbarMobile{
-  
-  position: absolute;
-  
-  top: 20%;
-  background: rgb(110, 110, 110);
-  /* margin-left: 2em; */
 
+@-webkit-keyframes slideIn {
+  from {
+    -webkit-transform: translateY(-80%);
+    transform: translateY(-80%);
+  }
+  to {
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-80%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.leftToolbarMobile{
+  z-index: 110;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  background: rgb(110, 110, 110);
+  width: 5em;
   opacity: 0.7;
-  border-radius: 24px;
+  
+  border-radius: 10px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
   display: none;
   
 
 }
-@keyframes slideIn {
+
+@keyframes slideInLeftRight {
   from {
-    transform: translateX(-80%);
+    transform: translateX(-150%);
+    opacity: 0;
   }
   to {
-    transform: translateX(0);
+    transform: translateX(0%);
+    opacity: 100%;
+  }
+}
+@keyframes slideOutRightLeft {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-150%);
+    opacity: 0;
+    display: none;
   }
 }
 
@@ -1200,12 +1219,55 @@ ul.dropdown li button {
     /* width: 0px; */
   }
 }
-@media screen and (max-width: 600px) {
-  .leftToolbarMobile{
-    left: -1em;
-    /* transform: scale(0.9); */
-    display: flex;
-    
+
+@media screen and (orientation: landscape) {
+  .titleText {
+    font-size: max(2em, 2vw);
+    font-weight: bold;
+  }
+}
+.extend{
+ 
+}
+.openClose{
+  font-size: x-large;
+  font-weight: 900;
+}
+.openListButton{
+  padding: 2em 1em 0em 1em;
+}
+.topBar{
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  right: 0;
+}
+
+.imgScaled{
+  transform: scale(0.5);
+}
+
+.toggleAnnotation{
+  display: flex;
+  padding-left: 1.4em;
+}
+.toggleAnnotationImg{
+  align-self: center;
+}
+.toggleHelp{
+  margin-top: 10em;
+  /*border: none;*/
+  /*border-top: 3px solid #e0c081;*/
+}
+.toggleFull{
+  border: none;
+}
+
+@media only screen and (max-width: 600px), (orientation: landscape) and (max-width:1000px) {
+
+  .toggleFull{
+    border-top:  3px solid #e0c081;
   }
   .leftToolbar {
     display: none!important;
@@ -1213,38 +1275,24 @@ ul.dropdown li button {
     width: 100%;
     transform: scale(0.9);
   }
-  .toolbarButton{
-    justify-content: center;
-    align-items: center;
+  .leftToolbarMobile{
+    top: -3em;
     display: flex;
-    width: 100%;
-    /* padding-right: 2em; */
-    border-right: 3px solid #e0c081;
-    border-bottom: none;
-  }
-  .leftList{
-    
-    width: 100%;
-    justify-content: space-around;
-    flex-direction: row;
-
   }
   
-
-  /* .viewControl {
-    left: 25px;
-    top: 65vh;
-  } */
-
   #idSliderLens {
     left: 100px;
   }
   .titleText {
+    width: 10em;
     font-size: max(1.5em, 2vw);
     font-weight: bold;
   }
   .login {
-    display: none;
+    padding-right: 1em;
+    
+    
+    right: 0;
   }
   .subtitleText {
     font-size: max(18px, 1.5vw);
@@ -1254,40 +1302,54 @@ ul.dropdown li button {
   }
 }
 
-@media screen and (orientation: landscape) {
-  .leftToolbar {
-    /* top: 0%; */
-    /* width: 100%; */
-    
-  }
-  /* .toolbarButton{
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    width: 100%;
-    
-    border-right: 3px solid #e0c081;
-    border-bottom: none;
-  } */
-  /* .leftList{
-    
-    width: 100%;
-    justify-content: space-around;
+@media only screen and (max-height:600px) {
+  /*.leftToolbarMobile{
+    top: 18em;
     flex-direction: row;
-
-  } */
-  .titleText {
-    font-size: max(2em, 2vw);
-    font-weight: bold;
+    width: auto;
+    left: -3em;
+    height: 5em;
+    opacity: 0.7!important;
   }
-}
-.extend{
-  width: 100%;
-}
-.openClose{
-  font-size: x-large;
-  font-weight: 900;
-}
-.openListButton{
-  padding: 2em 1em 2em 1em;
+  .leftListMobile{
+    display: flex;
+  }
+  .openListButton{
+    transform: rotate(-90deg);
+  }
+  .leftList{
+    flex-direction: row;
+  }
+  .toggleHelp{
+    border: none;
+    margin: 0;
+    margin-left: 8em;
+  }
+  .toolbarButton{
+    border: none;
+    border-left: 3px solid #e0c081;
+  }
+  .open{
+    animation: slideInLeftRight 0.5s forwards;
+  }*/
+  .leftToolbarMobile{
+    transform: scale(0.6);
+    
+  }
+  @keyframes slideAndScaleIn {
+    from {
+      transform: translateY(-80%);
+      scale: 0.6;
+    }
+    to {
+      transform: translateY(0%);
+      scale: 0.6;
+    }
+  }
+  .open {
+    -webkit-animation: slideAndScaleIn 0.5s forwards;
+    animation: slideAndScaleIn 0.5s forwards;
+    top: -10.5em;
+  }
+  
 }

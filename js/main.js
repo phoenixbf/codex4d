@@ -33,6 +33,8 @@ APP.STATE_NAV       = 0;
 APP.STATE_MEASURE   = 1;
 APP.STATE_ANN_BASIC = 2;
 APP.STATE_ANN_FREE  = 3;
+APP.STATE_LAYER_VISION = 4;
+
 
 APP.state = APP.STATE_NAV;
 
@@ -506,6 +508,15 @@ APP.update = ()=>{
     
 };
 
+APP.goToMode=(idMode)=>{    
+    ATON.SUI.clearMeasurements();
+    APP.setLayer(APP.LAYER_RGB)
+    APP.setState(idMode)
+    if(idMode===APP.STATE_LAYER_VISION){
+        APP.setLayer(APP.LAYER_IR1)
+    }
+
+}
 // Attach UI routines
 APP._attachUI = ()=>{
     $(".toggleFull").click(()=>{
@@ -515,20 +526,32 @@ APP._attachUI = ()=>{
         ATON.Nav.requestHomePOV();
     });
 
-    $("#idSize").click(()=>{
-        console.log("xx")
-
+   /*$(".toggleSize").click(()=>{
         if (APP.state !== APP.STATE_MEASURE) APP.setState(APP.STATE_MEASURE);
         else {
             ATON.SUI.clearMeasurements();
             APP.setState(APP.STATE_NAV);
         }
+    });*/
+    $(".toggleSize").click(()=>{
+        if (APP.state !== APP.STATE_MEASURE) APP.goToMode(APP.STATE_MEASURE);
+        else {
+            APP.goToMode(APP.STATE_NAV);
+        }
     });
 
     // Defaults to IR1
-    $(".toggleLayer").click(()=>{
+    /*$(".toggleLayer").click(()=>{
         if ($("#idViewControlContainer").is(":visible")) APP.setLayer(APP.LAYER_IR1);
+    });*/
+    $(".toggleLayer").click(()=>{
+        
+        APP.goToMode(APP.STATE_LAYER_VISION)
+        
     });
+    $(".toggleHelp").click(()=>{
+        console.log("clicco help")
+    })
 
     $("#idSliderLens").on("input change",()=>{
         let r = parseFloat( $("#idSliderLens").val() )
@@ -555,8 +578,11 @@ APP._attachUI = ()=>{
         ATON.FE.popupUser();
     });
 
-    $("#sphere").click(()=>{
+    /*$("#sphere").click(()=>{
         APP.setState(APP.STATE_ANN_BASIC);
+    });*/
+    $("#sphere").click(()=>{
+        goToMode(APP.STATE_ANN_BASIC);
     });
 };
 

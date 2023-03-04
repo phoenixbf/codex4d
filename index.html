@@ -63,21 +63,15 @@
   <body oncontextmenu="return false;">
 
     <!--Login-->
-    <button id='idLogin' class='login'>
-      <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' />
-      <p id='idLoginActionText' class='loginText'>Login</p>
-    </button>
-
-    <!--Logout-->
-    <button id="idLogout" class= "logoutButton"><p class="logoutText">Logout</p></button>
+    
 
     <!--Note Filter-->
-    <div id="idSelect" class="filterContainer" style="display:none"></div>
+    
 
     <!-- Left Toolbar -->
     
     <div id="idLeftToolbar" class="leftToolbar"></div>
-    <div id="idLeftToolbarMobile" class="leftToolbarMobile "></div>
+   
    
     
 
@@ -86,16 +80,27 @@
       <img id="idArrow" src="assets/downArrow.png" alt="up-arrow" />
     </button>
     <div id="idBottomToolbar" class="bottomToolbar"></div>
-    
-    
-    <div class="titleContainer">
-      <div id="idVolume" class="titleText">Volume</div>  
-      <div id="idPose" class="subtitleText">Pose</div>
-      <img id="idManuscriptDetail" class="goToIMG" src="assets/icons/Icona_scheda_Aton_OFF.png" />
+    <div id="idLeftToolbarMobile" class="leftToolbarMobile "></div>
+    <div class="topBar">
       
+      <div class="titleContainer">
+        <div id="idVolume" class="titleText">Volume</div>  
+        <div id="idPose" class="subtitleText">Pose</div>
+        <img id="idManuscriptDetail" class="goToIMG" src="assets/icons/Icona_scheda_Aton_OFF.png" />
+        
+        
+        <br />
+        
+      </div>
       
-      <br />
-      
+  
+      <!--Logout-->
+      <!--<button id="idLogout" class= "logoutButton"><p class="logoutText">Logout</p></button>-->
+
+    </div>
+    <div id='idLogin' class='login'>
+      <img id='idLoginAction' class='loginIcon' src='assets/icons/icon_login.png' />
+      <p id='idLoginActionText' class='loginText'>Login</p>
     </div>
    
     
@@ -128,7 +133,6 @@
 
     <!--Dropdown-->
     <div id="selectAnnType" class="sidebar left" style="display: none">
-      <hr class='divHR' />
       <ul style='list-style-type: none;'>
         <li><button id='sphere' class='toolbarButton' type='button'><img id='idTurnSphere' class='toolbarIcon' src='assets/icons/cerchio_annotazione_OFF.png'></button></li>
         <li><button id='free' class='toolbarButton'><img id='idTurnAreal' class='toolbarIcon' src='assets/icons/Aton_areale_OFF.png'/></button></li>

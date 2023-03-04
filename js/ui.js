@@ -84,7 +84,7 @@ UI.buildLeftBar = (logged) => {
 
   let htmlLeft = "";
   htmlLeft += "<div class='leftListMobile' >";
-  htmlLeft += "<div id='idOpenList' class='openListButton' type='button'><span class='openClose '>></span></div>";
+  htmlLeft += "<div id='idOpenList' class='openListButton' type='button'><img class='openClose imgScaled' src='assets/icons/arrow-down.png' ></div>";
   htmlLeft += "<div id='idList'class='leftList' style='display: none;'>";
   htmlLeft +="<button id='idFull'class='toolbarButton toggleFull' type='button'> <img id='idFullsize' class='toolbarIcon toggleFullImg' src='assets/icons/maximize.png'> </button>";
   
@@ -94,21 +94,21 @@ UI.buildLeftBar = (logged) => {
   htmlLeft +=
     "<button id='idLayer' class='toolbarButton toggleLayer' type='button'> <img id='idChooseLayer' class='toolbarIcon toggleLayerImg' src='assets/icons/icon_layer.png' /> </button>";
   
-  htmlLeft +=
-    "<button id='idAnnotations' class='toolbarButton' type='button'> <img id='idTurnAnnotations' class='toolbarIcon' src='assets/icons/icon_annotazioni.png' /> </button>";
+    htmlLeft +=
+    "<button id='idAnnotations' class='toolbarButton toggleAnnotation' type='button'> <img id='idTurnAnnotations' class='toolbarIcon toggleAnnotationImg' src='assets/icons/icon_annotazioni.png' /> <div id='idSelect' class='filterContainer' style='display:none'></div> </button>";
  
   htmlLeft +=
-    "<button id='idSize' class='toolbarButton' type='button'> <img id='idTurnSize' class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button>";
+    "<button id='idSize' class='toolbarButton toggleSize' type='button'> <img id='idTurnSize' class='toolbarIcon toggleSizeImg' src='assets/icons/icon_size_OFF.png' /> </button>";
   
   if(logged){
-    htmlLeft+="<button id='idNote' class='toolbarButton' type='button'><img id='idTurnNote' class='toolbarIcon'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button>";
+    htmlLeft+="<button id='idNote' class='toolbarButton toggleNote' type='button'><img id='idTurnNote' class='toolbarIcon toggleNoteImg'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button>";
     
   }
   
 
   
   htmlLeft +=
-    "<button id='idHelp' class='toolbarButton' style='border:none;' type='button'> <img id='idTurnHelp'  class='toolbarIcon' src='assets/icons/icon_help.png' /> </button>";
+    "<button id='idHelp' class='toolbarButton toggleHelp' type='button'> <img id='idTurnHelp'  class='toolbarIcon toggleHelpImg' src='assets/icons/icon_help.png' /> </button>";
   htmlLeft += "</div>";
   htmlLeft += "</div>";
   $("#idLeftToolbarMobile").html(htmlLeft);
@@ -117,7 +117,7 @@ UI.buildLeftBar = (logged) => {
   $("#idOpenList").click(() => {
     if (listVisible) {
       $("#idList").hide(); // Nascondi la lista
-      $(".openClose").text(">"); // Cambia il testo del pulsante
+      $(".openClose").attr("src","assets/icons/arrow-down.png") // Cambia il testo del pulsante
       $(".leftToolbarMobile").removeClass("extend")
       $(".leftToolbarMobile").addClass("close")
       $(".leftListMobile").addClass("close")
@@ -125,7 +125,7 @@ UI.buildLeftBar = (logged) => {
       
     } else {
       $("#idList").show(); // Mostra la lista
-      $(".openClose").text("<"); // Cambia il testo del pulsante
+      $(".openClose").attr("src","assets/icons/arrow-up.png") // Cambia il testo del pulsante
       $(".leftToolbarMobile").addClass("extend")
       $(".leftToolbarMobile").removeClass("close")
       $(".leftToolbarMobile").addClass("open")
@@ -147,22 +147,25 @@ UI.buildLeftBar = (logged) => {
     "<button id='idLayer' class='toolbarButton toggleLayer'  type='button'> <img id='idChooseLayer' class='toolbarIcon toggleLayerImg' src='assets/icons/icon_layer.png' /> </button>";
   
   htmlLeft +=
-    "<button id='idAnnotations' class='toolbarButton toggleAnnotation' type='button'> <img id='idTurnAnnotations' class='toolbarIcon toggleAnnotationImg' src='assets/icons/icon_annotazioni.png' /> </button>";
+    "<button id='idAnnotations' class='toolbarButton toggleAnnotation' type='button'> <img id='idTurnAnnotations' class='toolbarIcon toggleAnnotationImg' src='assets/icons/icon_annotazioni.png' /> <div id='idSelect' class='filterContainer' style='display:none'></div> </button>";
  
   htmlLeft +=
-    "<button id='idSize' class='toolbarButton' type='button'> <img id='idTurnSize' class='toolbarIcon' src='assets/icons/icon_size_OFF.png' /> </button>";
+    "<button id='idSize' class='toolbarButton toggleSize' type='button'> <img id='idTurnSize' class='toolbarIcon toggleSizeImg' src='assets/icons/icon_size_OFF.png' /> </button>";
   
   if(logged){
-    htmlLeft+="<button id='idNote' class='toolbarButton' type='button'><img id='idTurnNote' class='toolbarIcon'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button>";
+    htmlLeft+="<button id='idNote' class='toolbarButton toggleNote' type='button'><img id='idTurnNote' class='toolbarIcon toggleNoteImg'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button>";
     
   }
   
 
   
   htmlLeft +=
-    "<button id='idHelp' class='toolbarButton' style='border:none;' type='button'> <img id='idTurnHelp'  class='toolbarIcon' src='assets/icons/icon_help.png' /> </button>";
+    "<button id='idHelp' class='toolbarButton toggleHelp' style='' type='button'> <img id='idTurnHelp'  class='toolbarIcon toggleHelpImg' src='assets/icons/icon_help.png' /> </button>";
   htmlLeft += "</div>";
   $("#idLeftToolbar").html(htmlLeft);
+  console.log($(".filterContainer"))
+
+
 
   $(".toggleFull").on("click", () => {
     if($(".toggleFull").hasClass("full")){
@@ -174,16 +177,18 @@ UI.buildLeftBar = (logged) => {
       $(".toggleFullImg").attr("src", "assets/icons/minimize.png")
     }
   });
+
   $(".toggleLayer").click(() => {
     if (!$(".toggleLayer").hasClass("clicked")) {
+      $(".clicked").removeClass("clicked")
       $(".toggleLayer").addClass("clicked")
 
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layerON.png");
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
+      $(".toggleSizeImg").attr("src", "assets/icons/icon_size_OFF.png");
+      $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
       $("#idViewControlContainer").show();
-      $("#idSelect").hide();
+      $(".filterContainer").hide();
     } 
     else {
       $(".toggleLayer").removeClass("clicked")
@@ -191,89 +196,85 @@ UI.buildLeftBar = (logged) => {
       $("#idViewControlContainer").hide();
     }
   });
-  $("#idAnnotations").click(() => {
-    if (!$("#idAnnotations").hasClass("clicked")) {
-      $("#idAnnotations").addClass("clicked")
+  $(".toggleAnnotation").click((e) => {
+    if (!$(".toggleAnnotation").hasClass("clicked")) {
+      $(".clicked").removeClass("clicked")
+      $(".toggleAnnotation").addClass("clicked")
+      APP.goToMode(APP.STATE_NAV)
+      console.log("riclicco")
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
-      $("#idTurnAnnotations").attr("src","assets/icons/icon_annotazioniON.png");
-      $("#idSelect").show();
+      $(".toggleSizeImg").attr("src", "assets/icons/icon_size_OFF.png");
+      $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
+      $(".toggleAnnotationImg").attr("src","assets/icons/icon_annotazioniON.png");
+      $(".filterContainer").show();
       $("#idViewControlContainer").hide();
-    } else {
-      $("#idAnnotations").removeClass("clicked")
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
-      $("#idSelect").hide();
-      $("#idDropdownToggle").html("Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>");
+    } else if(!$(e.target).closest(".filterContainer").length) {
+      $(".toggleAnnotation").removeClass("clicked")
+      $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
+      
+      $(".filterContainer").addClass("closeFilterContainer").on("animationend", function() {
+        $(this).off("animationend")
+        $(".filterContainer").removeClass("closeFilterContainer");
+        $(".filterContainer").hide()
+      });
+      $(".dropdown-toggle").html("Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>");
       $(".selectContainer").css("background-color", "rgb(110, 110, 110)");
     }
   });
-  $("#idSize").click(() => {
-    if (!$("#idSize").hasClass("clicked")) {
-      $("#idSize").addClass("clicked")
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_ON.png");
+  $(".toggleSize").click(() => {
+    if (!$(".toggleSize").hasClass("clicked")) {
+      
+      $(".clicked").removeClass("clicked")
+      $(".toggleSize").addClass("clicked")
+      $(".toggleSizeImg").attr("src", "assets/icons/icon_size_ON.png");
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
-      $("#idSelect").hide();
+      $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
+      $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
+      $(".filterContainer").hide();
       $("#idViewControlContainer").hide();
     } else {
-      $("#idSize").removeClass("clicked")
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+      $(".toggleSize").removeClass("clicked")
+      $(".toggleSizeImg").attr("src", "assets/icons/icon_size_OFF.png");
     }
   });
-  $("#idHelp").click(() => {
-    if (!$("#idHelp").hasClass("clicked")) {
-      $("#idHelp").addClass("clicked")
-      $("#idTurnHelp").attr("src", "assets/icons/icon_helpON.png");
-      $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+  $(".toggleHelp").click(() => {
+    if (!$(".toggleHelp").hasClass("clicked")) {
+      $(".clicked").removeClass("clicked")
+      $(".toggleHelp").addClass("clicked")
+      $(".toggleHelpImg").attr("src", "assets/icons/icon_helpON.png");
+      $(".toggleSizeImg").attr("src", "assets/icons/icon_size_OFF.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
-      $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
-      $("#idSelect").hide();
+      $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
+      $(".filterContainer").hide();
       $("#idViewControlContainer").hide();
     } else {
-      $("#idHelp").removeClass("clicked")
-      $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
+      $(".toggleHelp").removeClass("clicked")
+      $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
     }
   });
   if(logged){
 
-    $("#idNote").on("click", () => {
-      if (!$("#idNote").hasClass("clicked") ) {
-        $("#idNote").addClass("clicked")
-        $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
-        $("#idTurnHelp").attr("src", "assets/icons/icon_help.png");
-        $("#idTurnSize").attr("src", "assets/icons/icon_size_OFF.png");
+    $(".toggleNote").on("click", () => {
+      if (!$(".toggleNote").hasClass("clicked") ) {
+        $(".clicked").removeClass("clicked")
+        $(".toggleNote").addClass("clicked")
+        $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
+        $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
+        $(".toggleSizeImg").attr("src", "assets/icons/icon_size_OFF.png");
         $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
         $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
-        $("#idTurnAnnotations").attr("src", "assets/icons/icon_annotazioni.png");
-        $("#idSelect").hide();
+        $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
+        $(".filterContainer").hide();
         $("#idViewControlContainer").hide();
-      } else {
-        $("#idNote").removeClass("clicked")
-        $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
-        $("#selectAnnType").hide();
-      }
-    });
-    $(document).click(function (e) {
-      if($("#idTurnNote").hasClass("clicked") && e.target!==$("#idTurnNote")[0]){
-        
-        $("#selectAnnType").hide();
-        $("#idTurnNote").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
-        $("#idNote").removeClass("clicked")
-        $("#idTurnSphere").attr("src","assets/icons/cerchio_annotazione_OFF.png");
-        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
-      }
-      
-    });
-    $("#idTurnNote").click(() => {
-      $("#selectAnnType").show();
-      $("#idTurnNote").addClass("clicked")
-      $("#sphere").on("click",() => {
+        $("#selectAnnType").show();
+
+
+
+        $("#sphere").on("click",() => {
           if (
             $("#idTurnSphere").attr("src") ==
             "assets/icons/cerchio_annotazione_OFF.png"
@@ -288,16 +289,34 @@ UI.buildLeftBar = (logged) => {
               "assets/icons/cerchio_annotazione_OFF.png"
             );
           }
-        }
-      );
+        });
   
-      $("#free").on("click", () => {
-        if ($("#idTurnAreal").attr("src") == "assets/icons/Aton_areale_OFF.png") {
-          $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_ON.png");
-        } else {
-          $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
-        }
-      });
+        $("#free").on("click", () => {
+          if ($("#idTurnAreal").attr("src") == "assets/icons/Aton_areale_OFF.png") {
+            $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_ON.png");
+          } else {
+            $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
+          }
+        });
+
+
+
+      } else {
+        $(".toggleNote").removeClass("clicked")
+        $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+        $("#selectAnnType").hide();
+      }
+    });
+    $(document).click(function (e) {
+      if($(".toggleNote").hasClass("clicked") && !$(e.target).hasClass("toggleNote") && !$(e.target).hasClass("toggleNoteImg")){
+        console.log(e.target, $(".toggleNote")[0])
+        console.log()
+        $("#selectAnnType").hide();
+        $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+        $(".toggleNote").removeClass("clicked")
+        $("#idTurnSphere").attr("src","assets/icons/cerchio_annotazione_OFF.png");
+        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
+      }
       
     });
 
@@ -305,6 +324,7 @@ UI.buildLeftBar = (logged) => {
 
   }
 }
+
 
 UI.buildPublic = () => {
   // Clear
@@ -610,7 +630,7 @@ UI.buildSelectContainer=()=>{
     let title=APP.cats[i]
     let tmpTitle=title.split(" ")
     tmpTitle=tmpTitle[0]
-    htmlNotes+="<li id=id"+tmpTitle+"><button id=id"+tmpTitle+"Action>"+title+"<div class='dot' style='background-color:"+colors[i]+";'/></button></li>"
+    htmlNotes+="<li class="+tmpTitle+"><button class="+tmpTitle+"Action>"+title+"<div class='dot' style='background-color:"+colors[i]+";'/></button></li>"
     
     htmlNotes += "<hr class='selectHr'/>";
   }
@@ -621,14 +641,14 @@ UI.buildSelectContainer=()=>{
       
       $(this).next(".dropdown").slideToggle();
       
-      if(!$(".dropdown-toggle").hasClass("open"))
+      if(!$(".dropdown-toggle").hasClass("openDropdownToggle"))
         {
-          $(".dropdown-toggle").addClass("open")
+          $(".dropdown-toggle").addClass("openDropdownToggle")
           $("#idSelectArrow").attr("src", "assets/upArrow.png");
         }
         else{
           $("#idSelectArrow").attr("src", "assets/downArrow.png")
-          $(".dropdown-toggle").removeClass("open")
+          $(".dropdown-toggle").removeClass("openDropdownToggle")
           
         }
       
@@ -638,8 +658,8 @@ UI.buildSelectContainer=()=>{
         let title=APP.cats[i]
         let tmpTitle=title.split(" ")
         tmpTitle=tmpTitle[0]
-        $("#id"+tmpTitle+"Action").click(()=>{
-          $("#idDropdownToggle").html(
+        $("."+tmpTitle+"Action").click(()=>{
+          $(".dropdown-toggle").html(
             title+"<img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
           );
           $(".selectContainer").css("background-color", colors[i]);
@@ -655,16 +675,16 @@ UI.buildSelectContainer=()=>{
       ) {
         //{ $('.dropdown').hide(); }
         $(".dropdown").slideUp();
-        if(!$(".dropdown-toggle").hasClass("open"))
+        if(!$(".dropdown-toggle").hasClass("openDropdownToggle"))
         {
-          $(".dropdown-toggle").addClass("open")
+          $(".dropdown-toggle").addClass("openDropdownToggle")
           $("#idSelectArrow").attr("src", "assets/upArrow.png");
         }
         
       }
     });
   });
-  $("#idSelect").html(htmlNotes);
+  $(".filterContainer").html(htmlNotes);
 }
 
 UI.toggleSemPanel = (b) => {
