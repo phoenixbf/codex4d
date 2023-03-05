@@ -284,7 +284,8 @@ button {
   /* padding-right: 1em; */
   position: absolute;
   
-  right: -20em;
+  padding-right: 1em;
+  right: 0;
 }
 .login:hover {
   color: rgba(224, 192, 129, 1);
@@ -741,10 +742,10 @@ ul.dropdown li button {
 }
 
 .layerSelector {
+  align-items: center;
+  display: flex;
   padding-top: 2em;
-  /* position: absolute;
-  display: block;
-  left: -5px; */
+  flex-direction: column;
 }
 
 .layer {
@@ -752,6 +753,7 @@ ul.dropdown li button {
   width: 34.14px;
 }
 .layerButton {
+  padding: 0;
   background-color: transparent;
   display: flex;
   border: none;
@@ -761,22 +763,16 @@ ul.dropdown li button {
 }
 .pause {
   background-color: transparent;
-  border: none;
+  padding-left: 0.25em;
+  padding-top: 1em;
   width: 18px;
-  height: 18px;
-  display: flex;
-  position: relative;
-  top: 10px;
 }
 .play {
   background-color: transparent;
-  border: none;
+  padding-left: 0.25em;
+  padding-top: 1em;
   width: 18px;
-  height: 18px;
-  display: flex;
-  position: relative;
-  top: -8px;
-  left: 18px;
+  
 }
 .imgPause {
   width: 18px;
@@ -1155,21 +1151,25 @@ ul.dropdown li button {
 
 @-webkit-keyframes slideIn {
   from {
+    transform: scale(0.9);
     -webkit-transform: translateY(-80%);
     transform: translateY(-80%);
   }
   to {
     -webkit-transform: translateY(0%);
     transform: translateY(0%);
+    scale:0.9
   }
 }
 
 @keyframes slideIn {
   from {
     transform: translateY(-80%);
+    scale:0.9
   }
   to {
     transform: translateY(0%);
+    scale:0.9
   }
 }
 
@@ -1181,7 +1181,7 @@ ul.dropdown li button {
   background: rgb(110, 110, 110);
   width: 5em;
   opacity: 0.7;
-  
+  transform: scale(0.9);
   border-radius: 10px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
   display: none;

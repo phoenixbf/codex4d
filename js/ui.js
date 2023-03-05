@@ -163,7 +163,6 @@ UI.buildLeftBar = (logged) => {
     "<button id='idHelp' class='toolbarButton toggleHelp' style='' type='button'> <img id='idTurnHelp'  class='toolbarIcon toggleHelpImg' src='assets/icons/icon_help.png' /> </button>";
   htmlLeft += "</div>";
   $("#idLeftToolbar").html(htmlLeft);
-  console.log($(".filterContainer"))
 
 
 
@@ -201,7 +200,6 @@ UI.buildLeftBar = (logged) => {
       $(".clicked").removeClass("clicked")
       $(".toggleAnnotation").addClass("clicked")
       APP.goToMode(APP.STATE_NAV)
-      console.log("riclicco")
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
@@ -326,6 +324,7 @@ UI.buildLeftBar = (logged) => {
 }
 
 
+
 UI.buildPublic = () => {
   // Clear
   $("#idTopToolbar").html("");
@@ -388,6 +387,12 @@ UI.buildPublic = () => {
   });
 
   $("#idBottomToolbar").html(htmlBottom);
+  UI.buildLens()
+  
+  
+};
+UI.buildLens=()=>{
+
 
   // all the tools to manage the lens, width and depth:
   let htmlView = "";
@@ -400,14 +405,8 @@ UI.buildPublic = () => {
     "<button class='layerButton' id='idIr2'><img id='idImgLayer3' class='layer' src='assets/layer.png' alt='layer' /></button>";
   htmlView +=
     "<button class='layerButton' id='idIr3'><img id='idImgLayer4' class='layer' src='assets/layer.png' alt='layer' /></button>";
-  htmlView += "<button class='pause' id='idPauseButton'>";
-  htmlView +=
-    "<img class='imgPause' id='idImgPause' src='assets/icons/Pausa_OFF.png'>";
-  htmlView += "</button>";
-  htmlView += " <button class='play' id='idPlayButton'>";
-  htmlView +=
-    "<img class='imgPlay' id='idImgPlay' src='assets/icons/Play_OFF.png'>";
-  htmlView += "</button>";
+  
+  htmlView += "<img src='assets/icons/Play_OFF.png' class='playPause play'>"
   htmlView += "</div>";
 
   //populating the #idViewControl div :
@@ -441,13 +440,12 @@ UI.buildPublic = () => {
         "%, transparent 100%)"
     );
   });
-  $("#idZoom").on("click",
-  () => {
-if ($("#idZoom").attr("src") == "assets/icons/Zoom_OFF.png"){
-  $("#idZoom").attr("src", "assets/icons/Zoom_ON.png")
-} else {
-  $("#idZoom").attr("src", "assets/icons/Zoom_OFF.png")
-}
+  $("#idZoom").on("click",() => {
+    if ($("#idZoom").attr("src") == "assets/icons/Zoom_OFF.png"){
+      $("#idZoom").attr("src", "assets/icons/Zoom_ON.png")
+    } else {
+      $("#idZoom").attr("src", "assets/icons/Zoom_OFF.png")
+    }
   })
 
   // hovering actions on the layer selectors:
@@ -464,7 +462,7 @@ if ($("#idZoom").attr("src") == "assets/icons/Zoom_OFF.png"){
     UI.setLayer(APP.LAYER_IR3);
   });
 
-  function loop() {
+  /*function loop() {
     setTimeout(() => {
       $("#idImgLayer2").attr("src", "assets/active_layer.png");
       $("#idImgLayer1").attr("src", "assets/layer.png");
@@ -480,27 +478,41 @@ if ($("#idZoom").attr("src") == "assets/icons/Zoom_OFF.png"){
         }, 500);
       }, 500);
     }, 500);
-  }
-  // click actions for the play/pause buttons:
-  $("#idPauseButton").on("click", () => {
-    if ($("#idImgPause").attr("src") == "assets/icons/Pausa_OFF.png") {
-      $("#idImgPause").attr("src", "assets/icons/Pausa_ON.png");
-      $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
-    }
-  });
-  $("#idPlayButton").on("click", () => {
-    if ($("#idImgPlay").attr("src") == "assets/icons/Play_OFF.png") {
-      $("#idImgPlay").attr("src", "assets/icons/Play_ON.png");
-      $("#idImgPause").attr("src", "assets/icons/Pausa_OFF.png");
-      $("#idImgLayer1").attr("src", "assets/active_layer.png");
-      loop();
-    } else {
-      $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
-    }
-  });
+  }*/
 
-  //ATON.FE.uiAddButtonVR("idTopToolbar");
-};
+  
+  
+  // click actions for the play/pause buttons:
+  $(".playPause").on("click",()=>{
+    if($(".playPause").hasClass("play")){
+      $(".playPause").addClass("pause")
+      $(".playPause").removeClass("play")
+      $(".playPause").attr("src","assets/icons/Pausa_OFF.png")
+      UI.interval=loop();
+    }
+    else{
+      $(".playPause").addClass("play")
+      $(".playPause").removeClass("pause")
+      $(".playPause").attr("src","assets/icons/Play_OFF.png")
+      clearInterval(UI.interval)
+    }
+  })
+
+}
+function loop() {
+  let index = 0;
+  const layers=$(".layer")
+  return setInterval(() => {
+    $(layers).attr("src","assets/layer.png")
+    $(layers[index]).attr("src", "assets/active_layer.png");
+    APP.setLayer(index);
+    index++;
+    if (index === layers.length) {
+      index=0
+    }
+   
+  }, 1000);
+}
 
 
 UI.buildEditor = () => {
@@ -510,8 +522,11 @@ UI.buildEditor = () => {
   $("#idLeftToolbar").html("");
 
 
+  UI.buildLeftBar(true)
   // Note filtering for Editor
   UI.buildSelectContainer()
+   
+
 
   //Initializing Bottom Toolbar for Editor User
   let htmlBottomEditor = "";
@@ -537,85 +552,7 @@ UI.buildEditor = () => {
     }
   });
   $("#idBottomToolbar").html(htmlBottomEditor);
-  // all the tools to manage the lens, width and depth:
-  let htmlViewEditor = "";
-  htmlViewEditor += "<div class='layerSelector'>";
-  htmlViewEditor +=
-    "<button class='layerButton' id='idRgb'><img id='idImgLayer1' class='layer' src='assets/layer.png' alt='layer' /></button>";
-  htmlViewEditor +=
-    "<button class='layerButton' id='idIr1'><img id='idImgLayer2' class='layer' src='assets/layer.png' alt='layer' /></button>";
-  htmlViewEditor +=
-    "<button class='layerButton' id='idIr2'><img id='idImgLayer3' class='layer' src='assets/layer.png' alt='layer' /></button>";
-  htmlViewEditor +=
-    "<button class='layerButton' id='idIr3'><img id='idImgLayer4' class='layer' src='assets/layer.png' alt='layer' /></button>";
-  htmlViewEditor += "<button class='pause' id='idPauseButton'>";
-  htmlViewEditor +=
-    "<img class='imgPause' id='idImgPause' src='assets/icons/Pausa_OFF.png'>";
-  htmlViewEditor += "</button>";
-  htmlViewEditor += " <button class='play' id='idPlayButton'>";
-  htmlViewEditor +=
-    "<img class='imgPlay' id='idImgPlay' src='assets/icons/Play_OFF.png'>";
-  htmlViewEditor += "</button>";
-  htmlViewEditor += "</div>";
-
-  //populating the #idViewControl div :
-  $("#idViewControl").html(htmlViewEditor);
-  // method to track slider progression to expand the lens width:
-  var isFF = true;
-  var addRule = (function (style) {
-    var sheet = document.head.appendChild(style).sheet;
-    return function (selector, css) {
-      if (isFF) {
-        if (sheet.cssRules.length > 0) {
-          sheet.deleteRule(0);
-        }
-
-        try {
-          sheet.insertRule(selector + "{" + css + "}", 0);
-        } catch (ex) {
-          isFF = false;
-        }
-      }
-    };
-  })(document.createElement("style"));
-
-  $("#slider").on("input", function () {
-    $(this).css(
-      "background",
-      "linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) " +
-        this.value +
-        "%, transparent " +
-        this.value +
-        "%, transparent 100%)"
-    );
-  });
-
-  // hovering actions on the layer selectors:
-  $("#idRgb").click(() => {
-    UI.setLayer(APP.LAYER_RGB);
-  });
-  $("#idIr1").click(() => {
-    UI.setLayer(APP.LAYER_IR1);
-  });
-  $("#idIr2").click(() => {
-    UI.setLayer(APP.LAYER_IR2);
-  });
-  $("#idIr3").click(() => {
-    UI.setLayer(APP.LAYER_IR3);
-  });
-
-  // hovering actions for the play/pause buttons:
-  $("#idPauseButton").click(() => {
-    $("#idImgPause").attr("src", "assets/icons/Pausa_ON.png");
-    $("#idImgPlay").attr("src", "assets/icons/Play_OFF.png");
-  });
-  $("#idPlayButton").click(() => {
-    $("#idImgPlay").attr("src", "assets/icons/Play_ON.png");
-    $("#idImgPause").attr("src", "assets/icons/Pausa_OFF.png");
-  });
-
-  //Initializing Left Toolbar for Editor User
-  UI.buildLeftBar(true)
+  UI.buildLens()
 };
 
 UI.buildSelectContainer=()=>{
@@ -684,7 +621,9 @@ UI.buildSelectContainer=()=>{
       }
     });
   });
+
   $(".filterContainer").html(htmlNotes);
+  
 }
 
 UI.toggleSemPanel = (b) => {
@@ -935,5 +874,11 @@ UI.deleteAnnotation = (semid) => {
 
   APP.deleteSemAnnotation(semid);
 };
+UI.reformat=()=>{
+  if(UI.interval){
+    clearInterval(UI.interval)
+  } 
+  $("#idViewControlContainer").hide();
+}
 
 export default UI;

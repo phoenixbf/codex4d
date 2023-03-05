@@ -513,7 +513,7 @@ APP.goToMode=(idMode)=>{
     APP.setLayer(APP.LAYER_RGB)
     APP.setState(idMode)
     if(idMode===APP.STATE_LAYER_VISION){
-        APP.setLayer(APP.LAYER_IR1)
+        APP.setLayer(APP.LAYER_RGB)
     }
 
 }
@@ -582,7 +582,7 @@ APP._attachUI = ()=>{
         APP.setState(APP.STATE_ANN_BASIC);
     });*/
     $("#sphere").click(()=>{
-        goToMode(APP.STATE_ANN_BASIC);
+        APP.goToMode(APP.STATE_ANN_BASIC);
     });
 };
 
@@ -607,6 +607,8 @@ APP.setupEvents = ()=>{
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html("Login");
         APP._attachUI();
+        UI.reformat()
+        
     });
 
     ATON.on("Login",(r)=>{
@@ -614,6 +616,9 @@ APP.setupEvents = ()=>{
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html(r.username);
         APP._attachUI();
+        UI.reformat()
+        
+
     });
 
     ATON.on("Tap",(e)=>{
