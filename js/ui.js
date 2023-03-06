@@ -186,13 +186,14 @@ UI.buildLeftBar = (logged) => {
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
       $(".toggleSizeImg").attr("src", "assets/icons/icon_size_OFF.png");
       $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
+      
       $("#idViewControlContainer").show();
       $(".filterContainer").hide();
     } 
     else {
       $(".toggleLayer").removeClass("clicked")
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
-      $("#idViewControlContainer").hide();
+      UI.stopLens();
     }
   });
   $(".toggleAnnotation").click((e) => {
@@ -207,7 +208,7 @@ UI.buildLeftBar = (logged) => {
       $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
       $(".toggleAnnotationImg").attr("src","assets/icons/icon_annotazioniON.png");
       $(".filterContainer").show();
-      $("#idViewControlContainer").hide();
+      UI.stopLens();
     } else if(!$(e.target).closest(".filterContainer").length) {
       $(".toggleAnnotation").removeClass("clicked")
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
@@ -232,7 +233,7 @@ UI.buildLeftBar = (logged) => {
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
       $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
       $(".filterContainer").hide();
-      $("#idViewControlContainer").hide();
+      UI.stopLens()
     } else {
       $(".toggleSize").removeClass("clicked")
       $(".toggleSizeImg").attr("src", "assets/icons/icon_size_OFF.png");
@@ -248,7 +249,7 @@ UI.buildLeftBar = (logged) => {
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
       $(".filterContainer").hide();
-      $("#idViewControlContainer").hide();
+      UI.stopLens()
     } else {
       $(".toggleHelp").removeClass("clicked")
       $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
@@ -267,7 +268,7 @@ UI.buildLeftBar = (logged) => {
         $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
         $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
         $(".filterContainer").hide();
-        $("#idViewControlContainer").hide();
+        UI.stopLens()
         $("#selectAnnType").show();
 
 
@@ -485,19 +486,29 @@ UI.buildLens=()=>{
   // click actions for the play/pause buttons:
   $(".playPause").on("click",()=>{
     if($(".playPause").hasClass("play")){
-      $(".playPause").addClass("pause")
-      $(".playPause").removeClass("play")
-      $(".playPause").attr("src","assets/icons/Pausa_OFF.png")
-      UI.interval=loop();
+      playInterval()
     }
     else{
-      $(".playPause").addClass("play")
-      $(".playPause").removeClass("pause")
-      $(".playPause").attr("src","assets/icons/Play_OFF.png")
-      clearInterval(UI.interval)
+      pauseInterval()
     }
   })
 
+}
+function playInterval(){
+  $(".playPause").addClass("pause")
+  $(".playPause").removeClass("play")
+  $(".playPause").attr("src","assets/icons/Pausa_OFF.png")
+  UI.interval=loop();
+}
+function pauseInterval(){
+  $(".playPause").addClass("play")
+  $(".playPause").removeClass("pause")
+  $(".playPause").attr("src","assets/icons/Play_OFF.png")
+  if(UI.interval){
+    clearInterval(UI.interval)
+    UI.interval=undefined
+  }
+  
 }
 function loop() {
   let index = 0;
@@ -874,10 +885,8 @@ UI.deleteAnnotation = (semid) => {
 
   APP.deleteSemAnnotation(semid);
 };
-UI.reformat=()=>{
-  if(UI.interval){
-    clearInterval(UI.interval)
-  } 
+UI.stopLens=()=>{
+  pauseInterval()
   $("#idViewControlContainer").hide();
 }
 

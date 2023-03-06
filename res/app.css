@@ -763,15 +763,15 @@ ul.dropdown li button {
 }
 .pause {
   background-color: transparent;
-  padding-left: 0.25em;
+  /* padding-left: 0.25em; */
   padding-top: 1em;
-  width: 18px;
+  width: 1.5em;
 }
 .play {
   background-color: transparent;
-  padding-left: 0.25em;
+  /* padding-left: 0.25em; */
   padding-top: 1em;
-  width: 18px;
+  width: 1.5em;
   
 }
 .imgPause {

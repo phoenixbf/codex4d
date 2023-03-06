@@ -607,7 +607,10 @@ APP.setupEvents = ()=>{
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html("Login");
         APP._attachUI();
-        UI.reformat()
+        UI.stopLens()
+
+        //mostra la pallina di selezione
+        ATON.SUI.showSelector(false);
         
     });
 
@@ -616,7 +619,7 @@ APP.setupEvents = ()=>{
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html(r.username);
         APP._attachUI();
-        UI.reformat()
+        UI.stopLens()
         
 
     });
@@ -836,6 +839,7 @@ APP.setProfileEditor = ()=>{
     //ATON.FE.uiLoadProfile("editor");
     APP.UI.buildEditor();
 
+    //mostra la pallina di selezione
     ATON.SUI.showSelector(true);
 
     //APP._attachUI();
