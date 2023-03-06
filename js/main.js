@@ -512,7 +512,12 @@ APP.goToMode=(idMode)=>{
     ATON.SUI.clearMeasurements();
     APP.setLayer(APP.LAYER_RGB)
     APP.setState(idMode)
-    if(idMode===APP.STATE_LAYER_VISION){
+    ATON.SUI.showSelector(false);
+    if(idMode===APP.STATE_LAYER_VISION ||idMode===APP.STATE_ANN_BASIC ){
+        ATON.SUI.showSelector(true);
+    }
+
+    if(idMode===APP.STATE_LAYER_VISION ){        
         APP.setLayer(APP.LAYER_RGB)
     }
 
@@ -546,7 +551,13 @@ APP._attachUI = ()=>{
     });*/
     $(".toggleLayer").click(()=>{
         
-        APP.goToMode(APP.STATE_LAYER_VISION)
+        if(APP.state!==APP.STATE_LAYER_VISION){
+            APP.goToMode(APP.STATE_LAYER_VISION)
+        }
+        else{
+            APP.goToMode(APP.STATE_NAV)
+        }
+        
         
     });
     $(".toggleHelp").click(()=>{
@@ -610,7 +621,8 @@ APP.setupEvents = ()=>{
         UI.stopLens()
 
         //mostra la pallina di selezione
-        ATON.SUI.showSelector(false);
+        
+        APP.goToMode(APP.STATE_NAV)
         
     });
 
@@ -620,6 +632,7 @@ APP.setupEvents = ()=>{
         $("#idLoginActionText").html(r.username);
         APP._attachUI();
         UI.stopLens()
+        APP.goToMode(APP.STATE_NAV)
         
 
     });
@@ -840,7 +853,7 @@ APP.setProfileEditor = ()=>{
     APP.UI.buildEditor();
 
     //mostra la pallina di selezione
-    ATON.SUI.showSelector(true);
+   /*  ATON.SUI.showSelector(true); */
 
     //APP._attachUI();
     APP.updatePoseGallery(APP.currVolume);

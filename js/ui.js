@@ -210,13 +210,14 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").show();
       UI.stopLens();
     } else if(!$(e.target).closest(".filterContainer").length) {
-      $(".toggleAnnotation").removeClass("clicked")
+     
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
       
       $(".filterContainer").addClass("closeFilterContainer").on("animationend", function() {
         $(this).off("animationend")
         $(".filterContainer").removeClass("closeFilterContainer");
         $(".filterContainer").hide()
+        $(".toggleAnnotation").removeClass("clicked")
       });
       $(".dropdown-toggle").html("Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>");
       $(".selectContainer").css("background-color", "rgb(110, 110, 110)");
