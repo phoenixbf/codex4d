@@ -48,7 +48,10 @@ APP.currLayer = APP.LAYER_RGB
 
 // Categories
 APP.filterCat = undefined;
-
+APP.raggio_min=0.005
+APP.raggio_max=0.10
+APP.raggio_fixed=0.02
+APP.raggio_setted=undefined;
 APP.cats = [
     "Iconologia e Iconografia",
     "Struttura",
@@ -513,13 +516,19 @@ APP.goToMode=(idMode)=>{
     APP.setLayer(APP.LAYER_RGB)
     APP.setState(idMode)
     ATON.SUI.showSelector(false);
+    if(idMode===APP.STATE_ANN_BASIC || idMode===APP.STATE_ANN_FREE){
+        APP.setLensRadius(APP.raggio_fixed);
+    }
     if(idMode===APP.STATE_LAYER_VISION ||idMode===APP.STATE_ANN_BASIC ){
         ATON.SUI.showSelector(true);
     }
 
     if(idMode===APP.STATE_LAYER_VISION ){        
         APP.setLayer(APP.LAYER_RGB)
+        APP.setLensRadius(APP.raggio_setted);
     }
+    
+    
 
 }
 // Attach UI routines
@@ -566,8 +575,16 @@ APP._attachUI = ()=>{
 
     $("#idSliderLens").on("input change",()=>{
         let r = parseFloat( $("#idSliderLens").val() )
-        
-        APP.setLensRadius(r * 0.002);
+        let raggio=r*0.002
+        if(raggio<=APP.raggio_min){
+            raggio=APP.raggio_min;
+        }
+        else if(raggio>=APP.raggio_max){
+            raggio=APP.raggio_max;
+        }
+        APP.setLensRadius(raggio);
+        APP.raggio_setted=raggio
+        console.log("raggio:",raggio)
     });
 
     // Layers
@@ -592,6 +609,9 @@ APP._attachUI = ()=>{
     /*$("#sphere").click(()=>{
         APP.setState(APP.STATE_ANN_BASIC);
     });*/
+    $(".annotation").click(()=>{
+        
+    })
     $("#sphere").click(()=>{
         APP.goToMode(APP.STATE_ANN_BASIC);
     });
