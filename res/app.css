@@ -1174,6 +1174,7 @@ ul.dropdown li button {
 }
 
 .leftToolbarMobile{
+  margin-left: 1em;
   z-index: 110;
   position: absolute;
   display: flex;

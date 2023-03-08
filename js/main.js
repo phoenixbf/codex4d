@@ -51,7 +51,9 @@ APP.filterCat = undefined;
 APP.raggio_min=0.005
 APP.raggio_max=0.10
 APP.raggio_fixed=0.02
-APP.raggio_setted=undefined;
+APP.raggio_setted=0.02
+
+
 APP.cats = [
     "Iconologia e Iconografia",
     "Struttura",
@@ -516,6 +518,7 @@ APP.goToMode=(idMode)=>{
     APP.setLayer(APP.LAYER_RGB)
     APP.setState(idMode)
     ATON.SUI.showSelector(false);
+    console.log("fixed:",APP.raggio_fixed, "setted:",APP.raggio_setted)
     if(idMode===APP.STATE_ANN_BASIC || idMode===APP.STATE_ANN_FREE){
         APP.setLensRadius(APP.raggio_fixed);
     }
@@ -572,19 +575,16 @@ APP._attachUI = ()=>{
     $(".toggleHelp").click(()=>{
         console.log("clicco help")
     })
+    
 
+    function mapRange(value, fromLow, fromHigh, toLow, toHigh) {
+      return (toLow + (toHigh - toLow) * ((value - fromLow) / (fromHigh - fromLow)));
+    }
     $("#idSliderLens").on("input change",()=>{
         let r = parseFloat( $("#idSliderLens").val() )
-        let raggio=r*0.002
-        if(raggio<=APP.raggio_min){
-            raggio=APP.raggio_min;
-        }
-        else if(raggio>=APP.raggio_max){
-            raggio=APP.raggio_max;
-        }
+        let raggio = mapRange(r, 0,100, APP.raggio_min, APP.raggio_max);
         APP.setLensRadius(raggio);
         APP.raggio_setted=raggio
-        console.log("raggio:",raggio)
     });
 
     // Layers
@@ -628,12 +628,12 @@ APP.setupEvents = ()=>{
         APP._attachUI();
 
         ATON.checkAuth((r)=>{
-            APP.setProfileEditor();
-            $("#idLoginActionText").html(r.username);
+            ATON.fireEvent("Login",r)
         }, undefined);
     });
 
     ATON.on("Logout",()=>{
+       
         APP.setProfilePublic();
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html("Login");
@@ -647,6 +647,7 @@ APP.setupEvents = ()=>{
     });
 
     ATON.on("Login",(r)=>{
+        console.log("lololo")
         APP.setProfileEditor();
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html(r.username);
