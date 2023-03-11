@@ -806,24 +806,27 @@ ul.dropdown li button {
 }
 
 .collapsible {
+  margin-right: 1em;
   position: absolute;
   display: flex;
-  width: 47px;
-  height: 47px;
-  background: rgba(217, 217, 217, 0.6);
-  border-radius: 6px;
-  border: none;
+  /* width: 47px; */
+  /* height: 47px; */
+  /* background: rgba(217, 217, 217, 0.6); */
+  background: rgb(110, 110, 110);
+  border-radius: 10px;
+  /* border: none; */
   z-index: 100;
-  margin-left: 30px;
-  right: 0;
-  bottom: 0px;
+  /* margin-left: 30px; */
+  /* right: 0; */
+  left: 7em;
+  bottom: -0.5em;
+  display: flex;
+  justify-content: center;
+
 }
 
 #idArrow {
-  display: flex;
-  position: relative;
-  top: 1em;
-  left: 0.6em;
+  transform: scale(0.5);
 }
 
 
@@ -1353,4 +1356,7 @@ ul.dropdown li button {
     top: -10.5em;
   }
   
+}
+.openBottomBar{
+  bottom: 5em;
 }

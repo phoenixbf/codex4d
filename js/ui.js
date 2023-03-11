@@ -116,19 +116,12 @@ UI.buildLeftBar = (logged) => {
   let listVisible = false; // Variabile che indica se la lista è visibile o meno
   $("#idOpenList").click(() => {
     if (listVisible) {
-      $("#idList").hide(); // Nascondi la lista
-      $(".openClose").attr("src","assets/icons/arrow-down.png") // Cambia il testo del pulsante
-      $(".leftToolbarMobile").removeClass("extend")
-      $(".leftToolbarMobile").addClass("close")
-      $(".leftListMobile").addClass("close")
-      $(".leftToolbarMobile").removeClass("open")
+      UI.closeLeftToolbarMobile()
+      
       
     } else {
-      $("#idList").show(); // Mostra la lista
-      $(".openClose").attr("src","assets/icons/arrow-up.png") // Cambia il testo del pulsante
-      $(".leftToolbarMobile").addClass("extend")
-      $(".leftToolbarMobile").removeClass("close")
-      $(".leftToolbarMobile").addClass("open")
+      UI.openLeftToolbarMobile()
+      
 
     }
     listVisible = !listVisible; // Cambia lo stato della variabile
@@ -325,7 +318,21 @@ UI.buildLeftBar = (logged) => {
   }
 }
 
-
+UI.openLeftToolbarMobile=()=>{
+  $("#idList").show(); // Mostra la lista
+  $(".openClose").attr("src","assets/icons/arrow-up.png") // Cambia il testo del pulsante
+  $(".leftToolbarMobile").addClass("extend")
+  $(".leftToolbarMobile").removeClass("close")
+  $(".leftToolbarMobile").addClass("open")
+}
+UI.closeLeftToolbarMobile=()=>{
+  $("#idList").hide(); // Nascondi la lista
+  $(".openClose").attr("src","assets/icons/arrow-down.png") // Cambia il testo del pulsante
+  $(".leftToolbarMobile").removeClass("extend")
+  $(".leftToolbarMobile").addClass("close")
+  $(".leftListMobile").addClass("close")
+  $(".leftToolbarMobile").removeClass("open")
+}
 
 UI.buildPublic = () => {
   // Clear
@@ -375,16 +382,17 @@ UI.buildPublic = () => {
 
   $("#idCollapsible").off("click");
   $("#idCollapsible").on("click", () => {
-    var initialState = $("#idBottomToolbar").css("height") === "0px";
-    console.log(initialState);
+    var initialState = !$(".collapsible").hasClass("openBottomBar")
     if (initialState) {
       $("#idBottomToolbar").css("height", "100px");
-      $("#idArrow").attr("src", "assets/upArrow.png");
-      $("#idCollapsible").css("bottom", "80px");
+      $("#idArrow").attr("src", "assets/icons/arrow-down.png");
+      /* $("#idCollapsible").css("bottom", "80px"); */
+      $(".collapsible").addClass("openBottomBar")
     } else {
       $("#idBottomToolbar").css("height", "0%");
-      $("#idArrow").attr("src", "assets/downArrow.png");
-      $("#idCollapsible").css("bottom", "0px");
+      $("#idArrow").attr("src", "assets/icons/arrow-up.png");
+      /* $("#idCollapsible").css("bottom", "0px"); */
+      $(".collapsible").removeClass("openBottomBar")
     }
   });
 
@@ -551,16 +559,17 @@ UI.buildEditor = () => {
 
   $("#idCollapsible").off("click");
   $("#idCollapsible").on("click", () => {
-    var initialState = $("#idBottomToolbar").css("height") === "0px";
-    console.log(initialState);
+    var initialState = !$(".collapsible").hasClass("openBottomBar")
     if (initialState) {
       $("#idBottomToolbar").css("height", "100px");
-      $("#idArrow").attr("src", "assets/upArrow.png");
-      $("#idCollapsible").css("bottom", "80px");
+      $("#idArrow").attr("src", "assets/icons/arrow-down.png");
+      /* $("#idCollapsible").css("bottom", "80px"); */
+      $(".collapsible").addClass("openBottomBar")
     } else {
       $("#idBottomToolbar").css("height", "0%");
-      $("#idArrow").attr("src", "assets/downArrow.png");
-      $("#idCollapsible").css("bottom", "0px");
+      $("#idArrow").attr("src", "assets/icons/arrow-up.png");
+      /* $("#idCollapsible").css("bottom", "0px"); */
+      $(".collapsible").removeClass("openBottomBar")
     }
   });
   $("#idBottomToolbar").html(htmlBottomEditor);
