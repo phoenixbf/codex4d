@@ -612,9 +612,9 @@ APP._attachUI = ()=>{
     $(".annotation").click(()=>{
         
     })
-    $("#sphere").click(()=>{
+    /* $(".sphereNote").click(()=>{
         APP.goToMode(APP.STATE_ANN_BASIC);
-    });
+    }); */
 };
 
 // Events

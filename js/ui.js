@@ -101,8 +101,12 @@ UI.buildLeftBar = (logged) => {
     "<button id='idSize' class='toolbarButton toggleSize' type='button'> <img id='idTurnSize' class='toolbarIcon toggleSizeImg' src='assets/icons/icon_size_OFF.png' /> </button>";
   
   if(logged){
-    htmlLeft+="<button id='idNote' class='toolbarButton toggleNote' type='button'><img id='idTurnNote' class='toolbarIcon toggleNoteImg'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button>";
-    
+    htmlLeft+="<button id='idNote' class='toolbarButton toggleNote' type='button'><img id='idTurnNote' class='toolbarIcon toggleNoteImg'src='assets/icons/Icona_Aton_Edit_OFF.png' />"+
+    '<div id="selectAnnType" class="sidebar left selectAnnType">'+
+      "<div id='sphere' class='sphereNote noting'><img id='idTurnSphere ' class='toolbarIcon sphereNoteImg' src='assets/icons/cerchio_annotazione_OFF.png'></div>"+
+      "<div id='free' class='freeNote noting'><img id='idTurnAreal' class='toolbarIcon freeNoteImg' src='assets/icons/Aton_areale_OFF.png'/></div>"+
+    "</div>"+ 
+  "</button>";
   }
   
 
@@ -146,7 +150,12 @@ UI.buildLeftBar = (logged) => {
     "<button id='idSize' class='toolbarButton toggleSize' type='button'> <img id='idTurnSize' class='toolbarIcon toggleSizeImg' src='assets/icons/icon_size_OFF.png' /> </button>";
   
   if(logged){
-    htmlLeft+="<button id='idNote' class='toolbarButton toggleNote' type='button'><img id='idTurnNote' class='toolbarIcon toggleNoteImg'src='assets/icons/Icona_Aton_Edit_OFF.png' /> </button>";
+    htmlLeft+="<button id='idNote' class='toolbarButton toggleNote' type='button'><img id='idTurnNote' class='toolbarIcon toggleNoteImg'src='assets/icons/Icona_Aton_Edit_OFF.png' />"+
+    '<div id="selectAnnType" class="sidebar left selectAnnType">'+
+      "<div id='sphere' class='sphereNote noting'><img id='idTurnSphere ' class='toolbarIcon sphereNoteImg' src='assets/icons/cerchio_annotazione_OFF.png'></div>"+
+      "<div id='free' class='freeNote noting'><img id='idTurnAreal' class='toolbarIcon freeNoteImg' src='assets/icons/Aton_areale_OFF.png'/></div>"+
+    "</div>"+ 
+  "</button>";
     
   }
   
@@ -182,6 +191,8 @@ UI.buildLeftBar = (logged) => {
       
       $("#idViewControlContainer").show();
       $(".filterContainer").hide();
+      $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+      $(".selectAnnType").removeClass("visible")
     } 
     else {
       $(".toggleLayer").removeClass("clicked")
@@ -201,6 +212,8 @@ UI.buildLeftBar = (logged) => {
       $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
       $(".toggleAnnotationImg").attr("src","assets/icons/icon_annotazioniON.png");
       $(".filterContainer").show();
+      $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+      $(".selectAnnType").removeClass("visible")
       UI.stopLens();
     } else if(!$(e.target).closest(".filterContainer").length) {
      
@@ -227,6 +240,8 @@ UI.buildLeftBar = (logged) => {
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
       $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
       $(".filterContainer").hide();
+      $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+      $(".selectAnnType").removeClass("visible")
       UI.stopLens()
     } else {
       $(".toggleSize").removeClass("clicked")
@@ -243,6 +258,8 @@ UI.buildLeftBar = (logged) => {
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
       $(".filterContainer").hide();
+      $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+      $(".selectAnnType").removeClass("visible")
       UI.stopLens()
     } else {
       $(".toggleHelp").removeClass("clicked")
@@ -251,7 +268,7 @@ UI.buildLeftBar = (logged) => {
   });
   if(logged){
 
-    $(".toggleNote").on("click", () => {
+    $(".toggleNote").on("click", (e) => {
       if (!$(".toggleNote").hasClass("clicked") ) {
         $(".clicked").removeClass("clicked")
         $(".toggleNote").addClass("clicked")
@@ -263,58 +280,62 @@ UI.buildLeftBar = (logged) => {
         $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
         $(".filterContainer").hide();
         UI.stopLens()
-        $("#selectAnnType").show();
-
-
-
-        $("#sphere").on("click",() => {
-          if (
-            $("#idTurnSphere").attr("src") ==
-            "assets/icons/cerchio_annotazione_OFF.png"
-          ) {
-            $("#idTurnSphere").attr(
-              "src",
-              "assets/icons/cerchio_annotazione_ON.png"
-            );
-          } else {
-            $("#idTurnSphere").attr(
-              "src",
-              "assets/icons/cerchio_annotazione_OFF.png"
-            );
-          }
-        });
-  
-        $("#free").on("click", () => {
-          if ($("#idTurnAreal").attr("src") == "assets/icons/Aton_areale_OFF.png") {
-            $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_ON.png");
-          } else {
-            $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
-          }
-        });
-
-
-
-      } else {
-        $(".toggleNote").removeClass("clicked")
-        $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
-        $("#selectAnnType").hide();
+        $(".selectAnnType").addClass("visible")
+        /* $("#selectAnnType").show(); */
       }
-    });
-    $(document).click(function (e) {
-      if($(".toggleNote").hasClass("clicked") && !$(e.target).hasClass("toggleNote") && !$(e.target).hasClass("toggleNoteImg")){
-        console.log(e.target, $(".toggleNote")[0])
-        console.log()
-        $("#selectAnnType").hide();
-        $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+       else if($(".toggleNote").hasClass("clicked")&&!$(e.target).closest(".noting").length) {
+        APP.goToMode(APP.STATE_NAV);
+        if($(".sphereNoteImg").hasClass("clicked")){
+          $(".sphereNoteImg").removeClass("clicked")
+          $(".sphereNoteImg").attr("src", "assets/icons/cerchio_annotazione_OFF.png");
+        }
+         if($(".freeNoteImg").hasClass("clicked")){
+          $(".freeNoteImg").removeClass("clicked")
+          $(".freeNoteImg").attr("src", "assets/icons/Aton_areale_OFF.png");
+        }
         $(".toggleNote").removeClass("clicked")
-        $("#idTurnSphere").attr("src","assets/icons/cerchio_annotazione_OFF.png");
-        $("#idTurnAreal").attr("src", "assets/icons/Aton_areale_OFF.png");
+        $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+        $(".selectAnnType").removeClass("visible")
       }
       
     });
 
 
 
+    $(".sphereNoteImg").on("click",() => {
+      
+      if($(".freeNoteImg").hasClass("clicked")){
+        $(".freeNoteImg").removeClass("clicked")
+        $(".freeNoteImg").attr("src", "assets/icons/Aton_areale_OFF.png");
+      }
+      if($(".sphereNoteImg").hasClass("clicked")){
+        $(".sphereNoteImg").attr("src","assets/icons/cerchio_annotazione_OFF.png")
+        $(".sphereNoteImg").removeClass("clicked")
+        APP.goToMode(APP.STATE_NAV);
+      }
+      else{
+        $(".sphereNoteImg").attr("src","assets/icons/cerchio_annotazione_ON.png")
+        $(".sphereNoteImg").addClass("clicked")
+        APP.goToMode(APP.STATE_ANN_BASIC);
+      }
+    });
+
+    $(".freeNoteImg").on("click", () => {
+      if($(".sphereNoteImg").hasClass("clicked")){
+        $(".sphereNoteImg").removeClass("clicked")
+        $(".sphereNoteImg").attr("src", "assets/icons/cerchio_annotazione_OFF.png");
+      }
+      if($(".freeNoteImg").hasClass("clicked")){
+        $(".freeNoteImg").removeClass("clicked")
+        $(".freeNoteImg").attr("src", "assets/icons/Aton_areale_OFF.png");
+        APP.goToMode(APP.STATE_NAV);
+      }
+      else{
+        $(".freeNoteImg").attr("src","assets/icons/Aton_areale_ON.png")
+        $(".freeNoteImg").addClass("clicked")
+        APP.goToMode(APP.STATE_ANN_FREE);
+      }
+    });
   }
 }
 
@@ -472,26 +493,6 @@ UI.buildLens=()=>{
     UI.setLayer(APP.LAYER_IR3);
   });
 
-  /*function loop() {
-    setTimeout(() => {
-      $("#idImgLayer2").attr("src", "assets/active_layer.png");
-      $("#idImgLayer1").attr("src", "assets/layer.png");
-      setTimeout(() => {
-        $("#idImgLayer2").attr("src", "assets/layer.png");
-        $("#idImgLayer3").attr("src", "assets/active_layer.png");
-        setTimeout(() => {
-          $("#idImgLayer3").attr("src", "assets/layer.png");
-          $("#idImgLayer4").attr("src", "assets/active_layer.png");
-          setTimeout(() => {
-            $("#idImgLayer4").attr("src", "assets/layer.png");
-          }, 500);
-        }, 500);
-      }, 500);
-    }, 500);
-  }*/
-
-  
-  
   // click actions for the play/pause buttons:
   $(".playPause").on("click",()=>{
     if($(".playPause").hasClass("play")){
@@ -785,6 +786,7 @@ UI.addAnnotation = (semtype) => {
   htmlcode +=
     "<h3 class='formTitle'> Titolo</h3> <input id='idTitle' type='text' class='titleInput' ></input>";
   htmlcode += "</div>";
+  htmlcode +="<div class='first_row'>"
   htmlcode += "<div class='categoryContainer'>";
   htmlcode +=
     "<h3 class='formTitle'> Categoria</h3> <select id='catSelect' type='select' class='categorySelect'>";
@@ -803,22 +805,24 @@ UI.addAnnotation = (semtype) => {
   })
   htmlcode += "</select>";
   htmlcode += "</div>";
+  htmlcode+= '</div>';
   htmlcode += "<div class='descriptionContainer'>";
   htmlcode +=
     "<h3 class='formTitle' >Descrizione</h3> <textarea class='descriptionInput' type='text' id='idDescription' max-length='500' ></textarea>";
   htmlcode += "</div>";
-  htmlcode += "<div style='position:relative; top:5px'>";
+  htmlcode += "<div class='third_row'>";
   
   htmlcode += "<div class='fileContainer'>";
-  htmlcode += "<label for='files' class='formTitle'>File Multimediali </label>";
+  htmlcode += "<span for='files' class='formTitle'>File Multimediali </span>";
   htmlcode += "<input class='uploadLink' id='files' type='text'/>"; 
   htmlcode += "</div>";
 
 
   htmlcode += "<div class='authorContainer'>";
-  htmlcode += "<h3 class='formTitle'>Autore</h3> <input class='authorInput' type='text' ></input>";
+  htmlcode += "<span class='formTitle'>Autore</span> <input class='authorInput' type='text' ></input>";
   htmlcode += "</div>";
-
+  htmlcode += "</div>";
+  htmlcode += "<div class='fourth_row'>";
   htmlcode += "<button id='idDelete' class='cancelButton'>Annulla</button>";
   htmlcode += "<button id='idOk' class='okButton' >Conferma</button>";
   htmlcode += "</div>";
@@ -845,6 +849,13 @@ UI.addAnnotation = (semtype) => {
   $("#idDelete").click(() => {
     $("#idForm").hide();
     ATON._bPauseQuery = false;
+    if($(".sphereNoteImg").hasClass("clicked")){
+      APP.goToMode(APP.STATE_ANN_BASIC)
+    }
+    else if($(".freeNoteImg").hasClass("clicked")){
+      APP.goToMode(APP.STATE_ANN_FREE)
+    }
+
   });
 
   $("#idOk").click(() => {
