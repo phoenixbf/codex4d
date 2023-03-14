@@ -49,7 +49,7 @@ APP.currLayer = APP.LAYER_RGB
 // Categories
 APP.filterCat = undefined;
 APP.raggio_min=0.005
-APP.raggio_max=0.10
+APP.raggio_max=0.2
 APP.raggio_fixed=0.02
 APP.raggio_setted=0.02
 

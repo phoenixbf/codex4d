@@ -729,7 +729,8 @@ ul.dropdown li button {
   position: absolute;
   width: 80%;
   height: 0px;
-  left: 60px;
+  left: 7em;
+
   top: -16px;
   background: #e0c081;
   border: 1px solid #e0c081;
