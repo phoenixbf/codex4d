@@ -581,10 +581,13 @@ UI.buildSelectContainer=()=>{
   const colors=["#BF2517B2","#2F4689","#D9A441","#E7F0F9","#422C20","#FF7F11","#79b857"]
   
   let htmlNotes="<div class='selectContainer'>";
+  htmlNotes +="<div class=gray-pill>"
   htmlNotes += "<p class='filterText'> Note </p>";
   htmlNotes +=
     "<button class='dropdown-toggle' id='idDropdownToggle'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
+  
   htmlNotes += "<ul class='dropdown'>";
+  
   for(let i=0;i<APP.cats.length;i++){
     let title=APP.cats[i]
     let tmpTitle=title.split(" ")
@@ -595,6 +598,7 @@ UI.buildSelectContainer=()=>{
   }
   htmlNotes += "</ul>";
   htmlNotes += "</div>";
+  htmlNotes+='</div>'
   $(function () {
     $(".dropdown-toggle").click(function () {
       

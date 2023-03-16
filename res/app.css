@@ -186,7 +186,7 @@ button {
   height: 100px;
   background: transparent;
   text-align: center; */
-  position: relative;
+  position: absolute;
   left: 5em;
   background: transparent;
 }
@@ -221,18 +221,19 @@ button {
 .leftToolbar {
   position: absolute;
   display: flex!important;
-  top: 10%;
+  top: 19%;
   background: rgb(110, 110, 110);
-  /* margin-left: 2em; */
+  margin-left: 2em;
   opacity: 0.7;
   border-radius: 40px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
-  transform: scale(0.9);
-  width: 5em;
+  /* transform: scale(0.9); */
+  width: 3em;
   justify-content: center;
 }
 .leftToolbar button{
-  width: 4em;
+  /* align-self: center; */
+  width: 3em;
 }
 .selectContainer button{
   width: 15em;
@@ -250,7 +251,8 @@ button {
 }
 
 .toolbarButton {
-  padding: 0em 1em 0em 1em;
+  align-self: center;
+  /* padding: 0em 1em 0em 1em; */
   border-top: 3px solid #e0c081;
   /* width: fit-content; */
   background: transparent;
@@ -376,8 +378,8 @@ button {
 }
 
 .filterContainer {
-  position: relative;
-  left: 2em;
+  position: absolute;
+  left: 4em;
   animation: slideInLeftRight 0.5s forwards;
 }
 .closeFilterContainer{
@@ -579,10 +581,10 @@ ul.dropdown li button {
 
 .filterText {
   font-size: 20px;
-  -webkit-text-stroke: 0.00001px black;
-  align-self: center;
-  width: 36px;
-  height: 16px;
+  /* -webkit-text-stroke: 0.00001px black; */
+  /* align-self: center; */
+  /* width: 36px; */
+  /* height: 16px; */
   left: 8.5%;
   top: 3%;
   font-family: "Comfortaa";
@@ -1202,11 +1204,12 @@ ul.dropdown li button {
   top: 0%;
 }
 .leftList{
+  /* width: 3em; */
   padding: 1em;
   display: flex;
   list-style-type: none;
   flex-direction: column;
-  padding-left: 1.2em;
+  
 }
 .leftListMobile{
   
@@ -1322,9 +1325,10 @@ ul.dropdown li button {
   transform: scale(0.5);
 }
 .leftToolbarMobile .toggleAnnotation{
-  padding-left: 1.4em;
+  /* padding-left: 1.4rem; */
 }
 .toggleAnnotation{
+  justify-content: center;
   display: flex;
   
 }
@@ -1332,7 +1336,7 @@ ul.dropdown li button {
   align-self: center;
 }
 .toggleHelp{
-  margin-top: 10em;
+  margin-top: 6em;
   /*border: none;*/
   /*border-top: 3px solid #e0c081;*/
 }
@@ -1388,6 +1392,14 @@ ul.dropdown li button {
     z-index: 110;
     opacity: initial;
   }
+  .filterContainer {
+    position: absolute;
+    left: 6em;
+    animation: slideInLeftRight 0.5s forwards;
+  }
+  .sidebar.left {
+    left: 7em;
+  }
 }
 
 @media only screen and (max-height:600px) {
@@ -1428,11 +1440,17 @@ ul.dropdown li button {
 }
 
 .toggleNote{
-  padding-left: 3em;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .visible{
   visibility: visible;
+}
+.gray-pill{
+  display: flex;
+  align-items: center;
+  width: 80%;
+  justify-content: space-around;
+  background-color: #8080809e;
 }
