@@ -221,6 +221,7 @@ APP.postPoseLoaded = ()=>{
     APP.semVisitor();
 
     APP.setLayer(APP.LAYER_RGB);
+    APP.filterAnnotationsByCat(undefined);
 };
 
 APP.setState = (s)=>{
@@ -1008,7 +1009,7 @@ APP.getCatName = (i)=>{
 
 APP.filterAnnotationsByCat = (cat)=>{
     let pDB = ATON.SceneHub.currData.sem;
-
+    console.log("categories:",cat)
     if (cat === undefined) cat = APP.filterCat;
     else APP.filterCat = cat;
 
@@ -1016,11 +1017,16 @@ APP.filterAnnotationsByCat = (cat)=>{
         if (s!==ATON.ROOT_NID){
             let S = ATON.semnodes[s];
             let e = pDB[s];
-            
-            if (e !== undefined){
-                if (e.cat !== cat) S.hide();
-                else S.show();
-            }
+            if(!cat.includes(e.cat)){S.hide()}
+            else{S.show()}
+            /*if (e !== undefined){
+                
+                cat.forEach((el)=>{
+                    if (e.cat !== el) S.hide();
+                    else S.show();
+                })
+                
+            }*/
         }
     }
 };

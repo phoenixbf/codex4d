@@ -434,15 +434,18 @@ div#nav a {
 }
 /**** ****/
 ul.dropdown {
-  padding-bottom: 0.5em;
+  padding: 0;
+  /* padding-bottom: 0.5em; */
   display: none;
   position: absolute;
   top: 95%;
-  height: 270px;
+  /* height: 270px; */
   margin-top: 5px;
   width: 265px;
   background: #c7c7c7;
   border-radius: 24px;
+  text-align: start;
+  padding: 0em 0em 1em 1em;
 }
 ul.dropdown li {
   position: relative;
@@ -472,6 +475,56 @@ ul.dropdown li button {
   align-items: center;
   border: none;
 }
+input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 2em!important;
+  border: 2px solid #ccc;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  order: 1;
+}
+
+input[type=checkbox].dot0:checked {
+  border-color: #bf2517b2;
+  background-color: #BF2517B2!important;
+}
+input[type=checkbox].dot1:checked {
+  border-color: #2F4689;
+  background-color: #2F4689!important;
+}
+input[type=checkbox].dot2:checked {
+  border-color: #D9A441;
+  background-color: #D9A441!important;
+}
+input[type=checkbox].dot3:checked {
+  border-color: #E7F0F9;
+  background-color: #E7F0F9!important;
+}
+input[type=checkbox].dot4:checked {
+  border-color: #422C20;
+  background-color: #422C20!important;
+}
+input[type=checkbox].dot5:checked {
+  border-color: #FF7F11;
+  background-color: #FF7F11!important;
+}
+input[type=checkbox].dot6:checked {
+  border-color: #79b857;
+  background-color: #79b857!important;
+}
+label {
+  border-bottom: 1px solid;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  margin: 0em 1em 0em 1em;
+
+}
+
 
 .arrow {
   width: 14px;
@@ -491,66 +544,7 @@ ul.dropdown li button {
   left: 80%;
   top: 5px;
 }
-.dot2 {
-  width: 13px;
-  height: 13px;
-  background-color: #ff7f11;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  left: 80%;
-  top: 2.5px;
-}
-.dot3 {
-  width: 13px;
-  height: 13px;
-  background-color: #422c20;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  left: 80%;
-  top: 2.5px;
-}
-.dot4 {
-  width: 13px;
-  height: 13px;
-  background-color: #2f4689;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  left: 80%;
-  top: 5px;
-}
-.dot5 {
-  width: 13px;
-  height: 13px;
-  background-color: #d9a441;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  left: 80%;
-  top: 5px;
-}
-.dot6 {
-  width: 13px;
-  height: 13px;
-  background-color: #e7f0f9;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  left: 80%;
-  top: 5px;
-}
-.dot7 {
-  width: 13px;
-  height: 13px;
-  background-color: #79b857;
-  border-radius: 50%;
-  display: inline-block;
-  position: absolute;
-  left: 80%;
-  top: 5px;
-}
+
 @media screen and (max-width: 600px) {
   
   

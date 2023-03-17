@@ -60,6 +60,7 @@ UI.init = () => {
     let v = parseFloat($("#idIRcontrol").val());
     APP.setIRvalue(v);
   });
+  
 };
 
 UI.setLayer = (layer) => {
@@ -576,7 +577,7 @@ UI.buildEditor = () => {
   $("#idBottomToolbar").html(htmlBottomEditor);
   UI.buildLens()
 };
-
+/*
 UI.buildSelectContainer=()=>{
   const colors=["#BF2517B2","#2F4689","#D9A441","#E7F0F9","#422C20","#FF7F11","#79b857"]
   
@@ -649,6 +650,129 @@ UI.buildSelectContainer=()=>{
   });
 
   $(".filterContainer").html(htmlNotes);
+  
+}
+*/
+UI.buildSelectContainer=()=>{
+  const colors=["#BF2517B2","#2F4689","#D9A441","#E7F0F9","#422C20","#FF7F11","#79b857"]
+  
+  let htmlNotes="<div class='selectContainer'>";
+  htmlNotes +="<div class=gray-pill>"
+  htmlNotes += "<p class='filterText'> Note </p>";
+  htmlNotes +=
+    "<button class='dropdown-toggle' id='idDropdownToggle'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
+  let tutteLeCategorie="Seleziona tutte le categorie"
+  htmlNotes += "<ul class='dropdown'>";
+  htmlNotes+="<li class=tutte-categorie><label><input type='checkbox' class='seleziona-tutte-categorieCheckbox check'>"+tutteLeCategorie+"</label></li>"
+  for(let i=0;i<APP.cats.length;i++){
+    let title=APP.cats[i]
+    let tmpTitle=title.split(" ")
+    tmpTitle=tmpTitle[0]
+    htmlNotes+="<li class="+tmpTitle+"><label><input type='checkbox' class='"+tmpTitle+"Checkbox check tocheck dot"+i+"' style='border:3px solid "+colors[i]+";'>"+title+"</label></li>"
+    
+  }
+  htmlNotes += "</ul>";
+  htmlNotes += "</div>";
+  htmlNotes+='</div>'
+  $(function () {
+    $(".dropdown-toggle").click(function () {
+      
+      $(this).next(".dropdown").slideToggle();
+      
+      if(!$(".dropdown-toggle").hasClass("openDropdownToggle"))
+        {
+          $(".dropdown-toggle").addClass("openDropdownToggle")
+          $("#idSelectArrow").attr("src", "assets/upArrow.png");
+        }
+        else{
+          $("#idSelectArrow").attr("src", "assets/downArrow.png")
+          $(".dropdown-toggle").removeClass("openDropdownToggle")
+          
+        }
+      
+    });
+    $(document).click(function (e) {
+      for(let i=0;i<APP.cats.length;i++){
+        let title=APP.cats[i]
+        let tmpTitle=title.split(" ")
+        tmpTitle=tmpTitle[0]
+        
+        $(".check").off("change").change(()=>{
+          if(e.target===$(".seleziona-tutte-categorieCheckbox")[0]){
+            if($(".seleziona-tutte-categorieCheckbox")[0].checked){
+              colors.forEach((col,i)=>{
+                $(".dot"+i)[0].checked=true
+              })
+            }
+            else{
+              colors.forEach((col,i)=>{
+                $(".dot"+i)[0].checked=false
+              })
+              
+            }
+          }
+          console.log($(".dropdown input:checked").length)
+          console.log(colors.length)
+          if($(".tocheck:checked").length===colors.length){
+            $(".seleziona-tutte-categorieCheckbox")[0].checked=true
+          }
+          else {
+            $(".seleziona-tutte-categorieCheckbox")[0].checked=false
+          }
+          let selectedCategories=[];
+          $(".dropdown input:checked").each(function() {
+            selectedCategories.push($(this).parent().text().trim());
+          });
+          
+          if(selectedCategories.length==1){
+            $(".dropdown-toggle").html(
+              selectedCategories+"<img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+            );
+          }else if(selectedCategories.length>1){
+            let moreCategories="Più categorie selezionate"
+            let span="<span>"+moreCategories+"</span>"
+            $(".dropdown-toggle").html(
+              span+"<img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+            );
+          }
+           else {
+            $(".dropdown-toggle").html(
+              "Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+            );
+          }
+          let selectedColor = $(".dropdown input:checked").closest("li").find(".dot").css("background-color");
+          $(".selectContainer").css("background-color", selectedColor);
+          
+          APP.filterAnnotationsByCat(selectedCategories);
+
+        })
+      }
+      var target = e.target;
+      if (!$(target).is(".dropdown-toggle") &&
+          !$(target).parents().is(".dropdown-toggle") &&
+          !$(target).is(":checkbox") &&
+          !$(target).parents().is(":checkbox")&&
+          !$(target).is("label")&&
+          !$(target).is(".dropdown")
+        ) 
+      {
+        console.log(target)
+        $(".dropdown").slideUp();
+        if (!$(".dropdown-toggle").hasClass("openDropdownToggle")) {
+          $(".dropdown-toggle").addClass("openDropdownToggle")
+          $("#idSelectArrow").attr("src", "assets/upArrow.png");
+        }
+      }
+    
+      // Esegui la chiusura della dropdown
+      
+    
+    });
+  }); 
+  
+  
+  $(".filterContainer").html(htmlNotes);  
+  
   
 }
 
