@@ -221,7 +221,7 @@ APP.postPoseLoaded = ()=>{
     APP.semVisitor();
 
     APP.setLayer(APP.LAYER_RGB);
-    APP.filterAnnotationsByCat(undefined);
+    
 };
 
 APP.setState = (s)=>{
@@ -251,6 +251,7 @@ APP.loadConfig = (path)=>{
         APP.cdata = data;
 
         ATON.fireEvent("APP_ConfigLoaded");
+        
     });
 };
 
@@ -292,10 +293,11 @@ APP.loadVolumePose = (v,p)=>{
     //ATON.SceneHub.clear();
     ATON.SUI.clearMeasurements();
 
-    ATON.FE.loadSceneID( sid );
+    ATON.FE.loadSceneID( sid )
 
     //APP.loadAndParseSheet();
     APP.updatePoseGallery(v);
+    
 };
 
 APP.updatePoseGallery = (v)=>{
@@ -631,6 +633,7 @@ APP.setupEvents = ()=>{
         ATON.checkAuth((r)=>{
             ATON.fireEvent("Login",r)
         }, undefined);
+        
     });
 
     ATON.on("Logout",()=>{
@@ -1019,14 +1022,6 @@ APP.filterAnnotationsByCat = (cat)=>{
             let e = pDB[s];
             if(!cat.includes(e.cat)){S.hide()}
             else{S.show()}
-            /*if (e !== undefined){
-                
-                cat.forEach((el)=>{
-                    if (e.cat !== el) S.hide();
-                    else S.show();
-                })
-                
-            }*/
         }
     }
 };
@@ -1059,4 +1054,5 @@ APP.semVisitor = ()=>{
 // run
 window.onload = ()=>{
     APP.init();
+    
 };

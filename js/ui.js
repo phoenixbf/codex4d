@@ -46,6 +46,11 @@ const subCategoryMap = {
   "Notazioni Musicali":[
   ]
 };
+UI.selectedCategories=[]
+for (const category in subCategoryMap) {
+  UI.selectedCategories.push(category)
+}
+
 
 UI.init = () => {
   //ATON.FE.uiAddProfile("editor", UI.buildEditor);
@@ -226,7 +231,6 @@ UI.buildLeftBar = (logged) => {
         $(".filterContainer").hide()
         $(".toggleAnnotation").removeClass("clicked")
       });
-      $(".dropdown-toggle").html("Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>");
       $(".selectContainer").css("background-color", "rgb(110, 110, 110)");
     }
   });
@@ -660,7 +664,7 @@ UI.buildSelectContainer=()=>{
   htmlNotes +="<div class=gray-pill>"
   htmlNotes += "<p class='filterText'> Note </p>";
   htmlNotes +=
-    "<button class='dropdown-toggle' id='idDropdownToggle'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
+    "<button class='dropdown-toggle' id='idDropdownToggle'><span class='selectCatText'>Seleziona categoria</span> <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
   let tutteLeCategorie="Seleziona tutte le categorie"
   htmlNotes += "<ul class='dropdown'>";
   htmlNotes+="<li class=tutte-categorie><label><input type='checkbox' class='seleziona-tutte-categorieCheckbox check'>"+tutteLeCategorie+"</label></li>"
@@ -691,6 +695,7 @@ UI.buildSelectContainer=()=>{
         }
       
     });
+    
     $(document).click(function (e) {
       for(let i=0;i<APP.cats.length;i++){
         let title=APP.cats[i]
@@ -719,31 +724,33 @@ UI.buildSelectContainer=()=>{
           else {
             $(".seleziona-tutte-categorieCheckbox")[0].checked=false
           }
-          let selectedCategories=[];
+          UI.selectedCategories=[];
           $(".dropdown input:checked").each(function() {
-            selectedCategories.push($(this).parent().text().trim());
+            UI.selectedCategories.push($(this).parent().text().trim());
           });
           
-          if(selectedCategories.length==1){
-            $(".dropdown-toggle").html(
-              selectedCategories+"<img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+          if(UI.selectedCategories.length===1){
+            $(".selectCatText").html(
+              "<span>"+UI.selectedCategories+"</span>"
             );
-          }else if(selectedCategories.length>1){
+          }else if(UI.selectedCategories.length>1){
             let moreCategories="Più categorie selezionate"
             let span="<span>"+moreCategories+"</span>"
-            $(".dropdown-toggle").html(
-              span+"<img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+            $(".selectCatText").html(
+              span
             );
           }
            else {
-            $(".dropdown-toggle").html(
-              "Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
+            let selectCat="Seleziona categoria"
+            let span="<span>"+selectCat+"</span>"
+             $(".selectCatText").html(
+              span
             );
           }
           let selectedColor = $(".dropdown input:checked").closest("li").find(".dot").css("background-color");
           $(".selectContainer").css("background-color", selectedColor);
           
-          APP.filterAnnotationsByCat(selectedCategories);
+          APP.filterAnnotationsByCat(UI.selectedCategories);
 
         })
       }
@@ -773,7 +780,15 @@ UI.buildSelectContainer=()=>{
   
   $(".filterContainer").html(htmlNotes);  
   
-  
+  let moreCategories="Più categorie selezionate"
+  let span="<span>"+moreCategories+"</span>"
+  $(".selectCatText").html(
+    span
+  );
+  $(".seleziona-tutte-categorieCheckbox")[0].checked=true
+  colors.forEach((col,i)=>{
+    $(".dot"+i)[0].checked=true
+  })
 }
 
 UI.toggleSemPanel = (b) => {
