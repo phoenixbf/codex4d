@@ -46,10 +46,7 @@ const subCategoryMap = {
   "Notazioni Musicali":[
   ]
 };
-UI.selectedCategories=[]
-for (const category in subCategoryMap) {
-  UI.selectedCategories.push(category)
-}
+
 
 
 UI.init = () => {
@@ -222,7 +219,7 @@ UI.buildLeftBar = (logged) => {
       $(".selectAnnType").removeClass("visible")
       UI.stopLens();
     } else if(!$(e.target).closest(".filterContainer").length) {
-     
+      console.log("ma qua non ci arrivo più")
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
       
       $(".filterContainer").addClass("closeFilterContainer").on("animationend", function() {
@@ -257,6 +254,7 @@ UI.buildLeftBar = (logged) => {
     if (!$(".toggleHelp").hasClass("clicked")) {
       $(".clicked").removeClass("clicked")
       $(".toggleHelp").addClass("clicked")
+      $(".helperPopup").show()
       $(".toggleHelpImg").attr("src", "assets/icons/icon_helpON.png");
       $(".toggleSizeImg").attr("src", "assets/icons/icon_size_OFF.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
@@ -265,8 +263,10 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").hide();
       $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
       $(".selectAnnType").removeClass("visible")
+      
       UI.stopLens()
     } else {
+      $(".helperPopup").hide()
       $(".toggleHelp").removeClass("clicked")
       $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
     }
@@ -342,6 +342,13 @@ UI.buildLeftBar = (logged) => {
       }
     });
   }
+  $(document).click(function (e) {
+    if(!$(e.target).closest(".helperPopup").length &&!$(e.target).hasClass("toggleHelp")&& !$(e.target).hasClass("toggleHelpImg") ){
+      $(".helperPopup").hide()
+      $(".toggleHelp").removeClass("clicked")
+      $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
+    }
+  });
 }
 
 UI.openLeftToolbarMobile=()=>{
@@ -359,7 +366,24 @@ UI.closeLeftToolbarMobile=()=>{
   $(".leftListMobile").addClass("close")
   $(".leftToolbarMobile").removeClass("open")
 }
-
+/**
+ * Build the help popup HTML.
+ * @param {boolean} logged - Indicates if the user is logged in or not.
+ */
+UI.buildHelp=(logged)=>{
+  let icons=['assets/icons/maximize.png','assets/icons/minimize.png','assets/icons/icon_resetvista.png','assets/icons/icon_layer.png','assets/icons/icon_annotazioni.png','assets/icons/icon_size_OFF.png']
+  let phrases=['massimizza','minimizza','riposiziona','cambio layer','filtro annotazioni','misure']
+  if(logged){
+    icons.push('assets/icons/Icona_Aton_Edit_OFF.png')
+    phrases.push('aggiunta note')
+  }
+  let htmlCode="<div class='legend'>"
+  icons.forEach((el,i)=>{
+   htmlCode+='<div class=row><img src='+el+' /><span>'+phrases[i]+'</span></div>'
+  })
+  htmlCode+="</div>"
+  $(".helperPopup").html(htmlCode)
+}
 UI.buildPublic = () => {
   // Clear
   $("#idTopToolbar").html("");
@@ -368,6 +392,7 @@ UI.buildPublic = () => {
 
   //left toolbar for Public UI
   UI.buildLeftBar(false)
+  UI.buildHelp(false)
 
   $("#idLogin").hover(
     () => {
@@ -396,11 +421,10 @@ UI.buildPublic = () => {
   
   //Note filtering
   UI.buildSelectContainer()
-
+  
   //bottom toolbar for Public UI to allow navigation through poses
   let htmlBottom = "";
-  htmlBottom +=
-    "<a href='#'><img class='codexLogo' src='assets/logo.png' /></a>";
+  
   htmlBottom += "<div id='idPoseGallery' class='previewContainer scrollableX'>";
   // htmlBottom += "<div class='posePreview'> </div>";
   // htmlBottom += "<div class='posePreview' > </div>";
@@ -549,6 +573,7 @@ UI.buildEditor = () => {
 
 
   UI.buildLeftBar(true)
+  UI.buildHelp(true)
   // Note filtering for Editor
   UI.buildSelectContainer()
    
@@ -556,8 +581,7 @@ UI.buildEditor = () => {
 
   //Initializing Bottom Toolbar for Editor User
   let htmlBottomEditor = "";
-  htmlBottomEditor +=
-    "<a href='#'><img class='codexLogo' src='assets/logo.png' /></a>";
+  
   htmlBottomEditor +=
     "<div id='idPoseGallery' class='previewContainer scrollableX'>";
 
@@ -658,6 +682,11 @@ UI.buildSelectContainer=()=>{
 }
 */
 UI.buildSelectContainer=()=>{
+  
+  UI.selectedCategories=[]
+  for (const category in subCategoryMap) {
+    UI.selectedCategories.push(category)
+  }
   const colors=["#BF2517B2","#2F4689","#D9A441","#E7F0F9","#422C20","#FF7F11","#79b857"]
   
   let htmlNotes="<div class='selectContainer'>";
@@ -703,30 +732,56 @@ UI.buildSelectContainer=()=>{
         tmpTitle=tmpTitle[0]
         
         $(".check").off("change").change(()=>{
+          let both_class=e.target.classList[e.target.classList.length-1]
+          console.log(e.target===$("."+both_class)[0],e.target===$("."+both_class)[1])
+          if(e.target===$("."+both_class)[0]){
+            $("."+both_class)[1].checked=$("."+both_class)[0].checked
+          }
+          else if(e.target===$("."+both_class)[1]){
+            
+            $("."+both_class)[0].checked=$("."+both_class)[1].checked
+          }
           if(e.target===$(".seleziona-tutte-categorieCheckbox")[0]){
-            if($(".seleziona-tutte-categorieCheckbox")[0].checked){
+            $(".seleziona-tutte-categorieCheckbox")[1].checked=$(".seleziona-tutte-categorieCheckbox")[0].checked
+          }
+          else if(e.target===$(".seleziona-tutte-categorieCheckbox")[1]){
+            $(".seleziona-tutte-categorieCheckbox")[0].checked=$(".seleziona-tutte-categorieCheckbox")[1].checked
+          }
+          if(e.target===$(".seleziona-tutte-categorieCheckbox")[0] || e.target===$(".seleziona-tutte-categorieCheckbox")[1]){
+            if($(".seleziona-tutte-categorieCheckbox")[0].checked && $(".seleziona-tutte-categorieCheckbox")[1].checked){
               colors.forEach((col,i)=>{
                 $(".dot"+i)[0].checked=true
+                $(".dot"+i)[1].checked=true
               })
             }
             else{
               colors.forEach((col,i)=>{
                 $(".dot"+i)[0].checked=false
+                $(".dot"+i)[1].checked=false
               })
               
             }
           }
-          console.log($(".dropdown input:checked").length)
-          console.log(colors.length)
-          if($(".tocheck:checked").length===colors.length){
-            $(".seleziona-tutte-categorieCheckbox")[0].checked=true
+          else{
+           
+            if($(".tocheck:checked").length/2===colors.length){
+              $(".seleziona-tutte-categorieCheckbox")[0].checked=true
+              $(".seleziona-tutte-categorieCheckbox")[1].checked=true
+            }
+            else {
+              $(".seleziona-tutte-categorieCheckbox")[0].checked=false
+              $(".seleziona-tutte-categorieCheckbox")[1].checked=false
+            }
           }
-          else {
-            $(".seleziona-tutte-categorieCheckbox")[0].checked=false
-          }
+          
           UI.selectedCategories=[];
           $(".dropdown input:checked").each(function() {
-            UI.selectedCategories.push($(this).parent().text().trim());
+            let cat=$(this).parent().text().trim()
+            if(!UI.selectedCategories.includes(cat)){
+              console.log(cat)
+              UI.selectedCategories.push(cat);
+            }
+            
           });
           
           if(UI.selectedCategories.length===1){
@@ -763,7 +818,6 @@ UI.buildSelectContainer=()=>{
           !$(target).is(".dropdown")
         ) 
       {
-        console.log(target)
         $(".dropdown").slideUp();
         if (!$(".dropdown-toggle").hasClass("openDropdownToggle")) {
           $(".dropdown-toggle").addClass("openDropdownToggle")
@@ -786,8 +840,10 @@ UI.buildSelectContainer=()=>{
     span
   );
   $(".seleziona-tutte-categorieCheckbox")[0].checked=true
+  $(".seleziona-tutte-categorieCheckbox")[1].checked=true
   colors.forEach((col,i)=>{
     $(".dot"+i)[0].checked=true
+    $(".dot"+i)[1].checked=true
   })
 }
 

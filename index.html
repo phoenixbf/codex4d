@@ -86,9 +86,10 @@
       <div class="titleContainer">
         <div id="idVolume" class="titleText">Volume</div>  
         <div id="idPose" class="subtitleText">Pose</div>
-        <img id="idManuscriptDetail" class="goToIMG" src="assets/icons/Icona_scheda_Aton_OFF.png" />
-        
-        
+        <div class="underTitle">
+          <a class=linkToWeb href='#'><img class='codexLogo' src='assets/logo.png' /></a>
+          <img id="idManuscriptDetail" class="goToIMG" src="assets/icons/Icona_scheda_Aton_OFF.png" />
+        </div>
         <br />
         
       </div>
@@ -106,12 +107,14 @@
     
     <div class="total">
      <div id='idForm' class='annotationForm' style="display: none"></div>
+    
+    <div class="helperPopup annotationForm"></div>
     </div>
     <div id="idViewControlContainer" class="viewControlContainer" style="display:none">
       <div id="idViewControl" class="viewControl"> </div>
-      <input type='range' min='0' value='50' max='100' id='idSliderLens' class='slider' /> <img class="zoom" id="idZoom" src="assets/icons/Zoom_OFF.png" alt="zoom" />
-      <hr class="xAxis"  />
-      <hr class="yAxis" />
+      <input type='range' min='0' value='50' max='100' id='idSliderLens' class='slider' />
+       <!--<hr class="xAxis"  />
+      <hr class="yAxis" />-->
     </div>
     
     
@@ -119,8 +122,11 @@
     
 
     <!-- Main Popup -->
-    <div id="idPopup" class="atonPopupContainer" style="display: none"></div>
-
+    <div id="idPopup" class="atonPopupContainer" style="display: none">
+      
+    </div> 
+    
+    
     <!-- Info Panel -->
     <div
       id="idPanel"
@@ -139,10 +145,10 @@
       </ul>
     </div> -->
 
-    <!-- Powered by -->
+    <!-- Powered by 
     <div id="idPoweredBy" class="poweredBy">
       Powered by
       <a href="http://osiris.itabc.cnr.it/aton/" target="_blank">ATON</a>
-    </div>
+    </div>-->
   </body>
 </html>

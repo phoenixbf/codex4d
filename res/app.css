@@ -360,10 +360,8 @@ button {
 
 .codexLogo {
   position: relative;
-  width: 90px;
-  height: 90px;
-  left: 5px;
-  top: 10px;
+  width: 2em;
+  padding-top: 0.2em;
 }
 
 .horDivider {
@@ -382,9 +380,7 @@ button {
   left: 4em;
   animation: slideInLeftRight 0.5s forwards;
 }
-.closeFilterContainer{
-  animation: slideOutRightLeft 0.5s forwards;
-}
+
 
 .selectContainer {
   justify-content: space-around;
@@ -434,18 +430,21 @@ div#nav a {
 }
 /**** ****/
 ul.dropdown {
+  overflow-y: scroll;
   padding: 0;
   /* padding-bottom: 0.5em; */
   display: none;
   position: absolute;
-  top: 95%;
-  /* height: 270px; */
+  top: 75%;
+  height: 40vh;
   margin-top: 5px;
   width: 265px;
   background: #c7c7c7;
   border-radius: 24px;
   text-align: start;
   padding: 0em 0em 1em 1em;
+  /* margin-top: 1em; */
+  overflow-x: hidden;
 }
 ul.dropdown li {
   position: relative;
@@ -592,7 +591,7 @@ label {
 }
 
 .previewContainer {
-  margin-left: 69px;
+  
 }
 
 .posePreview {
@@ -610,7 +609,7 @@ label {
 
 .posesContainer {
   margin-top: 10px;
-  margin-left: 20px;
+  margin-left: 1em;
   cursor: pointer;
   display: inline-block;
   text-align: center;
@@ -648,12 +647,9 @@ label {
 .poseIMG {
   position: relative;
   display: inline-block;
-
-  height: 80px;
-  width: 80px;
-
+  height: 4em;
+  /* width: 80px; */
   border-radius: 10px;
-
   margin: 2px;
 }
 
@@ -840,8 +836,8 @@ label {
   /* border: none; */
   z-index: 100;
   /* margin-left: 30px; */
-  /* right: 0; */
-  left: 7em;
+  right: 0;
+  /* left: 7em; */
   bottom: -0.5em;
   display: flex;
   justify-content: center;
@@ -1428,9 +1424,12 @@ label {
     align-self: center;
   }
 }
+.closeFilterContainer{
+  animation: slideOutRightLeft 0.5s forwards;
+}
 
 .openBottomBar{
-  bottom: 5em;
+  bottom: 5.9em;
 }
 
 .toggleNote{
@@ -1448,4 +1447,39 @@ label {
   border-radius: 24px;
   justify-content: space-around;
   background-color: #8080809e;
+}
+.underTitle{
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.linkToWeb{
+  padding-right: 2em;
+  display: flex;
+  /* height: 2em; */
+  color: inherit;
+  align-items: center;
+}
+.helperPopup{
+  top: 20%;
+  width: auto;
+  background-color: black;
+  opacity: 0.9;
+  display: none;
+
+}
+.legend{
+  padding-top: 2em;
+}
+.legend img{
+  width: 2em;
+}
+.legend .row{
+  padding-bottom: 2em;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.legend span{
+  padding-left: 2em;
 }
