@@ -849,7 +849,8 @@ APP.setupEvents = ()=>{
             APP.UI.updateSemPanel(ATON._hoveredSemNode);
         }
         else {
-            APP.UI.toggleSemPanel(false);
+            if(APP.argBG!=0)
+            {APP.UI.toggleSemPanel(false);}
         }
     });
 
