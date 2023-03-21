@@ -883,7 +883,7 @@ label {
   background: #d9d9d9;
   opacity: 0.8;
   border-radius: 10px;
-  z-index: 100;
+  z-index: 110;
 }
 .first_row{
   justify-content: space-around;

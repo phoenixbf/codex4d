@@ -829,7 +829,7 @@ UI.updateSemPanel = (semid) => {
   let htmlcode = "";
   htmlcode += "<div class='appPanelHeader'>";
   htmlcode +=
-    "<div class='appPanelBTN' onclick='APP.UI.toggleSemPanel(false)'><img src='" +
+    "<div class='appPanelBTN closeAnn'><img src='" +
     ATON.FE.PATH_RES_ICONS +
     "cancel.png'></div>&nbsp;&nbsp;";
   
@@ -842,7 +842,7 @@ UI.updateSemPanel = (semid) => {
       ATON.FE.PATH_RES_ICONS +
       "edit.png'></div>";
     htmlcode +=
-      "<div class='appPanelBTN' onclick='APP.deleteSemAnnotation(\""+semid+"\")'><img src='" +
+      "<div class='appPanelBTN ' onclick='APP.deleteSemAnnotation(\""+semid+"\")'><img src='" +
       ATON.FE.PATH_RES_ICONS +
       "trash.png'></div></div>";
   }
@@ -906,6 +906,11 @@ UI.updateSemPanel = (semid) => {
   UI.toggleSemPanel(true);
   $(".updateAnn").click(()=>{
     UI.updateAnnotation(semid)
+  })
+  $(".closeAnn").click(()=>{
+    $("#idPanel").hide();
+    if(APP.argBG!=0)
+    {APP.UI.toggleSemPanel(false);}
   })
 };
 
