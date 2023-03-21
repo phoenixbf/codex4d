@@ -218,7 +218,7 @@ button {
 
 .leftToolbar {
   position: absolute;
-  display: flex!important;
+  display: flex;
   top: 19%;
   background: rgb(110, 110, 110);
   margin-left: 2em;
@@ -1513,3 +1513,14 @@ label {
   height: 0.7em!important;
 }
 .cross{margin-top: -0.3em;}
+.closeLegendBtn{
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  /* justify-content: flex-end; */
+  padding: 0em 0em 2em 0em;
+  
+}
+.closeLegendBtn span{
+  padding: 0;
+}

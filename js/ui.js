@@ -379,11 +379,18 @@ UI.buildHelp=(logged)=>{
     phrases.push('aggiunta note')
   }
   let htmlCode="<div class='legend'>"
+  htmlCode+="<div class=closeLegendBtn ><span>Legenda</span><img style='cursor: pointer;width:1em; height:fit-content;' src='assets/icons/Chiudi_finestra.png'></div>"
   icons.forEach((el,i)=>{
    htmlCode+='<div class=row><img src='+el+' /><span>'+phrases[i]+'</span></div>'
   })
   htmlCode+="</div>"
   $(".helperPopup").html(htmlCode)
+  $(".closeLegendBtn img").click(()=>{
+    $(".helperPopup").hide()
+    $(".toggleHelp").removeClass("clicked")
+    $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
+
+  })
 }
 UI.buildPublic = () => {
   // Clear
@@ -1041,6 +1048,7 @@ UI.addAnnotation = (semtype) => {
 };
 
 UI.updateAnnotation = (semid) => {
+  ATON._bPauseQuery = true;
   UI.toggleSemPanel(false)
   let d = ATON.SceneHub.currData.sem;
   if (d === undefined) return;

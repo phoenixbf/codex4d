@@ -52,8 +52,8 @@ APP.raggio_min=0.005
 APP.raggio_max=0.2
 APP.raggio_fixed=0.02
 APP.raggio_setted=0.02
-
-
+APP.activedLens=true
+APP.isBlack=false
 APP.cats = [
     "Iconologia e Iconografia",
     "Struttura",
@@ -83,6 +83,10 @@ APP.init = ()=>{
     APP.argP   = ATON.FE.urlParams.get('p');
     APP.argUIP = ATON.FE.urlParams.get('uip');
 
+    APP.argUI=ATON.FE.urlParams.get('UI');
+    
+    APP.argBG=ATON.FE.urlParams.get('BG');
+    
     APP._bPose   = false;
     APP._bAssets = false;
 
@@ -124,8 +128,14 @@ APP.init = ()=>{
 APP.postPoseLoaded = ()=>{
 
     APP.bgcol = new THREE.Color(APP.cdata.bgcolor[0],APP.cdata.bgcolor[1],APP.cdata.bgcolor[2]);
-    ATON.setBackgroundColor( APP.bgcol );
-
+   
+    if(APP.argBG==0){
+        $(".toHideFromCommand").hide()
+        ATON.setBackgroundColor( ATON.MatHub.colors.black );
+    }
+    else{
+        ATON.setBackgroundColor( APP.bgcol );
+    }
 /*
     APP.gStand = ATON.createSceneNode("stand");
     APP.gStand.attachToRoot();
@@ -733,7 +743,7 @@ APP.setupEvents = ()=>{
     // Keyboard
     ATON.on("KeyPress", (k)=>{
         if ($("#idForm").is(":visible")) return;
-
+        if($("#idUpdateAnn").is(":visible")) return;
         // Modifiers
         if (k ==="Shift")  ATON.Nav.setUserControl(false);
         if (k==="Control") ATON.Nav.setUserControl(false);
@@ -776,6 +786,30 @@ APP.setupEvents = ()=>{
             let e = ATON.Nav.getCurrentEyeLocation();
             APP.setLightPostion(e);
         }
+        
+        if(k=== 'm' ){
+
+            console.log(APP.activedLens)
+        
+            ATON.SUI.showSelector(APP.activedLens);
+            APP.activedLens=!APP.activedLens;
+        }
+        if(k=== 'h' ){
+
+            if(!APP.isBlack){
+                $(".toHideFromCommand").hide()
+                ATON.setBackgroundColor( ATON.MatHub.colors.black );
+                APP.isBlack=!APP.isBlack
+            }
+            else{
+
+                $(".toHideFromCommand").show()
+                ATON.setBackgroundColor( APP.bgcol );
+                APP.isBlack=!APP.isBlack
+            }
+            
+        }
+        
     });
 
     ATON.on("KeyUp",(k)=>{
