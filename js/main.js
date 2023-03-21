@@ -82,10 +82,8 @@ APP.init = ()=>{
     APP.argV   = ATON.FE.urlParams.get('v');
     APP.argP   = ATON.FE.urlParams.get('p');
     APP.argUIP = ATON.FE.urlParams.get('uip');
-
-    APP.argUI=ATON.FE.urlParams.get('UI');
     
-    APP.argBG=ATON.FE.urlParams.get('BG');
+    APP.argBG=ATON.FE.urlParams.get('bg');
     
     APP._bPose   = false;
     APP._bAssets = false;
