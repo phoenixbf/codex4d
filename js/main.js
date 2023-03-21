@@ -642,22 +642,21 @@ APP.setupEvents = ()=>{
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html("Login");
         APP._attachUI();
-        UI.stopLens()
-
-        //mostra la pallina di selezione
-        
+        UI.stopLens()        
         APP.goToMode(APP.STATE_NAV)
+        
         
     });
 
     ATON.on("Login",(r)=>{
-        console.log("lololo")
+        
         APP.setProfileEditor();
         //APP.updatePoseGallery(APP.currVolume);
         $("#idLoginActionText").html(r.username);
         APP._attachUI();
         UI.stopLens()
         APP.goToMode(APP.STATE_NAV)
+        
         
 
     });
@@ -974,14 +973,30 @@ APP.updateSemAnnotation = (semid, O)=>{
     if (O === undefined) return;
 
     let E = {};
-
+    let pDB = ATON.SceneHub.currData.sem;
     E.sem = {};
     E.sem[semid] = O;
+    let S = ATON.semnodes[semid];
+    let e = pDB[semid];
+
+    if (S && e){
+        let M = mat.sems[e.cat];
+        if (M){
+            S.setDefaultAndHighlightMaterials(M.base, M.hl);
+            S.setMaterial(M.base);
+        }
+
+        //console.log("x");
+    }
 
     ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_ADD);
     console.log("Annotation "+semid+" updated.");
 };
-
+APP.retrieveInfo=(semid)=>{
+    let pDB = ATON.SceneHub.currData.sem; //APP.sDB[APP.currPose];
+    let S = pDB[semid];
+    console.log(S)
+  }
 APP.deleteSemAnnotation = (semid)=>{
     if (semid === undefined) return;
 

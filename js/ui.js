@@ -50,6 +50,7 @@ const subCategoryMap = {
 
 
 UI.init = () => {
+  UI.formatSelectedCategories()
   //ATON.FE.uiAddProfile("editor", UI.buildEditor);
   //ATON.FE.uiAddProfile("public", UI.buildPublic);
 
@@ -605,88 +606,16 @@ UI.buildEditor = () => {
   $("#idBottomToolbar").html(htmlBottomEditor);
   UI.buildLens()
 };
-/*
-UI.buildSelectContainer=()=>{
-  const colors=["#BF2517B2","#2F4689","#D9A441","#E7F0F9","#422C20","#FF7F11","#79b857"]
-  
-  let htmlNotes="<div class='selectContainer'>";
-  htmlNotes +="<div class=gray-pill>"
-  htmlNotes += "<p class='filterText'> Note </p>";
-  htmlNotes +=
-    "<button class='dropdown-toggle' id='idDropdownToggle'>Seleziona categoria <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
-  
-  htmlNotes += "<ul class='dropdown'>";
-  
-  for(let i=0;i<APP.cats.length;i++){
-    let title=APP.cats[i]
-    let tmpTitle=title.split(" ")
-    tmpTitle=tmpTitle[0]
-    htmlNotes+="<li class="+tmpTitle+"><button class="+tmpTitle+"Action>"+title+"<div class='dot' style='background-color:"+colors[i]+";'/></button></li>"
-    
-    htmlNotes += "<hr class='selectHr'/>";
-  }
-  htmlNotes += "</ul>";
-  htmlNotes += "</div>";
-  htmlNotes+='</div>'
-  $(function () {
-    $(".dropdown-toggle").click(function () {
-      
-      $(this).next(".dropdown").slideToggle();
-      
-      if(!$(".dropdown-toggle").hasClass("openDropdownToggle"))
-        {
-          $(".dropdown-toggle").addClass("openDropdownToggle")
-          $("#idSelectArrow").attr("src", "assets/upArrow.png");
-        }
-        else{
-          $("#idSelectArrow").attr("src", "assets/downArrow.png")
-          $(".dropdown-toggle").removeClass("openDropdownToggle")
-          
-        }
-      
-    });
-    $(document).click(function (e) {
-      for(let i=0;i<APP.cats.length;i++){
-        let title=APP.cats[i]
-        let tmpTitle=title.split(" ")
-        tmpTitle=tmpTitle[0]
-        $("."+tmpTitle+"Action").click(()=>{
-          $(".dropdown-toggle").html(
-            title+"<img id='idSelectArrow' src='assets/upArrow.png' class='arrow'>"
-          );
-          $(".selectContainer").css("background-color", colors[i]);
-          
-          APP.filterAnnotationsByCat(title);
 
-        })
-      }
-      var target = e.target;
-      if (
-        !$(target).is(".dropdown-toggle") &&
-        !$(target).parents().is(".dropdown-toggle")
-      ) {
-        //{ $('.dropdown').hide(); }
-        $(".dropdown").slideUp();
-        if(!$(".dropdown-toggle").hasClass("openDropdownToggle"))
-        {
-          $(".dropdown-toggle").addClass("openDropdownToggle")
-          $("#idSelectArrow").attr("src", "assets/upArrow.png");
-        }
-        
-      }
-    });
-  });
-
-  $(".filterContainer").html(htmlNotes);
-  
-}
-*/
-UI.buildSelectContainer=()=>{
-  
+UI.formatSelectedCategories=()=>{
   UI.selectedCategories=[]
   for (const category in subCategoryMap) {
     UI.selectedCategories.push(category)
   }
+}
+UI.buildSelectContainer=()=>{
+  
+  
   const colors=["#BF2517B2","#2F4689","#D9A441","#E7F0F9","#422C20","#FF7F11","#79b857"]
   
   let htmlNotes="<div class='selectContainer'>";
@@ -696,12 +625,12 @@ UI.buildSelectContainer=()=>{
     "<button class='dropdown-toggle' id='idDropdownToggle'><span class='selectCatText'>Seleziona categoria</span> <img id='idSelectArrow' src='assets/upArrow.png' class='arrow'></button>";
   let tutteLeCategorie="Seleziona tutte le categorie"
   htmlNotes += "<ul class='dropdown'>";
-  htmlNotes+="<li class=tutte-categorie><label><input type='checkbox' class='seleziona-tutte-categorieCheckbox check'>"+tutteLeCategorie+"</label></li>"
+  htmlNotes+="<li class=tutte-categorie><label style='cursor:pointer;'><input type='checkbox' class='seleziona-tutte-categorieCheckbox check'>"+tutteLeCategorie+"</label></li>"
   for(let i=0;i<APP.cats.length;i++){
     let title=APP.cats[i]
     let tmpTitle=title.split(" ")
     tmpTitle=tmpTitle[0]
-    htmlNotes+="<li class="+tmpTitle+"><label><input type='checkbox' class='"+tmpTitle+"Checkbox check tocheck dot"+i+"' style='border:3px solid "+colors[i]+";'>"+title+"</label></li>"
+    htmlNotes+="<li class="+tmpTitle+"><label style='cursor:pointer;'><input type='checkbox' class='"+tmpTitle+"Checkbox check tocheck dot"+i+"' style='border:3px solid "+colors[i]+";'>"+title+"</label></li>"
     
   }
   htmlNotes += "</ul>";
@@ -834,17 +763,31 @@ UI.buildSelectContainer=()=>{
   
   $(".filterContainer").html(htmlNotes);  
   
-  let moreCategories="Più categorie selezionate"
-  let span="<span>"+moreCategories+"</span>"
+  
+  
+  UI.selectedCategories.forEach((el)=>{
+    let text=el.split(" ")
+    let classe=text[0]
+    $("."+classe+"Checkbox")[0].checked=true
+    $("."+classe+"Checkbox")[1].checked=true
+  })
+  console.log(UI.selectedCategories.length-1,colors.length)
+  if(UI.selectedCategories.length===colors.length){
+    $(".seleziona-tutte-categorieCheckbox")[0].checked=true
+    $(".seleziona-tutte-categorieCheckbox")[1].checked=true
+  }
+  let text=""
+  if(UI.selectedCategories.length>1){
+    text="Più categorie selezionate"
+   
+  }
+  else{
+    text="Seleziona categoria"
+  }
+  let span="<span>"+text+"</span>"
   $(".selectCatText").html(
     span
   );
-  $(".seleziona-tutte-categorieCheckbox")[0].checked=true
-  $(".seleziona-tutte-categorieCheckbox")[1].checked=true
-  colors.forEach((col,i)=>{
-    $(".dot"+i)[0].checked=true
-    $(".dot"+i)[1].checked=true
-  })
 }
 
 UI.toggleSemPanel = (b) => {
@@ -863,6 +806,8 @@ UI.toggleSemPanel = (b) => {
   }
 };
 
+
+
 /*
     Update UI panel (HTML) from semantic ID (shape)
 ====================================================*/
@@ -872,7 +817,7 @@ UI.updateSemPanel = (semid) => {
 
   let S = pDB[semid];
   if (S === undefined) return;
-
+  pDB = ATON.SceneHub.currData.sem;
   // Generate HTML for panel
   let htmlcode = "";
   htmlcode += "<div class='appPanelHeader'>";
@@ -886,7 +831,7 @@ UI.updateSemPanel = (semid) => {
   if (ATON.SceneHub._bEdit) {
     htmlcode += "<div style='float:right'>";
     htmlcode +=
-      "<div class='appPanelBTN'><img src='" +
+      "<div class='appPanelBTN updateAnn'><img src='" +
       ATON.FE.PATH_RES_ICONS +
       "edit.png'></div>";
     htmlcode +=
@@ -895,42 +840,44 @@ UI.updateSemPanel = (semid) => {
       "trash.png'></div></div>";
   }
   htmlcode += "</div>";
- htmlcode += "<div class='layerPanelSelector'>"
- if (S.layer === APP.LAYER_RGB) {
-  htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />"
-  htmlcode += "<img id='idImgPanelLayer2' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
-  htmlcode += "<img id='idImgPanelLayer3' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
-  htmlcode += "<img id='idImgPanelLayer4' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-};
-if (S.layer === APP.LAYER_IR1) {
-  htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-  htmlcode += "<img id='idImgPanelLayer2' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />";
-  htmlcode += "<img id='idImgPanelLayer3' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
-  htmlcode += "<img id='idImgPanelLayer4' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-};
-if (S.layer === APP.LAYER_IR2) {
-  htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-  htmlcode += "<img id='idImgPanelLayer2' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
-  htmlcode += "<img id='idImgPanelLayer3' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />";
-  htmlcode += "<img id='idImgPanelLayer4' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-};
-if (S.layer === APP.LAYER_IR3) {
-  htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-  htmlcode += "<img id='idImgPanelLayer2' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
-  htmlcode += "<img id='idImgPanelLayer3' class='layerPanel' src='assets/layer_panel.png' alt='layer' />";
-  htmlcode += "<img id='idImgPanelLayer4' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />"
-};
-
-  htmlcode += "</div>"
+ 
   htmlcode +=
     "<div class='atonSidePanelContent' style='height: calc(100% - 50px);'>";
 
   htmlcode += "<div class='appPanelLayer'>";
+  htmlcode+="<span>"
   if (S.layer === APP.LAYER_RGB) htmlcode += "Livello RGB";
   if (S.layer === APP.LAYER_IR1) htmlcode += "Livello IR 1";
   if (S.layer === APP.LAYER_IR2) htmlcode += "Livello IR 2";
   if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";
-  
+  htmlcode+="</span>"
+  htmlcode += "<div class='layerPanelSelector'>"
+  if (S.layer === APP.LAYER_RGB) {
+    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />"
+    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
+  };
+  if (S.layer === APP.LAYER_IR1) {
+    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/active_layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
+  };
+  if (S.layer === APP.LAYER_IR2) {
+    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/active_layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
+  };
+  if (S.layer === APP.LAYER_IR3) {
+    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/active_layer_panel.png' alt='layer' />"
+  };
+
+  htmlcode += "</div>"
   htmlcode += "</div>";
  
   if (S.cat) htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
@@ -950,6 +897,9 @@ if (S.layer === APP.LAYER_IR3) {
 
   $("#idPanel").html(htmlcode);
   UI.toggleSemPanel(true);
+  $(".updateAnn").click(()=>{
+    UI.updateAnnotation(semid)
+  })
 };
 
 UI.setIntroPanel = (content)=>{
@@ -970,17 +920,8 @@ UI.setIntroPanel = (content)=>{
     UI form (HTML) with structured data
     Editor profile
 ====================================================*/
-
-UI.addAnnotation = (semtype) => {
-  ATON._bPauseQuery = true;
-
-  let O = {};
-  let semid = ATON.Utils.generateID("ann");
-
+UI.createAnnForm=()=>{
   let htmlcode = "";
-
-  console.log(subCategoryMap)
-  //htmlcode += "<form style='position:relative; top:2%'>";
   htmlcode += "<div class='formTitleContainer'>";
   htmlcode +=
     "<h3 class='formTitle'> Titolo</h3> <input id='idTitle' type='text' class='titleInput' ></input>";
@@ -1025,6 +966,17 @@ UI.addAnnotation = (semtype) => {
   htmlcode += "<button id='idDelete' class='cancelButton'>Annulla</button>";
   htmlcode += "<button id='idOk' class='okButton' >Conferma</button>";
   htmlcode += "</div>";
+  return htmlcode;
+}
+UI.addAnnotation = (semtype) => {
+  ATON._bPauseQuery = true;
+
+  let O = {};
+  let semid = ATON.Utils.generateID("ann");
+
+  let htmlcode = UI.createAnnForm()
+
+  
 
   $("#idForm").html(htmlcode);
   //crea il form di compilazioni delle note delle categorie e sotto categorie
@@ -1039,11 +991,11 @@ UI.addAnnotation = (semtype) => {
   
 
   // setting count limit for characters in the description
-  var maxLength = 650;
+  /*var maxLength = 650;
   $("#idDescription").keyup(function () {
     var textlen = maxLength - $(this).val().length;
     $("#rchars").text(textlen);
-  });
+  });*/
 
   $("#idDelete").click(() => {
     $("#idForm").hide();
@@ -1089,6 +1041,7 @@ UI.addAnnotation = (semtype) => {
 };
 
 UI.updateAnnotation = (semid) => {
+  UI.toggleSemPanel(false)
   let d = ATON.SceneHub.currData.sem;
   if (d === undefined) return;
 
@@ -1096,8 +1049,81 @@ UI.updateAnnotation = (semid) => {
   if (O === undefined) return;
 
   // TODO: fill HTML form with O data
+  let htmlcode = UI.createAnnForm()
 
-  APP.updateSemAnnotation(semid, O);
+  $("#idUpdateAnn").html(htmlcode);
+  const subCategories = subCategoryMap[O.cat];
+  let subCatCode = '';
+  subCategories.forEach((subCategory) => {
+    subCatCode += `<option class="catOption" value="${subCategory}">${subCategory}</option>`;
+  });
+  $("#sottoCatSelect").html(subCatCode);
+
+  $(".titleInput").val(O.title)
+  $(".descriptionInput").val(O.descr)
+  $(".categorySelect").val(O.cat)
+  
+  
+  if($(".subCategorySelect")[0].children.length===0){
+    $(".subCategorySelect").val();
+  }
+  else{
+    $(".subCategorySelect").val(O.subcat);
+  }
+  $("#idUpdateAnn").show();
+  //crea il form di compilazioni delle note delle categorie e sotto categorie
+  
+  // setting count limit for characters in the description
+  /*var maxLength = 650;
+  $("#idDescription").keyup(function () {
+    var textlen = maxLength - $(this).val().length;
+    $("#rchars").text(textlen);
+  });*/
+  $(".categorySelect").on('change', function() {
+    const subCategories = subCategoryMap[this.value];
+    let htmlcode = '';
+    subCategories.forEach((subCategory) => {
+      htmlcode += `<option class="catOption" value="${subCategory}">${subCategory}</option>`;
+    });
+    $(".subCategorySelect").html(htmlcode);
+  });
+  $("#idDelete").click(() => {
+    $("#idUpdateAnn").hide();
+    ATON._bPauseQuery = false;
+
+  });
+  $("#idOk").click(() => {
+    $("#idUpdateAnn").hide();
+
+    let title = $(".titleInput").val();
+    if (title) title.trim();
+
+    let descr = $(".descriptionInput").val();
+    if (descr) descr.trim();
+
+    let cat = $(".categorySelect").val();
+    let subcat = $(".subCategorySelect").val();
+
+    let files = $("#files").val();
+    if (files) files = files.trim();
+
+    if (title) O.title = title;
+    if (descr) O.descr = descr;
+    if (cat) O.cat = cat;
+    if (subcat) {O.subcat = subcat;}
+    else{O.subcat=''}
+    
+    if (files) O.media = files;
+    
+    O.layer = APP.currLayer;
+    APP.updateSemAnnotation(semid, O);
+    ATON._bPauseQuery = false;
+    $("#idUpdateAnn").hide();
+    
+  });
+
+
+  
 };
 
 UI.deleteAnnotation = (semid) => {

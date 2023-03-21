@@ -56,15 +56,13 @@ body {
 }
 
 .appPanelLayer {
-  display: block;
-
+  width: 100%;
+  justify-content: space-around;
+  display: flex;
   font-size: xx-large;
-
-  margin-top: 5px;
-  margin-bottom: 5px;
-
+  /* margin-top: 1em; */
+  /* margin-bottom: 5px; */
   text-align: left;
-
   color: white;
   text-shadow: 0px 0px 4px #2f4689;
 }
@@ -430,13 +428,13 @@ div#nav a {
 }
 /**** ****/
 ul.dropdown {
-  overflow-y: scroll;
+  /*overflow-y: scroll; */
   padding: 0;
   /* padding-bottom: 0.5em; */
   display: none;
   position: absolute;
   top: 75%;
-  height: 40vh;
+  /* height: 40vh; */
   margin-top: 5px;
   width: 265px;
   background: #c7c7c7;
@@ -474,14 +472,26 @@ ul.dropdown li button {
   align-items: center;
   border: none;
 }
+.h{
+  -webkit-appearance: none;
+  cursor: pointer;
+  
+  border-radius: 5px;
+  border: 2px solid gray;
+  line-height: 12px;
+  vertical-align: middle;
+  margin: 5px;
+  outline: none;
+  }
+
 input[type=checkbox] {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 1em!important;
+  height: 1em!important;
+  
   border-radius: 2em!important;
-  border: 2px solid #ccc;
   outline: none;
   transition: all 0.3s ease-in-out;
   order: 1;
@@ -514,6 +524,15 @@ input[type=checkbox].dot5:checked {
 input[type=checkbox].dot6:checked {
   border-color: #79b857;
   background-color: #79b857!important;
+}
+input[type=checkbox].tocheck{
+  background: black!important;
+}
+input[type=checkbox].seleziona-tutte-categorieCheckbox{
+  background: black!important;
+}
+input[type=checkbox].seleziona-tutte-categorieCheckbox:checked{
+  background: #00FF00!important;
 }
 label {
   border-bottom: 1px solid;
@@ -803,17 +822,19 @@ label {
 }
 
 .layerPanelSelector {
-  position: absolute;
-  display: block;
-  right: 60px;
-  top: 100.96px;
+  /*width: 100%; */
+  /* margin-top: 1em; */
+  /* position: absolute; */
+  /* height: 3em; */
+  /* display: block; */
+  
 }
 
 .layerPanel {
   display: flex;
   height: 23.1px;
-  width: 34.14px;
-  margin-top: -10px;
+  /* width: 34.14px; */
+  /* margin-top: -10px;*/
 }
 
 .layerButtonPanel {
@@ -1483,3 +1504,12 @@ label {
 .legend span{
   padding-left: 2em;
 }
+.atonSidePanelContent img {
+  margin-left:0!important;
+  margin-right: 0!important;
+  
+  margin-bottom: 0!important;
+  border-radius: 0!important;
+  height: 0.7em!important;
+}
+.cross{margin-top: -0.3em;}
