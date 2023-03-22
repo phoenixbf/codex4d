@@ -288,6 +288,11 @@ APP.loadConfig = (path)=>{
         
     });
 };
+APP.loadMedia=()=>{
+    return $.getJSON("http://localhost:8080/api/c/media",(data)=>{
+        return data;
+    })
+}
 
 // If pose p is not defined/valid, open first available pose
 APP.loadVolumePose = (v,p)=>{

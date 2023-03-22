@@ -924,8 +924,12 @@ UI.updateSemPanel = (semid) => {
   if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
   htmlcode += "<br>";
 
-  if (S.media){
-    htmlcode += "<img src='" + S.media + "'><br>";
+  if (S.media && S.media!=" " ){
+    let medias= S.media.split("\n" )
+    medias.forEach((el)=>{
+      htmlcode += "<img src='" + el+ "'><br>";
+    })
+    
   }
 
   htmlcode += "<div class='descriptionText'>";
@@ -1007,7 +1011,7 @@ UI.createAnnForm=()=>{
   
   htmlcode += "<div class='fileContainer'>";
   htmlcode += "<span for='files' class='formTitle'>File Multimediali </span>";
-  htmlcode += "<input class='uploadLink' id='files' type='text'/>"; 
+  htmlcode += "<textArea class='uploadLink' id='files' type='text'/> </textarea>"; 
   htmlcode += "</div>";
 
 
@@ -1041,8 +1045,13 @@ UI.addAnnotation = (semtype) => {
     });
     $("#sottoCatSelect").html(htmlcode);
   });
+  let listMedia=APP.loadMedia()
+  if(listMedia && listMedia.length>0){
+    listMedia.forEach((link) => {
+      $(".uploadLink").val(($(".uploadLink").val().trim() ? $(".uploadLink").val().trim() + "\n" : "") + link);
+    });
+  }
   
-
   // setting count limit for characters in the description
   /*var maxLength = 650;
   $("#idDescription").keyup(function () {
@@ -1074,23 +1083,23 @@ UI.addAnnotation = (semtype) => {
     let cat = $("#catSelect").val();
     let subcat = $("#sottoCatSelect").val();
 
-    let files = $("#files").val();
-    if (files) files = files.trim();
+    
+    
     let layer;
     APP.layers.forEach((l)=>{
       if(l.name===$(".layerSelect").val()){
         layer=l.id
       }
     })
-    
+    let media=$(".uploadLink").val()
     let O = {};
     if (title) O.title = title;
     if (descr) O.descr = descr;
     if (cat) O.cat = cat;
     if (subcat) O.subcat = subcat;
     if (layer) O.layer=layer;
-    if (files) O.media = files;
-
+    
+    if(media) O.media=media;
     APP.addSemanticAnnotation(semid, O, semtype);
 
     ATON._bPauseQuery = false;
@@ -1120,7 +1129,7 @@ UI.updateAnnotation = (semid) => {
   $(".titleInput").val(O.title)
   $(".descriptionInput").val(O.descr)
   $(".categorySelect").val(O.cat)
-  
+  $(".uploadLink").val(O.media)
   
   if($(".subCategorySelect")[0].children.length===0){
     $(".subCategorySelect").val();
@@ -1162,14 +1171,15 @@ UI.updateAnnotation = (semid) => {
     let cat = $(".categorySelect").val();
     let subcat = $(".subCategorySelect").val();
 
-    let files = $("#files").val();
+    
     let layer;
     APP.layers.forEach((l)=>{
       if(l.name===$(".layerSelect").val()){
         layer=l.id
       }
     })
-    if (files) files = files.trim();
+    let media=$(".uploadLink").val()
+    
 
     if (title) O.title = title;
     if (descr) O.descr = descr;
@@ -1177,7 +1187,7 @@ UI.updateAnnotation = (semid) => {
     if (subcat) {O.subcat = subcat;}
     else{O.subcat=''}
     if (layer) O.layer=layer;
-    if (files) O.media = files;
+    if(media) O.media=media;
     
     
     APP.updateSemAnnotation(semid, O);
