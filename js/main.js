@@ -43,15 +43,41 @@ APP.LAYER_RGB = 0;
 APP.LAYER_IR1 = 1;
 APP.LAYER_IR2 = 2;
 APP.LAYER_IR3 = 3;
+APP.layers=[
+    {
+        id:0,
+        name:"layer_rgb",
+        title:"Layer RGB"
 
+    },
+    {
+        id:1,
+        name:"layer_ir1",
+        title:"Layer IR1"
+
+    },
+    {
+        id:2,
+        name:"layer_ir2",
+        title:"Layer IR2"
+
+    },
+    {
+        id:3,
+        name:"layer_ir3",
+        title:"Layer IR3"
+
+    }
+
+]
 APP.currLayer = APP.LAYER_RGB
 
 // Categories
 APP.filterCat = undefined;
 APP.raggio_min=0.005
 APP.raggio_max=0.2
-APP.raggio_fixed=0.02
-APP.raggio_setted=0.02
+APP.raggio_ann=0.02
+APP.raggio_vision=0.02
 APP.activedLens=true
 APP.isBlack=false
 APP.cats = [
@@ -529,9 +555,9 @@ APP.goToMode=(idMode)=>{
     APP.setLayer(APP.LAYER_RGB)
     APP.setState(idMode)
     ATON.SUI.showSelector(false);
-    console.log("fixed:",APP.raggio_fixed, "setted:",APP.raggio_setted)
+    
     if(idMode===APP.STATE_ANN_BASIC || idMode===APP.STATE_ANN_FREE){
-        APP.setLensRadius(APP.raggio_fixed);
+        APP.setLensRadius(APP.raggio_ann);
     }
     if(idMode===APP.STATE_LAYER_VISION ||idMode===APP.STATE_ANN_BASIC ){
         ATON.SUI.showSelector(true);
@@ -539,7 +565,7 @@ APP.goToMode=(idMode)=>{
 
     if(idMode===APP.STATE_LAYER_VISION ){        
         APP.setLayer(APP.LAYER_RGB)
-        APP.setLensRadius(APP.raggio_setted);
+        APP.setLensRadius(APP.raggio_vision);
     }
     
     
@@ -595,8 +621,15 @@ APP._attachUI = ()=>{
         let r = parseFloat( $("#idSliderLens").val() )
         let raggio = mapRange(r, 0,100, APP.raggio_min, APP.raggio_max);
         APP.setLensRadius(raggio);
-        APP.raggio_setted=raggio
+        APP.raggio_vision=raggio
     });
+    $("#idSliderLensAnn").on("input change",()=>{
+        let r = parseFloat( $("#idSliderLensAnn").val() )
+        let raggio = mapRange(r, 0,100, APP.raggio_min, APP.raggio_max);
+        APP.setLensRadius(raggio);
+        APP.raggio_ann=raggio
+    });
+    
 
     // Layers
     $("#idRgb").click(()=>{
@@ -679,7 +712,7 @@ APP.setupEvents = ()=>{
         }
 
         if (APP.state === APP.STATE_ANN_BASIC){
-            APP.setState(APP.STATE_NAV);
+            //APP.setState(APP.STATE_NAV);
 
             $("#idForm").show();
             APP.UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
@@ -964,7 +997,7 @@ APP.finalizeSemanticShape = ()=>{
 APP.addSemanticAnnotation = (semid, O, semtype)=>{
     if (semid === undefined) return;
     if (O === undefined) return;
-
+    
     let S = undefined;
 
     if (semtype === ATON.FE.SEMSHAPE_SPHERE) S = ATON.SemFactory.createSurfaceSphere(semid);
@@ -994,7 +1027,7 @@ APP.addSemanticAnnotation = (semid, O, semtype)=>{
     if (semtype === ATON.FE.SEMSHAPE_CONVEX) E.semanticgraph.nodes[semid].convexshapes = ATON.SceneHub.getJSONsemanticConvexShapes(semid);
 
     E.semanticgraph.edges = ATON.SceneHub.getJSONgraphEdges(ATON.NTYPES.SEM);
-
+    
     ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_ADD);
     console.log("Annotation "+semid+" added.");
 

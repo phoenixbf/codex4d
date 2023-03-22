@@ -110,6 +110,7 @@ UI.buildLeftBar = (logged) => {
       "<div id='sphere' class='sphereNote noting'><img id='idTurnSphere ' class='toolbarIcon sphereNoteImg' src='assets/icons/cerchio_annotazione_OFF.png'></div>"+
       "<div id='free' class='freeNote noting'><img id='idTurnAreal' class='toolbarIcon freeNoteImg' src='assets/icons/Aton_areale_OFF.png'/></div>"+
     "</div>"+ 
+    "<input type='range' min='0' value='50' max='100' id='idSliderLensAnn' class='sliderAnn noting' />"
   "</button>";
   }
   
@@ -184,6 +185,7 @@ UI.buildLeftBar = (logged) => {
   });
 
   $(".toggleLayer").click(() => {
+    UI.disableIcon()
     if (!$(".toggleLayer").hasClass("clicked")) {
       $(".clicked").removeClass("clicked")
       $(".toggleLayer").addClass("clicked")
@@ -197,6 +199,7 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").hide();
       $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
       $(".selectAnnType").removeClass("visible")
+      $("#idSliderLensAnn").removeClass("visible")
     } 
     else {
       $(".toggleLayer").removeClass("clicked")
@@ -205,6 +208,7 @@ UI.buildLeftBar = (logged) => {
     }
   });
   $(".toggleAnnotation").click((e) => {
+    UI.disableIcon()
     if (!$(".toggleAnnotation").hasClass("clicked")) {
       $(".clicked").removeClass("clicked")
       $(".toggleAnnotation").addClass("clicked")
@@ -218,6 +222,7 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").show();
       $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
       $(".selectAnnType").removeClass("visible")
+      $("#idSliderLensAnn").removeClass("visible")
       UI.stopLens();
     } else if(!$(e.target).closest(".filterContainer").length) {
       console.log("ma qua non ci arrivo più")
@@ -233,6 +238,7 @@ UI.buildLeftBar = (logged) => {
     }
   });
   $(".toggleSize").click(() => {
+    UI.disableIcon()
     if (!$(".toggleSize").hasClass("clicked")) {
       
       $(".clicked").removeClass("clicked")
@@ -245,6 +251,7 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").hide();
       $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
       $(".selectAnnType").removeClass("visible")
+      $("#idSliderLensAnn").removeClass("visible")
       UI.stopLens()
     } else {
       $(".toggleSize").removeClass("clicked")
@@ -252,7 +259,9 @@ UI.buildLeftBar = (logged) => {
     }
   });
   $(".toggleHelp").click(() => {
+    UI.disableIcon()
     if (!$(".toggleHelp").hasClass("clicked")) {
+      UI.disableIcon()
       $(".clicked").removeClass("clicked")
       $(".toggleHelp").addClass("clicked")
       $(".helperPopup").show()
@@ -264,6 +273,7 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").hide();
       $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
       $(".selectAnnType").removeClass("visible")
+      $("#idSliderLensAnn").removeClass("visible")
       
       UI.stopLens()
     } else {
@@ -275,7 +285,9 @@ UI.buildLeftBar = (logged) => {
   if(logged){
 
     $(".toggleNote").on("click", (e) => {
+      
       if (!$(".toggleNote").hasClass("clicked") ) {
+        APP.goToMode(APP.STATE_NAV);
         $(".clicked").removeClass("clicked")
         $(".toggleNote").addClass("clicked")
         $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_ON.png");
@@ -287,6 +299,7 @@ UI.buildLeftBar = (logged) => {
         $(".filterContainer").hide();
         UI.stopLens()
         $(".selectAnnType").addClass("visible")
+        
         /* $("#selectAnnType").show(); */
       }
        else if($(".toggleNote").hasClass("clicked")&&!$(e.target).closest(".noting").length) {
@@ -302,6 +315,7 @@ UI.buildLeftBar = (logged) => {
         $(".toggleNote").removeClass("clicked")
         $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
         $(".selectAnnType").removeClass("visible")
+        $("#idSliderLensAnn").removeClass("visible")
       }
       
     });
@@ -309,17 +323,20 @@ UI.buildLeftBar = (logged) => {
 
 
     $(".sphereNoteImg").on("click",() => {
-      
+      UI.disableIcon()
+      $("#idSliderLensAnn").removeClass("visible")
       if($(".freeNoteImg").hasClass("clicked")){
         $(".freeNoteImg").removeClass("clicked")
         $(".freeNoteImg").attr("src", "assets/icons/Aton_areale_OFF.png");
       }
       if($(".sphereNoteImg").hasClass("clicked")){
+        
         $(".sphereNoteImg").attr("src","assets/icons/cerchio_annotazione_OFF.png")
         $(".sphereNoteImg").removeClass("clicked")
         APP.goToMode(APP.STATE_NAV);
       }
       else{
+        $("#idSliderLensAnn").addClass("visible")
         $(".sphereNoteImg").attr("src","assets/icons/cerchio_annotazione_ON.png")
         $(".sphereNoteImg").addClass("clicked")
         APP.goToMode(APP.STATE_ANN_BASIC);
@@ -327,6 +344,8 @@ UI.buildLeftBar = (logged) => {
     });
 
     $(".freeNoteImg").on("click", () => {
+      UI.disableIcon()
+      $("#idSliderLensAnn").removeClass("visible")
       if($(".sphereNoteImg").hasClass("clicked")){
         $(".sphereNoteImg").removeClass("clicked")
         $(".sphereNoteImg").attr("src", "assets/icons/cerchio_annotazione_OFF.png");
@@ -351,7 +370,10 @@ UI.buildLeftBar = (logged) => {
     }
   });
 }
-
+UI.disableIcon=()=>{
+  $(".sphereNoteImg").attr("src", "assets/icons/cerchio_annotazione_OFF.png");
+  $(".freeNoteImg").attr("src", "assets/icons/Aton_areale_OFF.png");
+}
 UI.openLeftToolbarMobile=()=>{
   $("#idList").show(); // Mostra la lista
   $(".openClose").attr("src","assets/icons/arrow-up.png") // Cambia il testo del pulsante
@@ -499,6 +521,16 @@ UI.buildLens=()=>{
   })(document.createElement("style"));
 
   $("#idSliderLens").on("input", function () {
+    $(this).css(
+      "background",
+      "linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) " +
+        this.value +
+        "%, transparent " +
+        this.value +
+        "%, transparent 100%)"
+    );
+  });
+  $("#idSliderLensAnn").on("input", function () {
     $(this).css(
       "background",
       "linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) " +
@@ -824,7 +856,7 @@ UI.updateSemPanel = (semid) => {
 
   let S = pDB[semid];
   if (S === undefined) return;
-  pDB = ATON.SceneHub.currData.sem;
+ console.log(pDB)
   // Generate HTML for panel
   let htmlcode = "";
   htmlcode += "<div class='appPanelHeader'>";
@@ -857,6 +889,7 @@ UI.updateSemPanel = (semid) => {
   if (S.layer === APP.LAYER_IR1) htmlcode += "Livello IR 1";
   if (S.layer === APP.LAYER_IR2) htmlcode += "Livello IR 2";
   if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";
+  console.log("layer:",S.layer)
   htmlcode+="</span>"
   htmlcode += "<div class='layerPanelSelector'>"
   if (S.layer === APP.LAYER_RGB) {
@@ -958,6 +991,14 @@ UI.createAnnForm=()=>{
   htmlcode += "</select>";
   htmlcode += "</div>";
   htmlcode+= '</div>';
+  htmlcode+='<div class="second_row">';
+  htmlcode+='<h3 class="formTitle">Layer</h3>'
+  htmlcode+='<select id="idLayerSelect" type=select class="layerSelect">'
+  APP.layers.forEach((el)=>{
+    htmlcode+="<option class='layerOption' value="+el.name+">"+el.title+"</option>";
+  })
+  htmlcode+='</select>'
+  htmlcode+='</div>';
   htmlcode += "<div class='descriptionContainer'>";
   htmlcode +=
     "<h3 class='formTitle' >Descrizione</h3> <textarea class='descriptionInput' type='text' id='idDescription' max-length='500' ></textarea>";
@@ -1035,16 +1076,20 @@ UI.addAnnotation = (semtype) => {
 
     let files = $("#files").val();
     if (files) files = files.trim();
-
+    let layer;
+    APP.layers.forEach((l)=>{
+      if(l.name===$(".layerSelect").val()){
+        layer=l.id
+      }
+    })
+    
     let O = {};
     if (title) O.title = title;
     if (descr) O.descr = descr;
     if (cat) O.cat = cat;
     if (subcat) O.subcat = subcat;
-
+    if (layer) O.layer=layer;
     if (files) O.media = files;
-
-    O.layer = APP.currLayer;
 
     APP.addSemanticAnnotation(semid, O, semtype);
 
@@ -1118,6 +1163,12 @@ UI.updateAnnotation = (semid) => {
     let subcat = $(".subCategorySelect").val();
 
     let files = $("#files").val();
+    let layer;
+    APP.layers.forEach((l)=>{
+      if(l.name===$(".layerSelect").val()){
+        layer=l.id
+      }
+    })
     if (files) files = files.trim();
 
     if (title) O.title = title;
@@ -1125,10 +1176,10 @@ UI.updateAnnotation = (semid) => {
     if (cat) O.cat = cat;
     if (subcat) {O.subcat = subcat;}
     else{O.subcat=''}
-    
+    if (layer) O.layer=layer;
     if (files) O.media = files;
     
-    O.layer = APP.currLayer;
+    
     APP.updateSemAnnotation(semid, O);
     ATON._bPauseQuery = false;
     $("#idUpdateAnn").hide();
