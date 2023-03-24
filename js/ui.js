@@ -67,15 +67,15 @@ UI.init = () => {
 
 UI.setLayer = (layer) => {
 
-  const layers=[APP.LAYER_RGB,APP.LAYER_IR1,APP.LAYER_IR2,APP.LAYER_IR3]
-  for(let i=0;i<layers.length;i++){
-    if(layer===layers[i]){
+  
+  APP.layers.forEach((l,i)=>{
+    if(layer==l.id){
       $(`#idImgLayer${i+1}`).attr("src", "assets/active_layer.png");
     }
     else{
       $(`#idImgLayer${i+1}`).attr("src", "assets/layer.png");
     }
-  }
+  })
   
 }
 /**
@@ -520,13 +520,35 @@ UI.buildHelp=(logged)=>{
   let phrases=['massimizza','minimizza','riposiziona','cambio layer','filtro annotazioni','misure']
   if(logged){
     icons.push('assets/icons/Icona_Aton_Edit_OFF.png')
+    icons.push('assets/icons/cerchio_annotazione_ON.png')
+    icons.push('assets/icons/Aton_areale_ON.png')
     phrases.push('aggiunta note')
+    phrases.push('annotazione semplice')
+    phrases.push('annotazione libera')
+    
   }
   let htmlCode="<div class='legend'>"
   htmlCode+="<div class=closeLegendBtn ><span>Legenda</span><img style='cursor: pointer;width:1em; height:fit-content;' src='assets/icons/Chiudi_finestra.png'></div>"
   icons.forEach((el,i)=>{
-   htmlCode+='<div class=row><img src='+el+' /><span>'+phrases[i]+'</span></div>'
+    if(i<=icons.length-4){
+      if(i%2==0){
+        htmlCode+='<div class=row><div class="mono"><img src='+el+' /><span>'+phrases[i]+'</span></div>'
+      }
+      else{
+        htmlCode+='<div class="mono"><img src='+el+' /><span>'+phrases[i]+'</span></div></div>'
+      }
+    }
+    else{
+      if(i%2!=0){
+        htmlCode+='<div class=row><div class="mono"><img src='+el+' /><span>'+phrases[i]+'</span></div>'
+      }
+      else{
+        htmlCode+='<div class="mono"><img src='+el+' /><span>'+phrases[i]+'</span></div></div>'
+      }
+      
+    }
   })
+  
   htmlCode+="</div>"
   $(".helperPopup").html(htmlCode)
   $(".closeLegendBtn img").click(()=>{
@@ -1046,7 +1068,10 @@ UI.updateSemPanel = (semid) => {
   if (S.media && S.media!=" " ){
     let medias= S.media.split("\n" )
     medias.forEach((el)=>{
-      htmlcode += "<img src='" + el+ "'><br>";
+      
+      
+      let path="/collections/"+el
+      htmlcode += "<img src='" + path+ "'><br>";
     })
     
   }
@@ -1169,12 +1194,9 @@ UI.addAnnotation = (semtype) => {
     });
     $("#sottoCatSelect").html(htmlcode);
   });
-  let listMedia=APP.loadMedia()
-  if(listMedia && listMedia.length>0){
-    listMedia.forEach((link) => {
-      $(".uploadLink").val(($(".uploadLink").val().trim() ? $(".uploadLink").val().trim() + "\n" : "") + link);
-    });
-  }
+  APP.loadMedia()
+  
+  
   
   // setting count limit for characters in the description
   /*var maxLength = 650;
@@ -1226,7 +1248,8 @@ UI.addAnnotation = (semtype) => {
     if (subcat) O.subcat = subcat;
     if (layer !=undefined ) O.layer=layer;
     
-    if(media) O.media=media;
+    
+    if(media) O.media=media.trim();
     APP.addSemanticAnnotation(semid, O, semtype);
 
     ATON._bPauseQuery = false;
@@ -1327,7 +1350,7 @@ UI.updateAnnotation = (semid) => {
     if (subcat) {O.subcat = subcat;}
     else{O.subcat=''}
     if (layer !=undefined ) O.layer=layer;
-    if(media) O.media=media;
+    if(media) O.media=media.trim();
     APP.updateSemAnnotation(semid, O);
     ATON._bPauseQuery = false;
     

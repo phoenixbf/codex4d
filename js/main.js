@@ -47,25 +47,29 @@ APP.layers=[
     {
         id:0,
         name:"layer_rgb",
-        title:"Layer RGB"
+        title:"Layer RGB",
+    
 
     },
     {
         id:1,
         name:"layer_ir1",
-        title:"Layer IR1"
+        title:"Layer IR1",
+        depth:0.0
 
     },
     {
         id:2,
         name:"layer_ir2",
-        title:"Layer IR2"
+        title:"Layer IR2",
+        depth:0.5
 
     },
     {
         id:3,
         name:"layer_ir3",
-        title:"Layer IR3"
+        title:"Layer IR3",
+        depth:1.0
 
     }
 
@@ -288,11 +292,26 @@ APP.loadConfig = (path)=>{
         
     });
 };
-APP.loadMedia=()=>{
-    return $.getJSON("http://localhost:8080/api/c/media",(data)=>{
-        return data;
+APP.loadMedia = () => {
+    /* $.getJSON( ATON.PATH_RESTAPI+"c/media/", ( data )=>{         console.log("media:",data) }; */
+    fetch(ATON.PATH_RESTAPI+"c/media", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
+    .then(response => response.json())
+    .then(data => {
+        if(data.length>0){
+            data.forEach((link) => {
+              $(".uploadLink").val(($(".uploadLink").val().trim() ? $(".uploadLink").val().trim() + "\n" : "") + link);
+            });
+          }
+        console.log("media:",data)
+    })
+    .catch(error => console.error(error))
 }
+
 
 // If pose p is not defined/valid, open first available pose
 APP.loadVolumePose = (v,p)=>{
@@ -449,17 +468,21 @@ APP.setLensRadius = (v)=>{
 // Set current APP layer 
 APP.setLayer = (L)=>{
     APP.UI.setLayer(L);
-
+    APP.currLayer = L;
     if (L === APP.LAYER_RGB){
         APP.disableLens();
         return;
     }
 
     APP.enableLens();
-    
-    if (L === APP.LAYER_IR1) APP.setDiscoveryDepth( 0.0 );
+    APP.layers.forEach((l)=>{
+        if(L===l.id){
+            APP.setDiscoveryDepth(l.depth );  
+        }
+    })
+    /* if (L === APP.LAYER_IR1) APP.setDiscoveryDepth( 0.0 );
     if (L === APP.LAYER_IR2) APP.setDiscoveryDepth( 0.5 );
-    if (L === APP.LAYER_IR3) APP.setDiscoveryDepth( 1.0 );
+    if (L === APP.LAYER_IR3) APP.setDiscoveryDepth( 1.0 ); */
     
     APP.currLayer = L;
 };

@@ -1508,17 +1508,17 @@ label {
 .legend{
   padding-top: 2em;
 }
-.legend img{
+.helperPopup img{
   width: 2em;
 }
-.legend .row{
-  padding-bottom: 2em;
+.helperPopup .row{
+  
   display: flex;
   align-items: center;
   width: 100%;
 }
-.legend span{
-  padding-left: 2em;
+.helperPopup span{
+  padding-left: 1em;
 }
 .atonSidePanelContent img {
   margin-left:0!important;
@@ -1539,6 +1539,9 @@ label {
 }
 .closeLegendBtn span{
   padding: 0;
+  color: #e0c081;
+  font-weight: 600;
+  font-size: 1.5em;
 }
 .layerSelect{
   align-self: center;
@@ -1597,4 +1600,15 @@ label {
 }
 .btn{
   cursor: pointer;
+}
+.mono{
+  padding-bottom: 2em;
+  width: 9em;
+  /* flex-grow: 1; */
+  padding-right: 3em;
+  display: flex;
+  align-items: center;
+}
+.atonSidePanelContent img{
+  height: auto!important;
 }
