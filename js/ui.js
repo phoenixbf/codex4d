@@ -53,7 +53,6 @@ UI.init = () => {
   UI.formatSelectedCategories()
   //ATON.FE.uiAddProfile("editor", UI.buildEditor);
   //ATON.FE.uiAddProfile("public", UI.buildPublic);
-
   if (APP.argUIP !== "editor") APP.setProfilePublic();
   else APP.setProfileEditor();
 
@@ -209,7 +208,7 @@ UI.buildLeftBar = (logged) => {
           htmlCodeSlider += `<option class='layerOption layer' value='${layer.name}'>${layer.title}</option>`;
         })
         htmlCodeSlider+='</select>'
-        htmlCodeSlider += "<img src='assets/icons/Play_OFF.png' class='playPause play'>"
+        htmlCodeSlider += "<img src='assets/icons/Play_OFF.png' class='playPause play btn'>"
         htmlCodeSlider+='<img src="assets/icons/zoom-out.png"/><input type="range" min="0" value="50" max="100" id="idSliderLens" class="sliderAnn noting" /><img src="assets/icons/zoom-in.png"/>'
         
         
@@ -542,7 +541,7 @@ UI.buildPublic = () => {
   $("#idTopToolbar").html("");
   $("#idBottomToolbar").html("");
   $("#idLeftToolbar").html("");
-
+  $(".sliderBack").removeClass("visible")
   //left toolbar for Public UI
   UI.buildLeftBar(false)
   UI.buildHelp(false)
@@ -730,7 +729,7 @@ UI.buildEditor = () => {
   $("#idTopToolbar").html("");
   $("#idBottomToolbar").html("");
   $("#idLeftToolbar").html("");
-
+  $(".sliderBack").removeClass("visible")
 
   UI.buildLeftBar(true)
   UI.buildHelp(true)

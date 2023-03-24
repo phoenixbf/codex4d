@@ -586,13 +586,7 @@ APP._attachUI = ()=>{
         ATON.Nav.requestHomePOV();
     });
 
-   /*$(".toggleSize").click(()=>{
-        if (APP.state !== APP.STATE_MEASURE) APP.setState(APP.STATE_MEASURE);
-        else {
-            ATON.SUI.clearMeasurements();
-            APP.setState(APP.STATE_NAV);
-        }
-    });*/
+ 
     $(".toggleSize").click(()=>{
         if (APP.state !== APP.STATE_MEASURE) APP.goToMode(APP.STATE_MEASURE);
         else {
@@ -600,10 +594,7 @@ APP._attachUI = ()=>{
         }
     });
 
-    // Defaults to IR1
-    /*$(".toggleLayer").click(()=>{
-        if ($("#idViewControlContainer").is(":visible")) APP.setLayer(APP.LAYER_IR1);
-    });*/
+   
     $(".toggleLayer").click(()=>{
         
         if(APP.state!==APP.STATE_LAYER_VISION){
@@ -651,15 +642,11 @@ APP._attachUI = ()=>{
         ATON.FE.popupUser();
     });
 
-    /*$("#sphere").click(()=>{
-        APP.setState(APP.STATE_ANN_BASIC);
-    });*/
+    
     $(".annotation").click(()=>{
         
     })
-    /* $(".sphereNote").click(()=>{
-        APP.goToMode(APP.STATE_ANN_BASIC);
-    }); */
+    
 };
 
 // Events
