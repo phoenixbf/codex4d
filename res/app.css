@@ -194,13 +194,10 @@ button {
   flex-direction: column;
   justify-content: space-around;
 }
-.sliderAnn{
+.sliderBack{
   visibility: hidden;
 }
 #idSliderLensAnn{
-  
-  left: 12em;
-  position: absolute;
 
   display: flex;
   width: auto;
@@ -238,7 +235,7 @@ button {
   top: 19%;
   background: rgb(110, 110, 110);
   margin-left: 2em;
-  opacity: 0.7;
+  opacity: 0.85;
   border-radius: 40px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
   /* transform: scale(0.9); */
@@ -818,13 +815,13 @@ label {
 .pause {
   background-color: transparent;
   /* padding-left: 0.25em; */
-  padding-top: 1em;
+  /* padding-top: 1em; */
   width: 1.5em;
 }
 .play {
   background-color: transparent;
   /* padding-left: 0.25em; */
-  padding-top: 1em;
+  /* padding-top: 1em; */
   width: 1.5em;
   
 }
@@ -838,11 +835,10 @@ label {
 }
 
 .layerPanelSelector {
-  /*width: 100%; */
-  /* margin-top: 1em; */
-  /* position: absolute; */
-  /* height: 3em; */
-  /* display: block; */
+  display: flex;
+  align-items: center;
+  width: 1.5e;
+  flex-direction: column;
   
 }
 
@@ -895,7 +891,8 @@ label {
   /* width: 34em; */
   /* height: 85%; */
   /* left: 20em; */
-  top: 100px;
+  top: 1.5em;
+
   background: #d9d9d9;
   opacity: 0.8;
   border-radius: 10px;
@@ -906,13 +903,13 @@ label {
   display: flex;
 }
 .second_row{
-  padding-top: 2em;
+  
   display: flex;
   flex-direction: column;
   align-self: center;
 }
 .third_row{
-  padding-top: 2em;
+  padding-top: 1em;
   display: flex;
   align-items: center;
 }
@@ -920,7 +917,7 @@ label {
   display: flex;
   justify-content: space-evenly;
   padding-top: 2em;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
 }
 .total{
   width: 100%;
@@ -1010,10 +1007,7 @@ label {
   line-height: 20px;
   letter-spacing: 0.15px;
   color: #422c20;
-  /* flex: none; */
-  /* order: 0; */
-  /* flex-grow: 1; */
-  /* text-indent: 3%;*/
+  
 }
 
 .catOption {
@@ -1290,7 +1284,7 @@ label {
   justify-content: center;
   background: rgb(110, 110, 110);
   width: 5em;
-  opacity: 0.7;
+  opacity: 0.85;
   transform: scale(0.9);
   border-radius: 10px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 20%);
@@ -1472,7 +1466,7 @@ label {
 }
 
 .openBottomBar{
-  bottom: 5.9em;
+  /* bottom: 5.9em; */
 }
 
 .toggleNote{
@@ -1561,4 +1555,46 @@ label {
   line-height: 20px;
   letter-spacing: 0.15px;
   color: #422c20;
+}
+.sliderBack{
+  background-color: gray;
+  position: absolute;
+  display: flex;
+  
+  top: 80%;
+  height: 3em;
+  min-width: fit-content;
+  width: 50%;
+  opacity: 0.85;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: space-around;
+}
+.sliderBack img{
+  width: 1.5em;
+}
+.layerSelectionMenu{
+  align-self: center;
+  
+  height: 34px;
+  background: rgba(242, 242, 242, 0.6);
+  border: 1px solid #bdbdbd;
+  border-radius: 8px;
+  flex: none;
+  flex-grow: 0;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.15px;
+  color: #422c20;
+
+}
+.monoLayer{
+  display: flex;
+  align-items: center;
+}
+.btn{
+  cursor: pointer;
 }

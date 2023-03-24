@@ -555,7 +555,8 @@ APP.update = ()=>{
     
 };
 
-APP.goToMode=(idMode)=>{    
+APP.goToMode=(idMode)=>{ 
+    APP.cancelCurrentTask();   
     ATON.SUI.clearMeasurements();
     APP.setLayer(APP.LAYER_RGB)
     APP.setState(idMode)
@@ -619,7 +620,7 @@ APP._attachUI = ()=>{
     })
     
 
-    function mapRange(value, fromLow, fromHigh, toLow, toHigh) {
+    APP.mapRange=(value, fromLow, fromHigh, toLow, toHigh)=> {
       return (toLow + (toHigh - toLow) * ((value - fromLow) / (fromHigh - fromLow)));
     }
     $("#idSliderLens").on("input change",()=>{
@@ -628,12 +629,7 @@ APP._attachUI = ()=>{
         APP.setLensRadius(raggio);
         APP.raggio_vision=raggio
     });
-    $("#idSliderLensAnn").on("input change",()=>{
-        let r = parseFloat( $("#idSliderLensAnn").val() )
-        let raggio = mapRange(r, 0,100, APP.raggio_min, APP.raggio_max);
-        APP.setLensRadius(raggio);
-        APP.raggio_ann=raggio
-    });
+   
     
 
     // Layers
@@ -706,22 +702,33 @@ APP.setupEvents = ()=>{
         
 
     });
+    ATON.on("goToModeANN_free",()=>{
+       console.log("annfree")
+        APP.setState(APP.STATE_ANN_FREE)
+      })
+    ATON.on("exitFromModeANN_free",()=>{
+        APP.setState(APP.STATE_NAV)
+    })
 
     ATON.on("Tap",(e)=>{
         if (APP.state === APP.STATE_MEASURE){
             let M = APP.measure();
 
-            //if (!M) return;
-            //APP.setState(APP.STATE_NAV);
+           
+            
             return;
         }
 
-        if (APP.state === APP.STATE_ANN_BASIC){
+        else if (APP.state === APP.STATE_ANN_BASIC){
             //APP.setState(APP.STATE_NAV);
 
             $("#idForm").show();
             APP.UI.addAnnotation(ATON.FE.SEMSHAPE_SPHERE);
             return;
+        }
+        else if(APP.state===APP.STATE_ANN_FREE){
+            if (!ATON.SceneHub._bEdit) return;
+            ATON.SemFactory.addSurfaceConvexPoint(0.01);
         }
     });
 
@@ -980,7 +987,7 @@ APP.measure = ()=>{
     let P = ATON.getSceneQueriedPoint();
     let M = ATON.SUI.addMeasurementPoint( P );
 
-    console.log(M);
+    
     return M;
 };
 

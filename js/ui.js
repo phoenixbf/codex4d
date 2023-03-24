@@ -110,7 +110,7 @@ UI.buildLeftBar = (logged) => {
       "<div id='sphere' class='sphereNote noting'><img id='idTurnSphere ' class='toolbarIcon sphereNoteImg' src='assets/icons/cerchio_annotazione_OFF.png'></div>"+
       "<div id='free' class='freeNote noting'><img id='idTurnAreal' class='toolbarIcon freeNoteImg' src='assets/icons/Aton_areale_OFF.png'/></div>"+
     "</div>"+ 
-    "<input type='range' min='0' value='50' max='100' id='idSliderLensAnn' class='sliderAnn noting' />"
+    
   "</button>";
   }
   
@@ -159,6 +159,7 @@ UI.buildLeftBar = (logged) => {
     '<div id="selectAnnType" class="sidebar left selectAnnType">'+
       "<div id='sphere' class='sphereNote noting'><img id='idTurnSphere ' class='toolbarIcon sphereNoteImg' src='assets/icons/cerchio_annotazione_OFF.png'></div>"+
       "<div id='free' class='freeNote noting'><img id='idTurnAreal' class='toolbarIcon freeNoteImg' src='assets/icons/Aton_areale_OFF.png'/></div>"+
+      
     "</div>"+ 
   "</button>";
     
@@ -199,12 +200,60 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").hide();
       $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
       $(".selectAnnType").removeClass("visible")
-      $("#idSliderLensAnn").removeClass("visible")
+      $(".sliderBack").addClass("visible")
+      let htmlCodeSlider=''
+        htmlCodeSlider+='<img src="assets/icons/layers.png"/>'
+        htmlCodeSlider+='<select class="layerSelectionMenu">'
+        
+        APP.layers.forEach((layer)=>{
+          htmlCodeSlider += `<option class='layerOption layer' value='${layer.name}'>${layer.title}</option>`;
+        })
+        htmlCodeSlider+='</select>'
+        htmlCodeSlider += "<img src='assets/icons/Play_OFF.png' class='playPause play'>"
+        htmlCodeSlider+='<img src="assets/icons/zoom-out.png"/><input type="range" min="0" value="50" max="100" id="idSliderLens" class="sliderAnn noting" /><img src="assets/icons/zoom-in.png"/>'
+        
+        
+        $(".sliderBack").html(htmlCodeSlider)
+        let r = parseFloat( $("#idSliderLens").val() )
+        let raggio = APP.mapRange(r, 0,100, APP.raggio_min, APP.raggio_max);
+        APP.setLensRadius(raggio);
+        APP.raggio_vision=raggio
+        $("#idSliderLens").off("input change").on("input change",function (){
+          $(this).css(
+            "background",
+            "linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) " +
+              this.value +
+              "%, transparent " +
+              this.value +
+              "%, transparent 100%)"
+          );
+          let r = parseFloat( $("#idSliderLens").val() )
+          let raggio = APP.mapRange(r, 0,100, APP.raggio_min, APP.raggio_max);
+          APP.setLensRadius(raggio);
+          APP.raggio_vision=raggio
+        });
+        // click actions for the play/pause buttons:
+        $(".playPause").on("click",()=>{
+          if($(".playPause").hasClass("play")){
+            playInterval()
+          }
+          else{
+            pauseInterval()
+          }
+        })
+        $(".layerSelectionMenu").on("change",()=>{
+          APP.layers.forEach((layer)=>{
+            if(layer.name===$(".layerSelectionMenu").val())
+            APP.setLayer(layer.id)
+          })
+        })
     } 
     else {
+      
       $(".toggleLayer").removeClass("clicked")
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
       UI.stopLens();
+      $(".sliderBack").removeClass("visible")
     }
   });
   $(".toggleAnnotation").click((e) => {
@@ -222,10 +271,9 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").show();
       $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
       $(".selectAnnType").removeClass("visible")
-      $("#idSliderLensAnn").removeClass("visible")
+      $(".sliderBack").removeClass("visible")
       UI.stopLens();
     } else if(!$(e.target).closest(".filterContainer").length) {
-      console.log("ma qua non ci arrivo più")
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
       
       $(".filterContainer").addClass("closeFilterContainer").on("animationend", function() {
@@ -251,7 +299,7 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").hide();
       $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
       $(".selectAnnType").removeClass("visible")
-      $("#idSliderLensAnn").removeClass("visible")
+      $(".sliderBack").removeClass("visible")
       UI.stopLens()
     } else {
       $(".toggleSize").removeClass("clicked")
@@ -262,6 +310,7 @@ UI.buildLeftBar = (logged) => {
     UI.disableIcon()
     if (!$(".toggleHelp").hasClass("clicked")) {
       UI.disableIcon()
+      APP.goToMode(APP.STATE_NAV)
       $(".clicked").removeClass("clicked")
       $(".toggleHelp").addClass("clicked")
       $(".helperPopup").show()
@@ -273,7 +322,7 @@ UI.buildLeftBar = (logged) => {
       $(".filterContainer").hide();
       $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
       $(".selectAnnType").removeClass("visible")
-      $("#idSliderLensAnn").removeClass("visible")
+      $(".sliderBack").removeClass("visible")
       
       UI.stopLens()
     } else {
@@ -299,6 +348,7 @@ UI.buildLeftBar = (logged) => {
         $(".filterContainer").hide();
         UI.stopLens()
         $(".selectAnnType").addClass("visible")
+        $(".sliderBack").removeClass("visible")
         
         /* $("#selectAnnType").show(); */
       }
@@ -315,7 +365,7 @@ UI.buildLeftBar = (logged) => {
         $(".toggleNote").removeClass("clicked")
         $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
         $(".selectAnnType").removeClass("visible")
-        $("#idSliderLensAnn").removeClass("visible")
+        $(".sliderBack").removeClass("visible")
       }
       
     });
@@ -324,7 +374,7 @@ UI.buildLeftBar = (logged) => {
 
     $(".sphereNoteImg").on("click",() => {
       UI.disableIcon()
-      $("#idSliderLensAnn").removeClass("visible")
+      $(".sliderBack").removeClass("visible")
       if($(".freeNoteImg").hasClass("clicked")){
         $(".freeNoteImg").removeClass("clicked")
         $(".freeNoteImg").attr("src", "assets/icons/Aton_areale_OFF.png");
@@ -336,7 +386,9 @@ UI.buildLeftBar = (logged) => {
         APP.goToMode(APP.STATE_NAV);
       }
       else{
-        $("#idSliderLensAnn").addClass("visible")
+        UI.goToModeANN_basic()
+        
+        
         $(".sphereNoteImg").attr("src","assets/icons/cerchio_annotazione_ON.png")
         $(".sphereNoteImg").addClass("clicked")
         APP.goToMode(APP.STATE_ANN_BASIC);
@@ -345,7 +397,7 @@ UI.buildLeftBar = (logged) => {
 
     $(".freeNoteImg").on("click", () => {
       UI.disableIcon()
-      $("#idSliderLensAnn").removeClass("visible")
+      $(".sliderBack").removeClass("visible")
       if($(".sphereNoteImg").hasClass("clicked")){
         $(".sphereNoteImg").removeClass("clicked")
         $(".sphereNoteImg").attr("src", "assets/icons/cerchio_annotazione_OFF.png");
@@ -356,8 +408,10 @@ UI.buildLeftBar = (logged) => {
         APP.goToMode(APP.STATE_NAV);
       }
       else{
+        UI.goToModeANN_free()
         $(".freeNoteImg").attr("src","assets/icons/Aton_areale_ON.png")
         $(".freeNoteImg").addClass("clicked")
+        
         APP.goToMode(APP.STATE_ANN_FREE);
       }
     });
@@ -369,6 +423,75 @@ UI.buildLeftBar = (logged) => {
       $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
     }
   });
+}
+UI.goToModeANN_basic=()=>{
+  let htmlCodeSlider=''
+  htmlCodeSlider+='<img src="assets/icons/layers.png"/>'
+  htmlCodeSlider+='<select class="layerSelectionMenu">'
+  
+  APP.layers.forEach((layer)=>{
+    htmlCodeSlider += `<option class='layerOption' value='${layer.name}'>${layer.title}</option>`;
+  })
+  
+  htmlCodeSlider+='</select><img src="assets/icons/zoom-out.png"/><input type="range" min="0" value="50" max="100" id="idSliderLensAnn" class="sliderAnn noting" /><img src="assets/icons/zoom-in.png"/>'
+  $(".sliderBack").html(htmlCodeSlider)
+  let r = parseFloat( $("#idSliderLensAnn").val() )
+  let raggio = APP.mapRange(r, 0,100, APP.raggio_min, APP.raggio_max);
+  APP.setLensRadius(raggio);
+  APP.raggio_ann=raggio
+  $("#idSliderLensAnn").off("input change").on("input change",function (){
+    $(this).css(
+      "background",
+      "linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) " +
+        this.value +
+        "%, transparent " +
+        this.value +
+        "%, transparent 100%)"
+    );
+    let r = parseFloat( $("#idSliderLensAnn").val() )
+    let raggio = APP.mapRange(r, 0,100, APP.raggio_min, APP.raggio_max);
+    APP.setLensRadius(raggio);
+    APP.raggio_ann=raggio
+  });
+  $(".layerSelectionMenu").off("change").on("change",()=>{
+    APP.layers.forEach((layer)=>{
+      if(layer.name===$(".layerSelectionMenu").val())
+      APP.setLayer(layer.id)
+    })
+  })
+  $(".sliderBack").addClass("visible")
+}
+
+UI.goToModeANN_free=()=>{
+  ATON.fireEvent("goToModeANN_free")
+
+  let htmlCodeSlider=''
+  htmlCodeSlider+='<div class="monoLayer">'
+  htmlCodeSlider+='<img src="assets/icons/layers.png"/>'
+  htmlCodeSlider+='<select class="layerSelectionMenu">'
+  
+  APP.layers.forEach((layer)=>{
+    htmlCodeSlider += `<option class='layerOption' value='${layer.name}'>${layer.title}</option>`;
+  })
+  htmlCodeSlider+='</select>'
+  
+  htmlCodeSlider+='</div>'
+  htmlCodeSlider+='<img class="cancelAnn btn" src="assets/icons/cancel.png"/><img class="acceptAnn btn" src="assets/icons/accept.png"/>'
+  $(".sliderBack").html(htmlCodeSlider)
+  $(".layerSelectionMenu").off("change").on("change",()=>{
+    APP.layers.forEach((layer)=>{
+      if(layer.name===$(".layerSelectionMenu").val())
+      APP.setLayer(layer.id)
+    })
+  })
+  
+  $(".cancelAnn").off("click").on("click",()=>{
+    APP.cancelCurrentTask();
+  })
+  $(".acceptAnn").off("click").on("click",()=>{
+    APP.finalizeSemanticShape();
+  })
+  $(".sliderBack").addClass("visible")
 }
 UI.disableIcon=()=>{
   $(".sphereNoteImg").attr("src", "assets/icons/cerchio_annotazione_OFF.png");
@@ -530,16 +653,7 @@ UI.buildLens=()=>{
         "%, transparent 100%)"
     );
   });
-  $("#idSliderLensAnn").on("input", function () {
-    $(this).css(
-      "background",
-      "linear-gradient(to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) " +
-        this.value +
-        "%, transparent " +
-        this.value +
-        "%, transparent 100%)"
-    );
-  });
+  
   $("#idZoom").on("click",() => {
     if ($("#idZoom").attr("src") == "assets/icons/Zoom_OFF.png"){
       $("#idZoom").attr("src", "assets/icons/Zoom_ON.png")
@@ -561,7 +675,6 @@ UI.buildLens=()=>{
   $("#idIr3").click(() => {
     UI.setLayer(APP.LAYER_IR3);
   });
-
   // click actions for the play/pause buttons:
   $(".playPause").on("click",()=>{
     if($(".playPause").hasClass("play")){
@@ -595,9 +708,16 @@ function loop() {
   return setInterval(() => {
     $(layers).attr("src","assets/layer.png")
     $(layers[index]).attr("src", "assets/active_layer.png");
+    console.log("quindi?",index)
     APP.setLayer(index);
+    APP.layers.forEach((layer)=>{
+      if(layer.id==index){
+        $(".layerSelectionMenu").val(layer.name)
+      }
+    })
+    
     index++;
-    if (index === layers.length) {
+    if (index == layers.length) {
       index=0
     }
    
@@ -1036,6 +1156,11 @@ UI.addAnnotation = (semtype) => {
   
 
   $("#idForm").html(htmlcode);
+  APP.layers.forEach((layer)=>{
+    if(layer.id==APP.currLayer)
+    $(".layerSelect").val(layer.name)
+  })
+  
   //crea il form di compilazioni delle note delle categorie e sotto categorie
   $('#catSelect').on('change', function() {
     const subCategories = subCategoryMap[this.value];
@@ -1059,7 +1184,7 @@ UI.addAnnotation = (semtype) => {
     $("#rchars").text(textlen);
   });*/
 
-  $("#idDelete").click(() => {
+  $(".cancelButton").off("click").click(() => {
     $("#idForm").hide();
     ATON._bPauseQuery = false;
     if($(".sphereNoteImg").hasClass("clicked")){
@@ -1071,7 +1196,7 @@ UI.addAnnotation = (semtype) => {
 
   });
 
-  $("#idOk").click(() => {
+  $(".okButton").off("click").click(() => {
     $("#idForm").hide();
 
     let title = $("#idTitle").val();
@@ -1086,18 +1211,21 @@ UI.addAnnotation = (semtype) => {
     
     
     let layer;
+    
     APP.layers.forEach((l)=>{
       if(l.name===$(".layerSelect").val()){
         layer=l.id
+        console.log(layer)
       }
     })
+
     let media=$(".uploadLink").val()
     let O = {};
     if (title) O.title = title;
     if (descr) O.descr = descr;
     if (cat) O.cat = cat;
     if (subcat) O.subcat = subcat;
-    if (layer) O.layer=layer;
+    if (layer !=undefined ) O.layer=layer;
     
     if(media) O.media=media;
     APP.addSemanticAnnotation(semid, O, semtype);
@@ -1117,8 +1245,18 @@ UI.updateAnnotation = (semid) => {
 
   // TODO: fill HTML form with O data
   let htmlcode = UI.createAnnForm()
-
+  console.log(O.layer)
+  
   $("#idUpdateAnn").html(htmlcode);
+
+  APP.layers.forEach((layer)=>{
+    console.log(layer.id,O.layer)
+    if(layer.id==O.layer)
+    {
+      $(".layerSelect").val(layer.name)
+      console.log(layer.name)
+    }
+  })
   const subCategories = subCategoryMap[O.cat];
   let subCatCode = '';
   subCategories.forEach((subCategory) => {
@@ -1154,12 +1292,13 @@ UI.updateAnnotation = (semid) => {
     });
     $(".subCategorySelect").html(htmlcode);
   });
-  $("#idDelete").click(() => {
+  $(".cancelButton").off("click").click(() => {
     $("#idUpdateAnn").hide();
     ATON._bPauseQuery = false;
 
   });
-  $("#idOk").click(() => {
+  $(".okButton").off("click").click(() => {
+    console.log("clicco ok")
     $("#idUpdateAnn").hide();
 
     let title = $(".titleInput").val();
@@ -1175,6 +1314,7 @@ UI.updateAnnotation = (semid) => {
     let layer;
     APP.layers.forEach((l)=>{
       if(l.name===$(".layerSelect").val()){
+        console.log("layerSettato",l.id)
         layer=l.id
       }
     })
@@ -1184,15 +1324,14 @@ UI.updateAnnotation = (semid) => {
     if (title) O.title = title;
     if (descr) O.descr = descr;
     if (cat) O.cat = cat;
+    
     if (subcat) {O.subcat = subcat;}
     else{O.subcat=''}
-    if (layer) O.layer=layer;
+    if (layer !=undefined ) O.layer=layer;
     if(media) O.media=media;
-    
-    
     APP.updateSemAnnotation(semid, O);
     ATON._bPauseQuery = false;
-    $("#idUpdateAnn").hide();
+    
     
   });
 
