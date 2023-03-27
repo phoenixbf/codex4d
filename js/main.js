@@ -303,9 +303,15 @@ APP.loadMedia = () => {
     .then(response => response.json())
     .then(data => {
         if(data.length>0){
+            let htmlcode=''
             data.forEach((link) => {
-              $(".uploadLink").val(($(".uploadLink").val().trim() ? $(".uploadLink").val().trim() + "\n" : "") + link);
+                let path="/collections/"+link
+                let name=link.split("/")
+                name=name[name.length-1]
+                htmlcode += "<option data-image='"+path+"' value="+link+">"+name+"</option>"
+                /* $(".js-example-basic-multiple").val(($(".uploadLink").val()? $(".uploadLink").val().trim() + "\n" : "") + link); */
             });
+            $(".js-example-basic-multiple").html(htmlcode)
           }
         console.log("media:",data)
     })

@@ -909,9 +909,11 @@ label {
 }
 .second_row{
   
+  width: 50%;
+  align-self:flex-start;
   display: flex;
   flex-direction: column;
-  align-self: center;
+  
 }
 .third_row{
   padding-top: 1em;
@@ -1376,63 +1378,7 @@ label {
   border: none;
 }
 
-@media only screen and (max-width: 600px), (orientation: landscape) and (max-width:1000px) {
 
-  .toggleFull{
-    border-top:  3px solid #e0c081;
-  }
-  .leftToolbar {
-    display: none!important;
-    top: 15%;
-    width: 100%;
-    transform: scale(0.9);
-  }
-  .leftToolbarMobile{
-    top: -3em;
-    display: flex;
-  }
-  
-  #idSliderLens {
-    left: 100px;
-  }
-  .titleText {
-    width: 10em;
-    font-size: max(1.5em, 2vw);
-    font-weight: bold;
-  }
-  .login {
-    padding-right: 1em;
-    
-    
-    right: 0;
-  }
-  .subtitleText {
-    font-size: max(18px, 1.5vw);
-  }
-  .horDivider {
-    display: none;
-  }
-  .annotationForm{
-    position: absolute;
-    width: 75%;
-
-    /* height:30%; */
-    /* left: 12%; */
-    top: 5%;
-    background: #d9d9d9;
-    border-radius: 10px;
-    z-index: 110;
-    opacity: initial;
-  }
-  .filterContainer {
-    position: absolute;
-    left: 6em;
-    animation: slideInLeftRight 0.5s forwards;
-  }
-  .sidebar.left {
-    left: 7em;
-  }
-}
 
 @media only screen and (max-height:600px) {
   
@@ -1552,7 +1498,9 @@ label {
   font-size: 1.5em;
 }
 .layerSelect{
-  align-self: center;
+  width: 100%;
+  /* align-self: center;*/
+  margin-left: 1em;
 
   height: 34px;
   background: rgba(242, 242, 242, 0.6);
@@ -1619,4 +1567,148 @@ label {
 }
 .atonSidePanelContent img{
   height: auto!important;
+}
+.select2-results__options {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+.select2-selection__choice{
+  padding: 0!important;
+  display: flex!important;
+  align-items: center!important;
+  background-color:  #e0c081!important;
+}
+.select2-selection__choice__remove{
+  position: relative!important;
+  height: 1em!important;
+  width: 1em!important;
+  font-size: 1.5em!important;
+  display: flex!important;
+  align-items: center!important;
+  padding: 0!important;
+  justify-content: center!important;
+  color: black!important;
+
+}
+.select2-selection__choice__display{
+  color: black!important;
+}
+.select2 span{
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.15px;
+
+}
+.select2-results__option--highlighted.select2-results__option--selectable{
+  background-color: #e0c08194!important;
+  color: black!important;
+}
+.select2-results__option--selected{
+  background-color: #e0c081!important;
+}
+.select2-results{
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: 0.15px;
+}
+
+
+/* Aggiungi questa regola CSS per il contenitore dell'elemento Select2 */
+/* .select2-container {
+  width: 100%;
+} */
+
+/* Aggiungi questa regola CSS per l'elemento Select2 */
+/* .select2 {
+  width: 100%;
+}
+ */
+/* Aggiungi queste media query per adattare la larghezza dell'elemento Select2 alle diverse dimensioni dello schermo */
+/* @media (min-width: 768px) {
+  .select2 {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .select2 {
+    width: 33.33%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .select2 {
+    width: 25%;
+  } 
+}*/
+.tumblr{
+  width:8em; 
+  padding-right: 1em;
+}
+
+@media only screen and (max-width: 600px), (orientation: landscape) and (max-width:1000px) {
+
+  .toggleFull{
+    border-top:  3px solid #e0c081;
+  }
+  .leftToolbar {
+    display: none!important;
+    top: 15%;
+    width: 100%;
+    transform: scale(0.9);
+  }
+  .leftToolbarMobile{
+    top: -3em;
+    display: flex;
+  }
+  
+  #idSliderLens {
+    left: 100px;
+  }
+  .titleText {
+    width: 10em;
+    font-size: max(1.5em, 2vw);
+    font-weight: bold;
+  }
+  .login {
+    padding-right: 1em;
+    
+    
+    right: 0;
+  }
+  .subtitleText {
+    font-size: max(18px, 1.5vw);
+  }
+  .horDivider {
+    display: none;
+  }
+  .annotationForm{
+    position: absolute;
+    width: 75%;
+
+    /* height:30%; */
+    /* left: 12%; */
+    top: 5%;
+    background: #d9d9d9;
+    border-radius: 10px;
+    z-index: 110;
+    opacity: initial;
+  }
+  .filterContainer {
+    position: absolute;
+    left: 6em;
+    animation: slideInLeftRight 0.5s forwards;
+  }
+  .sidebar.left {
+    left: 7em;
+  }
+  .tumblr{
+    width: 3em;
+  }
 }

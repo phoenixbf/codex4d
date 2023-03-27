@@ -63,6 +63,7 @@ UI.init = () => {
     APP.setIRvalue(v);
   });
   
+  
 };
 
 UI.setLayer = (layer) => {
@@ -1150,7 +1151,10 @@ UI.createAnnForm=()=>{
   
   htmlcode += "<div class='fileContainer'>";
   htmlcode += "<span for='files' class='formTitle'>File Multimediali </span>";
-  htmlcode += "<textArea class='uploadLink' id='files' type='text'/> </textarea>"; 
+
+  /* htmlcode += "<textArea class='uploadLink' id='files' type='text'/> </textarea>";  */
+  htmlcode += "<select class='js-example-basic-multiple' name='medias[]' multiple='multiple'> "
+  htmlcode +="</select>"
   htmlcode += "</div>";
 
 
@@ -1172,7 +1176,28 @@ UI.addAnnotation = (semtype) => {
 
   let htmlcode = UI.createAnnForm()
 
-  
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+    $(".js-example-basic-multiple").select2({
+      placeholder: 'Seleziona al massimo 3 media',
+      maximumSelectionLength: 3,
+      language: {
+        maximumSelected: function (e) {
+          var t = "Puoi selezionare solo " + e.maximum + " elementi";
+          return t
+        }
+      },
+      templateResult: formatOption,
+      templateSelection: formatOption,
+      escapeMarkup: function(m) {
+        return m;
+      }
+    });
+    
+    
+  });
+
+
 
   $("#idForm").html(htmlcode);
   APP.layers.forEach((layer)=>{
@@ -1211,7 +1236,7 @@ UI.addAnnotation = (semtype) => {
     }
 
   });
-
+  
   $(".okButton").off("click").click(() => {
     $("#idForm").hide();
 
@@ -1235,7 +1260,7 @@ UI.addAnnotation = (semtype) => {
       }
     })
 
-    let media=$(".uploadLink").val()
+    
     let O = {};
     if (title) O.title = title;
     if (descr) O.descr = descr;
@@ -1243,8 +1268,8 @@ UI.addAnnotation = (semtype) => {
     if (subcat) O.subcat = subcat;
     if (layer !=undefined ) O.layer=layer;
     
-    
-    if(media) O.media=media.trim();
+    /* let media=$(".uploadLink").val()
+    if(media) O.media=media.trim(); */
     APP.addSemanticAnnotation(semid, O, semtype);
 
     ATON._bPauseQuery = false;
@@ -1352,6 +1377,19 @@ UI.updateAnnotation = (semid) => {
 
   
 };
+function formatOption(option) {
+  if (!option.id) {
+    return option.text;
+  }
+
+  var imageUrl = $(option.element).data('image');
+  var $option = $(
+    '<span style="display: flex;align-items: center;"><img class="tumblr" src="' + imageUrl + '" class="img-flag" /> ' + option.text + '</span>'
+  );
+
+  return $option;
+}
+
 
 UI.deleteAnnotation = (semid) => {
   // HTML form
