@@ -208,7 +208,7 @@ UI.buildLeftBar = (logged) => {
           htmlCodeSlider += `<option class='layerOption layer' value='${layer.name}'>${layer.title}</option>`;
         })
         htmlCodeSlider+='</select>'
-        htmlCodeSlider += "<img src='assets/icons/Play_OFF.png' class='playPause play btn'>"
+        htmlCodeSlider += "<img src='assets/icons/Play_OFF.png' title='play' class='playPause play btn'>"
         htmlCodeSlider+='<img src="assets/icons/zoom-out.png"/><input type="range" min="0" value="50" max="100" id="idSliderLens" class="sliderAnn noting" /><img src="assets/icons/zoom-in.png"/>'
         
         
@@ -466,7 +466,7 @@ UI.goToModeANN_free=()=>{
 
   let htmlCodeSlider=''
   htmlCodeSlider+='<div class="monoLayer">'
-  htmlCodeSlider+='<img src="assets/icons/layers.png"/>'
+  htmlCodeSlider+='<img style=" padding-right: 1em;" src="assets/icons/layers.png"/>'
   htmlCodeSlider+='<select class="layerSelectionMenu">'
   
   APP.layers.forEach((layer)=>{
@@ -475,7 +475,7 @@ UI.goToModeANN_free=()=>{
   htmlCodeSlider+='</select>'
   
   htmlCodeSlider+='</div>'
-  htmlCodeSlider+='<img class="cancelAnn btn" src="assets/icons/cancel.png"/><img class="acceptAnn btn" src="assets/icons/accept.png"/>'
+  htmlCodeSlider+='<img class="cancelAnn btn"  src="assets/icons/cancel.png"/><img class="acceptAnn btn" src="assets/icons/accept.png"/>'
   $(".sliderBack").html(htmlCodeSlider)
   $(".layerSelectionMenu").off("change").on("change",()=>{
     APP.layers.forEach((layer)=>{
@@ -729,7 +729,6 @@ function loop() {
   return setInterval(() => {
     $(layers).attr("src","assets/layer.png")
     $(layers[index]).attr("src", "assets/active_layer.png");
-    console.log("quindi?",index)
     APP.setLayer(index);
     APP.layers.forEach((layer)=>{
       if(layer.id==index){
@@ -842,7 +841,6 @@ UI.buildSelectContainer=()=>{
         
         $(".check").off("change").change(()=>{
           let both_class=e.target.classList[e.target.classList.length-1]
-          console.log(e.target===$("."+both_class)[0],e.target===$("."+both_class)[1])
           if(e.target===$("."+both_class)[0]){
             $("."+both_class)[1].checked=$("."+both_class)[0].checked
           }
@@ -887,7 +885,6 @@ UI.buildSelectContainer=()=>{
           $(".dropdown input:checked").each(function() {
             let cat=$(this).parent().text().trim()
             if(!UI.selectedCategories.includes(cat)){
-              console.log(cat)
               UI.selectedCategories.push(cat);
             }
             
@@ -951,7 +948,6 @@ UI.buildSelectContainer=()=>{
     $("."+classe+"Checkbox")[0].checked=true
     $("."+classe+"Checkbox")[1].checked=true
   })
-  console.log(UI.selectedCategories.length-1,colors.length)
   if(UI.selectedCategories.length===colors.length){
     $(".seleziona-tutte-categorieCheckbox")[0].checked=true
     $(".seleziona-tutte-categorieCheckbox")[1].checked=true
@@ -997,7 +993,7 @@ UI.updateSemPanel = (semid) => {
 
   let S = pDB[semid];
   if (S === undefined) return;
- console.log(pDB)
+ 
   // Generate HTML for panel
   let htmlcode = "";
   htmlcode += "<div class='appPanelHeader'>";
@@ -1030,7 +1026,6 @@ UI.updateSemPanel = (semid) => {
   if (S.layer === APP.LAYER_IR1) htmlcode += "Livello IR 1";
   if (S.layer === APP.LAYER_IR2) htmlcode += "Livello IR 2";
   if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";
-  console.log("layer:",S.layer)
   htmlcode+="</span>"
   htmlcode += "<div class='layerPanelSelector'>"
   if (S.layer === APP.LAYER_RGB) {
@@ -1236,7 +1231,7 @@ UI.addAnnotation = (semtype) => {
     APP.layers.forEach((l)=>{
       if(l.name===$(".layerSelect").val()){
         layer=l.id
-        console.log(layer)
+        
       }
     })
 
@@ -1267,16 +1262,15 @@ UI.updateAnnotation = (semid) => {
 
   // TODO: fill HTML form with O data
   let htmlcode = UI.createAnnForm()
-  console.log(O.layer)
+  
   
   $("#idUpdateAnn").html(htmlcode);
 
   APP.layers.forEach((layer)=>{
-    console.log(layer.id,O.layer)
+    
     if(layer.id==O.layer)
     {
       $(".layerSelect").val(layer.name)
-      console.log(layer.name)
     }
   })
   const subCategories = subCategoryMap[O.cat];
@@ -1320,7 +1314,6 @@ UI.updateAnnotation = (semid) => {
 
   });
   $(".okButton").off("click").click(() => {
-    console.log("clicco ok")
     $("#idUpdateAnn").hide();
 
     let title = $(".titleInput").val();
@@ -1336,7 +1329,6 @@ UI.updateAnnotation = (semid) => {
     let layer;
     APP.layers.forEach((l)=>{
       if(l.name===$(".layerSelect").val()){
-        console.log("layerSettato",l.id)
         layer=l.id
       }
     })

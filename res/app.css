@@ -825,6 +825,11 @@ label {
   width: 1.5em;
   
 }
+.playPause{
+  background-color: #e0c08159;
+  border-radius: 1em;
+  padding: 0.5em;
+}
 .imgPause {
   width: 18px;
   height: 18px;
@@ -1452,6 +1457,9 @@ label {
   }
   .annotationForm {
     top: 0%;
+  }
+  .toRemoveInMobile{
+    display:none;
   }
   
   
