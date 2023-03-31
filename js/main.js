@@ -292,7 +292,7 @@ APP.loadConfig = (path)=>{
         
     });
 };
-APP.loadMedia = () => {
+APP.loadMedia = (mediaSelected=undefined) => {
     /* $.getJSON( ATON.PATH_RESTAPI+"c/media/", ( data )=>{         console.log("media:",data) }; */
     fetch(ATON.PATH_RESTAPI+"c/media", {
         method: 'GET',
@@ -302,21 +302,17 @@ APP.loadMedia = () => {
     })
     .then(response => response.json())
     .then(data => {
-        if(data.length>0){
-            let htmlcode=''
-            data.forEach((link) => {
-                let path="/collections/"+link
-                let name=link.split("/")
-                name=name[name.length-1]
-                htmlcode += "<option data-image='"+path+"' value="+link+">"+name+"</option>"
-                /* $(".js-example-basic-multiple").val(($(".uploadLink").val()? $(".uploadLink").val().trim() + "\n" : "") + link); */
-            });
-            $(".js-example-basic-multiple").html(htmlcode)
-          }
-        console.log("media:",data)
+        UI.populateSelect2(data)
+        if(mediaSelected){
+            console.log("per caso passo da qua")
+            $(".js-example-basic-multiple").val(mediaSelected).trigger("change")
+        }
+        
+        console.log("media end point:",data)
     })
     .catch(error => console.error(error))
 }
+
 
 
 // If pose p is not defined/valid, open first available pose

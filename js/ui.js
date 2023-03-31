@@ -991,8 +991,9 @@ UI.toggleSemPanel = (b) => {
 UI.updateSemPanel = (semid) => {
   let pDB = ATON.SceneHub.currData.sem; //APP.sDB[APP.currPose];
   if (pDB === undefined) return;
-
+  console.log(pDB)
   let S = pDB[semid];
+  console.log()
   if (S === undefined) return;
  
   // Generate HTML for panel
@@ -1060,10 +1061,10 @@ UI.updateSemPanel = (semid) => {
   if (S.cat) htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
   if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
   htmlcode += "<br>";
-
-  if (S.media && S.media!=" " ){
-    let medias= S.media.split("\n" )
-    medias.forEach((el)=>{
+  console.log("o",S)
+  if (S.media && S.media!=" " && S.media.length>0 ){
+    console.log("media da mostrare",S.media)
+    S.media.forEach((el)=>{
       
       
       let path="/collections/"+el
@@ -1168,6 +1169,19 @@ UI.createAnnForm=()=>{
   htmlcode += "</div>";
   return htmlcode;
 }
+UI.populateSelect2=(data)=>{
+  if(data.length>0){
+    let htmlcode=''
+    data.forEach((link) => {
+        let path="/collections/"+link
+        let name=link.split("/")
+        name=name[name.length-1]
+        htmlcode += "<option data-image='"+path+"' value="+link+">"+name+"</option>"
+        /* $(".js-example-basic-multiple").val(($(".uploadLink").val()? $(".uploadLink").val().trim() + "\n" : "") + link); */
+    });
+    $(".js-example-basic-multiple").html(htmlcode)
+  }
+}
 UI.addAnnotation = (semtype) => {
   ATON._bPauseQuery = true;
 
@@ -1177,7 +1191,7 @@ UI.addAnnotation = (semtype) => {
   let htmlcode = UI.createAnnForm()
 
   $(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
+   /*  $('.js-example-basic-multiple').select2(); */
     $(".js-example-basic-multiple").select2({
       placeholder: 'Seleziona al massimo 3 media',
       maximumSelectionLength: 3,
@@ -1268,8 +1282,11 @@ UI.addAnnotation = (semtype) => {
     if (subcat) O.subcat = subcat;
     if (layer !=undefined ) O.layer=layer;
     
-    /* let media=$(".uploadLink").val()
-    if(media) O.media=media.trim(); */
+   
+    let media=$(".js-example-basic-multiple").val()
+    if(media) O.media=media
+    console.log(O.media)
+    
     APP.addSemanticAnnotation(semid, O, semtype);
 
     ATON._bPauseQuery = false;
@@ -1288,8 +1305,37 @@ UI.updateAnnotation = (semid) => {
   // TODO: fill HTML form with O data
   let htmlcode = UI.createAnnForm()
   
+
+  $(document).ready(function() {
+    /*  $('.js-example-basic-multiple').select2(); */
+     $(".js-example-basic-multiple").select2({
+       placeholder: 'Seleziona al massimo 3 media',
+       maximumSelectionLength: 3,
+       language: {
+         maximumSelected: function (e) {
+           var t = "Puoi selezionare solo " + e.maximum + " elementi";
+           return t
+         }
+       },
+       templateResult: formatOption,
+       templateSelection: formatOption,
+       escapeMarkup: function(m) {
+         return m;
+       }
+     });
+     
+     
+   });
+
+
   
   $("#idUpdateAnn").html(htmlcode);
+
+
+
+
+  
+
 
   APP.layers.forEach((layer)=>{
     
@@ -1308,7 +1354,10 @@ UI.updateAnnotation = (semid) => {
   $(".titleInput").val(O.title)
   $(".descriptionInput").val(O.descr)
   $(".categorySelect").val(O.cat)
-  $(".uploadLink").val(O.media)
+  APP.loadMedia(O.media)
+
+  /* UI.populateSelect2(O.media) */
+/*   $(".uploadLink").val(O.media) */
   
   if($(".subCategorySelect")[0].children.length===0){
     $(".subCategorySelect").val();
@@ -1357,7 +1406,7 @@ UI.updateAnnotation = (semid) => {
         layer=l.id
       }
     })
-    let media=$(".uploadLink").val()
+    
     
 
     if (title) O.title = title;
@@ -1367,7 +1416,12 @@ UI.updateAnnotation = (semid) => {
     if (subcat) {O.subcat = subcat;}
     else{O.subcat=''}
     if (layer !=undefined ) O.layer=layer;
-    if(media) O.media=media.trim();
+
+    let media=$(".js-example-basic-multiple").val()
+    console.log("media aggiornati:",media)
+    O.media=media
+    console.log("media aggiornati:",O)
+
     APP.updateSemAnnotation(semid, O);
     ATON._bPauseQuery = false;
     

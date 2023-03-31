@@ -918,7 +918,7 @@ label {
 .third_row{
   padding-top: 1em;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
 }
 .fourth_row{
   display: flex;
@@ -1573,9 +1573,11 @@ label {
   color: black;
 }
 .select2-selection__rendered{
-  display: flex!important;
+  /* display: flex!important; */
 }
-
+.select2-selection--multiple{
+  width: 14em;
+}
 .select2-selection__choice{
   padding: 0!important;
   display: flex!important;
@@ -1604,6 +1606,7 @@ label {
   font-size: 15px;
   line-height: 20px;
   letter-spacing: 0.15px;
+  width: 14em;
 
 }
 .select2-results__option--highlighted.select2-results__option--selectable{
@@ -1622,9 +1625,11 @@ label {
   letter-spacing: 0.15px;
 }
 .selection{
-  display: block;
+  margin: 5px;
+ 
+  display: list-item;
   height: 4em;
-  overflow-y: scroll;
+
   overflow-x: hidden;
 }
 
@@ -1657,7 +1662,7 @@ label {
   } 
 }*/
 .tumblr{
-  width:8em; 
+  width: 4em;
   padding-right: 1em;
 }
 
