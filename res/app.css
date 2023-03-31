@@ -1572,6 +1572,10 @@ label {
   background-color: rgb(255, 255, 255);
   color: black;
 }
+.select2-selection__rendered{
+  display: flex!important;
+}
+
 .select2-selection__choice{
   padding: 0!important;
   display: flex!important;
@@ -1617,7 +1621,12 @@ label {
   line-height: 20px;
   letter-spacing: 0.15px;
 }
-
+.selection{
+  display: block;
+  height: 4em;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 
 /* Aggiungi questa regola CSS per il contenitore dell'elemento Select2 */
 /* .select2-container {
