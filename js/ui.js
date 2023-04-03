@@ -988,12 +988,17 @@ UI.toggleSemPanel = (b) => {
 /*
     Update UI panel (HTML) from semantic ID (shape)
 ====================================================*/
+//funzione che mostra il pannello una volta cliccata l'annotazione con semid, semid
 UI.updateSemPanel = (semid) => {
   let pDB = ATON.SceneHub.currData.sem; //APP.sDB[APP.currPose];
   if (pDB === undefined) return;
-  console.log(pDB)
+  
+
+  
   let S = pDB[semid];
-  console.log()
+  //problema aggiornamento parte 3
+  //arrivato qua non mi mostra i dati che ho salvato precedentemente 
+  console.log("mostro:",semid,"con dati: ",S)
   if (S === undefined) return;
  
   // Generate HTML for panel
@@ -1061,9 +1066,8 @@ UI.updateSemPanel = (semid) => {
   if (S.cat) htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
   if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
   htmlcode += "<br>";
-  console.log("o",S)
   if (S.media && S.media!=" " && S.media.length>0 ){
-    console.log("media da mostrare",S.media)
+
     S.media.forEach((el)=>{
       
       
@@ -1416,12 +1420,15 @@ UI.updateAnnotation = (semid) => {
     if (subcat) {O.subcat = subcat;}
     else{O.subcat=''}
     if (layer !=undefined ) O.layer=layer;
-
+    
+    //problema aggiornamento parte 1: 
+    //prendo i valori settati nel select
     let media=$(".js-example-basic-multiple").val()
-    console.log("media aggiornati:",media)
+    console.log("sostituisco con:", media)
+    //aggiorno il json O con i media ricevuti
     O.media=media
-    console.log("media aggiornati:",O)
-
+    console.log("aggiorno:",semid,"con media: ",O.media)
+    //fino a qui tutto ok, una volta che chiamo questa funzione
     APP.updateSemAnnotation(semid, O);
     ATON._bPauseQuery = false;
     

@@ -304,11 +304,11 @@ APP.loadMedia = (mediaSelected=undefined) => {
     .then(data => {
         UI.populateSelect2(data)
         if(mediaSelected){
-            console.log("per caso passo da qua")
+            
             $(".js-example-basic-multiple").val(mediaSelected).trigger("change")
         }
         
-        console.log("media end point:",data)
+        /* console.log("media end point:",data) */
     })
     .catch(error => console.error(error))
 }
@@ -1057,7 +1057,8 @@ APP.addSemanticAnnotation = (semid, O, semtype)=>{
 
     APP.semVisitor();
 };
-
+//problema aggiornamento parte 2: 
+//in questa funzione passo, l'id della semAnnotation e il nuovo json modificato
 APP.updateSemAnnotation = (semid, O)=>{
     if (semid === undefined) return;
     if (O === undefined) return;
@@ -1076,10 +1077,10 @@ APP.updateSemAnnotation = (semid, O)=>{
             S.setMaterial(M.base);
         }
 
-        //console.log("x");
     }
-
+    //funzione che dovrebbe aggiornare l'annotazione
     ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_ADD);
+    console.log(ATON.SceneHub.currData.sem)
     console.log("Annotation "+semid+" updated.");
 };
 APP.retrieveInfo=(semid)=>{
