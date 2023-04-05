@@ -1474,6 +1474,11 @@ label {
 .helperPopup span{
   padding-left: 1em;
 }
+.atonSidePanelContent{
+  display: flex!important;
+  flex-direction: column;
+  align-items: center;
+}
 .atonSidePanelContent img {
   margin-left:0!important;
   margin-right: 0!important;
@@ -1725,4 +1730,38 @@ label {
   .tumblr{
     width: 3em;
   }
+}
+.imageToFull{
+  display: flex;
+  height: 20em;
+  justify-content: center;
+}
+.background{
+  
+  display: flex;
+  position: absolute;
+  background-color: rgba(128, 128, 128, 0.5);
+  width: 100%;
+  height: inherit;
+  justify-content: center;
+  align-items: center;
+}
+.background img{
+  height: 10em!important;
+  width: auto!important;
+}
+.fullScreenImage{
+  flex-direction: column;
+  z-index: 110;
+  background-color: #80808085;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.removeImageFull{
+  padding-right: 13em;
+  align-self: end;
 }

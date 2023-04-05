@@ -1087,19 +1087,27 @@ UI.updateSemPanel = (semid) => {
       name=name[name.length-1]
       let ext=name.split(".")[1]
       if(ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' ){
-        htmlcode += "<option data-image='"+path+"' value="+link+">"+name+"</option>"
-      }
-      else if(ext.toLowerCase()==="mp3"){
+        htmlcode+="<div class='imageToFull'>"
         
-        htmlcode += "<option data-image='assets/icons/sound.png' value="+link+">"+name+"</option>"
-        console.log("c'è audio")
+
+        htmlcode += "<img class='' src='" + path+ "'/>";
+        htmlcode +="<div class='background hide'>"
+        htmlcode +="<img src='assets/icons/maximize.png'/>"
+        htmlcode +="</div>"
+        htmlcode+='</div>'
+        htmlcode+='<br>'
       }
-      else if(ext.toLowerCase()==="mp4"){
+      if(ext.toLowerCase()==="mp3"){
+        htmlcode += "<audio style='min-height: 4em;' controls src='" + path+ "'/></audio><br>";
         
-        htmlcode += "<option data-image='assets/icons/video.png' value="+link+">"+name+"</option>"
-        console.log("c'è audio")
+        
       }
-      htmlcode += "<img src='" + path+ "'><br>";
+      if(ext.toLowerCase()==="mp4"){
+        
+        htmlcode += "<video controls src='" + path+ "'></video><br>";
+        
+      }
+
     })
     
   }
@@ -1121,6 +1129,31 @@ UI.updateSemPanel = (semid) => {
     if(APP.argBG!=0)
     {APP.UI.toggleSemPanel(false);}
   })
+  $(".imageToFull").off("mouseover").on("mouseover",(target)=>{
+    /* console.log(target.currentTarget.children[1]) */
+    $(target.currentTarget.children[1]).removeClass("hide")
+    
+  })
+  $(".imageToFull").off("mouseleave").on("mouseleave",(target)=>{
+    $(target.currentTarget.children[1]).removeClass("hide").addClass("hide")
+    
+  })
+  $(".imageToFull").off("click").on("click",(target)=>{
+    let htmlFullScreenImage='<div class="removeImageFull btn"><img src="assets/icons/cancel.png"></div>'
+    let src=target.currentTarget.children[0].src
+    
+    htmlFullScreenImage+="<img style='width: 80%;' src="+src+" />"
+    $(".fullScreenImage").html(htmlFullScreenImage)
+    $(".fullScreenImage").removeClass("hide")
+    $("#idPanel").addClass("hide")
+    $(".removeImageFull").on("click",()=>{
+      console.log("clicco chiudi")
+      $(".fullScreenImage").html()
+      $(".fullScreenImage").addClass("hide")
+      $("#idPanel").removeClass("hide")
+    })
+  })
+  
 };
 
 UI.setIntroPanel = (content)=>{
