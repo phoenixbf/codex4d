@@ -274,14 +274,16 @@ UI.buildLeftBar = (logged) => {
       $(".sliderBack").removeClass("visible")
       UI.stopLens();
     } else if(!$(e.target).closest(".filterContainer").length) {
-      $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
       
+      $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
+      console.log($(".filterContainer"))
       $(".filterContainer").addClass("closeFilterContainer").on("animationend", function() {
         $(this).off("animationend")
         $(".filterContainer").removeClass("closeFilterContainer");
         $(".filterContainer").hide()
         $(".toggleAnnotation").removeClass("clicked")
       });
+      console.log($(".filterContainer"))
       $(".selectContainer").css("background-color", "rgb(110, 110, 110)");
     }
   });
@@ -1029,10 +1031,15 @@ UI.updateSemPanel = (semid) => {
 
   htmlcode += "<div class='appPanelLayer'>";
   htmlcode+="<span>"
-  if (S.layer === APP.LAYER_RGB) htmlcode += "Livello RGB";
+  APP.layers.forEach((layer)=>{
+    if(layer.id==S.layer){
+      htmlcode+=layer.title
+    }
+  })
+  /*if (S.layer === APP.LAYER_RGB) htmlcode += "Livello RGB";
   if (S.layer === APP.LAYER_IR1) htmlcode += "Livello IR 1";
   if (S.layer === APP.LAYER_IR2) htmlcode += "Livello IR 2";
-  if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";
+  if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";*/
   htmlcode+="</span>"
   htmlcode += "<div class='layerPanelSelector'>"
   if (S.layer === APP.LAYER_RGB) {
@@ -1040,25 +1047,31 @@ UI.updateSemPanel = (semid) => {
     htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
-  };
-  if (S.layer === APP.LAYER_IR1) {
+  }
+  else if (S.layer === APP.LAYER_IR1) {
     htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
     htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/active_layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
-  };
-  if (S.layer === APP.LAYER_IR2) {
+  }
+  else if (S.layer === APP.LAYER_IR2) {
     htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
     htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/active_layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
-  };
-  if (S.layer === APP.LAYER_IR3) {
+  }
+  else if (S.layer === APP.LAYER_IR3) {
     htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
     htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/active_layer_panel.png' alt='layer' />"
-  };
+  }
+  else{
+    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
+  }
 
   htmlcode += "</div>"
   htmlcode += "</div>";
@@ -1427,7 +1440,7 @@ UI.updateAnnotation = (semid) => {
     console.log("sostituisco con:", media)
     //aggiorno il json O con i media ricevuti
     O.media=media
-    console.log("aggiorno:",semid,"con media: ",O.media)
+    console.log("aggiorno:",semid,"con ",O)
     //fino a qui tutto ok, una volta che chiamo questa funzione
     APP.updateSemAnnotation(semid, O);
     ATON._bPauseQuery = false;

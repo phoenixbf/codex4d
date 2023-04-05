@@ -43,7 +43,7 @@ APP.LAYER_RGB = 0;
 APP.LAYER_IR1 = 1;
 APP.LAYER_IR2 = 2;
 APP.LAYER_IR3 = 3;
-APP.layers=[
+/*APP.layers=[
     {
         id:0,
         name:"layer_rgb",
@@ -73,7 +73,7 @@ APP.layers=[
 
     }
 
-]
+]*/
 APP.currLayer = APP.LAYER_RGB
 
 // Categories
@@ -288,6 +288,8 @@ APP.loadConfig = (path)=>{
 
         APP.cdata = data;
 
+        
+
         ATON.fireEvent("APP_ConfigLoaded");
         
     });
@@ -324,6 +326,8 @@ APP.loadVolumePose = (v,p)=>{
     APP._bLensMatSet = false;
 
     let vol = APP.cdata.volumes[v];
+    APP.layers=vol.layers
+    
     if (vol === undefined) return;
 
     let sid = undefined;

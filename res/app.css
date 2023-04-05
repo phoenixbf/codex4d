@@ -545,7 +545,7 @@ input[type=checkbox].seleziona-tutte-categorieCheckbox{
   background: black!important;
 }
 input[type=checkbox].seleziona-tutte-categorieCheckbox:checked{
-  background: #00FF00!important;
+  background: rgb(110, 110, 110)  !important;
 }
 label {
   border-bottom: 1px solid;
@@ -1416,7 +1416,7 @@ label {
   }
 }
 .closeFilterContainer{
-  animation: slideOutRightLeft 0.5s forwards;
+  animation: slideOutRightLeft 0.5s forwards!important;
 }
 
 .openBottomBar{
