@@ -1082,9 +1082,23 @@ UI.updateSemPanel = (semid) => {
   if (S.media && S.media!=" " && S.media.length>0 ){
 
     S.media.forEach((el)=>{
-      
-      
       let path="/collections/"+el
+      let name=el.split("/")
+      name=name[name.length-1]
+      let ext=name.split(".")[1]
+      if(ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' ){
+        htmlcode += "<option data-image='"+path+"' value="+link+">"+name+"</option>"
+      }
+      else if(ext.toLowerCase()==="mp3"){
+        
+        htmlcode += "<option data-image='assets/icons/sound.png' value="+link+">"+name+"</option>"
+        console.log("c'è audio")
+      }
+      else if(ext.toLowerCase()==="mp4"){
+        
+        htmlcode += "<option data-image='assets/icons/video.png' value="+link+">"+name+"</option>"
+        console.log("c'è audio")
+      }
       htmlcode += "<img src='" + path+ "'><br>";
     })
     
@@ -1193,7 +1207,21 @@ UI.populateSelect2=(data)=>{
         let path="/collections/"+link
         let name=link.split("/")
         name=name[name.length-1]
-        htmlcode += "<option data-image='"+path+"' value="+link+">"+name+"</option>"
+        let ext=name.split(".")[1]
+        if(ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' ){
+          htmlcode += "<option data-image='"+path+"' value="+link+">"+name+"</option>"
+        }
+        else if(ext.toLowerCase()==="mp3"){
+          
+          htmlcode += "<option data-image='assets/icons/sound.png' value="+link+">"+name+"</option>"
+          console.log("c'è audio")
+        }
+        else if(ext.toLowerCase()==="mp4"){
+          
+          htmlcode += "<option data-image='assets/icons/video.png' value="+link+">"+name+"</option>"
+          console.log("c'è audio")
+        }
+        
         /* $(".js-example-basic-multiple").val(($(".uploadLink").val()? $(".uploadLink").val().trim() + "\n" : "") + link); */
     });
     $(".js-example-basic-multiple").html(htmlcode)
