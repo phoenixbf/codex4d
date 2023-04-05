@@ -295,6 +295,7 @@ APP.loadConfig = (path)=>{
     });
 };
 APP.loadMedia = (mediaSelected=undefined) => {
+    mediaSelected=mediaSelected.split(",")
     /* $.getJSON( ATON.PATH_RESTAPI+"c/media/", ( data )=>{         console.log("media:",data) }; */
     fetch(ATON.PATH_RESTAPI+"c/media", {
         method: 'GET',
@@ -304,6 +305,7 @@ APP.loadMedia = (mediaSelected=undefined) => {
     })
     .then(response => response.json())
     .then(data => {
+        console.log(data)
         UI.populateSelect2(data)
         if(mediaSelected){
             
@@ -1084,7 +1086,8 @@ APP.updateSemAnnotation = (semid, O)=>{
     }
     //funzione che dovrebbe aggiornare l'annotazione
     ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_ADD);
-    console.log(ATON.SceneHub.currData.sem)
+    pDB = ATON.SceneHub.currData.sem;
+    console.log("mostro tutte:",ATON.SceneHub.currData.sem)
     console.log("Annotation "+semid+" updated.");
 };
 APP.retrieveInfo=(semid)=>{

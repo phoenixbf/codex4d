@@ -1000,7 +1000,7 @@ UI.updateSemPanel = (semid) => {
   let S = pDB[semid];
   //problema aggiornamento parte 3
   //arrivato qua non mi mostra i dati che ho salvato precedentemente 
-  console.log("mostro:",semid,"con dati: ",S)
+  console.log("mostro tutte in pannello:",ATON.SceneHub.currData.sem)
   if (S === undefined) return;
  
   // Generate HTML for panel
@@ -1079,9 +1079,10 @@ UI.updateSemPanel = (semid) => {
   if (S.cat) htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
   if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
   htmlcode += "<br>";
-  if (S.media && S.media!=" " && S.media.length>0 ){
+  let media=S.media.split(",")
+  if (media && media!=" " && media.length>0 ){
 
-    S.media.forEach((el)=>{
+    media.forEach((el)=>{
       let path="/collections/"+el
       let name=el.split("/")
       name=name[name.length-1]
@@ -1498,9 +1499,12 @@ UI.updateAnnotation = (semid) => {
     //problema aggiornamento parte 1: 
     //prendo i valori settati nel select
     let media=$(".js-example-basic-multiple").val()
-    console.log("sostituisco con:", media)
+    let stringaMedia=media.join(",")
     //aggiorno il json O con i media ricevuti
-    O.media=media
+    if(media){
+      O.media=stringaMedia
+      console.log(O.media)
+    }
     console.log("aggiorno:",semid,"con ",O)
     //fino a qui tutto ok, una volta che chiamo questa funzione
     APP.updateSemAnnotation(semid, O);
