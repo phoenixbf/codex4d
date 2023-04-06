@@ -36,6 +36,8 @@ body {
 
 .descriptionText {
   text-shadow: none !important;
+  display: flex;
+  flex-direction: column;
 }
 
 .appPanelHeader {
@@ -57,7 +59,9 @@ body {
 
 .appPanelLayer {
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+
   display: flex;
   font-size: xx-large;
   /* margin-top: 1em; */
@@ -68,8 +72,8 @@ body {
 }
 
 .appPanelSub {
-  display: block;
-
+  display: flex;
+  flex-direction: column;
   font-size: large;
   font-weight: bold;
 
@@ -1477,7 +1481,7 @@ label {
 .atonSidePanelContent{
   display: flex!important;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
 }
 .atonSidePanelContent img {
   margin-left:0!important;
@@ -1611,7 +1615,7 @@ label {
   font-size: 15px;
   line-height: 20px;
   letter-spacing: 0.15px;
-  width: 14em;
+  width: 20em;
 
 }
 .select2-results__option--highlighted.select2-results__option--selectable{
@@ -1733,7 +1737,7 @@ label {
 }
 .imageToFull{
   display: flex;
-  height: 20em;
+  height: 15em;
   justify-content: center;
 }
 .background{
@@ -1764,4 +1768,22 @@ label {
 .removeImageFull{
   padding-right: 13em;
   align-self: end;
+}
+.subtitle{
+  font-size: large;
+  
+  margin-top: 5px;
+  margin-bottom: 5px;
+  
+  color: black;
+}
+.title{
+  font-size: large;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #2f4689;
+}
+.min{
+  width: 2em;
 }

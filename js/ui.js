@@ -1076,36 +1076,54 @@ UI.updateSemPanel = (semid) => {
   htmlcode += "</div>"
   htmlcode += "</div>";
  
-  if (S.cat) htmlcode += "<div class='appPanelSub'>" + S.cat + "</div>";
-  if (S.subcat) htmlcode += "<b>Sotto-categoria</b>: " + S.subcat + "<br>";
+  if (S.cat) {
+    htmlcode += "<div class='appPanelSub'>"
+    htmlcode += "<span class=title>Categoria:"
+    htmlcode += "<span class=subtitle>"+S.cat + "</span>";
+    htmlcode += "</span>"
+    if(S.subcat){
+      htmlcode += "<span class=title>Sotto-categoria:"
+      htmlcode += "<span class=subtitle>"+S.subcat + "</span>";
+      htmlcode += "</span>"
+    } 
+    htmlcode+="</div>";
+  }
   htmlcode += "<br>";
-  let media=S.media.split(",")
-  if (media && media!=" " && media.length>0 ){
+  
+  if (S.descr){
+    htmlcode += "<div class='descriptionText'><span class=title>Descrizione:</span>";
+    htmlcode +="<span class=subtitle>"+S.descr+"</span>";
+    htmlcode +="</div>"
+    htmlcode += "<br>";
 
+  } 
+  let media=S.media.split(",")
+  if (media && media!=" " && media.length>0 &&media[0]!==""){
+    console.log(media)
     media.forEach((el)=>{
       let path="/collections/"+el
       let name=el.split("/")
       name=name[name.length-1]
       let ext=name.split(".")[1]
       if(ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' ){
-        htmlcode+="<div class='imageToFull'>"
+        htmlcode+="<div class='imageToFull btn'>"
         
 
-        htmlcode += "<img class='' src='" + path+ "'/>";
-        htmlcode +="<div class='background hide'>"
+        htmlcode += "<img style='height: 15em!important;' src='" + path+ "'/>";
+        htmlcode +="<div class='background hide '>"
         htmlcode +="<img src='assets/icons/maximize.png'/>"
         htmlcode +="</div>"
         htmlcode+='</div>'
         htmlcode+='<br>'
       }
       if(ext.toLowerCase()==="mp3"){
-        htmlcode += "<audio style='min-height: 4em;' controls src='" + path+ "'/></audio><br>";
+        htmlcode += "<audio preload=auto style='min-height: 4em;width: 100%; min-width: 100%;' controls src='" + path+ "'/></audio><br>";
         
         
       }
       if(ext.toLowerCase()==="mp4"){
         
-        htmlcode += "<video controls src='" + path+ "'></video><br>";
+        htmlcode += "<video preload=auto controls src='" + path+ "'></video><br>";
         
       }
 
@@ -1113,9 +1131,8 @@ UI.updateSemPanel = (semid) => {
     
   }
 
-  htmlcode += "<div class='descriptionText'>";
-  if (S.descr) htmlcode += S.descr;
-  htmlcode += "</div></div>";
+  
+  htmlcode += "</div>";
 
 
   ATON.FE.playAudioFromSemanticNode(semid);
@@ -1143,7 +1160,7 @@ UI.updateSemPanel = (semid) => {
     let htmlFullScreenImage='<div class="removeImageFull btn"><img src="assets/icons/cancel.png"></div>'
     let src=target.currentTarget.children[0].src
     
-    htmlFullScreenImage+="<img style='width: 80%;' src="+src+" />"
+    htmlFullScreenImage+="<img style='width: 60%;' src="+src+" />"
     $(".fullScreenImage").html(htmlFullScreenImage)
     $(".fullScreenImage").removeClass("hide")
     $("#idPanel").addClass("hide")
@@ -1247,12 +1264,12 @@ UI.populateSelect2=(data)=>{
         }
         else if(ext.toLowerCase()==="mp3"){
           
-          htmlcode += "<option data-image='assets/icons/sound.png' value="+link+">"+name+"</option>"
+          htmlcode += "<option data-class='min' data-image='assets/icons/sound.png' value="+link+">"+name+"</option>"
           console.log("c'è audio")
         }
         else if(ext.toLowerCase()==="mp4"){
           
-          htmlcode += "<option data-image='assets/icons/video.png' value="+link+">"+name+"</option>"
+          htmlcode += "<option data-class='min' data-image='assets/icons/video.png' value="+link+">"+name+"</option>"
           console.log("c'è audio")
         }
         
@@ -1522,8 +1539,9 @@ function formatOption(option) {
   }
 
   var imageUrl = $(option.element).data('image');
+  var classe=$(option.element).data('class');
   var $option = $(
-    '<span style="display: flex;align-items: center;"><img class="tumblr" src="' + imageUrl + '" class="img-flag" /> ' + option.text + '</span>'
+    '<span style="display: flex;align-items: center;"><img class="tumblr '+classe+'" src="' + imageUrl + '" class="img-flag" /> ' + option.text + '</span>'
   );
 
   return $option;
