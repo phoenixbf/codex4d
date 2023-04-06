@@ -41,10 +41,14 @@ body {
 }
 
 .appPanelHeader {
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
   color: white;
   /*background-color: white;*/
 
-  display: block;
+ /*  display: block; */
   font-size: 22px;
 
   border-bottom: white 1px solid;
@@ -1101,7 +1105,7 @@ label {
 }
 
 .fileContainer {
-  width: 50%;
+  width: 60%;
   /* flex-grow: 1; */
   display: flex;
   flex-direction: column;
@@ -1615,7 +1619,7 @@ label {
   font-size: 15px;
   line-height: 20px;
   letter-spacing: 0.15px;
-  width: 20em;
+  width: 100%;
 
 }
 .select2-results__option--highlighted.select2-results__option--selectable{
@@ -1641,11 +1645,11 @@ label {
 
   overflow-x: hidden;
 }
-
+.select2-container {
+  width: 100%!important;
+}
 /* Aggiungi questa regola CSS per il contenitore dell'elemento Select2 */
-/* .select2-container {
-  width: 100%;
-} */
+
 
 /* Aggiungi questa regola CSS per l'elemento Select2 */
 /* .select2 {
@@ -1718,7 +1722,7 @@ label {
     /* height:30%; */
     /* left: 12%; */
     top: 5%;
-    background: #d9d9d9;
+    /* background: #d9d9d9; */
     border-radius: 10px;
     z-index: 110;
     opacity: initial;

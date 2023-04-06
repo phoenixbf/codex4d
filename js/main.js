@@ -295,7 +295,10 @@ APP.loadConfig = (path)=>{
     });
 };
 APP.loadMedia = (mediaSelected=undefined) => {
-    mediaSelected=mediaSelected.split(",")
+    /* if(mediaSelected && mediaSelected.length>=1){
+        console.log(mediaSelected)
+        mediaSelected=mediaSelected.split(",")
+    } */
     /* $.getJSON( ATON.PATH_RESTAPI+"c/media/", ( data )=>{         console.log("media:",data) }; */
     fetch(ATON.PATH_RESTAPI+"c/media", {
         method: 'GET',

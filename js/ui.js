@@ -1014,7 +1014,7 @@ UI.updateSemPanel = (semid) => {
   if (S.title) htmlcode += S.title;
 
   if (ATON.SceneHub._bEdit) {
-    htmlcode += "<div style='float:right'>";
+    htmlcode += "<div >";
     htmlcode +=
       "<div class='appPanelBTN updateAnn'><img src='" +
       ATON.FE.PATH_RES_ICONS +
@@ -1096,8 +1096,10 @@ UI.updateSemPanel = (semid) => {
     htmlcode +="</div>"
     htmlcode += "<br>";
 
-  } 
-  let media=S.media.split(",")
+  }
+  let media;
+  if(S.media.length>1){media=S.media.split(",")}
+  
   if (media && media!=" " && media.length>0 &&media[0]!==""){
     console.log(media)
     media.forEach((el)=>{

@@ -58,13 +58,6 @@
                     "title":"Layer IR3",
                     "depth":1.0
             
-                },
-                {
-                    "id":4,
-                    "name":"layer_ir4",
-                    "title":"Layer IR4",
-                    "depth":1.0
-            
                 }
             
             ],
