@@ -1094,8 +1094,10 @@ UI.updateSemPanel = (semid) => {
     htmlcode += "<br>";
 
   }
-  let media;
-  if(S.media.length>1){media=S.media.split(",")}
+  let media = undefined;
+  if(S.media && S.media.length>1){
+    media = S.media.split(",");
+  }
   
   if (media && media.length>0){
     media.forEach((el)=>{
