@@ -1098,9 +1098,10 @@ UI.updateSemPanel = (semid) => {
 
   }
   let media;
+  console.log(S.media)
   if(S.media.length>1){media=S.media.split(",")}
   
-  if (media && media!=" " && media.length>0 &&media[0]!==""){
+  if (media && media.length>0){
     console.log(media)
     media.forEach((el)=>{
       let path="/collections/"+el
@@ -1382,7 +1383,9 @@ UI.addAnnotation = (semtype) => {
     
    
     let media=$(".js-example-basic-multiple").val()
-    if(media) O.media=media
+    let stringaMedia;
+    if(media)stringaMedia=media.join(",")
+    if(stringaMedia) O.media=stringaMedia
     console.log(O.media)
     
     APP.addSemanticAnnotation(semid, O, semtype);
@@ -1452,6 +1455,7 @@ UI.updateAnnotation = (semid) => {
   $(".titleInput").val(O.title)
   $(".descriptionInput").val(O.descr)
   $(".categorySelect").val(O.cat)
+  
   APP.loadMedia(O.media)
 
   /* UI.populateSelect2(O.media) */
@@ -1488,6 +1492,8 @@ UI.updateAnnotation = (semid) => {
   $(".okButton").off("click").click(() => {
     $("#idUpdateAnn").hide();
 
+    
+
     let title = $(".titleInput").val();
     if (title) title.trim();
 
@@ -1518,11 +1524,13 @@ UI.updateAnnotation = (semid) => {
     //problema aggiornamento parte 1: 
     //prendo i valori settati nel select
     let media=$(".js-example-basic-multiple").val()
-    let stringaMedia=media.join(",")
+    
+    let stringaMedia;
+    if(media)stringaMedia=media.join(",")
+    if(stringaMedia) O.media=stringaMedia
     //aggiorno il json O con i media ricevuti
     if(media){
       O.media=stringaMedia
-      console.log(O.media)
     }
     console.log("aggiorno:",semid,"con ",O)
     //fino a qui tutto ok, una volta che chiamo questa funzione

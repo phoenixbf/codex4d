@@ -43,7 +43,7 @@ APP.LAYER_RGB = 0;
 APP.LAYER_IR1 = 1;
 APP.LAYER_IR2 = 2;
 APP.LAYER_IR3 = 3;
-/*APP.layers=[
+APP.layers=[
     {
         id:0,
         name:"layer_rgb",
@@ -73,7 +73,7 @@ APP.LAYER_IR3 = 3;
 
     }
 
-]*/
+]
 APP.currLayer = APP.LAYER_RGB
 
 // Categories
@@ -164,73 +164,19 @@ APP.postPoseLoaded = ()=>{
     else{
         ATON.setBackgroundColor( APP.bgcol );
     }
-/*
-    APP.gStand = ATON.createSceneNode("stand");
-    APP.gStand.attachToRoot();
-    
-    APP.gStand.load(APP.pathContent + "3D/Leggio.gltf");
-    //APP.gStand.disablePicking();
-*/
 
-    // Ground
-/*
-    APP.gGround = ATON.createSceneNode("ground");
-    let ground = new THREE.Mesh(
-        new THREE.PlaneGeometry( 2,2 ),
-        new THREE.MeshStandardMaterial({
-            //color: ATON.MatHub.colors.black, // APP.bgcol,
-            map: ATON.Utils.textureLoader.load(APP.pathContent + "ground.jpg"),
-            blending: THREE.AdditiveBlending
-        })
-    );
-
-    ground.rotation.set(-1.57079632679,0,0);
-    ground.position.set(0,-1.2,0);
-
-    APP.gGround.add(ground);
-    APP.gGround.attachToRoot();
-    //APP.gGround.disablePicking();
-*/
 
     APP.gBook = ATON.getSceneNode("main");
-
-    //ATON.FX.togglePass(ATON.FX.PASS_AO, true);
-
-    //ATON.FX.togglePass(ATON.FX.PASS_BLOOM, true);
-    //ATON.FX.setBloomThreshold(0.2);
-    //ATON.FX.setBloomStrength(0.25);
-
-    //APP.setLightDirection(APP._vLight);
 
     if (!APP.plight){
         APP.plight = new THREE.PointLight();
         ATON._rootVisibleGlobal.add(APP.plight);
-
-/*
-        ATON._renderer.physicallyCorrectLights = true;
-        ATON.setExposure(3.0);
-
-        ///APP.plight.intensity = 1.0; // candela (cd)
-        APP.plight.power     = 4.0; // lumens
-        APP.plight.decay     = 1.0;
-*/
-        // std
         APP.plight.intensity = 1.3;
         APP.plight.distance  = 2.5;
         APP.plight.decay     = 2.0;
         APP.plight.color     = new THREE.Color(APP.cdata.lightcolor[0],APP.cdata.lightcolor[1],APP.cdata.lightcolor[2]);
 
-/*
-        APP.plight.castShadow            = true;
-        //APP.plight.shadow.bias           = -0.005;
-        APP.plight.shadow.mapSize.width  = 2048;
-        APP.plight.shadow.mapSize.height = 2048;
-        APP.plight.shadow.camera.near    = 0.02;
-        APP.plight.shadow.camera.far     = 1.5;
-        ATON._renderer.shadowMap.enabled = true;
-        ATON._renderer.shadowMap.type    = THREE.BasicShadowMap;
-        //ATON._renderer.shadowMap.type    = THREE.PCFShadowMap;
-*/
+
 
         APP.matSpriteL = new THREE.SpriteMaterial({ 
             map: new THREE.TextureLoader().load( APP.pathContent + "plight.jpg" ), 
@@ -295,10 +241,10 @@ APP.loadConfig = (path)=>{
     });
 };
 APP.loadMedia = (mediaSelected=undefined) => {
-    /* if(mediaSelected && mediaSelected.length>=1){
-        console.log(mediaSelected)
+    if(mediaSelected && mediaSelected.length!=""){
+       
         mediaSelected=mediaSelected.split(",")
-    } */
+    }
     /* $.getJSON( ATON.PATH_RESTAPI+"c/media/", ( data )=>{         console.log("media:",data) }; */
     fetch(ATON.PATH_RESTAPI+"c/media", {
         method: 'GET',
@@ -308,7 +254,6 @@ APP.loadMedia = (mediaSelected=undefined) => {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data)
         UI.populateSelect2(data)
         if(mediaSelected){
             
@@ -331,7 +276,10 @@ APP.loadVolumePose = (v,p)=>{
     APP._bLensMatSet = false;
 
     let vol = APP.cdata.volumes[v];
-    APP.layers=vol.layers
+    if(vol.layers){
+        APP.layers=vol.layers
+    }
+    
     
     if (vol === undefined) return;
 
@@ -389,15 +337,8 @@ APP.updatePoseGallery = (v)=>{
 APP.getNextPose = ()=>{
     let vol = APP.cdata.volumes[APP.currVolume];
 
-    //let A = Object.keys(vol);
-    //let i = A.indexOf(APP.currPose);
-    //i = (i+1) % A.length;
 
-    //return A[i];
-
-    //console.log(APP.currPose)
     let nextp = (APP.currPose + 1) % vol.poses.length;
-    //console.log(nextp)
 
     return nextp;
 };

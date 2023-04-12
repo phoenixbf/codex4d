@@ -32,35 +32,7 @@
         },
 
         "0000102297":{
-            "layers":[
-                {
-                    "id":0,
-                    "name":"layer_rgb",
-                    "title":"Layer RGB"
-                },
-                {
-                    "id":1,
-                    "name":"layer_ir1",
-                    "title":"Layer IR1",
-                    "depth":0.0
             
-                },
-                {
-                    "id":2,
-                    "name":"layer_ir2",
-                    "title":"Layer IR2",
-                    "depth":0.5
-            
-                },
-                {
-                    "id":3,
-                    "name":"layer_ir3",
-                    "title":"Layer IR3",
-                    "depth":1.0
-            
-                }
-            
-            ],
             "title": "De Balneis Puteolanis Ms. 1474",
             "poses":[
                 {
