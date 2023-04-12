@@ -1146,7 +1146,6 @@ UI.updateSemPanel = (semid) => {
     {APP.UI.toggleSemPanel(false);}
   })
   $(".imageToFull").off("mouseover").on("mouseover",(target)=>{
-    /* console.log(target.currentTarget.children[1]) */
     $(target.currentTarget.children[1]).removeClass("hide")
     
   })
@@ -1523,7 +1522,6 @@ UI.updateAnnotation = (semid) => {
     if(media){
       O.media=stringaMedia
     }
-    console.log("aggiorno:",semid,"con ",O)
     //fino a qui tutto ok, una volta che chiamo questa funzione
     APP.updateSemAnnotation(semid, O);
     ATON._bPauseQuery = false;
