@@ -276,14 +276,12 @@ UI.buildLeftBar = (logged) => {
     } else if(!$(e.target).closest(".filterContainer").length) {
       
       $(".toggleAnnotationImg").attr("src", "assets/icons/icon_annotazioni.png");
-      console.log($(".filterContainer"))
       $(".filterContainer").addClass("closeFilterContainer").on("animationend", function() {
         $(this).off("animationend")
         $(".filterContainer").removeClass("closeFilterContainer");
         $(".filterContainer").hide()
         $(".toggleAnnotation").removeClass("clicked")
       });
-      console.log($(".filterContainer"))
       $(".selectContainer").css("background-color", "rgb(110, 110, 110)");
     }
   });
@@ -1000,7 +998,6 @@ UI.updateSemPanel = (semid) => {
   let S = pDB[semid];
   //problema aggiornamento parte 3
   //arrivato qua non mi mostra i dati che ho salvato precedentemente 
-  console.log("mostro tutte in pannello:",ATON.SceneHub.currData.sem)
   if (S === undefined) return;
  
   // Generate HTML for panel
@@ -1098,11 +1095,9 @@ UI.updateSemPanel = (semid) => {
 
   }
   let media;
-  console.log(S.media)
   if(S.media.length>1){media=S.media.split(",")}
   
   if (media && media.length>0){
-    console.log(media)
     media.forEach((el)=>{
       let path="/collections/"+el
       let name=el.split("/")
@@ -1168,7 +1163,6 @@ UI.updateSemPanel = (semid) => {
     $(".fullScreenImage").removeClass("hide")
     $("#idPanel").addClass("hide")
     $(".removeImageFull").on("click",()=>{
-      console.log("clicco chiudi")
       $(".fullScreenImage").html()
       $(".fullScreenImage").addClass("hide")
       $("#idPanel").removeClass("hide")
@@ -1268,12 +1262,10 @@ UI.populateSelect2=(data)=>{
         else if(ext.toLowerCase()==="mp3"){
           
           htmlcode += "<option data-class='min' data-image='assets/icons/sound.png' value="+link+">"+name+"</option>"
-          console.log("c'è audio")
         }
         else if(ext.toLowerCase()==="mp4"){
           
           htmlcode += "<option data-class='min' data-image='assets/icons/video.png' value="+link+">"+name+"</option>"
-          console.log("c'è audio")
         }
         
         /* $(".js-example-basic-multiple").val(($(".uploadLink").val()? $(".uploadLink").val().trim() + "\n" : "") + link); */
@@ -1386,7 +1378,6 @@ UI.addAnnotation = (semtype) => {
     let stringaMedia;
     if(media)stringaMedia=media.join(",")
     if(stringaMedia) O.media=stringaMedia
-    console.log(O.media)
     
     APP.addSemanticAnnotation(semid, O, semtype);
 
@@ -1492,7 +1483,7 @@ UI.updateAnnotation = (semid) => {
   $(".okButton").off("click").click(() => {
     $("#idUpdateAnn").hide();
 
-    
+
 
     let title = $(".titleInput").val();
     if (title) title.trim();

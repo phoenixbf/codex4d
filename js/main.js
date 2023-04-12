@@ -582,7 +582,6 @@ APP._attachUI = ()=>{
         
     });
     $(".toggleHelp").click(()=>{
-        console.log("clicco help")
     })
     
 
@@ -665,7 +664,6 @@ APP.setupEvents = ()=>{
 
     });
     ATON.on("goToModeANN_free",()=>{
-       console.log("annfree")
         APP.setState(APP.STATE_ANN_FREE)
       })
     ATON.on("exitFromModeANN_free",()=>{
@@ -1031,13 +1029,11 @@ APP.updateSemAnnotation = (semid, O)=>{
     //funzione che dovrebbe aggiornare l'annotazione
     ATON.SceneHub.sendEdit( E, ATON.SceneHub.MODE_ADD);
     pDB = ATON.SceneHub.currData.sem;
-    console.log("mostro tutte:",ATON.SceneHub.currData.sem)
-    console.log("Annotation "+semid+" updated.");
+  
 };
 APP.retrieveInfo=(semid)=>{
     let pDB = ATON.SceneHub.currData.sem; //APP.sDB[APP.currPose];
     let S = pDB[semid];
-    console.log(S)
   }
 APP.deleteSemAnnotation = (semid)=>{
     if (semid === undefined) return;
