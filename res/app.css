@@ -1502,7 +1502,7 @@ label {
   display: flex;
   /* justify-content: flex-end; */
   padding: 0em 0em 2em 0em;
-  
+  height: 2em;
 }
 .closeLegendBtn span{
   padding: 0;

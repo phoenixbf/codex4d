@@ -519,36 +519,36 @@ UI.closeLeftToolbarMobile=()=>{
 UI.buildHelp=(logged)=>{
   let icons=['assets/icons/maximize.png','assets/icons/minimize.png','assets/icons/icon_resetvista.png','assets/icons/icon_layer.png','assets/icons/icon_annotazioni.png','assets/icons/icon_size_OFF.png']
   let phrases=['massimizza','minimizza','riposiziona','cambio layer','filtro annotazioni','misure']
-  if(logged){
-    icons.push('assets/icons/Icona_Aton_Edit_OFF.png')
-    icons.push('assets/icons/cerchio_annotazione_ON.png')
-    icons.push('assets/icons/Aton_areale_ON.png')
-    phrases.push('aggiunta note')
-    phrases.push('annotazione semplice')
-    phrases.push('annotazione libera')
-    
-  }
+  
+  icons.push('assets/icons/Icona_Aton_Edit_OFF.png')
+  icons.push('assets/icons/cerchio_annotazione_ON.png')
+  icons.push('assets/icons/Aton_areale_ON.png')
+  phrases.push('aggiunta note')
+  phrases.push('annotazione semplice')
+  phrases.push('annotazione libera')
+  
   let htmlCode="<div class='legend'>"
-  htmlCode+="<div class=closeLegendBtn ><span>Legenda</span><img style='cursor: pointer;width:1em; height:fit-content;' src='assets/icons/Chiudi_finestra.png'></div>"
-  icons.forEach((el,i)=>{
-    if(i<=icons.length-4){
-      if(i%2==0){
-        htmlCode+='<div class=row><div class="mono"><img src='+el+' /><span>'+phrases[i]+'</span></div>'
-      }
-      else{
-        htmlCode+='<div class="mono"><img src='+el+' /><span>'+phrases[i]+'</span></div></div>'
-      }
-    }
-    else{
-      if(i%2!=0){
-        htmlCode+='<div class=row><div class="mono"><img src='+el+' /><span>'+phrases[i]+'</span></div>'
-      }
-      else{
-        htmlCode+='<div class="mono"><img src='+el+' /><span>'+phrases[i]+'</span></div></div>'
-      }
-      
-    }
-  })
+  htmlCode+="<div class=closeLegendBtn ><span>Legenda</span><img style='cursor: pointer;width:1em; height:auto;' src='assets/icons/Chiudi_finestra.png'></div>"
+  htmlCode+='<div class=row>'
+  htmlCode+='<div class="mono"><img src='+icons[0]+' /><span>'+phrases[0]+'</span></div>'
+  htmlCode+='<div class="mono"><img src='+icons[1]+' /><span>'+phrases[1]+'</span></div>'
+  htmlCode+='</div>'
+  htmlCode+='<div class=row>'
+  htmlCode+='<div class="mono"><img src='+icons[2]+' /><span>'+phrases[2]+'</span></div>'
+  htmlCode+='<div class="mono"><img src='+icons[3]+' /><span>'+phrases[3]+'</span></div>'
+  htmlCode+='</div>'
+  htmlCode+='<div class=row>'
+  htmlCode+='<div class="mono"><img src='+icons[4]+' /><span>'+phrases[4]+'</span></div>'
+  htmlCode+='<div class="mono"><img src='+icons[5]+' /><span>'+phrases[5]+'</span></div>'
+  htmlCode+='</div>'
+  if(logged){
+    htmlCode+='<div class=row>'
+    htmlCode+='<div class="mono"><img src='+icons[6]+' /><span>'+phrases[6]+'</span></div>'
+    htmlCode+='</div>'
+    htmlCode+='<div class=row>'
+    htmlCode+='<div class="mono"><img src='+icons[7]+' /><span>'+phrases[7]+'</span></div>'
+    htmlCode+='<div class="mono"><img src='+icons[8]+' /><span>'+phrases[8]+'</span></div>'
+    htmlCode+='</div>'
   
   htmlCode+="</div>"
   $(".helperPopup").html(htmlCode)
