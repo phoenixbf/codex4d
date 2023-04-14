@@ -243,8 +243,11 @@ UI.buildLeftBar = (logged) => {
         })
         $(".layerSelectionMenu").on("change",()=>{
           APP.layers.forEach((layer)=>{
-            if(layer.name===$(".layerSelectionMenu").val())
-            APP.setLayer(layer.id)
+            if(layer.name===$(".layerSelectionMenu").val()){
+              APP.setLayer(layer.id)
+              
+            }
+            
           })
         })
     } 
@@ -549,7 +552,8 @@ UI.buildHelp=(logged)=>{
     htmlCode+='<div class="mono"><img src='+icons[7]+' /><span>'+phrases[7]+'</span></div>'
     htmlCode+='<div class="mono"><img src='+icons[8]+' /><span>'+phrases[8]+'</span></div>'
     htmlCode+='</div>'
-  
+  }
+
   htmlCode+="</div>"
   $(".helperPopup").html(htmlCode)
   $(".closeLegendBtn img").click(()=>{
@@ -685,7 +689,7 @@ UI.buildLens=()=>{
   })
 
   // hovering actions on the layer selectors:
-  $("#idRgb").click(() => {
+  /*$("#idRgb").click(() => {
     UI.setLayer(APP.LAYER_RGB);
   });
   $("#idIr1").click(() => {
@@ -696,7 +700,7 @@ UI.buildLens=()=>{
   });
   $("#idIr3").click(() => {
     UI.setLayer(APP.LAYER_IR3);
-  });
+  });*/
   // click actions for the play/pause buttons:
   $(".playPause").on("click",()=>{
     if($(".playPause").hasClass("play")){
@@ -1039,7 +1043,12 @@ UI.updateSemPanel = (semid) => {
   if (S.layer === APP.LAYER_IR3) htmlcode += "Livello IR 3";*/
   htmlcode+="</span>"
   htmlcode += "<div class='layerPanelSelector'>"
-  if (S.layer === APP.LAYER_RGB) {
+  htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
+  htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
+  htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
+  
+  /*if (S.layer === APP.LAYER_RGB) {
     htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />"
     htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
@@ -1068,7 +1077,7 @@ UI.updateSemPanel = (semid) => {
     htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
     htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
-  }
+  }*/
 
   htmlcode += "</div>"
   htmlcode += "</div>";
@@ -1138,6 +1147,27 @@ UI.updateSemPanel = (semid) => {
   ATON.FE.playAudioFromSemanticNode(semid);
 
   $("#idPanel").html(htmlcode);
+  let list=$(".layerPanel")
+  
+  APP.layers.forEach((layer)=>{
+    if(S.layer==layer.id){
+      
+      for(let i=0; i<list.length;i++){
+        $(list[i]).attr("src","assets/layer_panel.png")
+        
+      }
+      $($(".layerPanel")[layer.id]).attr("src","assets/active_layer_panel.png")
+      
+    }
+    else if(S.layer==undefined && layer.default){
+      for(let i=0; i<list.length;i++){
+        $(list[i]).attr("src","assets/layer_panel.png")
+        
+      }
+      $($(".layerPanel")[layer.id]).attr("src","assets/active_layer_panel.png")
+    }
+  })
+
   UI.toggleSemPanel(true);
   $(".updateAnn").click(()=>{
     UI.updateAnnotation(semid)
@@ -1190,7 +1220,11 @@ UI.setIntroPanel = (content)=>{
     UI form (HTML) with structured data
     Editor profile
 ====================================================*/
-UI.createAnnForm=()=>{
+UI.createAnnForm=(toAdd)=>{
+  /*let classes;
+  if(toAdd){
+    classes=
+  }*/
   let htmlcode = "";
   htmlcode += "<div class='formTitleContainer'>";
   htmlcode +=
@@ -1211,7 +1245,7 @@ UI.createAnnForm=()=>{
   htmlcode +=
     "<h3 class='formTitle' > Sottocategoria</h3> <select id='sottoCatSelect' type='select' class='subCategorySelect' >";
   subCategoryMap[Object.keys(subCategoryMap)[0]].forEach((value)=>{
-    htmlcode+="<option class='catOption' value="+value+">"+value+"</option>";
+    htmlcode+="<option class='catOption' value='"+value+"'>"+value+"</option>";
   })
   htmlcode += "</select>";
   htmlcode += "</div>";
@@ -1280,7 +1314,7 @@ UI.addAnnotation = (semtype) => {
   let O = {};
   let semid = ATON.Utils.generateID("ann");
 
-  let htmlcode = UI.createAnnForm()
+  let htmlcode = UI.createAnnForm(true)
 
   $(document).ready(function() {
    /*  $('.js-example-basic-multiple').select2(); */
@@ -1332,7 +1366,7 @@ UI.addAnnotation = (semtype) => {
   });*/
 
   $(".cancelButton").off("click").click(() => {
-    $("#idForm").hide();
+    
     ATON._bPauseQuery = false;
     if($(".sphereNoteImg").hasClass("clicked")){
       APP.goToMode(APP.STATE_ANN_BASIC)
@@ -1340,12 +1374,12 @@ UI.addAnnotation = (semtype) => {
     else if($(".freeNoteImg").hasClass("clicked")){
       APP.goToMode(APP.STATE_ANN_FREE)
     }
-
+    $("#idForm").hide();
+    $("#idForm").empty();
   });
   
   $(".okButton").off("click").click(() => {
-    $("#idForm").hide();
-
+    
     let title = $("#idTitle").val();
     if (title) title.trim();
 
@@ -1383,6 +1417,9 @@ UI.addAnnotation = (semtype) => {
     APP.addSemanticAnnotation(semid, O, semtype);
 
     ATON._bPauseQuery = false;
+    $("#idForm").hide();
+
+    $("#idForm").empty();
   });
 };
 
@@ -1396,7 +1433,7 @@ UI.updateAnnotation = (semid) => {
   if (O === undefined) return;
 
   // TODO: fill HTML form with O data
-  let htmlcode = UI.createAnnForm()
+  let htmlcode = UI.createAnnForm(false)
   
 
   $(document).ready(function() {
@@ -1452,7 +1489,7 @@ UI.updateAnnotation = (semid) => {
 
   /* UI.populateSelect2(O.media) */
 /*   $(".uploadLink").val(O.media) */
-  
+  console.log(O.subcat)
   if($(".subCategorySelect")[0].children.length===0){
     $(".subCategorySelect").val();
   }
@@ -1477,13 +1514,13 @@ UI.updateAnnotation = (semid) => {
     $(".subCategorySelect").html(htmlcode);
   });
   $(".cancelButton").off("click").click(() => {
-    $("#idUpdateAnn").hide();
+    
     ATON._bPauseQuery = false;
-
+    $("#idUpdateAnn").hide();
+    $("#idUpdateAnn").empty();
   });
   $(".okButton").off("click").click(() => {
-    $("#idUpdateAnn").hide();
-
+    
 
 
     let title = $(".titleInput").val();
@@ -1528,7 +1565,9 @@ UI.updateAnnotation = (semid) => {
     APP.updateSemAnnotation(semid, O);
     ATON._bPauseQuery = false;
     
-    
+    $("#idUpdateAnn").hide();
+
+    $("#idUpdateAnn").empty();
   });
 
 

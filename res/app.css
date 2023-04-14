@@ -1648,35 +1648,15 @@ label {
 .select2-container {
   width: 100%!important;
 }
-/* Aggiungi questa regola CSS per il contenitore dell'elemento Select2 */
 
 
-/* Aggiungi questa regola CSS per l'elemento Select2 */
-/* .select2 {
-  width: 100%;
-}
- */
-/* Aggiungi queste media query per adattare la larghezza dell'elemento Select2 alle diverse dimensioni dello schermo */
-/* @media (min-width: 768px) {
-  .select2 {
-    width: 50%;
-  }
-}
-
-@media (min-width: 992px) {
-  .select2 {
-    width: 33.33%;
-  }
-}
-
-@media (min-width: 1200px) {
-  .select2 {
-    width: 25%;
-  } 
-}*/
 .tumblr{
   width: 4em;
   padding-right: 1em;
+}
+.removeImageFull{
+  padding-right: 13em;
+  align-self: end;
 }
 
 @media only screen and (max-width: 600px), (orientation: landscape) and (max-width:1000px) {
@@ -1738,6 +1718,9 @@ label {
   .tumblr{
     width: 3em;
   }
+  .removeImageFull{
+    padding-right: 5em;
+  }
 }
 .imageToFull{
   display: flex;
@@ -1769,10 +1752,7 @@ label {
   align-items: center;
   justify-content: center;
 }
-.removeImageFull{
-  padding-right: 13em;
-  align-self: end;
-}
+
 .subtitle{
   font-size: large;
   
@@ -1781,13 +1761,15 @@ label {
   
   color: black;
 }
+
+
+.min{
+  width: 2em;
+}
 .title{
   font-size: large;
   font-weight: bold;
   margin-top: 5px;
   margin-bottom: 5px;
   color: #2f4689;
-}
-.min{
-  width: 2em;
 }

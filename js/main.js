@@ -39,16 +39,16 @@ APP.STATE_LAYER_VISION = 4;
 APP.state = APP.STATE_NAV;
 
 // Layers
-APP.LAYER_RGB = 0;
+/*APP.LAYER_RGB = 0;
 APP.LAYER_IR1 = 1;
 APP.LAYER_IR2 = 2;
-APP.LAYER_IR3 = 3;
+APP.LAYER_IR3 = 3;*/
 APP.layers=[
     {
         id:0,
         name:"layer_rgb",
         title:"Layer RGB",
-    
+        default:true
 
     },
     {
@@ -74,7 +74,12 @@ APP.layers=[
     }
 
 ]
-APP.currLayer = APP.LAYER_RGB
+APP.layers.forEach((layer)=>{
+    if(layer.default){
+        APP.defaultLayer=layer.id
+    }
+})
+APP.currLayer=APP.defaultLayer
 
 // Categories
 APP.filterCat = undefined;
@@ -104,6 +109,15 @@ APP.catsColors = [
     "#79B857"
 ];
 
+function getDefaultLayer(){
+    
+    APP.layers.forEach((layer)=>{
+        if(layer.default && layer.default==true){
+            return layer.id
+        }
+    })
+    
+}
 
 APP.init = ()=>{
     ATON.FE.realize();
@@ -204,7 +218,7 @@ APP.postPoseLoaded = ()=>{
     /*if (ATON._numReqLoad <= 0)*/ APP.mat.setupOnLoaded();
     APP.semVisitor();
 
-    APP.setLayer(APP.LAYER_RGB);
+    APP.setLayer(APP.defaultLayer);
     
 };
 
@@ -278,6 +292,16 @@ APP.loadVolumePose = (v,p)=>{
     let vol = APP.cdata.volumes[v];
     if(vol.layers){
         APP.layers=vol.layers
+        const defl=getDefaultLayer()
+        
+        if(defl){
+            APP.defaultLayer=defl
+            APP.currLayer=defl
+        }else{
+            APP.defaultLayer=0
+            APP.currLayer=0
+        }
+        
     }
     
     
@@ -366,7 +390,7 @@ APP.disableLens = ()=>{
     //if (APP.currMat) APP.currMat.uniforms.vLens.value.w = 0.0;
     if (APP.currMat) APP.currMat.uniforms.wLens.value = 0.0;
 
-    APP.currLayer = APP.LAYER_RGB;
+    APP.currLayer = APP.defaultLayer;
 };
 
 APP.invertIR = ()=>{
@@ -421,7 +445,7 @@ APP.setLensRadius = (v)=>{
 APP.setLayer = (L)=>{
     APP.UI.setLayer(L);
     APP.currLayer = L;
-    if (L === APP.LAYER_RGB){
+    if (L === APP.defaultLayer){
         APP.disableLens();
         return;
     }
@@ -533,7 +557,8 @@ APP.update = ()=>{
 APP.goToMode=(idMode)=>{ 
     APP.cancelCurrentTask();   
     ATON.SUI.clearMeasurements();
-    APP.setLayer(APP.LAYER_RGB)
+    
+    APP.setLayer(APP.defaultLayer)
     APP.setState(idMode)
     ATON.SUI.showSelector(false);
     
@@ -545,7 +570,7 @@ APP.goToMode=(idMode)=>{
     }
 
     if(idMode===APP.STATE_LAYER_VISION ){        
-        APP.setLayer(APP.LAYER_RGB)
+        APP.setLayer(APP.defaultLayer)
         APP.setLensRadius(APP.raggio_vision);
     }
     
@@ -598,7 +623,7 @@ APP._attachUI = ()=>{
     
 
     // Layers
-    $("#idRgb").click(()=>{
+    /*$("#idRgb").click(()=>{
         APP.setLayer(APP.LAYER_RGB);
     });
     $("#idIr1").click(()=>{
@@ -609,7 +634,7 @@ APP._attachUI = ()=>{
     });
     $("#idIr3").click(()=>{
         APP.setLayer(APP.LAYER_IR3);
-    });
+    });*/
 
     // Editor
     $("#idLogin").click(()=>{
@@ -716,7 +741,7 @@ APP.setupEvents = ()=>{
 */
 
         APP.setLensRadius(0.02);
-        APP.setLayer(APP.LAYER_RGB);
+        APP.setLayer(APP.defaultLayer);
     });
 
     ATON.on("MouseWheel", (d)=>{
@@ -777,12 +802,16 @@ APP.setupEvents = ()=>{
             if (APP.gBook) APP.gBook.rotation.x += 0.1;
             console.log(APP.gBook);
         }
-
-        if (k==='0') APP.setLayer(APP.LAYER_RGB);
+        APP.layers.forEach((layer)=>{
+            if(layer.id===k){
+                APP.setLayer(layer.id)
+            }
+        })
+        /*if (k==='0') APP.setLayer(APP.LAYER_RGB);
         if (k==='1') APP.setLayer(APP.LAYER_IR1);
         if (k==='2') APP.setLayer(APP.LAYER_IR2);
         if (k==='3') APP.setLayer(APP.LAYER_IR3);
-
+        */
         if (k==='i') APP.invertIR();
 
         if (k==='l'){
@@ -1067,16 +1096,21 @@ APP.getCatName = (i)=>{
 
 APP.filterAnnotationsByCat = (cat)=>{
     let pDB = ATON.SceneHub.currData.sem;
-    console.log("categories:",cat)
     if (cat === undefined) cat = APP.filterCat;
     else APP.filterCat = cat;
 
-    for (let s in ATON.semnodes){
+    
+    for (let s in ATON.semnodes){//segnalo ATON.semnodes carica semnodes ormai cancellati
         if (s!==ATON.ROOT_NID){
             let S = ATON.semnodes[s];
             let e = pDB[s];
-            if(!cat.includes(e.cat)){S.hide()}
-            else{S.show()}
+            
+
+            if(e){
+                if(!cat.includes(e.cat)){S.hide()}
+                else{S.show()}
+            }
+            
         }
     }
 };
