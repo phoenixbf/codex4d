@@ -128,6 +128,12 @@ APP.init = ()=>{
     APP.argUIP = ATON.FE.urlParams.get('uip');
     
     APP.argBG=ATON.FE.urlParams.get('bg');
+    APP.linkModelQuery=ATON.FE.urlParams.get("backTo")
+    if(APP.linkModelQuery){
+        $(".backTo").click(()=>{
+            window.location.href=APP.linkModelQuery
+        })
+    }
     
     APP._bPose   = false;
     APP._bAssets = false;
