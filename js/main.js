@@ -83,7 +83,7 @@ APP.currLayer=APP.defaultLayer
 
 // Categories
 APP.filterCat = undefined;
-APP.raggio_min=0.005
+APP.raggio_min=0.001
 APP.raggio_max=0.2
 APP.raggio_ann=0.02
 APP.raggio_vision=0.02
@@ -104,7 +104,7 @@ APP.catsColors = [
     "#2F4689",
     "#D9A441",
     "#E7F0F9",
-    "#422C20",
+    "#68C3D4",
     "#FF7F11",
     "#79B857"
 ];

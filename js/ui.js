@@ -800,7 +800,7 @@ UI.formatSelectedCategories=()=>{
 UI.buildSelectContainer=()=>{
   
   
-  const colors=["#BF2517B2","#2F4689","#D9A441","#E7F0F9","#422C20","#FF7F11","#79b857"]
+  const colors=["#BF2517B2","#2F4689","#D9A441","#E7F0F9","#68C3D4","#FF7F11","#79b857"]
   
   let htmlNotes="<div class='selectContainer'>";
   htmlNotes +="<div class=gray-pill>"
