@@ -51,6 +51,8 @@ const subCategoryMap = {
 
 UI.init = () => {
   UI.formatSelectedCategories()
+  
+
   //ATON.FE.uiAddProfile("editor", UI.buildEditor);
   //ATON.FE.uiAddProfile("public", UI.buildPublic);
   if (APP.argUIP !== "editor") APP.setProfilePublic();
@@ -356,19 +358,8 @@ UI.buildLeftBar = (logged) => {
         /* $("#selectAnnType").show(); */
       }
        else if($(".toggleNote").hasClass("clicked")&&!$(e.target).closest(".noting").length) {
-        APP.goToMode(APP.STATE_NAV);
-        if($(".sphereNoteImg").hasClass("clicked")){
-          $(".sphereNoteImg").removeClass("clicked")
-          $(".sphereNoteImg").attr("src", "assets/icons/cerchio_annotazione_OFF.png");
-        }
-         if($(".freeNoteImg").hasClass("clicked")){
-          $(".freeNoteImg").removeClass("clicked")
-          $(".freeNoteImg").attr("src", "assets/icons/Aton_areale_OFF.png");
-        }
-        $(".toggleNote").removeClass("clicked")
-        $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
-        $(".selectAnnType").removeClass("visible")
-        $(".sliderBack").removeClass("visible")
+        UI.disableANN()
+       
       }
       
     });
@@ -426,6 +417,21 @@ UI.buildLeftBar = (logged) => {
       $(".toggleHelpImg").attr("src", "assets/icons/icon_help.png");
     }
   });
+}
+UI.disableANN=()=>{
+  APP.goToMode(APP.STATE_NAV);
+  if($(".sphereNoteImg").hasClass("clicked")){
+    $(".sphereNoteImg").removeClass("clicked")
+    $(".sphereNoteImg").attr("src", "assets/icons/cerchio_annotazione_OFF.png");
+  }
+   if($(".freeNoteImg").hasClass("clicked")){
+    $(".freeNoteImg").removeClass("clicked")
+    $(".freeNoteImg").attr("src", "assets/icons/Aton_areale_OFF.png");
+  }
+  $(".toggleNote").removeClass("clicked")
+  $(".toggleNoteImg").attr("src", "assets/icons/Icona_Aton_Edit_OFF.png");
+  $(".selectAnnType").removeClass("visible")
+  $(".sliderBack").removeClass("visible")
 }
 UI.goToModeANN_basic=()=>{
   let htmlCodeSlider=''
@@ -793,9 +799,11 @@ UI.buildEditor = () => {
 
 UI.formatSelectedCategories=()=>{
   UI.selectedCategories=[]
-  for (const category in subCategoryMap) {
+  
+  /*for (const category in subCategoryMap) {
     UI.selectedCategories.push(category)
-  }
+  }*/
+
 }
 UI.buildSelectContainer=()=>{
   
@@ -917,7 +925,7 @@ UI.buildSelectContainer=()=>{
           $(".selectContainer").css("background-color", selectedColor);
           
           APP.filterAnnotationsByCat(UI.selectedCategories);
-
+          
         })
       }
       var target = e.target;
@@ -969,6 +977,8 @@ UI.buildSelectContainer=()=>{
   $(".selectCatText").html(
     span
   );
+  $(".seleziona-tutte-categorieCheckbox")[0].dispatchEvent(new Event('click'));
+
 }
 
 UI.toggleSemPanel = (b) => {
@@ -979,6 +989,7 @@ UI.toggleSemPanel = (b) => {
     $("#idCollapsible").hide();
     $("#idLeftToolbar").hide();
   } else {
+    $("#idPanel").empty();
     $("#idPanel").hide();
     $("#idTopToolbar").show();
     $("#idBottomToolbar").show();
@@ -994,6 +1005,7 @@ UI.toggleSemPanel = (b) => {
 ====================================================*/
 //funzione che mostra il pannello una volta cliccata l'annotazione con semid, semid
 UI.updateSemPanel = (semid) => {
+  
   let pDB = ATON.SceneHub.currData.sem; //APP.sDB[APP.currPose];
   if (pDB === undefined) return;
   
@@ -1047,37 +1059,6 @@ UI.updateSemPanel = (semid) => {
   htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
   htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
   htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
-  
-  /*if (S.layer === APP.LAYER_RGB) {
-    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/active_layer_panel.png' alt='layer' />"
-    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
-  }
-  else if (S.layer === APP.LAYER_IR1) {
-    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/active_layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
-  }
-  else if (S.layer === APP.LAYER_IR2) {
-    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/active_layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
-  }
-  else if (S.layer === APP.LAYER_IR3) {
-    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/active_layer_panel.png' alt='layer' />"
-  }
-  else{
-    htmlcode += "<img id='idImgPanelLayer1' class='layerPanel' src='assets/layer_panel.png' alt='layer' />"
-    htmlcode += "<img id='idImgPanelLayer2' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer3' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />";
-    htmlcode += "<img id='idImgPanelLayer4' class='layerPanel cross' src='assets/layer_panel.png' alt='layer' />"
-  }*/
 
   htmlcode += "</div>"
   htmlcode += "</div>";
@@ -1085,11 +1066,11 @@ UI.updateSemPanel = (semid) => {
   if (S.cat) {
     htmlcode += "<div class='appPanelSub'>"
     htmlcode += "<span class=title>Categoria:"
-    htmlcode += "<span class=subtitle>"+S.cat + "</span>";
+    htmlcode += "<span class=subtitle> "+S.cat + "</span>";
     htmlcode += "</span>"
     if(S.subcat){
       htmlcode += "<span class=title>Sotto-categoria:"
-      htmlcode += "<span class=subtitle>"+S.subcat + "</span>";
+      htmlcode += "<span class=subtitle> "+S.subcat + "</span>";
       htmlcode += "</span>"
     } 
     htmlcode+="</div>";
@@ -1110,11 +1091,11 @@ UI.updateSemPanel = (semid) => {
   
   if (media && media.length>0){
     media.forEach((el)=>{
-      let path="/collections/"+el
+      let path="/collections/codex4d/media/"+el
       let name=el.split("/")
       name=name[name.length-1]
       let ext=name.split(".")[1]
-      if(ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' ){
+      if(ext && (ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' )){
         htmlcode+="<div class='imageToFull btn'>"
         
 
@@ -1125,14 +1106,14 @@ UI.updateSemPanel = (semid) => {
         htmlcode+='</div>'
         htmlcode+='<br>'
       }
-      if(ext.toLowerCase()==="mp3"){
-        htmlcode += "<audio preload=auto style='min-height: 4em;width: 100%; min-width: 100%;' controls src='" + path+ "'/></audio><br>";
+      if(ext && (ext.toLowerCase()==="mp3"||ext.toLowerCase()==="wav")){
+        htmlcode += "<audio class=audio preload=auto style='min-height: 4em;width: 100%; min-width: 100%;' controls src='" + path+ "'/></audio><br>";
         
         
       }
-      if(ext.toLowerCase()==="mp4"){
+      if(ext && (ext.toLowerCase()==="mp4"||ext.toLowerCase()==="avi"||ext.toLowerCase()==="mov")){
         
-        htmlcode += "<video preload=auto controls src='" + path+ "'></video><br>";
+        htmlcode += "<video class=video preload=auto controls src='" + path+ "'></video><br>";
         
       }
 
@@ -1140,13 +1121,45 @@ UI.updateSemPanel = (semid) => {
     
   }
 
-  
+  if (S.aut) {
+    htmlcode += "<div class='appPanelSub'>"
+    htmlcode += "<span class=title>Autore:"
+    htmlcode += "<span class=subtitle> "+S.aut + "</span>";
+    htmlcode += "</span>"
+    htmlcode+="</div>";
+  }
   htmlcode += "</div>";
 
 
   ATON.FE.playAudioFromSemanticNode(semid);
 
   $("#idPanel").html(htmlcode);
+  $(".audio").on("play", function() {
+    var currentAudio = this;
+    $(".audio:not(:eq("+$(".audio").index(currentAudio)+"))").each(function() {
+      if (!this.paused) {
+        this.pause();
+      }
+    });
+    $(".video").each(function() {
+      if (!this.paused) {
+        this.pause();
+      }
+    });
+  });
+  $(".video").on("play", function() {
+    var currentAudio = this;
+    $(".video:not(:eq("+$(".video").index(currentAudio)+"))").each(function() {
+      if (!this.paused) {
+        this.pause();
+      }
+    });
+    $(".audio").each(function() {
+      if (!this.paused) {
+        this.pause();
+      }
+    });
+  });
   let list=$(".layerPanel")
   
   APP.layers.forEach((layer)=>{
@@ -1173,7 +1186,8 @@ UI.updateSemPanel = (semid) => {
     UI.updateAnnotation(semid)
   })
   $(".closeAnn").click(()=>{
-    $("#idPanel").hide();
+    
+    $("#idPanel").empty();
     if(APP.argBG!=0)
     {APP.UI.toggleSemPanel(false);}
   })
@@ -1287,20 +1301,22 @@ UI.populateSelect2=(data)=>{
   if(data.length>0){
     let htmlcode=''
     data.forEach((link) => {
+        let val=link.split("/")
+        val=val[val.length-1]
         let path="/collections/"+link
         let name=link.split("/")
         name=name[name.length-1]
         let ext=name.split(".")[1]
-        if(ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' ){
-          htmlcode += "<option data-image='"+path+"' value="+link+">"+name+"</option>"
+        if(ext && (ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' )){
+          htmlcode += "<option data-image='"+path+"' value='"+val+"'>"+name+"</option>"
         }
-        else if(ext.toLowerCase()==="mp3"){
+        else if(ext && (ext.toLowerCase()==="mp3"||ext.toLowerCase()==="wav")){
           
-          htmlcode += "<option data-class='min' data-image='assets/icons/sound.png' value="+link+">"+name+"</option>"
+          htmlcode += "<option data-class='min' data-image='assets/icons/sound.png' value='"+val+"'>"+name+"</option>"
         }
-        else if(ext.toLowerCase()==="mp4"){
+        else if(ext && (ext.toLowerCase()==="mp4"||ext.toLowerCase()==="avi"||ext.toLowerCase()==="mov")){
           
-          htmlcode += "<option data-class='min' data-image='assets/icons/video.png' value="+link+">"+name+"</option>"
+          htmlcode += "<option data-class='min' data-image='assets/icons/video.png' value='"+val+"'>"+name+"</option>"
         }
         
         /* $(".js-example-basic-multiple").val(($(".uploadLink").val()? $(".uploadLink").val().trim() + "\n" : "") + link); */
@@ -1309,6 +1325,8 @@ UI.populateSelect2=(data)=>{
   }
 }
 UI.addAnnotation = (semtype) => {
+  UI.disableANN()
+  if(ATON._hoveredSemNode)return
   ATON._bPauseQuery = true;
 
   let O = {};
@@ -1319,6 +1337,8 @@ UI.addAnnotation = (semtype) => {
   $(document).ready(function() {
    /*  $('.js-example-basic-multiple').select2(); */
     $(".js-example-basic-multiple").select2({
+      
+      
       placeholder: 'Seleziona al massimo 3 media',
       maximumSelectionLength: 3,
       language: {
@@ -1389,6 +1409,8 @@ UI.addAnnotation = (semtype) => {
     let cat = $("#catSelect").val();
     let subcat = $("#sottoCatSelect").val();
 
+    let aut=$(".authorInput").val()
+    if(aut)aut.trim()
     
     
     let layer;
@@ -1407,11 +1429,16 @@ UI.addAnnotation = (semtype) => {
     if (cat) O.cat = cat;
     if (subcat) O.subcat = subcat;
     if (layer !=undefined ) O.layer=layer;
-    
+    if (aut)O.aut=aut
    
-    let media=$(".js-example-basic-multiple").val()
+    //let media=$(".js-example-basic-multiple").val()
+    var selectedData = $(".js-example-basic-multiple").select2('data');
+    let media=[]
+    selectedData.forEach((el)=>{
+      media.push(el.text)
+    })
     let stringaMedia;
-    if(media)stringaMedia=media.join(",")
+    if(media.length>0)stringaMedia=media.join(",")
     if(stringaMedia) O.media=stringaMedia
     
     APP.addSemanticAnnotation(semid, O, semtype);
@@ -1420,6 +1447,7 @@ UI.addAnnotation = (semtype) => {
     $("#idForm").hide();
 
     $("#idForm").empty();
+    
   });
 };
 
@@ -1439,6 +1467,7 @@ UI.updateAnnotation = (semid) => {
   $(document).ready(function() {
     /*  $('.js-example-basic-multiple').select2(); */
      $(".js-example-basic-multiple").select2({
+      
        placeholder: 'Seleziona al massimo 3 media',
        maximumSelectionLength: 3,
        language: {
@@ -1484,12 +1513,12 @@ UI.updateAnnotation = (semid) => {
   $(".titleInput").val(O.title)
   $(".descriptionInput").val(O.descr)
   $(".categorySelect").val(O.cat)
+  $(".authorInput").val(O.aut)
   
   APP.loadMedia(O.media)
 
   /* UI.populateSelect2(O.media) */
 /*   $(".uploadLink").val(O.media) */
-  console.log(O.subcat)
   if($(".subCategorySelect")[0].children.length===0){
     $(".subCategorySelect").val();
   }
@@ -1532,6 +1561,8 @@ UI.updateAnnotation = (semid) => {
     let cat = $(".categorySelect").val();
     let subcat = $(".subCategorySelect").val();
 
+    let aut=$(".authorInput").val()
+    if(aut)aut.trim()
     
     let layer;
     APP.layers.forEach((l)=>{
@@ -1549,11 +1580,14 @@ UI.updateAnnotation = (semid) => {
     if (subcat) {O.subcat = subcat;}
     else{O.subcat=''}
     if (layer !=undefined ) O.layer=layer;
-    
+    if(aut)O.aut=aut;
     //problema aggiornamento parte 1: 
     //prendo i valori settati nel select
-    let media=$(".js-example-basic-multiple").val()
-    
+    var selectedData = $(".js-example-basic-multiple").select2('data');
+    let media=[]
+    selectedData.forEach((el)=>{
+      media.push(el.text)
+    })
     let stringaMedia;
     if(media)stringaMedia=media.join(",")
     if(stringaMedia) O.media=stringaMedia

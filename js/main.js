@@ -174,7 +174,7 @@ APP.init = ()=>{
 };
 
 APP.postPoseLoaded = ()=>{
-
+    APP.filterAnnotationsByCat([]);
     APP.bgcol = new THREE.Color(APP.cdata.bgcolor[0],APP.cdata.bgcolor[1],APP.cdata.bgcolor[2]);
    
     if(APP.argBG==0){
@@ -274,9 +274,9 @@ APP.loadMedia = (mediaSelected=undefined) => {
     })
     .then(response => response.json())
     .then(data => {
+        
         UI.populateSelect2(data)
         if(mediaSelected){
-            
             $(".js-example-basic-multiple").val(mediaSelected).trigger("change")
         }
         
@@ -362,6 +362,7 @@ APP.updatePoseGallery = (v)=>{
 
         $("#idPoseGallery").append("<div class='posesContainer'><img class='poseIMG' src='"+ATON.PATH_RESTAPI+"cover/codex4d/"+sid+"' onclick='APP.loadPose("+p+")'><br>"+P.title+"</div>");
     }
+    
 };
 
 APP.getNextPose = ()=>{
@@ -718,7 +719,7 @@ APP.setupEvents = ()=>{
             return;
         }
         else if(APP.state===APP.STATE_ANN_FREE){
-            if (!ATON.SceneHub._bEdit) return;
+            if (!ATON.SceneHub._bEdit ||ATON._hoveredSemNode) return;
             ATON.SemFactory.addSurfaceConvexPoint(0.01);
         }
     });

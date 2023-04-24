@@ -1600,7 +1600,9 @@ label {
 .select2-selection__choice__remove{
   position: relative!important;
   height: 1em!important;
-  width: 1em!important;
+  min-width: 1.5em !important;
+  width: 1.5em!important;
+  max-width: 1.5em !important;
   font-size: 1.5em!important;
   display: flex!important;
   align-items: center!important;
@@ -1651,8 +1653,11 @@ label {
 
 
 .tumblr{
-  width: 4em;
-  padding-right: 1em;
+  width: 2em;
+  height: auto;
+  padding-right: 0.5em;
+  max-width: 2em;
+  min-width: 2em;
 }
 .removeImageFull{
   padding-right: 13em;
