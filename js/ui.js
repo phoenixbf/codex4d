@@ -212,7 +212,7 @@ UI.buildLeftBar = (logged) => {
         })
         htmlCodeSlider+='</select>'
         htmlCodeSlider += "<img src='assets/icons/Play_OFF.png' title='play' class='playPause play btn'>"
-        htmlCodeSlider+='<img src="assets/icons/zoom-out.png"/><input type="range" min="0" value="50" max="100" id="idSliderLens" class="sliderAnn noting" /><img src="assets/icons/zoom-in.png"/>'
+        htmlCodeSlider+='<img src="assets/icons/zoom-out.png"/><input type="range" min="0" value="10" max="100" id="idSliderLens" class="sliderAnn noting" /><img src="assets/icons/zoom-in.png"/>'
         
         
         $(".sliderBack").html(htmlCodeSlider)
@@ -442,7 +442,7 @@ UI.goToModeANN_basic=()=>{
     htmlCodeSlider += `<option class='layerOption' value='${layer.name}'>${layer.title}</option>`;
   })
   
-  htmlCodeSlider+='</select><img src="assets/icons/zoom-out.png"/><input type="range" min="0" value="50" max="100" id="idSliderLensAnn" class="sliderAnn noting" /><img src="assets/icons/zoom-in.png"/>'
+  htmlCodeSlider+='</select><img src="assets/icons/zoom-out.png"/><input type="range" min="0" value="10" max="100" id="idSliderLensAnn" class="sliderAnn noting" /><img src="assets/icons/zoom-in.png"/>'
   $(".sliderBack").html(htmlCodeSlider)
   let r = parseFloat( $("#idSliderLensAnn").val() )
   let raggio = APP.mapRange(r, 0,100, APP.raggio_min, APP.raggio_max);
@@ -1091,7 +1091,7 @@ UI.updateSemPanel = (semid) => {
   
   if (media && media.length>0){
     media.forEach((el)=>{
-      let path="/collections/codex4d/media/"+el
+      let path=el
       let name=el.split("/")
       name=name[name.length-1]
       let ext=name.split(".")[1]
@@ -1308,15 +1308,15 @@ UI.populateSelect2=(data)=>{
         name=name[name.length-1]
         let ext=name.split(".")[1]
         if(ext && (ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' )){
-          htmlcode += "<option data-image='"+path+"' value='"+val+"'>"+name+"</option>"
+          htmlcode += "<option data-image='"+path+"' value='"+path+"'>"+name+"</option>"
         }
         else if(ext && (ext.toLowerCase()==="mp3"||ext.toLowerCase()==="wav")){
           
-          htmlcode += "<option data-class='min' data-image='assets/icons/sound.png' value='"+val+"'>"+name+"</option>"
+          htmlcode += "<option data-class='min' data-image='assets/icons/sound.png' value='"+path+"'>"+name+"</option>"
         }
         else if(ext && (ext.toLowerCase()==="mp4"||ext.toLowerCase()==="avi"||ext.toLowerCase()==="mov")){
           
-          htmlcode += "<option data-class='min' data-image='assets/icons/video.png' value='"+val+"'>"+name+"</option>"
+          htmlcode += "<option data-class='min' data-image='assets/icons/video.png' value='"+path+"'>"+name+"</option>"
         }
         
         /* $(".js-example-basic-multiple").val(($(".uploadLink").val()? $(".uploadLink").val().trim() + "\n" : "") + link); */
@@ -1435,7 +1435,8 @@ UI.addAnnotation = (semtype) => {
     var selectedData = $(".js-example-basic-multiple").select2('data');
     let media=[]
     selectedData.forEach((el)=>{
-      media.push(el.text)
+      //prendo l'id perché select2 salva il data-image nell'id e il text invece è solo con il name
+      media.push(el.id)
     })
     let stringaMedia;
     if(media.length>0)stringaMedia=media.join(",")
@@ -1586,7 +1587,8 @@ UI.updateAnnotation = (semid) => {
     var selectedData = $(".js-example-basic-multiple").select2('data');
     let media=[]
     selectedData.forEach((el)=>{
-      media.push(el.text)
+      
+      media.push(el.id)
     })
     let stringaMedia;
     if(media)stringaMedia=media.join(",")

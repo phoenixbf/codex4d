@@ -210,7 +210,7 @@ button {
   display: flex;
   width: auto;
   height: 0.3em;
-  background: linear-gradient( to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) 50%, transparent 50%, transparent 100% );
+  background: linear-gradient( to right, rgba(198, 150, 59, 1) 0%, rgba(198, 150, 59, 1) 10%, transparent 10%, transparent 100% );
   border: 0.5px solid #d9d9d9cc;
   transition: background 450ms ease-in;
   pointer-events: auto;
@@ -547,10 +547,10 @@ input[type=checkbox].dot6:checked {
   background-color: #79b857!important;
 }
 input[type=checkbox].tocheck{
-  background: black!important;
+  background: rgba(0, 0, 0, 0)!important;
 }
 input[type=checkbox].seleziona-tutte-categorieCheckbox{
-  background: black!important;
+  background: rgba(0, 0, 0, 0)!important;
 }
 input[type=checkbox].seleziona-tutte-categorieCheckbox:checked{
   background: rgb(110, 110, 110)  !important;
@@ -734,8 +734,8 @@ label {
   background: linear-gradient(
     to right,
     rgba(198, 150, 59, 1) 0%,
-    rgba(198, 150, 59, 1) 50%,
-    transparent 50%,
+    rgba(198, 150, 59, 1) 10%,
+    transparent 10%,
     transparent 100%
   );
   border: 0.5px solid #d9d9d9cc;
