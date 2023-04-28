@@ -1,0 +1,59 @@
+/*Top bar*/
+
+.topBar
+{
+    /*background-color: rgb(110, 110, 110, 0.3)*/
+    pointer-events: none;
+}
+.linkToWeb
+{
+    pointer-events: fill;
+}
+
+.backTo
+{
+    pointer-events: fill;
+}
+
+/* Full screen image */
+.image-overlay
+{
+    max-height: 90%;
+    max-width: 90%;
+}
+
+/*** SIDE PANEL ***/
+
+/** Forza il contenuto ad essere quadrato **/
+.img-holder {
+    position: relative;
+}
+.squared
+{
+  width: 100%;
+}
+
+.squared::before
+{
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.squared > .squared-content
+{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+.margin-top-media
+{
+    margin-top: 10px;
+}
+
+
+/*** END SIDE PANEL **/

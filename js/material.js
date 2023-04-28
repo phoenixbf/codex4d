@@ -112,7 +112,7 @@ mat.init = ()=>{
         //mat.sems[c].base.color   = new THREE.Color(APP.catsColors[i]);
         //mat.sems[c].base.opacity = 0.1;
         mat.sems[c].base.uniforms.tint.value = new THREE.Color(APP.catsColors[i]);
-        mat.sems[c].base.uniforms.opacity.value = 0.1;
+        mat.sems[c].base.uniforms.opacity.value = 0.35;
 
         mat.sems[c].hl           = ATON.MatHub.materials.semanticShapeHL.clone();
         mat.sems[c].hl.color     = mat.sems[c].base.uniforms.tint.value; //mat.sems[c].base.color;

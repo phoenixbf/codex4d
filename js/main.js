@@ -128,7 +128,25 @@ APP.init = ()=>{
     APP.argUIP = ATON.FE.urlParams.get('uip');
     
     APP.argBG=ATON.FE.urlParams.get('bg');
-    APP.linkModelQuery=ATON.FE.urlParams.get("backTo")
+    
+    APP.linkModelQuery= "https://codex4d.it/"
+
+    if(APP.argV == "0000102297")
+    {
+        APP.linkModelQuery =  "https://codex4d.it/collezione/de-balneis/";
+    }
+    if(APP.argV == "0000102213")
+    {
+        
+        APP.linkModelQuery = "https://codex4d.it/collezione/commedia/"
+    }
+    if(APP.argV == "0000042948")
+    {
+        
+        APP.linkModelQuery = "https://codex4d.it/collezione/libro-dore/"
+    }
+
+   
     if(APP.linkModelQuery){
         $(".backTo").click(()=>{
             window.location.href=APP.linkModelQuery
@@ -254,7 +272,7 @@ APP.loadConfig = (path)=>{
 
         APP.cdata = data;
 
-        
+        console.log("DATA", data);
 
         ATON.fireEvent("APP_ConfigLoaded");
         
@@ -1017,7 +1035,6 @@ APP.addSemanticAnnotation = (semid, O, semtype)=>{
     let pDB = ATON.SceneHub.currData.sem;
     if (pDB && O && O.cat){
         let M = APP.mat.sems[O.cat];
-
         S.setDefaultAndHighlightMaterials(M.base, M.hl);
         S.setMaterial(M.base);
     }
@@ -1055,6 +1072,7 @@ APP.updateSemAnnotation = (semid, O)=>{
     let e = pDB[semid];
 
     if (S && e){
+       
         let M = mat.sems[e.cat];
         if (M){
             S.setDefaultAndHighlightMaterials(M.base, M.hl);
@@ -1072,7 +1090,11 @@ APP.retrieveInfo=(semid)=>{
     let S = pDB[semid];
   }
 APP.deleteSemAnnotation = (semid)=>{
+    
     if (semid === undefined) return;
+    
+   
+    if(!confirm("Sei sicuro di voler procedere con l'eliminazione dell'annotazione?")) return;
 
     if (ATON.SemFactory.deleteSemanticNode(semid)){
 
@@ -1131,7 +1153,6 @@ APP.semVisitor = ()=>{
         if (s!==ATON.ROOT_NID){
             let S = ATON.semnodes[s];
             let e = pDB[s];
-
             if (S && e){
                 let M = mat.sems[e.cat];
                 if (M){

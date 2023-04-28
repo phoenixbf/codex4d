@@ -100,8 +100,9 @@ UI.buildLeftBar = (logged) => {
   htmlLeft +=
     "<button id='idLayer' class='toolbarButton toggleLayer' type='button'> <img id='idChooseLayer' class='toolbarIcon toggleLayerImg' src='assets/icons/icon_layer.png' /> </button>";
   
-    htmlLeft +=
-    "<button id='idAnnotations' class='toolbarButton toggleAnnotation' type='button'> <img id='idTurnAnnotations' class='toolbarIcon toggleAnnotationImg' src='assets/icons/icon_annotazioni.png' /> <div id='idSelect' class='filterContainer' style='display:none'></div> </button>";
+     
+  htmlLeft +=
+    "<button id='idVisibilityAnn' class='toolbarButton toggleAnnotation' type='button'> <img id='idTurnAnnotations' class='toolbarIcon toggleAnnotationImg' src='assets/icons/icon_annotazioni.png' /> <div id='idSelect' class='filterContainer' style='display:none'></div> </button>";
  
   htmlLeft +=
     "<button id='idSize' class='toolbarButton toggleSize' type='button'> <img id='idTurnSize' class='toolbarIcon toggleSizeImg' src='assets/icons/icon_size_OFF.png' /> </button>";
@@ -152,7 +153,7 @@ UI.buildLeftBar = (logged) => {
   
   htmlLeft +=
     "<button id='idAnnotations' class='toolbarButton toggleAnnotation' type='button'> <img id='idTurnAnnotations' class='toolbarIcon toggleAnnotationImg' src='assets/icons/icon_annotazioni.png' /> <div id='idSelect' class='filterContainer' style='display:none'></div> </button>";
- 
+  
   htmlLeft +=
     "<button id='idSize' class='toolbarButton toggleSize' type='button'> <img id='idTurnSize' class='toolbarIcon toggleSizeImg' src='assets/icons/icon_size_OFF.png' /> </button>";
   
@@ -261,12 +262,14 @@ UI.buildLeftBar = (logged) => {
       $(".sliderBack").removeClass("visible")
     }
   });
+
+
   $(".toggleAnnotation").click((e) => {
     UI.disableIcon()
     if (!$(".toggleAnnotation").hasClass("clicked")) {
       $(".clicked").removeClass("clicked")
       $(".toggleAnnotation").addClass("clicked")
-      APP.goToMode(APP.STATE_NAV)
+       APP.goToMode(APP.STATE_NAV)
       $("#idChooseLayer").attr("src", "assets/icons/icon_layer.png");
       $("#idResetScene").attr("src", "assets/icons/icon_resetvista.png");
       $(".toggleLayerImg").attr("src", "assets/icons/icon_layer.png");
@@ -378,14 +381,16 @@ UI.buildLeftBar = (logged) => {
         $(".sphereNoteImg").attr("src","assets/icons/cerchio_annotazione_OFF.png")
         $(".sphereNoteImg").removeClass("clicked")
         APP.goToMode(APP.STATE_NAV);
+   
       }
       else{
         UI.goToModeANN_basic()
-        
+     
         
         $(".sphereNoteImg").attr("src","assets/icons/cerchio_annotazione_ON.png")
         $(".sphereNoteImg").addClass("clicked")
         APP.goToMode(APP.STATE_ANN_BASIC);
+
       }
     });
 
@@ -400,13 +405,16 @@ UI.buildLeftBar = (logged) => {
         $(".freeNoteImg").removeClass("clicked")
         $(".freeNoteImg").attr("src", "assets/icons/Aton_areale_OFF.png");
         APP.goToMode(APP.STATE_NAV);
+        
       }
       else{
         UI.goToModeANN_free()
+       
         $(".freeNoteImg").attr("src","assets/icons/Aton_areale_ON.png")
         $(".freeNoteImg").addClass("clicked")
         
         APP.goToMode(APP.STATE_ANN_FREE);
+    
       }
     });
   }
@@ -419,7 +427,8 @@ UI.buildLeftBar = (logged) => {
   });
 }
 UI.disableANN=()=>{
-  APP.goToMode(APP.STATE_NAV);
+  //FIX: Questa funzione creava un errore in fase di crezione delle note free.
+  //APP.goToMode(APP.STATE_NAV);
   if($(".sphereNoteImg").hasClass("clicked")){
     $(".sphereNoteImg").removeClass("clicked")
     $(".sphereNoteImg").attr("src", "assets/icons/cerchio_annotazione_OFF.png");
@@ -496,9 +505,11 @@ UI.goToModeANN_free=()=>{
   
   $(".cancelAnn").off("click").on("click",()=>{
     APP.cancelCurrentTask();
+    
   })
   $(".acceptAnn").off("click").on("click",()=>{
     APP.finalizeSemanticShape();
+    
   })
   $(".sliderBack").addClass("visible")
 }
@@ -957,9 +968,15 @@ UI.buildSelectContainer=()=>{
   
   UI.selectedCategories.forEach((el)=>{
     let text=el.split(" ")
-    let classe=text[0]
-    $("."+classe+"Checkbox")[0].checked=true
-    $("."+classe+"Checkbox")[1].checked=true
+    console.log("Container", text)
+    
+    if(text && text[0] > 1)
+    {
+      let classe=text[0]
+      $("."+classe+"Checkbox")[0].checked=true
+      $("."+classe+"Checkbox")[1].checked=true
+    }
+    
   })
   if(UI.selectedCategories.length===colors.length){
     $(".seleziona-tutte-categorieCheckbox")[0].checked=true
@@ -1036,6 +1053,11 @@ UI.updateSemPanel = (semid) => {
       "<div class='appPanelBTN ' onclick='APP.deleteSemAnnotation(\""+semid+"\")'><img src='" +
       ATON.FE.PATH_RES_ICONS +
       "trash.png'></div></div>";
+
+      // htmlcode +=
+      // "<div class='appPanelBTN ' onclick=\""+UI.deleteAnnotation(sem)+"\"><img src='" +
+      // ATON.FE.PATH_RES_ICONS +
+      // "trash.png'></div></div>";
   }
   htmlcode += "</div>";
  
@@ -1095,25 +1117,26 @@ UI.updateSemPanel = (semid) => {
       let name=el.split("/")
       name=name[name.length-1]
       let ext=name.split(".")[1]
-      if(ext && (ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' )){
-        htmlcode+="<div class='imageToFull btn'>"
-        
+      if(ext && (ext.toLowerCase()==="png"||ext.toLowerCase()==='jpg' || ext.toLowerCase()==='jpeg')){
+        htmlcode+="<div class='margin-top-media imageToFull btn img-holder squared'>"  
 
-        htmlcode += "<img style='height: 15em!important;' src='" + path+ "'/>";
+        htmlcode += "<div class=\"squared-content\" style=\"background: url('"+path+"') no-repeat center center/cover\"> </div>";
         htmlcode +="<div class='background hide '>"
         htmlcode +="<img src='assets/icons/maximize.png'/>"
         htmlcode +="</div>"
         htmlcode+='</div>'
         htmlcode+='<br>'
+
+
       }
       if(ext && (ext.toLowerCase()==="mp3"||ext.toLowerCase()==="wav")){
-        htmlcode += "<audio class=audio preload=auto style='min-height: 4em;width: 100%; min-width: 100%;' controls src='" + path+ "'/></audio><br>";
+        htmlcode += "<audio class=\"audio margin-top-media\" preload=auto style='min-height: 4em;width: 100%; min-width: 100%;' controls src='" + path+ "'/></audio><br>";
         
         
       }
       if(ext && (ext.toLowerCase()==="mp4"||ext.toLowerCase()==="avi"||ext.toLowerCase()==="mov")){
         
-        htmlcode += "<video class=video preload=auto controls src='" + path+ "'></video><br>";
+        htmlcode += "<video class=\"video margin-top-media\" preload=auto controls src='" + path+ "'></video><br>";
         
       }
 
@@ -1201,17 +1224,37 @@ UI.updateSemPanel = (semid) => {
   })
   $(".imageToFull").off("click").on("click",(target)=>{
     let htmlFullScreenImage='<div class="removeImageFull btn"><img src="assets/icons/cancel.png"></div>'
-    let src=target.currentTarget.children[0].src
     
-    htmlFullScreenImage+="<img style='width: 60%;' src="+src+" />"
-    $(".fullScreenImage").html(htmlFullScreenImage)
-    $(".fullScreenImage").removeClass("hide")
-    $("#idPanel").addClass("hide")
-    $(".removeImageFull").on("click",()=>{
-      $(".fullScreenImage").html()
-      $(".fullScreenImage").addClass("hide")
-      $("#idPanel").removeClass("hide")
-    })
+    // 
+    if(target && target.currentTarget && target.currentTarget.children.length > 0 )
+    {
+      let background = target.currentTarget.children[0].style.background;
+      let src = "";
+      if(background && background.length > 5)
+      {
+        src = background.substring(5);
+
+        let lastIndex = src.lastIndexOf('"');
+
+        if (lastIndex > 0)
+        {
+          src = src.substring(0, lastIndex);
+          
+          src = encodeURI(src);
+          htmlFullScreenImage+="<img class=\"image-overlay\" src="+src+" />"
+          $(".fullScreenImage").html(htmlFullScreenImage)
+          $(".fullScreenImage").removeClass("hide")
+          $("#idPanel").addClass("hide")
+          $(".removeImageFull").on("click",()=>{
+            $(".fullScreenImage").html()
+            $(".fullScreenImage").addClass("hide")
+            $("#idPanel").removeClass("hide")
+          }) 
+
+        }
+      }
+    }
+  
   })
   
 };
@@ -1301,6 +1344,7 @@ UI.populateSelect2=(data)=>{
   if(data.length>0){
     let htmlcode=''
     data.forEach((link) => {
+        //FIXME: manca controllo su array vuoti
         let val=link.split("/")
         val=val[val.length-1]
         let path="/collections/"+link
@@ -1325,6 +1369,7 @@ UI.populateSelect2=(data)=>{
   }
 }
 UI.addAnnotation = (semtype) => {
+  console.log("Add annotation");
   UI.disableANN()
   if(ATON._hoveredSemNode)return
   ATON._bPauseQuery = true;
@@ -1388,12 +1433,17 @@ UI.addAnnotation = (semtype) => {
   $(".cancelButton").off("click").click(() => {
     
     ATON._bPauseQuery = false;
-    if($(".sphereNoteImg").hasClass("clicked")){
-      APP.goToMode(APP.STATE_ANN_BASIC)
-    }
-    else if($(".freeNoteImg").hasClass("clicked")){
-      APP.goToMode(APP.STATE_ANN_FREE)
-    }
+
+    //FIXME: le condizioni devono gestire anche la riattivazione del menù inserimento annotazioni dalla toolbar
+    //La modalità seguente viene messa per ovviare alla mancanza degli elementi della toolbar per l'inserimanto di una nuova nota quando si clicca su annulla
+    APP.goToMode(APP.STATE_NAV)
+    // if($(".sphereNoteImg").hasClass("clicked")){
+    //   APP.goToMode(APP.STATE_ANN_BASIC)
+      
+    // }
+    // else if($(".freeNoteImg").hasClass("clicked")){
+    //   APP.goToMode(APP.STATE_ANN_FREE)
+    // }
     $("#idForm").hide();
     $("#idForm").empty();
   });
@@ -1443,6 +1493,8 @@ UI.addAnnotation = (semtype) => {
     if(stringaMedia) O.media=stringaMedia
     
     APP.addSemanticAnnotation(semid, O, semtype);
+
+    APP.goToMode(APP.STATE_NAV);
 
     ATON._bPauseQuery = false;
     $("#idForm").hide();
@@ -1633,5 +1685,6 @@ UI.stopLens=()=>{
   pauseInterval()
   $("#idViewControlContainer").hide();
 }
+
 
 export default UI;
