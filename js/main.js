@@ -149,7 +149,7 @@ APP.init = ()=>{
    
     if(APP.linkModelQuery){
         $(".backTo").click(()=>{
-            window.location.href=APP.linkModelQuery
+            window.open(APP.linkModelQuery, '_blank')
         })
     }
     
