@@ -470,6 +470,9 @@ APP.setLensRadius = (v)=>{
 APP.setLayer = (L)=>{
     APP.UI.setLayer(L);
     APP.currLayer = L;
+
+    APP.filterAnnotationsUsingSelector();
+
     if (L === APP.defaultLayer){
         APP.disableLens();
         return;
@@ -560,6 +563,8 @@ APP.update = ()=>{
 
         if (ATON._queryDataScene) APP.currMat.uniforms.vLens.value.w = ATON.SUI._selectorRad;
         else if (APP.currMat.uniforms.vLens.value.w > APP.LRAD_MIN) APP.currMat.uniforms.vLens.value.w *= 0.9;
+
+        APP.filterAnnotationsUsingSelector();
     }
 
     // VR
@@ -1144,17 +1149,34 @@ APP.filterAnnotationsByCat = (cat)=>{
     }
 };
 
-APP.filterAnnotationsByLens = ()=>{
-    //let p = ;
-    //let r = ;
+APP.filterAnnotationsUsingSelector = ()=>{
+    let p = ATON.SUI.mainSelector.position;
+    let r = ATON.SUI._selectorRad;
+
+    //let sbs = ATON.SUI.mainSelector.getBound();
+
+    let pDB = ATON.SceneHub.currData.sem;
 
     for (let s in ATON.semnodes){
         if (s!==ATON.ROOT_NID){
             let S = ATON.semnodes[s];
             
-            if (S.visible){
-                //TODO:
-            }
+            //if (S.visible){
+                let e = pDB[s];
+                let bs = S.getBound();
+
+                //console.log(e)
+
+                // No active lens (RGB)
+                if (e.layer !== APP.defaultLayer) S.hide();
+                else S.show();
+
+                // Using lens (discovery layer)
+                if (APP.currLayer !== APP.defaultLayer && bs.containsPoint(p)){
+                    if (e.layer !== APP.defaultLayer) S.show();
+                    else S.hide();
+                }
+            //}
         }
     }
 };
