@@ -1144,6 +1144,21 @@ APP.filterAnnotationsByCat = (cat)=>{
     }
 };
 
+APP.filterAnnotationsByLens = ()=>{
+    //let p = ;
+    //let r = ;
+
+    for (let s in ATON.semnodes){
+        if (s!==ATON.ROOT_NID){
+            let S = ATON.semnodes[s];
+            
+            if (S.visible){
+                //TODO:
+            }
+        }
+    }
+};
+
 APP.semVisitor = ()=>{
     let pDB = ATON.SceneHub.currData.sem;
 
