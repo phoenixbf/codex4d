@@ -149,7 +149,7 @@ mat.realize = ()=>{
             void main(){
                 sUV = uv;
 
-                vPositionW = ( vec4( position, 1.0 ) * modelMatrix).xyz;
+                vPositionW = ( modelMatrix * vec4( position, 1.0 )).xyz;
                 vNormalV   = normalize( vec3( normalMatrix * normal ));
                 vNormalW   = (modelMatrix * vec4(normal, 0.0)).xyz;
 
