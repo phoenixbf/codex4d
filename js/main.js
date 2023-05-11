@@ -1150,19 +1150,21 @@ APP.filterAnnotationsByCat = (cat)=>{
 };
 
 APP.filterAnnotationsUsingSelector = ()=>{
+    if (!ATON.SceneHub.currData) return;
+
     let p = ATON.SUI.mainSelector.position;
     let r = ATON.SUI._selectorRad;
 
-    //let sbs = ATON.SUI.mainSelector.getBound();
+    let sbs = ATON.SUI.mainSelector.getBound();
 
     let pDB = ATON.SceneHub.currData.sem;
 
     for (let s in ATON.semnodes){
         if (s!==ATON.ROOT_NID){
             let S = ATON.semnodes[s];
-            
-            //if (S.visible){
-                let e = pDB[s];
+            let e = pDB[s];
+
+            if (e && e.layer !== undefined){
                 let bs = S.getBound();
 
                 //console.log(e)
@@ -1172,11 +1174,13 @@ APP.filterAnnotationsUsingSelector = ()=>{
                 else S.show();
 
                 // Using lens (discovery layer)
-                if (APP.currLayer !== APP.defaultLayer && bs.containsPoint(p)){
-                    if (e.layer !== APP.defaultLayer) S.show();
-                    else S.hide();
+                if (APP.currLayer !== APP.defaultLayer){
+                    if (bs.containsPoint(p) || sbs.containsPoint(bs.center)){
+                        if (e.layer !== APP.defaultLayer) S.show();
+                        else S.hide();
+                    }
                 }
-            //}
+            }
         }
     }
 };
