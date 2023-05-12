@@ -1,4 +1,7 @@
 let UI = {};
+
+UI.SelectedSemId = [];
+
 const subCategoryMap = {
   "Iconologia e Iconografia": [
     "Personaggi e Simboli",
@@ -68,6 +71,7 @@ UI.init = () => {
   
 };
 
+
 UI.setLayer = (layer) => {
 
   
@@ -97,6 +101,9 @@ UI.buildLeftBar = (logged) => {
   htmlLeft +=
     "<button id='idReset' class='toolbarButton toggleReset' type='button'> <img id='idResetScene' class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button>";
   
+  htmlLeft +=
+    "<button id='idLightPosition' class='toolbarButton toggleLightPosition' type='button'> <img id='idLightPositionImg' class='toolbarIcon' src='assets/icons/light_OFF.png' /> </button>";
+    
   htmlLeft +=
     "<button id='idLayer' class='toolbarButton toggleLayer' type='button'> <img id='idChooseLayer' class='toolbarIcon toggleLayerImg' src='assets/icons/icon_layer.png' /> </button>";
   
@@ -149,6 +156,9 @@ UI.buildLeftBar = (logged) => {
     "<button id='idReset' class='toolbarButton toggleReset' type='button'> <img id='idResetScene' class='toolbarIcon' src='assets/icons/icon_resetvista.png' /> </button>";
   
   htmlLeft +=
+    "<button id='idLightPosition' class='toolbarButton toggleLightPosition' type='button'> <img id='idLightPositionImg' class='toolbarIcon' src='assets/icons/light_OFF.png' /> </button>";
+  
+  htmlLeft +=
     "<button id='idLayer' class='toolbarButton toggleLayer'  type='button'> <img id='idChooseLayer' class='toolbarIcon toggleLayerImg' src='assets/icons/icon_layer.png' /> </button>";
   
   htmlLeft +=
@@ -175,8 +185,11 @@ UI.buildLeftBar = (logged) => {
   htmlLeft += "</div>";
   $("#idLeftToolbar").html(htmlLeft);
 
-
-
+  $("#idLightPosition").on("click", () => {
+    let e = ATON.Nav.getCurrentEyeLocation();
+    APP.setLightPostion(e);
+  });
+ 
   $(".toggleFull").on("click", () => {
     if($(".toggleFull").hasClass("full")){
       $(".toggleFull").removeClass("full")
@@ -538,14 +551,17 @@ UI.closeLeftToolbarMobile=()=>{
  */
 UI.buildHelp=(logged)=>{
   let icons=['assets/icons/maximize.png','assets/icons/minimize.png','assets/icons/icon_resetvista.png','assets/icons/icon_layer.png','assets/icons/icon_annotazioni.png','assets/icons/icon_size_OFF.png']
-  let phrases=['massimizza','minimizza','riposiziona','cambio layer','filtro annotazioni','misure']
+  let phrases=['Massimizza','Minimizza','Riposiziona','Cambio layer','Filtro annotazioni','Strumento misure']
   
   icons.push('assets/icons/Icona_Aton_Edit_OFF.png')
   icons.push('assets/icons/cerchio_annotazione_ON.png')
   icons.push('assets/icons/Aton_areale_ON.png')
+  icons.push('assets/icons/Light_OFF.png')
   phrases.push('aggiunta note')
   phrases.push('annotazione semplice')
   phrases.push('annotazione libera')
+  phrases.push('Setta la posizione della luce in base al punto di vista corrente oppure premi "L"')
+  phrases.push('Premi il tasto "L" per settare la posizione della luce in base al punto di vista corrente.<br> Tieni premuto lo stesso tasto per spostare la luce in modo coerente al punto di osservazione')
   
   let htmlCode="<div class='legend'>"
   htmlCode+="<div class=closeLegendBtn ><span>Legenda</span><img style='cursor: pointer;width:1em; height:auto;' src='assets/icons/Chiudi_finestra.png'></div>"
@@ -564,6 +580,7 @@ UI.buildHelp=(logged)=>{
   if(logged){
     htmlCode+='<div class=row>'
     htmlCode+='<div class="mono"><img src='+icons[6]+' /><span>'+phrases[6]+'</span></div>'
+    htmlCode+='<div class="mono"><img src='+icons[9]+' /><span>'+phrases[9]+'</span></div>'
     htmlCode+='</div>'
     htmlCode+='<div class=row>'
     htmlCode+='<div class="mono"><img src='+icons[7]+' /><span>'+phrases[7]+'</span></div>'
@@ -1684,6 +1701,23 @@ UI.deleteAnnotation = (semid) => {
 UI.stopLens=()=>{
   pauseInterval()
   $("#idViewControlContainer").hide();
+}
+
+UI.addSemId = (semId)=>{
+
+  if(!UI.SelectedSemId.includes(semId)) UI.SelectedSemId.push(semId);
+}
+
+UI.removeSemId = (semId)=>
+{
+  if(UI.SelectedSemId.includes(semId)) 
+  {
+    let index = UI.SelectedSemId.indexOf(semId);
+    if (index !== -1) {
+      UI.SelectedSemId.splice(index, 1);
+    }
+  }
+  
 }
 
 

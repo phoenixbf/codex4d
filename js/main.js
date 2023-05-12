@@ -1132,7 +1132,7 @@ APP.filterAnnotationsByCat = (cat)=>{
     let pDB = ATON.SceneHub.currData.sem;
     if (cat === undefined) cat = APP.filterCat;
     else APP.filterCat = cat;
-
+  
     
     for (let s in ATON.semnodes){//segnalo ATON.semnodes carica semnodes ormai cancellati
         if (s!==ATON.ROOT_NID){
@@ -1141,12 +1141,19 @@ APP.filterAnnotationsByCat = (cat)=>{
             
 
             if(e){
-                if(!cat.includes(e.cat)){S.hide()}
-                else{S.show()}
+                if(!cat.includes(e.cat)){
+                    S.hide();
+                    UI.removeSemId(s);
+                }
+                else{
+                    S.show();
+                    UI.addSemId(s)
+                }
             }
             
         }
     }
+
 };
 
 APP.filterAnnotationsUsingSelector = ()=>{
