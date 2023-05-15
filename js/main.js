@@ -1168,8 +1168,11 @@ APP.filterAnnotationsUsingSelector = ()=>{
 
     let pDB = ATON.SceneHub.currData.sem;
 
-    for (let s in ATON.semnodes){
-        if (s!==ATON.ROOT_NID){
+    //for (let s in ATON.semnodes){
+        //if (s!==ATON.ROOT_NID){
+        for (let fs in UI.SelectedSemId){
+            let s = UI.SelectedSemId[fs];
+            
             let S = ATON.semnodes[s];
             let e = pDB[s];
 
@@ -1190,7 +1193,7 @@ APP.filterAnnotationsUsingSelector = ()=>{
                     }
                 }
             }
-        }
+        //}
     }
 };
 
