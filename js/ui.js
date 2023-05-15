@@ -576,12 +576,16 @@ UI.buildHelp=(logged)=>{
   htmlCode+='<div class=row>'
   htmlCode+='<div class="mono"><img src='+icons[4]+' /><span>'+phrases[4]+'</span></div>'
   htmlCode+='<div class="mono"><img src='+icons[5]+' /><span>'+phrases[5]+'</span></div>'
-  htmlCode+='</div>'
-  if(logged){
-    htmlCode+='<div class=row>'
+  htmlCode+='</div>'  
+  htmlCode+='<div class=row>'
+  if(logged) 
+  {
     htmlCode+='<div class="mono"><img src='+icons[6]+' /><span>'+phrases[6]+'</span></div>'
-    htmlCode+='<div class="mono"><img src='+icons[9]+' /><span>'+phrases[9]+'</span></div>'
-    htmlCode+='</div>'
+  }
+  htmlCode+='<div class="mono"><img src='+icons[9]+' /><span>'+phrases[9]+'</span></div>'
+  htmlCode+='</div>'  
+  if(logged)
+  {
     htmlCode+='<div class=row>'
     htmlCode+='<div class="mono"><img src='+icons[7]+' /><span>'+phrases[7]+'</span></div>'
     htmlCode+='<div class="mono"><img src='+icons[8]+' /><span>'+phrases[8]+'</span></div>'

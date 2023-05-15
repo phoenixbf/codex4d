@@ -84,7 +84,7 @@ APP.currLayer=APP.defaultLayer
 // Categories
 APP.filterCat = undefined;
 APP.raggio_min=0.001
-APP.raggio_max=0.2
+APP.raggio_max=0.15
 APP.raggio_ann=0.02
 APP.raggio_vision=0.02
 APP.activedLens=true
@@ -1129,6 +1129,7 @@ APP.getCatName = (i)=>{
 };
 
 APP.filterAnnotationsByCat = (cat)=>{
+
     let pDB = ATON.SceneHub.currData.sem;
     if (cat === undefined) cat = APP.filterCat;
     else APP.filterCat = cat;
@@ -1153,12 +1154,13 @@ APP.filterAnnotationsByCat = (cat)=>{
             
         }
     }
+    APP.filterAnnotationsUsingSelector();
 
 };
 
 APP.filterAnnotationsUsingSelector = ()=>{
     if (!ATON.SceneHub.currData) return;
-
+    
     let p = ATON.SUI.mainSelector.position;
     let r = ATON.SUI._selectorRad;
 
