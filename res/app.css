@@ -1778,3 +1778,12 @@ label {
   margin-bottom: 5px;
   color: #2f4689;
 }
+
+.poweredBy {
+  bottom: auto !important;
+  left: auto !important;
+  top: 5px;
+  right: 5px;
+
+  text-align: right;
+}
