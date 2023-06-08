@@ -556,7 +556,7 @@ UI.buildHelp=(logged)=>{
   icons.push('assets/icons/Icona_Aton_Edit_OFF.png')
   icons.push('assets/icons/cerchio_annotazione_ON.png')
   icons.push('assets/icons/Aton_areale_ON.png')
-  icons.push('assets/icons/Light_OFF.png')
+  icons.push('assets/icons/light_OFF.png')
   phrases.push('aggiunta note')
   phrases.push('annotazione semplice')
   phrases.push('annotazione libera')
