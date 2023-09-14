@@ -110,10 +110,12 @@ UI.buildLeftBar = (logged) => {
      
   htmlLeft +=
     "<button id='idVisibilityAnn' class='toolbarButton toggleAnnotation' type='button'> <img id='idTurnAnnotations' class='toolbarIcon toggleAnnotationImg' src='assets/icons/icon_annotazioni.png' /> <div id='idSelect' class='filterContainer' style='display:none'></div> </button>";
- 
-  htmlLeft +=
-    "<button id='idSize' class='toolbarButton toggleSize' type='button'> <img id='idTurnSize' class='toolbarIcon toggleSizeImg' src='assets/icons/icon_size_OFF.png' /> </button>";
   
+  
+  htmlLeft +=
+  "<button id='idSize' class='toolbarButton toggleSize' type='button'> <img id='idTurnSize' class='toolbarIcon toggleSizeImg' src='assets/icons/icon_size_OFF.png' /> </button>";  
+  
+   
   if(logged){
     htmlLeft+="<button id='idNote' class='toolbarButton toggleNote' type='button'><img id='idTurnNote' class='toolbarIcon toggleNoteImg'src='assets/icons/Icona_Aton_Edit_OFF.png' />"+
     '<div id="selectAnnType" class="sidebar left selectAnnType">'+
@@ -123,6 +125,8 @@ UI.buildLeftBar = (logged) => {
     
   "</button>";
   }
+  htmlLeft +=
+    "<a target=\"_blank\" href=\"https://tube.rsi.cnr.it/w/epTjgnRmM18igrWa5t9Ja9\"><button id='idInfo' class='toolbarButton toggleInfo'> <img id='idTurnInfo' class='toolbarIcon toggleActiveInfo' src='assets/icons/info.png' /> </button></a>";
   
 
   
@@ -166,7 +170,7 @@ UI.buildLeftBar = (logged) => {
   
   htmlLeft +=
     "<button id='idSize' class='toolbarButton toggleSize' type='button'> <img id='idTurnSize' class='toolbarIcon toggleSizeImg' src='assets/icons/icon_size_OFF.png' /> </button>";
-  
+   
   if(logged){
     htmlLeft+="<button id='idNote' class='toolbarButton toggleNote' type='button'><img id='idTurnNote' class='toolbarIcon toggleNoteImg'src='assets/icons/Icona_Aton_Edit_OFF.png' />"+
     '<div id="selectAnnType" class="sidebar left selectAnnType">'+
@@ -177,6 +181,8 @@ UI.buildLeftBar = (logged) => {
   "</button>";
     
   }
+  htmlLeft +=
+  "<a target=\"_blank\" href=\"https://tube.rsi.cnr.it/w/epTjgnRmM18igrWa5t9Ja9\"><button id='idInfo' class='toolbarButton toggleInfo'> <img id='idTurnInfo' class='toolbarIcon toggleActiveInfo' src='assets/icons/info.png' /> </button></a>";
   
 
   
