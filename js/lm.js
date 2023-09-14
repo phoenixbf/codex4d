@@ -72,7 +72,7 @@ LM.setup = ()=>{
                     //if (z > 0.0) ATON.SUI.setSelectorRadius(z);
                     //else ATON.SUI.setSelectorRadius(0.0);
 
-                    APP.setIRvalue(z);
+                    //APP.setIRvalue(z);
                 }
                 else {
                     let z = (100.0 - h.palmPosition[2]) * 0.002;

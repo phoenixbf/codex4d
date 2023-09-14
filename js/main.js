@@ -176,7 +176,7 @@ APP.init = ()=>{
 
     ATON.addUpdateRoutine( APP.update );
     
-    //APP.LM.setup();
+    APP.LM.setup();
 
     APP._tPoint = -1.0;
     APP._reqPointCoords  = [0,0];
@@ -209,9 +209,9 @@ APP.postPoseLoaded = ()=>{
     if (!APP.plight){
         APP.plight = new THREE.PointLight();
         ATON._rootVisibleGlobal.add(APP.plight);
-        APP.plight.intensity = 1.3;
-        APP.plight.distance  = 2.5;
-        APP.plight.decay     = 2.0;
+        APP.plight.intensity = 2.0;
+        APP.plight.distance  = 3.0; //2.5;
+        APP.plight.decay     = 0.3;
         APP.plight.color     = new THREE.Color(APP.cdata.lightcolor[0],APP.cdata.lightcolor[1],APP.cdata.lightcolor[2]);
 
 
